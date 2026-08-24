@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://c1djpka65gwrd"]
+
+[node name="main_level" type="Node2D" unique_id=1596799109]
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="." unique_id=834169662]
+
+[node name="Ground" type="TileMapLayer" parent="NavigationRegion2D" unique_id=1764842665]
+
+[node name="Walls" type="TileMapLayer" parent="NavigationRegion2D" unique_id=1944210288]
