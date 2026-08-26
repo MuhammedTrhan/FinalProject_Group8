@@ -14,6 +14,7 @@ radius = 79.40403
 radius = 47.67599
 
 [node name="Player" type="CharacterBody2D" unique_id=496936875]
+scale = Vector2(0.75, 0.75)
 collision_mask = 2
 motion_mode = 1
 platform_wall_layers = 2
