@@ -429,3 +429,7 @@ shape = SubResource("CircleShape2D_6t5aa")
 [node name="PickupBox" type="CollisionShape2D" parent="PickupArea" unique_id=1518216644]
 position = Vector2(0, 10)
 shape = SubResource("CircleShape2D_vgqql")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1552206405]
+zoom = Vector2(2, 2)
+position_smoothing_enabled = true
