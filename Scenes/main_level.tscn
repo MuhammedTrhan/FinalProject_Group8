@@ -1226,3 +1226,6 @@ position = Vector2(528, 936)
 [node name="VerticalDoor" parent="." unique_id=1574097362 instance=ExtResource("9_ha3dl")]
 z_index = 1
 position = Vector2(368, 464)
+
+[node name="VericalDoor" parent="." unique_id=1069234518 instance=ExtResource("9_ha3dl")]
+position = Vector2(464, 608)
