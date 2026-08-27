@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://o3ud0stfe7pf"]
+
+[ext_resource type="PackedScene" uid="uid://c5e5675r3u1m6" path="res://Scenes/horizontal_door.tscn" id="1_f8f78"]
+
+[node name="HorizontalDarkDoor" unique_id=758378394 instance=ExtResource("1_f8f78")]
+
+[node name="DoorFrame" parent="." index="0" unique_id=1379340397]
+region_rect = Rect2(192, 0, 32, 48)
+
+[node name="DoorClosed" parent="." index="1" unique_id=1869155628]
+region_rect = Rect2(224, 0, 32, 48)
+
+[node name="DoorOpen" parent="." index="2" unique_id=1894481307]
+region_rect = Rect2(256, 0, 32, 48)

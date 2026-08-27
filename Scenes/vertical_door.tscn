@@ -1,0 +1,84 @@
+[gd_scene format=3 uid="uid://cjujinf1ii5wr"]
+
+[ext_resource type="Script" uid="uid://b7hl1ns8tu01y" path="res://Scripts/Door.gd" id="1_d7itd"]
+[ext_resource type="Texture2D" uid="uid://dkyitbe6m22qq" path="res://Assets/Interior/FloorsAndWalls/floors-walls.png" id="3_6xkmc"]
+[ext_resource type="Texture2D" uid="uid://bmh07fwnfn2vx" path="res://Assets/Interior/light_under_door.png" id="3_d7itd"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_d7itd"]
+blend_mode = 1
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h0llp"]
+size = Vector2(32, 32)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ao6dg"]
+radius = 25.0
+height = 84.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_h0llp"]
+outline_size = 5
+outline_color = Color(0, 0, 0, 1)
+
+[node name="VericalDoor" type="StaticBody2D" unique_id=758378394]
+collision_layer = 2
+script = ExtResource("1_d7itd")
+
+[node name="DoorUpperWall1" type="Sprite2D" parent="." unique_id=1375223993]
+rotation = 1.5707964
+texture = ExtResource("3_6xkmc")
+offset = Vector2(-64, -8)
+region_enabled = true
+region_rect = Rect2(160, 128, 32, 16)
+
+[node name="DoorUpperWall2" type="Sprite2D" parent="." unique_id=503517272]
+rotation = 1.5707964
+texture = ExtResource("3_6xkmc")
+offset = Vector2(-64, 8)
+flip_v = true
+region_enabled = true
+region_rect = Rect2(160, 128, 32, 16)
+
+[node name="LightUnderDoor" type="Sprite2D" parent="." unique_id=1058387706]
+modulate = Color(1, 1, 1, 0.39215687)
+material = SubResource("CanvasItemMaterial_d7itd")
+rotation = 1.5707964
+texture = ExtResource("3_d7itd")
+offset = Vector2(0, -24)
+flip_v = true
+
+[node name="LightUnderDoor2" type="Sprite2D" parent="." unique_id=521889501]
+modulate = Color(1, 1, 1, 0.39215687)
+material = SubResource("CanvasItemMaterial_d7itd")
+rotation = 1.5707964
+texture = ExtResource("3_d7itd")
+offset = Vector2(0, 24)
+
+[node name="Hitbox" type="CollisionShape2D" parent="." unique_id=150259076]
+shape = SubResource("RectangleShape2D_h0llp")
+
+[node name="InterractionArea" type="Area2D" parent="." unique_id=97300687]
+
+[node name="InterractionBox" type="CollisionShape2D" parent="InterractionArea" unique_id=1028417380]
+rotation = -1.5707964
+shape = SubResource("CapsuleShape2D_ao6dg")
+
+[node name="DoorInfoLabel" type="Label" parent="." unique_id=2046415760]
+visible = false
+z_index = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -42.0
+offset_top = -49.0
+offset_right = 170.49997
+offset_bottom = -26.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.4, 0.4)
+size_flags_horizontal = 4
+text = "Press 'E' to unlock the door"
+label_settings = SubResource("LabelSettings_h0llp")
+
+[connection signal="body_entered" from="InterractionArea" to="." method="_on_interraction_area_body_entered"]
+[connection signal="body_exited" from="InterractionArea" to="." method="_on_interraction_area_body_exited"]

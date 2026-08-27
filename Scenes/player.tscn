@@ -6,8 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://ddjdt1gosvwy2" path="res://Assets/Player/standard/walk.png" id="3_vgqql"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cvnsp"]
-radius = 5.0
-height = 22.0
+radius = 4.0
+height = 20.0
 
 [sub_resource type="Animation" id="Animation_cvnsp"]
 resource_name = "RESET"
@@ -397,19 +397,19 @@ radius = 79.40403
 radius = 47.67599
 
 [node name="Player" type="CharacterBody2D" unique_id=496936875]
-scale = Vector2(0.75, 0.75)
+y_sort_enabled = true
 collision_mask = 2
 motion_mode = 1
 platform_wall_layers = 2
 script = ExtResource("1_cvnsp")
 
 [node name="MovementBox" type="CollisionShape2D" parent="." unique_id=2114712392]
-position = Vector2(0, 25)
 rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_cvnsp")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=2109358102]
 texture = ExtResource("1_v0iea")
+offset = Vector2(0, -26)
 hframes = 13
 vframes = 4
 frame = 26
@@ -420,11 +420,13 @@ speed_scale = 0.05
 script = ExtResource("3_6t5aa")
 
 [node name="InterractArea" type="Area2D" parent="." unique_id=1161698486]
+position = Vector2(0, -26)
 
 [node name="InterractBox" type="CollisionShape2D" parent="InterractArea" unique_id=1005426027]
 shape = SubResource("CircleShape2D_6t5aa")
 
 [node name="PickupArea" type="Area2D" parent="." unique_id=379452320]
+position = Vector2(0, -26)
 
 [node name="PickupBox" type="CollisionShape2D" parent="PickupArea" unique_id=1518216644]
 position = Vector2(0, 10)
