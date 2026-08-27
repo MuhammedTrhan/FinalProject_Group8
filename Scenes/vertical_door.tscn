@@ -18,7 +18,7 @@ height = 84.0
 outline_size = 5
 outline_color = Color(0, 0, 0, 1)
 
-[node name="VericalDoor" type="StaticBody2D" unique_id=758378394]
+[node name="VerticalDoor" type="StaticBody2D" unique_id=758378394]
 collision_layer = 2
 script = ExtResource("1_d7itd")
 
