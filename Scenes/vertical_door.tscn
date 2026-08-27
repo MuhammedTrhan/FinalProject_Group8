@@ -19,20 +19,21 @@ outline_size = 5
 outline_color = Color(0, 0, 0, 1)
 
 [node name="VerticalDoor" type="StaticBody2D" unique_id=758378394]
+z_index = 1
 collision_layer = 2
 script = ExtResource("1_d7itd")
 
 [node name="DoorUpperWall1" type="Sprite2D" parent="." unique_id=1375223993]
 rotation = 1.5707964
 texture = ExtResource("3_6xkmc")
-offset = Vector2(-64, -8)
+offset = Vector2(0, -8)
 region_enabled = true
 region_rect = Rect2(160, 128, 32, 16)
 
 [node name="DoorUpperWall2" type="Sprite2D" parent="." unique_id=503517272]
 rotation = 1.5707964
 texture = ExtResource("3_6xkmc")
-offset = Vector2(-64, 8)
+offset = Vector2(0, 8)
 flip_v = true
 region_enabled = true
 region_rect = Rect2(160, 128, 32, 16)
