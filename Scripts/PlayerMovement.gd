@@ -7,8 +7,13 @@ const ACCELERATION = 800.0
 const FRICTION = 600.0
 
 
+@onready var anim_handler = $PlayerAnimationHandler
+
+
 func _physics_process(delta: float) -> void:
 	handle_movement(delta)
+
+	anim_handler.update_animations(velocity)
 
 
 func handle_movement(_delta: float) -> void:
