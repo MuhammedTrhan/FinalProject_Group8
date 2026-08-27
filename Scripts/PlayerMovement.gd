@@ -6,6 +6,7 @@ const ACCELERATION = 800.0
 # How fast the player slides to a stop when letting go
 const FRICTION = 600.0
 
+@export var keys: Array[PackedScene] = []
 
 @onready var anim_handler = $PlayerAnimationHandler
 
@@ -32,3 +33,12 @@ func handle_movement(_delta: float) -> void:
 		velocity = velocity.move_toward(Vector2.ZERO, FRICTION * _delta)
 
 	move_and_slide()
+
+
+func has_key(key_scene: PackedScene) -> bool:
+	return key_scene == null or keys.has(key_scene)
+
+
+func add_key(key_scene: PackedScene) -> void:
+	if key_scene != null and not keys.has(key_scene):
+		keys.append(key_scene)
