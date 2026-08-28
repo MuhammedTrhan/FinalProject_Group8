@@ -7,9 +7,9 @@
 [ext_resource type="Texture2D" uid="uid://bafrr543js3up" path="res://Assets/Interior/FloorsAndWalls/floors-walls-opendoors.png" id="5_a2ia3"]
 [ext_resource type="Texture2D" uid="uid://rjsqmfcs0jws" path="res://Assets/Interior/FloorsAndWalls/Balcony garden.png" id="6_2jcip"]
 [ext_resource type="PackedScene" uid="uid://cuypiire5hhga" path="res://Scenes/player.tscn" id="6_236hc"]
-[ext_resource type="PackedScene" uid="uid://c5e5675r3u1m6" path="res://Scenes/horizontal_door.tscn" id="7_lwkuy"]
-[ext_resource type="PackedScene" uid="uid://o3ud0stfe7pf" path="res://Scenes/horizontal_door_dark.tscn" id="8_tqiex"]
-[ext_resource type="PackedScene" uid="uid://cjujinf1ii5wr" path="res://Scenes/vertical_door.tscn" id="9_ha3dl"]
+[ext_resource type="PackedScene" uid="uid://c5e5675r3u1m6" path="res://Scenes/Doors/horizontal_common_door.tscn" id="7_lwkuy"]
+[ext_resource type="PackedScene" uid="uid://o3ud0stfe7pf" path="res://Scenes/Doors/horizontal_rare_door.tscn" id="8_tqiex"]
+[ext_resource type="PackedScene" uid="uid://cjujinf1ii5wr" path="res://Scenes/Doors/vertical_common_door.tscn" id="9_ha3dl"]
 [ext_resource type="PackedScene" uid="uid://bairi2ge8q2uw" path="res://Scenes/editor_label.tscn" id="10_f3gli"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_qbrl8"]

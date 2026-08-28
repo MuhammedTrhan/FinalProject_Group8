@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://d13s58r2caeu0"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5705d"]
+radius = 18.0
+
+[node name="Item" type="StaticBody2D" unique_id=364014351]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=434551240]
+
+[node name="PickupBox" type="CollisionShape2D" parent="." unique_id=931553841]
+shape = SubResource("CircleShape2D_5705d")

@@ -2,8 +2,10 @@
 
 [ext_resource type="Texture2D" uid="uid://b42sy7cylvcnm" path="res://Assets/Interior/FloorsAndWalls/TopDownHouse_DoorsAndWindows.png" id="1_88shg"]
 [ext_resource type="Script" uid="uid://b7hl1ns8tu01y" path="res://Scripts/Door.gd" id="1_h0llp"]
+[ext_resource type="PackedScene" uid="uid://p5dekqjmphxk" path="res://Scenes/Items/common_key.tscn" id="2_y2mof"]
 [ext_resource type="Texture2D" uid="uid://dkyitbe6m22qq" path="res://Assets/Interior/FloorsAndWalls/floors-walls.png" id="3_ao6dg"]
 [ext_resource type="Texture2D" uid="uid://bmh07fwnfn2vx" path="res://Assets/Interior/light_under_door.png" id="4_o8eec"]
+[ext_resource type="Texture2D" uid="uid://oxokbqs4qgak" path="res://Assets/Interior/Items/Key locks 16x16/CommonLock.png" id="5_n56mu"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_n56mu"]
 blend_mode = 1
@@ -19,10 +21,11 @@ height = 130.0
 outline_size = 5
 outline_color = Color(0, 0, 0, 1)
 
-[node name="HorizontalDoor2" type="StaticBody2D" unique_id=758378394]
+[node name="HorizontalCommonDoor" type="StaticBody2D" unique_id=758378394]
 y_sort_enabled = true
 collision_layer = 2
 script = ExtResource("1_h0llp")
+required_key = ExtResource("2_y2mof")
 
 [node name="DoorFrame" type="Sprite2D" parent="." unique_id=1379340397]
 texture = ExtResource("1_88shg")
@@ -61,6 +64,12 @@ modulate = Color(1, 1, 1, 0.39215687)
 material = SubResource("CanvasItemMaterial_n56mu")
 texture = ExtResource("4_o8eec")
 offset = Vector2(0, 16)
+
+[node name="LockIcon" type="Sprite2D" parent="." unique_id=139106758]
+z_index = 1
+position = Vector2(8, -14)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_n56mu")
 
 [node name="Hitbox" type="CollisionShape2D" parent="." unique_id=150259076]
 visible = false
