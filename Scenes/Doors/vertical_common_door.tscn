@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://c1lcx10jae01b" path="res://Assets/Interior/OpenDoors_TopView.png" id="2_wnjd2"]
 [ext_resource type="Texture2D" uid="uid://dkyitbe6m22qq" path="res://Assets/Interior/FloorsAndWalls/floors-walls.png" id="3_6xkmc"]
 [ext_resource type="Texture2D" uid="uid://bmh07fwnfn2vx" path="res://Assets/Interior/light_under_door.png" id="3_d7itd"]
-[ext_resource type="Texture2D" uid="uid://oxokbqs4qgak" path="res://Assets/Interior/Items/Key locks 16x16/CommonLock.png" id="5_6xkmc"]
+[ext_resource type="Texture2D" uid="uid://oxokbqs4qgak" path="res://Assets/Items/Key locks 16x16/CommonLock.png" id="5_6xkmc"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_d7itd"]
 blend_mode = 1

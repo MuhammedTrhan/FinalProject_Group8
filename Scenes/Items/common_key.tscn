@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://p5dekqjmphxk"]
 
 [ext_resource type="PackedScene" uid="uid://d13s58r2caeu0" path="res://Scenes/item.tscn" id="1_6kx3f"]
-[ext_resource type="Texture2D" uid="uid://88juhvv3nv6f" path="res://Assets/Interior/Items/Key locks 16x16/CommonKey.png" id="2_oarqu"]
+[ext_resource type="Texture2D" uid="uid://88juhvv3nv6f" path="res://Assets/Items/Key locks 16x16/CommonKey.png" id="2_oarqu"]
 
 [node name="Common_Key" unique_id=364014351 instance=ExtResource("1_6kx3f")]
 

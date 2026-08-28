@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://cuq418gwd27s1"]
+
+[ext_resource type="PackedScene" uid="uid://cjujinf1ii5wr" path="res://Scenes/Doors/vertical_common_door.tscn" id="1_162ro"]
+[ext_resource type="PackedScene" uid="uid://b3158o4ricrun" path="res://Scenes/Items/precious_key.tscn" id="2_tyvr8"]
+[ext_resource type="Texture2D" uid="uid://ccxs5ayirrgkn" path="res://Assets/Items/Key locks 16x16/PreciousLock.png" id="3_ctsbp"]
+
+[node name="VerticalPreciousDoor" unique_id=758378394 instance=ExtResource("1_162ro")]
+required_key = ExtResource("2_tyvr8")
+
+[node name="DoorClosed" parent="." index="0" unique_id=1764835962]
+region_rect = Rect2(128, 0, 32, 32)
+
+[node name="DoorOpen" parent="." index="1" unique_id=1161938244]
+region_rect = Rect2(160, 0, 32, 32)
+
+[node name="LockIcon" parent="." index="6" unique_id=94898359]
+texture = ExtResource("3_ctsbp")
