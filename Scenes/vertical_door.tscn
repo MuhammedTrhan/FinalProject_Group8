@@ -54,9 +54,11 @@ texture = ExtResource("3_d7itd")
 offset = Vector2(0, 24)
 
 [node name="Hitbox" type="CollisionShape2D" parent="." unique_id=150259076]
+visible = false
 shape = SubResource("RectangleShape2D_h0llp")
 
 [node name="InterractionArea" type="Area2D" parent="." unique_id=97300687]
+visible = false
 
 [node name="InterractionBox" type="CollisionShape2D" parent="InterractionArea" unique_id=1028417380]
 rotation = -1.5707964
