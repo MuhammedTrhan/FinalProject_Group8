@@ -66,10 +66,11 @@ texture = ExtResource("4_o8eec")
 offset = Vector2(0, 16)
 
 [node name="LockIcon" type="Sprite2D" parent="." unique_id=139106758]
-z_index = 1
-position = Vector2(8, -14)
+y_sort_enabled = true
+position = Vector2(8, 2)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("5_n56mu")
+offset = Vector2(0, -32)
 
 [node name="Hitbox" type="CollisionShape2D" parent="." unique_id=150259076]
 visible = false

@@ -11,6 +11,8 @@
 [ext_resource type="PackedScene" uid="uid://o3ud0stfe7pf" path="res://Scenes/Doors/horizontal_rare_door.tscn" id="8_tqiex"]
 [ext_resource type="PackedScene" uid="uid://cjujinf1ii5wr" path="res://Scenes/Doors/vertical_common_door.tscn" id="9_ha3dl"]
 [ext_resource type="PackedScene" uid="uid://bairi2ge8q2uw" path="res://Scenes/editor_label.tscn" id="10_f3gli"]
+[ext_resource type="PackedScene" uid="uid://cuq418gwd27s1" path="res://Scenes/Doors/vertical_precious_door.tscn" id="10_o18aq"]
+[ext_resource type="PackedScene" uid="uid://kt2mil2btu07" path="res://Scenes/Doors/horizontal_precious_door.tscn" id="11_hd7sb"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_qbrl8"]
 
@@ -1594,24 +1596,15 @@ tile_set = SubResource("TileSet_5erdv")
 [node name="Doors" type="Node2D" parent="." unique_id=1262454228]
 y_sort_enabled = true
 
-[node name="HorizontalDoor" parent="Doors" unique_id=758378394 instance=ExtResource("7_lwkuy")]
-position = Vector2(512, 40)
-is_locked = true
-
 [node name="HorizontalDoor2" parent="Doors" unique_id=1435488762 instance=ExtResource("8_tqiex")]
 position = Vector2(528, 936)
 is_locked = true
-required_key = null
 
 [node name="VerticalDoor" parent="Doors" unique_id=1574097362 instance=ExtResource("9_ha3dl")]
 position = Vector2(368, 464)
 
 [node name="VerticalDoor2" parent="Doors" unique_id=1069234518 instance=ExtResource("9_ha3dl")]
 position = Vector2(464, 608)
-is_locked = true
-
-[node name="VerticalDoor3" parent="Doors" unique_id=1142006483 instance=ExtResource("9_ha3dl")]
-position = Vector2(464, 1056)
 
 [node name="HorizontalDarkDoor" parent="Doors" unique_id=2118068588 instance=ExtResource("8_tqiex")]
 position = Vector2(2320, 968)
@@ -1625,6 +1618,7 @@ position = Vector2(2128, 928)
 
 [node name="VerticalDoor6" parent="Doors" unique_id=875661573 instance=ExtResource("9_ha3dl")]
 position = Vector2(2128, 704)
+is_locked = true
 
 [node name="VerticalDoor7" parent="Doors" unique_id=1692960848 instance=ExtResource("9_ha3dl")]
 position = Vector2(2288, 704)
@@ -1640,6 +1634,13 @@ position = Vector2(2128, 520)
 
 [node name="HorizontalDoor6" parent="Doors" unique_id=2027045985 instance=ExtResource("7_lwkuy")]
 position = Vector2(2064, 120)
+
+[node name="VerticalPreciousDoor" parent="Doors" unique_id=758378394 instance=ExtResource("10_o18aq")]
+position = Vector2(464, 1056)
+
+[node name="HorizontalPreciousDoor" parent="Doors" unique_id=2118063845 instance=ExtResource("11_hd7sb")]
+position = Vector2(512, 40)
+is_locked = true
 
 [node name="Player" parent="." unique_id=496936875 instance=ExtResource("6_236hc")]
 position = Vector2(219, 89)
