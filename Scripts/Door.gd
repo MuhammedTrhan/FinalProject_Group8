@@ -6,8 +6,9 @@ extends StaticBody2D
 
 @onready var info_label = $DoorInfoLabel
 @onready var hitbox = $Hitbox
-@onready var closed_door: Sprite2D = get_node_or_null("DoorClosed") as Sprite2D
-@onready var opened_door: Sprite2D = get_node_or_null("DoorOpen") as Sprite2D
+@onready var closed_door: Sprite2D = $DoorClosed
+@onready var opened_door: Sprite2D = $DoorOpen
+@onready var lock_icon: Sprite2D = $LockIcon
 
 var player_in_area := false
 var is_open := false
@@ -17,10 +18,17 @@ var error_message_label: Label
 
 func _ready() -> void:
 	info_label.hide()
-	if closed_door:
+	if not is_open:
 		closed_door.show()
-	if opened_door:
 		opened_door.hide()
+	else:
+		opened_door.show()
+		closed_door.hide()
+	
+	if is_locked:
+		lock_icon.show()
+	else:
+		lock_icon.hide()
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -30,10 +38,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("action"):
 		if has_required_key():
 			if not is_open:
-				if not is_locked:
-					is_locked = true
-				else:
-					is_locked = false
+				toogle_lock()
 			else:
 				if not is_locked:
 					show_error_message("I need to close this door to lock it.")
@@ -62,10 +67,9 @@ func _unhandled_input(event: InputEvent) -> void:
 func open_door() -> void:
 	is_open = true
 	hitbox.set_deferred("disabled", true)
-	if closed_door:
-		closed_door.hide()
-	if opened_door:
-		opened_door.show()
+	closed_door.hide()
+	opened_door.show()
+
 	if player_in_area:
 		update_info_label()
 
@@ -73,13 +77,24 @@ func open_door() -> void:
 func close_door() -> void:
 	is_open = false
 	hitbox.set_deferred("disabled", false)
-	if closed_door:
-		closed_door.show()
-	if opened_door:
-		opened_door.hide()
+
+	closed_door.show()
+	opened_door.hide()
+
 	if player_in_area:
 		update_info_label()
 		info_label.show()
+	
+
+func toogle_lock() -> void:
+	is_locked = not is_locked
+	if is_locked:
+		lock_icon.show()
+	else:
+		lock_icon.hide()
+
+	if player_in_area:
+		update_info_label()
 
 
 func has_required_key() -> bool:
