@@ -20,9 +20,14 @@ func update_animations(velocity: Vector2) -> void:
 
 # Helper function to find the primary direction
 func get_facing_direction(velocity: Vector2) -> String:
-    if abs(velocity.x) > abs(velocity.y):
+    if abs(velocity.x) >= abs(velocity.y):
         if velocity.x > 0: return "right"
         else: return "left"
     else:
         if velocity.y > 0: return "down"
         else: return "up"
+    
+
+func set_facing_direction(direction: String) -> void:
+    if direction in ["up", "down", "left", "right"]:
+        last_direction = direction
