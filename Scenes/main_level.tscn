@@ -1668,7 +1668,7 @@ position = Vector2(400, 328)
 position = Vector2(672, 816)
 
 [node name="Player" parent="." unique_id=496936875 instance=ExtResource("6_236hc")]
-position = Vector2(219, 89)
+position = Vector2(252, 125)
 scale = Vector2(0.75, 0.75)
 
 [node name="EditorLabels" type="Node2D" parent="." unique_id=1631701532]

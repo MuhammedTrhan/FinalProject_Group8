@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://dlj2bnqinapht"]
+
+[ext_resource type="Texture2D" uid="uid://b42sy7cylvcnm" path="res://Assets/Interior/FloorsAndWalls/TopDownHouse_DoorsAndWindows.png" id="1_aiuvb"]
+[ext_resource type="Script" uid="uid://pr81frccc6h2" path="res://Scripts/stairs.gd" id="1_qbift"]
+
+[node name="Stairs" type="Area2D" unique_id=564583785]
+y_sort_enabled = true
+script = ExtResource("1_qbift")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=308028341]
+position = Vector2(0, -32)
+polygon = PackedVector2Array(-32, -30, -32, 40, 25, 40, 25, 25)
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=648835893]
+texture = ExtResource("1_aiuvb")
+offset = Vector2(0, -32)
+region_enabled = true
+region_rect = Rect2(32, 80, 64, 80)
+
+[node name="DescendingSpawnP" type="Marker2D" parent="." unique_id=91461002]
+position = Vector2(44, 1)
+
+[node name="ClimbingSpawnP" type="Marker2D" parent="." unique_id=448244896]
+position = Vector2(-50, -60)
