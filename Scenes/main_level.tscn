@@ -1466,128 +1466,128 @@ position = Vector2(400, 328)
 position = Vector2(648, 800)
 
 [node name="Player" parent="." unique_id=496936875 instance=ExtResource("6_236hc")]
-position = Vector2(2380, 1023)
+position = Vector2(290, 170)
 scale = Vector2(0.75, 0.75)
 
 [node name="EditorLabels" type="Node2D" parent="." unique_id=1631701532]
 
 [node name="EditorLabel" parent="EditorLabels" unique_id=1569352386 instance=ExtResource("10_f3gli")]
-offset_left = 310.0
-offset_top = -168.0
-offset_right = 393.0
-offset_bottom = -145.0
+offset_left = 370.0
+offset_top = -123.0
+offset_right = 453.0
+offset_bottom = -100.0
 text = "Main Floor"
 
 [node name="EditorLabel2" parent="EditorLabels" unique_id=506293144 instance=ExtResource("10_f3gli")]
-offset_left = 167.0
-offset_top = -108.0
-offset_right = 270.0
-offset_bottom = -85.0
+offset_left = 168.0
+offset_top = -73.0
+offset_right = 271.0
+offset_bottom = -50.0
 text = "Dining Room"
 
 [node name="EditorLabel3" parent="EditorLabels" unique_id=197683859 instance=ExtResource("10_f3gli")]
-offset_left = 520.0
-offset_top = -47.0
-offset_right = 623.0
-offset_bottom = -24.0
+offset_left = 528.0
+offset_top = -6.0
+offset_right = 631.0
+offset_bottom = 17.0
 text = "Kitchen"
 
 [node name="EditorLabel4" parent="EditorLabels" unique_id=2009568809 instance=ExtResource("10_f3gli")]
-offset_left = 587.0
-offset_top = 403.0
-offset_right = 690.0
-offset_bottom = 426.0
+offset_left = 595.0
+offset_top = 393.0
+offset_right = 698.0
+offset_bottom = 416.0
 text = "Bedroom 1"
 
 [node name="EditorLabel5" parent="EditorLabels" unique_id=871676452 instance=ExtResource("10_f3gli")]
-offset_left = 142.0
-offset_top = 291.0
-offset_right = 245.0
-offset_bottom = 314.0
+offset_left = 208.0
+offset_top = 314.0
+offset_right = 311.0
+offset_bottom = 337.0
 text = "Toilet"
 
 [node name="EditorLabel6" parent="EditorLabels" unique_id=424736908 instance=ExtResource("10_f3gli")]
-offset_left = 128.0
-offset_top = 532.0
-offset_right = 231.0
-offset_bottom = 555.0
+offset_left = 178.0
+offset_top = 540.0
+offset_right = 281.0
+offset_bottom = 563.0
 text = "Livingroom"
 
 [node name="EditorLabel7" parent="EditorLabels" unique_id=1147578444 instance=ExtResource("10_f3gli")]
-offset_left = 601.0
-offset_top = 849.0
-offset_right = 704.0
-offset_bottom = 872.0
+offset_left = 606.0
+offset_top = 827.0
+offset_right = 709.0
+offset_bottom = 850.0
 text = "Garage"
 
 [node name="EditorLabel8" parent="EditorLabels" unique_id=2050820557 instance=ExtResource("10_f3gli")]
-offset_left = 169.0
-offset_top = 950.0
-offset_right = 272.0
-offset_bottom = 973.0
+offset_left = 172.0
+offset_top = 941.0
+offset_right = 275.0
+offset_bottom = 964.0
 text = "Garden"
 
 [node name="EditorLabel9" parent="EditorLabels" unique_id=1751374033 instance=ExtResource("10_f3gli")]
-offset_left = 1969.0
-offset_top = -244.0
-offset_right = 2072.0
-offset_bottom = -221.0
+offset_left = 1939.0
+offset_top = -188.0
+offset_right = 2042.0
+offset_bottom = -165.0
 text = "Second Floor"
 
 [node name="EditorLabel10" parent="EditorLabels" unique_id=1841439609 instance=ExtResource("10_f3gli")]
-offset_left = 2147.0
-offset_top = -188.0
-offset_right = 2250.0
-offset_bottom = -165.0
+offset_left = 2144.0
+offset_top = -149.0
+offset_right = 2247.0
+offset_bottom = -126.0
 text = "Toilet 2"
 
 [node name="EditorLabel11" parent="EditorLabels" unique_id=1275023228 instance=ExtResource("10_f3gli")]
-offset_left = 1802.0
-offset_top = 37.0
-offset_right = 1905.0
-offset_bottom = 60.0
+offset_left = 1829.0
+offset_top = 59.0
+offset_right = 1932.0
+offset_bottom = 82.0
 text = "Bedroom 2"
 
 [node name="EditorLabel12" parent="EditorLabels" unique_id=737627131 instance=ExtResource("10_f3gli")]
-offset_left = 2250.0
-offset_top = 99.0
-offset_right = 2353.0
-offset_bottom = 122.0
+offset_left = 2241.0
+offset_top = 122.0
+offset_right = 2344.0
+offset_bottom = 145.0
 text = "Study Room"
 
 [node name="EditorLabel13" parent="EditorLabels" unique_id=396061736 instance=ExtResource("10_f3gli")]
-offset_left = 2348.0
-offset_top = 564.0
-offset_right = 2451.0
-offset_bottom = 587.0
+offset_left = 2338.0
+offset_top = 555.0
+offset_right = 2441.0
+offset_bottom = 578.0
 text = "Parent Toilet"
 
 [node name="EditorLabel14" parent="EditorLabels" unique_id=781445149 instance=ExtResource("10_f3gli")]
-offset_left = 2175.0
-offset_top = 566.0
-offset_right = 2278.0
-offset_bottom = 589.0
+offset_left = 2174.0
+offset_top = 555.0
+offset_right = 2277.0
+offset_bottom = 578.0
 text = "Dress"
 
 [node name="EditorLabel15" parent="EditorLabels" unique_id=1457754915 instance=ExtResource("10_f3gli")]
-offset_left = 1831.0
-offset_top = 565.0
-offset_right = 1946.0
-offset_bottom = 588.0
+offset_left = 1842.0
+offset_top = 556.0
+offset_right = 1957.0
+offset_bottom = 579.0
 text = "Main Bedroom"
 
 [node name="EditorLabel16" parent="EditorLabels" unique_id=1470901183 instance=ExtResource("10_f3gli")]
-offset_left = 2167.0
-offset_top = 819.0
-offset_right = 2282.0
-offset_bottom = 842.0
+offset_left = 2164.0
+offset_top = 795.0
+offset_right = 2279.0
+offset_bottom = 818.0
 text = "Verandah"
 
 [node name="EditorLabel17" parent="EditorLabels" unique_id=946051785 instance=ExtResource("10_f3gli")]
-offset_left = 2382.0
-offset_top = 947.0
-offset_right = 2497.0
-offset_bottom = 970.0
+offset_left = 2374.0
+offset_top = 923.0
+offset_right = 2489.0
+offset_bottom = 946.0
 text = "Balcony"
 
 [node name="Stairs" type="Node2D" parent="." unique_id=1444903629]
