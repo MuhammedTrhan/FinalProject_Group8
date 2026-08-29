@@ -12,40 +12,40 @@ collision_layer = 2
 script = ExtResource("1_qbift")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=308028341]
-position = Vector2(0, -32)
+position = Vector2(0, -16)
 polygon = PackedVector2Array(-32, -30, -32, 40, 25, 40, 25, 25)
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=648835893]
 texture = ExtResource("1_aiuvb")
-offset = Vector2(0, -32)
+offset = Vector2(0, -16)
 region_enabled = true
 region_rect = Rect2(32, 80, 64, 80)
 
 [node name="DescendingSpawnP" type="Marker2D" parent="." unique_id=91461002]
-position = Vector2(57, 0)
+position = Vector2(57, 16)
 
 [node name="ClimbingSpawnP" type="Marker2D" parent="." unique_id=448244896]
-position = Vector2(-63, -59)
+position = Vector2(-63, -42)
 
 [node name="ClimbTriggerArea" type="Area2D" parent="." unique_id=1729372527]
 collision_layer = 16
 
 [node name="ClimbTriggerBox" type="CollisionShape2D" parent="ClimbTriggerArea" unique_id=1204760040]
-position = Vector2(15, -11)
+position = Vector2(15, 5)
 shape = SubResource("RectangleShape2D_qbift")
 
 [node name="DescendTriggerArea" type="Area2D" parent="." unique_id=754725760]
 collision_layer = 16
 
 [node name="DescTriggerBox" type="CollisionShape2D" parent="DescendTriggerArea" unique_id=723850452]
-position = Vector2(-20.1875, -47)
+position = Vector2(-20.187, -31)
 shape = SubResource("RectangleShape2D_qbift")
 
 [node name="UpperEnd" type="Marker2D" parent="." unique_id=741382996]
-position = Vector2(-27, -58)
+position = Vector2(-27, -42)
 
 [node name="LowerEnd" type="Marker2D" parent="." unique_id=69292837]
-position = Vector2(21, -10)
+position = Vector2(21, 6)
 
 [connection signal="body_entered" from="ClimbTriggerArea" to="." method="_on_climb_trigger_area_body_entered"]
 [connection signal="body_entered" from="DescendTriggerArea" to="." method="_on_descend_trigger_area_body_entered"]
