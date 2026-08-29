@@ -396,9 +396,9 @@ radius = 79.40403
 [sub_resource type="CircleShape2D" id="CircleShape2D_vgqql"]
 radius = 47.67599
 
-[node name="Player" type="CharacterBody2D" unique_id=496936875]
+[node name="Player" type="CharacterBody2D" unique_id=496936875 groups=["player"]]
 y_sort_enabled = true
-collision_mask = 2
+collision_mask = 18
 motion_mode = 1
 platform_wall_layers = 2
 script = ExtResource("1_cvnsp")
@@ -421,12 +421,14 @@ script = ExtResource("3_6t5aa")
 
 [node name="InterractArea" type="Area2D" parent="." unique_id=1161698486]
 position = Vector2(0, -26)
+collision_mask = 0
 
 [node name="InterractBox" type="CollisionShape2D" parent="InterractArea" unique_id=1005426027]
 shape = SubResource("CircleShape2D_6t5aa")
 
 [node name="PickupArea" type="Area2D" parent="." unique_id=379452320]
 position = Vector2(0, -26)
+collision_mask = 0
 
 [node name="PickupBox" type="CollisionShape2D" parent="PickupArea" unique_id=1518216644]
 position = Vector2(0, 10)
