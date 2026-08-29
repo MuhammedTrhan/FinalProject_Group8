@@ -13,8 +13,8 @@ blend_mode = 1
 size = Vector2(30, 80)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ao6dg"]
-radius = 25.0
-height = 130.0
+radius = 24.0
+height = 128.0
 
 [sub_resource type="LabelSettings" id="LabelSettings_h0llp"]
 outline_size = 5
@@ -59,15 +59,16 @@ texture = ExtResource("5_n56mu")
 offset = Vector2(0, -32)
 
 [node name="Hitbox" type="CollisionShape2D" parent="." unique_id=150259076]
+visible = false
 position = Vector2(0, -32)
 shape = SubResource("RectangleShape2D_h0llp")
 
 [node name="InterractionArea" type="Area2D" parent="." unique_id=97300687]
-visible = false
 position = Vector2(0, -16)
 
 [node name="InterractionBox" type="CollisionShape2D" parent="InterractionArea" unique_id=1028417380]
-position = Vector2(0, -24)
+visible = false
+position = Vector2(0, -16)
 shape = SubResource("CapsuleShape2D_ao6dg")
 
 [node name="DoorInfoLabel" type="Label" parent="." unique_id=2046415760]
