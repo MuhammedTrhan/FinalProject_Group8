@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://b7hl1ns8tu01y" path="res://Scripts/Door.gd" id="1_d7itd"]
 [ext_resource type="PackedScene" uid="uid://p5dekqjmphxk" path="res://Scenes/Items/common_key.tscn" id="2_ff7k3"]
 [ext_resource type="Texture2D" uid="uid://c1lcx10jae01b" path="res://Assets/Interior/OpenDoors_TopView.png" id="2_wnjd2"]
-[ext_resource type="Texture2D" uid="uid://dkyitbe6m22qq" path="res://Assets/Interior/FloorsAndWalls/floors-walls.png" id="3_6xkmc"]
 [ext_resource type="Texture2D" uid="uid://bmh07fwnfn2vx" path="res://Assets/Interior/light_under_door.png" id="3_d7itd"]
 [ext_resource type="Texture2D" uid="uid://oxokbqs4qgak" path="res://Assets/Items/Key locks 16x16/CommonLock.png" id="5_6xkmc"]
 
@@ -11,11 +10,11 @@
 blend_mode = 1
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h0llp"]
-size = Vector2(32, 32)
+size = Vector2(18, 32)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ao6dg"]
-radius = 25.0
-height = 84.0
+radius = 24.0
+height = 64.0
 
 [sub_resource type="LabelSettings" id="LabelSettings_h0llp"]
 outline_size = 5
@@ -29,7 +28,7 @@ required_key = ExtResource("2_ff7k3")
 
 [node name="DoorClosed" type="Sprite2D" parent="." unique_id=1764835962]
 z_index = 1
-position = Vector2(28, 0)
+position = Vector2(20, 0)
 texture = ExtResource("2_wnjd2")
 region_enabled = true
 region_rect = Rect2(0, 0, 32, 32)
@@ -37,34 +36,17 @@ region_rect = Rect2(0, 0, 32, 32)
 [node name="DoorOpen" type="Sprite2D" parent="." unique_id=1161938244]
 visible = false
 z_index = 1
-position = Vector2(28, 0)
+position = Vector2(20, 0)
 texture = ExtResource("2_wnjd2")
 region_enabled = true
 region_rect = Rect2(32, 0, 32, 32)
-
-[node name="DoorUpperWall1" type="Sprite2D" parent="." unique_id=1375223993]
-z_index = 1
-rotation = 1.5707964
-texture = ExtResource("3_6xkmc")
-offset = Vector2(0, -8)
-region_enabled = true
-region_rect = Rect2(160, 128, 32, 16)
-
-[node name="DoorUpperWall2" type="Sprite2D" parent="." unique_id=503517272]
-z_index = 1
-rotation = 1.5707964
-texture = ExtResource("3_6xkmc")
-offset = Vector2(0, 8)
-flip_v = true
-region_enabled = true
-region_rect = Rect2(160, 128, 32, 16)
 
 [node name="LightUnderDoor" type="Sprite2D" parent="." unique_id=1058387706]
 modulate = Color(1, 1, 1, 0.39215687)
 material = SubResource("CanvasItemMaterial_d7itd")
 rotation = 1.5707964
 texture = ExtResource("3_d7itd")
-offset = Vector2(0, -24)
+offset = Vector2(0, -16)
 flip_v = true
 
 [node name="LightUnderDoor2" type="Sprite2D" parent="." unique_id=521889501]
@@ -72,11 +54,11 @@ modulate = Color(1, 1, 1, 0.39215687)
 material = SubResource("CanvasItemMaterial_d7itd")
 rotation = 1.5707964
 texture = ExtResource("3_d7itd")
-offset = Vector2(0, 24)
+offset = Vector2(0, 16)
 
 [node name="LockIcon" type="Sprite2D" parent="." unique_id=94898359]
 z_index = 1
-position = Vector2(17, -8)
+position = Vector2(9, -8)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("5_6xkmc")
 
@@ -85,9 +67,9 @@ visible = false
 shape = SubResource("RectangleShape2D_h0llp")
 
 [node name="InterractionArea" type="Area2D" parent="." unique_id=97300687]
-visible = false
 
 [node name="InterractionBox" type="CollisionShape2D" parent="InterractionArea" unique_id=1028417380]
+visible = false
 rotation = -1.5707964
 shape = SubResource("CapsuleShape2D_ao6dg")
 
