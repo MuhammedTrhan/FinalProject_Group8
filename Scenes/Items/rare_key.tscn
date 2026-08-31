@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dqy1grve6guch"]
 
-[ext_resource type="PackedScene" uid="uid://d13s58r2caeu0" path="res://Scenes/item.tscn" id="1_p7ycx"]
+[ext_resource type="PackedScene" uid="uid://d13s58r2caeu0" path="res://Scenes/Items/item.tscn" id="1_p7ycx"]
 [ext_resource type="Texture2D" uid="uid://cqtgydgtk2aj8" path="res://Assets/Items/Key locks 16x16/RareKey.png" id="2_qplk4"]
 
 [node name="RareKey" unique_id=364014351 instance=ExtResource("1_p7ycx")]
