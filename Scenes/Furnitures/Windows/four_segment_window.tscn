@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://b1ogjx4ss530h"]
+
+[ext_resource type="Texture2D" uid="uid://b42sy7cylvcnm" path="res://Assets/Interior/FloorsAndWalls/TopDownHouse_DoorsAndWindows.png" id="1_iq2aw"]
+
+[node name="FourSegmentWindow" type="Sprite2D" unique_id=120073871]
+y_sort_enabled = true
+scale = Vector2(1.25, 1.25)
+texture = ExtResource("1_iq2aw")
+offset = Vector2(0, -24)
+region_enabled = true
+region_rect = Rect2(97, 49, 31, 30)

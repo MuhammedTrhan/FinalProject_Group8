@@ -46,6 +46,3 @@ position = Vector2(-27, -42)
 
 [node name="LowerEnd" type="Marker2D" parent="." unique_id=69292837]
 position = Vector2(21, 6)
-
-[connection signal="body_entered" from="ClimbTriggerArea" to="." method="_on_climb_trigger_area_body_entered"]
-[connection signal="body_entered" from="DescendTriggerArea" to="." method="_on_descend_trigger_area_body_entered"]

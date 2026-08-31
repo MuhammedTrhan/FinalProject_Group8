@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://b4u8hvnv4qqvj"]
 
-[ext_resource type="PackedScene" uid="uid://cjujinf1ii5wr" path="res://Scenes/Doors/vertical_common_door.tscn" id="1_3u86v"]
+[ext_resource type="PackedScene" uid="uid://cjujinf1ii5wr" path="res://Scenes/Furnitures/Doors/vertical_common_door.tscn" id="1_3u86v"]
 [ext_resource type="Texture2D" uid="uid://ccxs5ayirrgkn" path="res://Assets/Items/Key locks 16x16/PreciousLock.png" id="2_clvby"]
 [ext_resource type="PackedScene" uid="uid://dqy1grve6guch" path="res://Scenes/Items/rare_key.tscn" id="2_nqob8"]
 
