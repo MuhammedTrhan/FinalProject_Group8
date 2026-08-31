@@ -437,3 +437,16 @@ shape = SubResource("CircleShape2D_vgqql")
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1552206405]
 zoom = Vector2(2, 2)
 position_smoothing_enabled = true
+
+[node name="TransitionLayer" type="CanvasLayer" parent="." unique_id=2030172031]
+
+[node name="FadeRect" type="ColorRect" parent="TransitionLayer" unique_id=1182889372]
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+metadata/_edit_use_anchors_ = true
