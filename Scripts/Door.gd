@@ -1,5 +1,14 @@
+class_name Door
 extends StaticBody2D
 
+enum DoorInteraction {
+	OPEN,
+	CLOSE,
+	LOCK,
+	UNLOCK
+}
+
+signal door_interacted(interaction: DoorInteraction)
 
 @export var is_locked := false
 @export var required_key: PackedScene
@@ -12,7 +21,8 @@ extends StaticBody2D
 
 var player_in_area := false
 var is_open := false
-var interacting_player: Node
+# TODO: Change this to a dictionary to support multiple bodies
+var interacting_body: Node
 var error_message_label: Label
 
 
@@ -32,7 +42,7 @@ func _ready() -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if not player_in_area or not is_instance_valid(interacting_player):
+	if not player_in_area or not is_instance_valid(interacting_body):
 		return
 
 	if event.is_action_pressed("action"):
@@ -72,6 +82,8 @@ func open_door() -> void:
 
 	if player_in_area:
 		update_info_label()
+	
+	door_interacted.emit(DoorInteraction.OPEN)
 
 
 func close_door() -> void:
@@ -85,20 +97,24 @@ func close_door() -> void:
 		update_info_label()
 		info_label.show()
 	
+	door_interacted.emit(DoorInteraction.CLOSE)
+	
 
 func toogle_lock() -> void:
 	is_locked = not is_locked
 	if is_locked:
 		lock_icon.show()
+		door_interacted.emit(DoorInteraction.LOCK)
 	else:
 		lock_icon.hide()
+		door_interacted.emit(DoorInteraction.UNLOCK)
 
 	if player_in_area:
 		update_info_label()
 
 
 func has_required_key() -> bool:
-	return required_key == null or interacting_player.has_method("has_key") and interacting_player.has_key(required_key)
+	return required_key == null or interacting_body.has_method("has_key") and interacting_body.has_key(required_key)
 
 
 func update_info_label() -> void:
@@ -111,7 +127,7 @@ func update_info_label() -> void:
 
 
 func show_error_message(message: String) -> void:
-	if not is_instance_valid(interacting_player):
+	if not is_instance_valid(interacting_body):
 		return
 
 	if is_instance_valid(error_message_label):
@@ -125,7 +141,7 @@ func show_error_message(message: String) -> void:
 	error_message_label.add_theme_color_override("font_shadow_color", Color.BLACK)
 	error_message_label.add_theme_constant_override("shadow_offset_x", 2)
 	error_message_label.add_theme_constant_override("shadow_offset_y", 2)
-	interacting_player.add_child(error_message_label)
+	interacting_body.add_child(error_message_label)
 
 	await get_tree().create_timer(2.0).timeout
 	if is_instance_valid(error_message_label):
@@ -135,15 +151,22 @@ func show_error_message(message: String) -> void:
 	
 func _on_interraction_area_body_entered(body: Node2D) -> void:
 	player_in_area = true
-	interacting_player = body
+	interacting_body = body
 	update_info_label()
 	info_label.show()
 
+	# Connect the door_interacted signal to the interacting body if it has the on_door_interacted method
+	if interacting_body.has_method("on_door_interacted"):
+		door_interacted.connect(interacting_body.on_door_interacted)
+
 
 func _on_interraction_area_body_exited(body: Node2D) -> void:
-	if body != interacting_player:
+	if body != interacting_body:
 		return
 
 	player_in_area = false
-	interacting_player = null
+	interacting_body = null
 	info_label.hide()
+
+	if door_interacted.is_connected(interacting_body.on_door_interacted):
+		door_interacted.disconnect(interacting_body.on_door_interacted)

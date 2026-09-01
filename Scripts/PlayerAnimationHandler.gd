@@ -31,3 +31,15 @@ func get_facing_direction(velocity: Vector2) -> String:
 func set_facing_direction(direction: String) -> void:
     if direction in ["up", "down", "left", "right"]:
         last_direction = direction
+    
+func handle_door_interaction(interaction: int) -> void:
+    # TODO: Add those animations!
+    match interaction:
+        0: # DoorInteraction.OPEN
+            play("slash_" + last_direction)
+        1: # DoorInteraction.CLOSE
+            play("back_slash_" + last_direction)
+        2: # DoorInteraction.LOCK
+            play("lock_" + last_direction)
+        3: # DoorInteraction.UNLOCK
+            play("unlock_" + last_direction)

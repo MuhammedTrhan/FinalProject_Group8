@@ -111,3 +111,7 @@ func end_teleport(target_position: Vector2, fade_duration: float, face_dir: Vect
 	# PHASE 3: Create a new tween to fade the screen back to transparent
 	var fade_in_tween = create_tween()
 	fade_in_tween.tween_property(fade_rect, "modulate:a", 0.0, fade_duration)
+
+func on_door_interacted(interaction: int) -> void:
+	# Pass the interaction to the animation handler to play the appropriate animation
+	anim_handler.handle_door_interaction(interaction)
