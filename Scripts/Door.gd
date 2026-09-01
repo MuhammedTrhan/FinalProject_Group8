@@ -103,11 +103,11 @@ func has_required_key() -> bool:
 
 func update_info_label() -> void:
 	if is_open:
-		info_label.text = "Press 'F' to close the door"
+		info_label.text = "Press 'Space' to close the door"
 	elif is_locked:
 		info_label.text = "Press 'E' to unlock the door."
 	else:
-		info_label.text = "Press 'F' to open the door\n Press 'E' to lock the door."
+		info_label.text = "Press 'Space' to open the door\n Press 'E' to lock the door."
 
 
 func show_error_message(message: String) -> void:
