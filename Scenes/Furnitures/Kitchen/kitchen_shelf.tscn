@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://c6fnip3ty30bn"]
+
+[ext_resource type="PackedScene" uid="uid://lgxl3cht6vlk" path="res://Scenes/Furnitures/furniture_base.tscn" id="1_37kr5"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_37kr5"]
+radius = 8.0
+height = 68.0
+
+[node name="KitchenShelf" unique_id=758378394 instance=ExtResource("1_37kr5")]
+
+[node name="InactiveSprite" parent="." index="0" unique_id=1764835962]
+region_rect = Rect2(144, 192, 16, 48)
+
+[node name="ActiveSprite" parent="." index="1" unique_id=91856626]
+region_rect = Rect2(144, 192, 16, 48)
+
+[node name="Hitbox" parent="." index="2" unique_id=150259076]
+position = Vector2(0, -2)
+
+[node name="InterractionBox" parent="InterractionArea" parent_id_path=PackedInt32Array(97300687) index="0" unique_id=1028417380]
+rotation = 0.0
+shape = SubResource("CapsuleShape2D_37kr5")
+
+[node name="InfoLabel" parent="." index="4" unique_id=1002307500]
+offset_top = -35.0
+offset_bottom = -12.0
