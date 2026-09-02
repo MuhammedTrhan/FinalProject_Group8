@@ -21,7 +21,8 @@ signal door_interacted(interaction: DoorInteraction)
 
 var player_in_area := false
 var is_open := false
-var interacting_bodies: Dictionary = {} # Holds bodies: {"player": body_ref, "enemy": body_ref}
+# Holds bodies: {"player": body_ref, "enemy": body_ref}
+var interacting_bodies: Dictionary = {}
 var error_message_label: Label
 
 

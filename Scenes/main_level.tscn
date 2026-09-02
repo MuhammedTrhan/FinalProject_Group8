@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://bairi2ge8q2uw" path="res://Scenes/editor_label.tscn" id="10_f3gli"]
 [ext_resource type="PackedScene" uid="uid://cuq418gwd27s1" path="res://Scenes/Furnitures/Doors/vertical_precious_door.tscn" id="10_o18aq"]
 [ext_resource type="PackedScene" uid="uid://kt2mil2btu07" path="res://Scenes/Furnitures/Doors/horizontal_precious_door.tscn" id="11_hd7sb"]
+[ext_resource type="PackedScene" uid="uid://c3xfv6eb4yr6u" path="res://Scenes/Furnitures/Kitchen/kitchen_sink.tscn" id="13_vgie2"]
 [ext_resource type="PackedScene" uid="uid://b1ogjx4ss530h" path="res://Scenes/Furnitures/Windows/four_segment_window.tscn" id="14_5vthg"]
 [ext_resource type="PackedScene" uid="uid://dlj2bnqinapht" path="res://Scenes/Furnitures/stairs.tscn" id="14_hd7sb"]
 [ext_resource type="PackedScene" uid="uid://dbs2m3air4w0p" path="res://Scenes/Furnitures/Windows/two_segment_window.tscn" id="15_unus1"]
@@ -1417,7 +1418,7 @@ start_position = Vector2(455, 397)
 end_position = Vector2(-1079, 528)
 
 [node name="Player" parent="." unique_id=496936875 instance=ExtResource("6_236hc")]
-position = Vector2(290, 170)
+position = Vector2(415, 177)
 scale = Vector2(0.75, 0.75)
 
 [node name="EditorLabels" type="Node2D" parent="." unique_id=1631701532]
@@ -1737,3 +1738,7 @@ position = Vector2(2261.875, 1130)
 
 [node name="FourSegmentWindow24" parent="Furnitures/Windows" unique_id=1219360861 instance=ExtResource("14_5vthg")]
 position = Vector2(1983.875, 140)
+
+[node name="KitchenSink" parent="Furnitures" unique_id=1230200324 instance=ExtResource("13_vgie2")]
+y_sort_enabled = false
+position = Vector2(586, 80)
