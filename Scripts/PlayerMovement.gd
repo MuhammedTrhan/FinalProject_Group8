@@ -12,7 +12,8 @@ const FRICTION = 600.0
 @onready var fade_rect = $TransitionLayer/FadeRect
 @onready var camera = $Camera2D
 
-var is_teleporting := false
+var is_teleporting: bool = false
+var accept_input: bool = true
 var teleport_tween: Tween
 
 
@@ -29,7 +30,12 @@ func handle_movement(_delta: float) -> void:
 	
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
-	var direction := Input.get_vector("left", "right", "up", "down")
+	var direction: Vector2
+
+	if accept_input:
+		direction = Input.get_vector("left", "right", "up", "down")
+	else:
+		direction = Vector2.ZERO
 
 	if direction != Vector2.ZERO:
 		var target_velocity: Vector2 = direction * MAX_SPEED
@@ -111,3 +117,30 @@ func end_teleport(target_position: Vector2, fade_duration: float, face_dir: Vect
 	# PHASE 3: Create a new tween to fade the screen back to transparent
 	var fade_in_tween = create_tween()
 	fade_in_tween.tween_property(fade_rect, "modulate:a", 0.0, fade_duration)
+
+func on_door_interacted(interaction: int) -> void:
+	# Pass the interaction to the animation handler to play the appropriate animation
+	anim_handler.handle_door_interaction(interaction)
+	handle_interactions()
+
+
+# Stop player movement during interactions and resume it after the interaction animation is finished
+func handle_interactions() -> void:
+	anim_handler.interact_anim_finish.connect(_on_interact_anim_finish)
+	stop_player_movement()
+
+func _on_interact_anim_finish() -> void:
+	# Resume player movement after the interaction animation is finished
+	resume_player_movement()
+
+	if anim_handler.interact_anim_finish.is_connected(_on_interact_anim_finish):
+		anim_handler.interact_anim_finish.disconnect(_on_interact_anim_finish)
+
+func stop_player_movement() -> void:
+	# Stop accepting input and set velocity to zero
+	velocity = Vector2.ZERO
+	accept_input = false
+
+func resume_player_movement() -> void:
+	# Resume accepting input
+	accept_input = true
