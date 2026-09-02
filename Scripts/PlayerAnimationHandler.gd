@@ -11,7 +11,7 @@ var interact_state: String = ""
 var last_direction: String = "down"
 
 # These interaction anims should override the default walk/idle animations
-var interaction_anims = ["slash", "back_slash", "lock", "unlock"]
+var interaction_anims = ["slash", "back_slash", "lock"]
 
 # Call this function from your Player's _physics_process
 func update_animations(velocity: Vector2) -> void:
@@ -55,7 +55,7 @@ func handle_door_interaction(interaction: int) -> void:
         2: # DoorInteraction.LOCK
             interact_state = "lock"
         3: # DoorInteraction.UNLOCK
-            interact_state = "unlock"
+            interact_state = "lock"
 
 
 func _on_animation_finished(anim_name: StringName) -> void:
@@ -63,5 +63,5 @@ func _on_animation_finished(anim_name: StringName) -> void:
         if anim_name.begins_with(anim):
             is_interacting = false
             interact_state = ""
-            
+
             emit_signal("interact_anim_finish")

@@ -123,6 +123,7 @@ func on_door_interacted(interaction: int) -> void:
 	anim_handler.handle_door_interaction(interaction)
 	handle_interactions()
 
+
 # Stop player movement during interactions and resume it after the interaction animation is finished
 func handle_interactions() -> void:
 	anim_handler.interact_anim_finish.connect(_on_interact_anim_finish)
