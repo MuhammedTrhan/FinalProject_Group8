@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://bh3sq12kd54qk"]
+
+[ext_resource type="Texture2D" uid="uid://bnqp3ro7aluuu" path="res://Assets/Interior/Furnitures/TopDownHouse_FurnitureState1.png" id="1_7heeo"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ao6dg"]
+radius = 16.0
+height = 68.0
+
+[node name="KitchenCornerCabinet" type="StaticBody2D" unique_id=758378394]
+y_sort_enabled = true
+collision_layer = 2
+
+[node name="Sprite" type="Sprite2D" parent="." unique_id=1764835962]
+texture = ExtResource("1_7heeo")
+region_enabled = true
+region_rect = Rect2(176, 192, 32, 64)
+
+[node name="Hitbox" type="CollisionPolygon2D" parent="." unique_id=1064695560]
+polygon = PackedVector2Array(-16, -31, 16, -31, 16, 32, -5, 32, -5, 11, -16, 11)
+
+[node name="InterractionArea" type="Area2D" parent="." unique_id=97300687]
+visible = false
+
+[node name="InterractionBox" type="CollisionShape2D" parent="InterractionArea" unique_id=1028417380]
+shape = SubResource("CapsuleShape2D_ao6dg")
+
+[connection signal="body_entered" from="InterractionArea" to="." method="_on_interraction_area_body_entered"]
+[connection signal="body_exited" from="InterractionArea" to="." method="_on_interraction_area_body_exited"]
