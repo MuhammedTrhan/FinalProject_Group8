@@ -1,4 +1,5 @@
 extends StaticBody2D
+class_name Furniture
 
 
 @export var is_active := false
@@ -14,12 +15,8 @@ var bodies_nearby: Dictionary = {}
 func _ready() -> void:
 	info_label.hide()
 
-	if is_active:
-		active_sprite.show()
-		inactive_sprite.hide()
-	else:
-		active_sprite.hide()
-		inactive_sprite.show()
+	if is_active: activate()
+	else: deactivate()
 	
 func _unhandled_input(event: InputEvent) -> void:
 	if not "player" in bodies_nearby:

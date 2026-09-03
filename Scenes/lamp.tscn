@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://c1p1phglcs2ne"]
+
+[ext_resource type="Texture2D" uid="uid://6wwnjaychktb" path="res://Assets/Interior/light_ball.png" id="1_veqsg"]
+
+[node name="Lamp" type="Node2D" unique_id=1604036555]
+
+[node name="PointLight2D" type="PointLight2D" parent="." unique_id=1378408261]
+shadow_enabled = true
+texture = ExtResource("1_veqsg")

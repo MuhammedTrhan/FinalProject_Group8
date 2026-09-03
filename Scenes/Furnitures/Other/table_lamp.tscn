@@ -1,6 +1,8 @@
 [gd_scene format=3 uid="uid://cfssyo7rsboex"]
 
 [ext_resource type="PackedScene" uid="uid://lgxl3cht6vlk" path="res://Scenes/Furnitures/furniture_interactable_base.tscn" id="1_4o0pg"]
+[ext_resource type="Texture2D" uid="uid://6wwnjaychktb" path="res://Assets/Interior/light_ball.png" id="2_6ksvj"]
+[ext_resource type="Script" uid="uid://bwrms388cydxi" path="res://Scripts/TableLamp.gd" id="2_inhaa"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6ksvj"]
 radius = 7.0
@@ -11,6 +13,7 @@ radius = 11.0
 height = 48.0
 
 [node name="TableLamp" unique_id=758378394 instance=ExtResource("1_4o0pg")]
+script = ExtResource("2_inhaa")
 
 [node name="InactiveSprite" parent="." index="0" unique_id=1764835962]
 region_rect = Rect2(0, 256, 16, 32)
@@ -24,3 +27,10 @@ shape = SubResource("CapsuleShape2D_6ksvj")
 
 [node name="InterractionBox" parent="InterractionArea" parent_id_path=PackedInt32Array(97300687) index="0" unique_id=1028417380]
 shape = SubResource("CapsuleShape2D_inhaa")
+
+[node name="PointLight2D" type="PointLight2D" parent="." index="5" unique_id=719217877]
+color = Color(0.6237184, 0.6237184, 0.053774156, 1)
+energy = 0.5
+shadow_enabled = true
+texture = ExtResource("2_6ksvj")
+texture_scale = 0.33
