@@ -505,6 +505,18 @@ texture = ExtResource("1_q2fht")
 17:9/0/y_sort_origin = 42
 17:9/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, -8, -3.7432194, 3.7432194, -3.7432194, 3.5691166, 8, 8, 8, 8, -8)
 
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_eckhq"]
+polygon = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_i7ce5"]
+polygon = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_2xkur"]
+polygon = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_edjj2"]
+polygon = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ha3dl"]
 texture = ExtResource("3_a2ia3")
 0:0/0 = 0
@@ -741,20 +753,25 @@ texture = ExtResource("3_a2ia3")
 5:4/next_alternative_id = 2
 5:4/0 = 0
 5:4/0/y_sort_origin = 41
+5:4/0/occlusion_layer_0/polygon_0/polygon = SubResource("OccluderPolygon2D_eckhq")
 5:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
-6:4/next_alternative_id = 2
+6:4/next_alternative_id = 3
 6:4/0 = 0
 6:4/0/y_sort_origin = 41
+6:4/0/occlusion_layer_0/polygon_0/polygon = SubResource("OccluderPolygon2D_i7ce5")
 6:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 6:4/1 = 1
 6:4/1/y_sort_origin = 41
+6:4/1/occlusion_layer_0/polygon_0/polygon = SubResource("OccluderPolygon2D_2xkur")
 7:4/next_alternative_id = 2
 7:4/0 = 0
 7:4/0/y_sort_origin = 41
+7:4/0/occlusion_layer_0/polygon_0/polygon = SubResource("OccluderPolygon2D_i7ce5")
 7:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 8:4/next_alternative_id = 2
 8:4/0 = 0
 8:4/0/y_sort_origin = 41
+8:4/0/occlusion_layer_0/polygon_0/polygon = SubResource("OccluderPolygon2D_edjj2")
 8:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 9:4/0 = 0
 9:4/0/y_sort_origin = -8
@@ -1388,6 +1405,7 @@ texture = ExtResource("6_2jcip")
 3:45/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_5erdv"]
+occlusion_layer_0/light_mask = 1
 physics_layer_0/collision_layer = 2
 sources/0 = SubResource("TileSetAtlasSource_lwkuy")
 sources/2 = SubResource("TileSetAtlasSource_ha3dl")
@@ -1783,32 +1801,41 @@ position = Vector2(195, 151)
 [node name="Light3" parent="Furnitures/Lamps" unique_id=1195754757 instance=ExtResource("27_yfdo3")]
 position = Vector2(225, 457)
 
+[node name="Light22" parent="Furnitures/Lamps" unique_id=1674005746 instance=ExtResource("27_yfdo3")]
+position = Vector2(422, 361)
+
 [node name="Light4" parent="Furnitures/Lamps" unique_id=905074966 instance=ExtResource("27_yfdo3")]
 position = Vector2(643, 568)
 
 [node name="Light5" parent="Furnitures/Lamps" unique_id=156869363 instance=ExtResource("27_yfdo3")]
-position = Vector2(221, 777)
+position = Vector2(140, 782)
+
+[node name="Light24" parent="Furnitures/Lamps" unique_id=1822423704 instance=ExtResource("27_yfdo3")]
+position = Vector2(428, 796)
 
 [node name="Light6" parent="Furnitures/Lamps" unique_id=1364224865 instance=ExtResource("27_yfdo3")]
-position = Vector2(646, 1033)
+position = Vector2(639, 997)
 
 [node name="Light18" parent="Furnitures/Lamps" unique_id=916271789 instance=ExtResource("27_yfdo3")]
-position = Vector2(843, 794)
+position = Vector2(681, 751)
 
 [node name="Light7" parent="Furnitures/Lamps" unique_id=1414895655 instance=ExtResource("27_yfdo3")]
-position = Vector2(216, 1120)
+position = Vector2(41, 1141)
 
-[node name="Light20" parent="Furnitures/Lamps" unique_id=1796488914 instance=ExtResource("27_yfdo3")]
-position = Vector2(428, 1314)
+[node name="Light20" parent="Furnitures/Lamps" unique_id=1593731817 instance=ExtResource("27_yfdo3")]
+position = Vector2(357, 1087)
 
-[node name="Light21" parent="Furnitures/Lamps" unique_id=1794752337 instance=ExtResource("27_yfdo3")]
-position = Vector2(848, 1320)
-
-[node name="Light19" parent="Furnitures/Lamps" unique_id=699948151 instance=ExtResource("27_yfdo3")]
-position = Vector2(-49, 1259)
+[node name="Light19" parent="Furnitures/Lamps" unique_id=1881127572 instance=ExtResource("27_yfdo3")]
+position = Vector2(645, 1300)
 
 [node name="Light8" parent="Furnitures/Lamps" unique_id=25941060 instance=ExtResource("27_yfdo3")]
-position = Vector2(-1357, 699)
+position = Vector2(-1507, 603)
+
+[node name="Light26" parent="Furnitures/Lamps" unique_id=2110375571 instance=ExtResource("27_yfdo3")]
+position = Vector2(-1198, 530)
+
+[node name="Light27" parent="Furnitures/Lamps" unique_id=600977818 instance=ExtResource("27_yfdo3")]
+position = Vector2(-1177, 840)
 
 [node name="Light9" parent="Furnitures/Lamps" unique_id=103115368 instance=ExtResource("27_yfdo3")]
 position = Vector2(-1244, 220)
@@ -1826,19 +1853,31 @@ position = Vector2(2295, 312)
 position = Vector2(2196, 13)
 
 [node name="Light14" parent="Furnitures/Lamps" unique_id=1812929735 instance=ExtResource("27_yfdo3")]
-position = Vector2(1907, 816)
+position = Vector2(1913, 944)
 
 [node name="Light15" parent="Furnitures/Lamps" unique_id=113948817 instance=ExtResource("27_yfdo3")]
 position = Vector2(2382, 747)
 
+[node name="Light30" parent="Furnitures/Lamps" unique_id=444345475 instance=ExtResource("27_yfdo3")]
+position = Vector2(1938, 704)
+
+[node name="Light29" parent="Furnitures/Lamps" unique_id=1880990500 instance=ExtResource("27_yfdo3")]
+position = Vector2(2174, 502)
+
+[node name="Light28" parent="Furnitures/Lamps" unique_id=953724419 instance=ExtResource("27_yfdo3")]
+position = Vector2(2219, 658)
+
 [node name="Light16" parent="Furnitures/Lamps" unique_id=1063931443 instance=ExtResource("27_yfdo3")]
-position = Vector2(2400, 1054)
+position = Vector2(2305, 1036)
 
 [node name="Light17" parent="Furnitures/Lamps" unique_id=360508207 instance=ExtResource("27_yfdo3")]
 position = Vector2(2205, 920)
 
 [node name="Light2" parent="Furnitures/Lamps" unique_id=1318998882 instance=ExtResource("27_yfdo3")]
 position = Vector2(559, 164)
+
+[node name="Light23" parent="Furnitures/Lamps" unique_id=1229936880 instance=ExtResource("27_yfdo3")]
+position = Vector2(600, 358)
 
 [node name="Toilet" type="Node2D" parent="Furnitures" unique_id=564025407]
 y_sort_enabled = true
@@ -1860,3 +1899,8 @@ position = Vector2(26, 288)
 
 [node name="Darkness" type="CanvasModulate" parent="." unique_id=722425196]
 color = Color(0, 0, 0, 1)
+
+[node name="Sun" type="DirectionalLight2D" parent="." unique_id=700500498]
+skew = -0.08901179
+energy = 1.5
+shadow_enabled = true

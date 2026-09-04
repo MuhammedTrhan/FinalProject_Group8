@@ -5,5 +5,7 @@
 [node name="Lamp" type="Node2D" unique_id=1604036555]
 
 [node name="PointLight2D" type="PointLight2D" parent="." unique_id=1378408261]
+energy = 1.5
 shadow_enabled = true
 texture = ExtResource("1_veqsg")
+height = 48.0

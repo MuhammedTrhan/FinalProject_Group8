@@ -2,12 +2,16 @@
 
 [ext_resource type="Script" uid="uid://jlakpiwqvysm" path="res://Scripts/EditorLabel.gd" id="1_5h8ex"]
 
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_5h8ex"]
+light_mode = 1
+
 [sub_resource type="LabelSettings" id="LabelSettings_5h8ex"]
 outline_size = 5
 outline_color = Color(0, 0, 0, 1)
 
 [node name="EditorLabel" type="Label" unique_id=1569352386]
 z_index = 10
+material = SubResource("CanvasItemMaterial_5h8ex")
 offset_right = 40.0
 offset_bottom = 23.0
 text = "Lorem Ipsum"
