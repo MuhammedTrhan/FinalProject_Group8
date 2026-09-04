@@ -1,5 +1,5 @@
-extends StaticBody2D
 class_name Furniture
+extends StaticBody2D
 
 
 @export var is_active := false

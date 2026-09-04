@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://lgxl3cht6vlk"]
 
 [ext_resource type="Texture2D" uid="uid://bnqp3ro7aluuu" path="res://Assets/Interior/Furnitures/TopDownHouse_FurnitureState1.png" id="1_2d3bi"]
-[ext_resource type="Script" uid="uid://bafsab75v6ak4" path="res://Scripts/Furniture.gd" id="1_xgchm"]
+[ext_resource type="Script" path="res://Scripts/furniture.gd" id="1_08fgv"]
 [ext_resource type="Texture2D" uid="uid://bu7s235skbrck" path="res://Assets/Interior/Furnitures/TopDownHouse_FurnitureState2.png" id="2_08fgv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h0llp"]
@@ -21,7 +21,7 @@ outline_color = Color(0, 0, 0, 1)
 [node name="Furniture" type="StaticBody2D" unique_id=758378394]
 y_sort_enabled = true
 collision_layer = 2
-script = ExtResource("1_xgchm")
+script = ExtResource("1_08fgv")
 
 [node name="InactiveSprite" type="Sprite2D" parent="." unique_id=1764835962]
 texture = ExtResource("1_2d3bi")

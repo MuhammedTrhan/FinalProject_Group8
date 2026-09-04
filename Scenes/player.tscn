@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://bpgm6bh6mfqtp" path="res://Scripts/PlayerAnimationHandler.gd" id="3_6t5aa"]
 [ext_resource type="Texture2D" uid="uid://bko47g71q7q55" path="res://Assets/Player/standard/slash.png" id="3_fkybt"]
 [ext_resource type="Texture2D" uid="uid://ddjdt1gosvwy2" path="res://Assets/Player/standard/walk.png" id="3_vgqql"]
+[ext_resource type="Texture2D" uid="uid://b16tacmrlbvog" path="res://Assets/Player/standard/sit.png" id="4_x3wgy"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cvnsp"]
 radius = 4.0
@@ -534,6 +535,122 @@ tracks/2/keys = {
 "values": [0.2]
 }
 
+[sub_resource type="Animation" id="Animation_p1odr"]
+resource_name = "sit_down"
+length = 0.0333
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("4_x3wgy")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [28]
+}
+
+[sub_resource type="Animation" id="Animation_bi64h"]
+resource_name = "sit_left"
+length = 0.0333
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("4_x3wgy")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [15]
+}
+
+[sub_resource type="Animation" id="Animation_2ijsl"]
+resource_name = "sit_right"
+length = 0.0333
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("4_x3wgy")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [41]
+}
+
+[sub_resource type="Animation" id="Animation_0gysh"]
+resource_name = "sit_up"
+length = 0.0333
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("4_x3wgy")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+
 [sub_resource type="Animation" id="Animation_gymyn"]
 resource_name = "slash_down"
 length = 0.2
@@ -873,6 +990,10 @@ _data = {
 &"lock_left": SubResource("Animation_l6n3p"),
 &"lock_right": SubResource("Animation_olqyp"),
 &"lock_up": SubResource("Animation_wpjfl"),
+&"sit_down": SubResource("Animation_p1odr"),
+&"sit_left": SubResource("Animation_bi64h"),
+&"sit_right": SubResource("Animation_2ijsl"),
+&"sit_up": SubResource("Animation_0gysh"),
 &"slash_down": SubResource("Animation_gymyn"),
 &"slash_left": SubResource("Animation_7dp3o"),
 &"slash_right": SubResource("Animation_ukyrk"),
