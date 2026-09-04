@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://cnb0fjo8fadgw"]
+
+[ext_resource type="PackedScene" uid="uid://lgxl3cht6vlk" path="res://Scenes/Furnitures/furniture_interactable_base.tscn" id="1_f4461"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f4461"]
+size = Vector2(24, 5)
+
+[node name="SpoonHolder" unique_id=758378394 instance=ExtResource("1_f4461")]
+
+[node name="InactiveSprite" parent="." index="0" unique_id=1764835962]
+offset = Vector2(0, -24)
+region_rect = Rect2(64, 240, 32, 16)
+
+[node name="ActiveSprite" parent="." index="1" unique_id=91856626]
+offset = Vector2(0, -24)
+region_rect = Rect2(64, 240, 32, 16)
+
+[node name="Hitbox" parent="." index="2" unique_id=150259076]
+visible = true
+position = Vector2(0, -27.5)
+shape = SubResource("RectangleShape2D_f4461")
+
+[node name="InterractionArea" parent="." index="3" unique_id=97300687]
+visible = false

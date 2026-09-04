@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://x67sckpbm50c"]
 
-[ext_resource type="PackedScene" uid="uid://lgxl3cht6vlk" path="res://Scenes/Furnitures/furniture_base.tscn" id="1_oco3p"]
+[ext_resource type="PackedScene" uid="uid://lgxl3cht6vlk" path="res://Scenes/Furnitures/furniture_interactable_base.tscn" id="1_oco3p"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_oco3p"]
 radius = 8.0

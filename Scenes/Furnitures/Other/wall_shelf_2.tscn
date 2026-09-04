@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://bcxtmrk366pot"]
+
+[ext_resource type="PackedScene" uid="uid://dh5f37ia22vin" path="res://Scenes/Furnitures/furniture_uninteractable_base.tscn" id="1_qr1pk"]
+[ext_resource type="Texture2D" uid="uid://bu7s235skbrck" path="res://Assets/Interior/Furnitures/TopDownHouse_FurnitureState2.png" id="2_wji12"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_thllj"]
+size = Vector2(48, 13)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ci17u"]
+radius = 14.0
+height = 62.0
+
+[node name="WallShelf1" unique_id=758378394 instance=ExtResource("1_qr1pk")]
+
+[node name="Sprite2D" parent="." index="0" unique_id=1764835962]
+texture = ExtResource("2_wji12")
+region_rect = Rect2(128, 240, 48, 16)
+
+[node name="Hitbox" parent="." index="1" unique_id=150259076]
+visible = true
+position = Vector2(0, 1.5)
+shape = SubResource("RectangleShape2D_thllj")
+
+[node name="InterractionArea" parent="." index="2" unique_id=97300687]
+visible = false
+
+[node name="InterractionBox" parent="InterractionArea" index="0" unique_id=1028417380]
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_ci17u")

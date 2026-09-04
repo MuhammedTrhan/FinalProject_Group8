@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://dh5f37ia22vin"]
+
+[ext_resource type="Texture2D" uid="uid://bnqp3ro7aluuu" path="res://Assets/Interior/Furnitures/TopDownHouse_FurnitureState1.png" id="2_d627x"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h0llp"]
+size = Vector2(16, 42)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ao6dg"]
+radius = 18.0
+height = 76.0
+
+[node name="Furniture" type="StaticBody2D" unique_id=758378394]
+y_sort_enabled = true
+collision_layer = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1764835962]
+texture = ExtResource("2_d627x")
+region_enabled = true
+
+[node name="Hitbox" type="CollisionShape2D" parent="." unique_id=150259076]
+visible = false
+shape = SubResource("RectangleShape2D_h0llp")
+
+[node name="InterractionArea" type="Area2D" parent="." unique_id=97300687]
+
+[node name="InterractionBox" type="CollisionShape2D" parent="InterractionArea" unique_id=1028417380]
+shape = SubResource("CapsuleShape2D_ao6dg")

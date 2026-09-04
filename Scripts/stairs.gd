@@ -54,15 +54,11 @@ func on_teleport_trigger(body: Node) -> void:
 		else:
 			target_spawn_pos = destination_stairs.descending_spawn.global_position
 			dest_stair_start_point = destination_stairs.lower_end.global_position
-		
-		# Calculate the facing direction after the teleport. 
-		# It should face away from the stairs.
-		var teleport_face_dir: Vector2 = (target_spawn_pos - dest_stair_start_point).normalized()
 
-		teleport(body, target_spawn_pos, teleport_face_dir)
+		teleport(body, target_spawn_pos, dest_stair_start_point)
 
 
-func teleport(body: Node2D, spawn_position: Vector2, face_dir: Vector2) -> void:
+func teleport(body: Node2D, spawn_position: Vector2, stairs_end: Vector2) -> void:
 	if not body.is_in_group("player") and not body.is_in_group("enemy"):
 		return
 
@@ -70,6 +66,6 @@ func teleport(body: Node2D, spawn_position: Vector2, face_dir: Vector2) -> void:
 	body.global_position = tween_start_pos
 
 	if body.has_method("start_teleport"):
-		body.start_teleport(spawn_position, tween_target_pos, face_dir)
+		body.start_teleport(spawn_position, tween_target_pos, stairs_end)
 	else:
 		body.global_position = spawn_position

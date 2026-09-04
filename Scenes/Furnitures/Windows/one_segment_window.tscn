@@ -2,6 +2,15 @@
 
 [ext_resource type="Texture2D" uid="uid://b42sy7cylvcnm" path="res://Assets/Interior/FloorsAndWalls/TopDownHouse_DoorsAndWindows.png" id="1_jds2y"]
 
+[sub_resource type="Gradient" id="Gradient_vwuhp"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_jds2y"]
+gradient = SubResource("Gradient_vwuhp")
+fill = 1
+fill_from = Vector2(0.5, 0)
+fill_to = Vector2(0.5, 1)
+
 [node name="FourSegmentWindow" type="Sprite2D" unique_id=120073871]
 y_sort_enabled = true
 scale = Vector2(1.25, 1.25)
@@ -9,3 +18,11 @@ texture = ExtResource("1_jds2y")
 offset = Vector2(0, -24)
 region_enabled = true
 region_rect = Rect2(161, 52, 31, 28)
+
+[node name="PointLight2D" type="PointLight2D" parent="." unique_id=1760297598]
+position = Vector2(1.4099735, 1.4305115e-06)
+scale = Vector2(0.30001137, 0.7277694)
+skew = -0.08726646
+energy = 0.4
+shadow_enabled = true
+texture = SubResource("GradientTexture2D_jds2y")

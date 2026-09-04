@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://c1y43vyig73ck"]
+
+[ext_resource type="PackedScene" uid="uid://lgxl3cht6vlk" path="res://Scenes/Furnitures/furniture_interactable_base.tscn" id="1_wde0h"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wde0h"]
+size = Vector2(41, 23)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cn5yu"]
+radius = 19.0
+height = 66.0
+
+[node name="Bathtub" unique_id=758378394 instance=ExtResource("1_wde0h")]
+
+[node name="InactiveSprite" parent="." index="0" unique_id=1764835962]
+region_rect = Rect2(80, 256, 48, 32)
+
+[node name="ActiveSprite" parent="." index="1" unique_id=91856626]
+region_rect = Rect2(80, 256, 48, 32)
+
+[node name="Hitbox" parent="." index="2" unique_id=150259076]
+position = Vector2(-0.5, 3.5)
+shape = SubResource("RectangleShape2D_wde0h")
+
+[node name="InterractionBox" parent="InterractionArea" parent_id_path=PackedInt32Array(97300687) index="0" unique_id=1028417380]
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_cn5yu")

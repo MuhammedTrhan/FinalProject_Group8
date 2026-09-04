@@ -1,5 +1,6 @@
 extends CharacterBody2D
 
+
 const MAX_SPEED = 150.0
 # How fast the player speeds up (pixels per second squared)
 const ACCELERATION = 800.0
@@ -59,7 +60,7 @@ func add_key(key_scene: PackedScene) -> void:
 		keys.append(key_scene)
 
 
-func start_teleport(target_position: Vector2, tween_target_pos: Vector2, face_dir: Vector2 = Vector2.DOWN, duration: float = 0.5) -> void:
+func start_teleport(target_position: Vector2, tween_target_pos: Vector2, stairs_end: Vector2 = Vector2.ZERO, duration: float = 0.5) -> void:
 	if teleport_tween:
 		teleport_tween.kill() # Stop any existing teleport tween
 		
@@ -68,17 +69,8 @@ func start_teleport(target_position: Vector2, tween_target_pos: Vector2, face_di
 	velocity = Vector2.ZERO
 
 	# Make sure the player is looking at the target position of the tween before starting the tween
-	var dir := (tween_target_pos - global_position).normalized()
-	if abs(dir.x) >= abs(dir.y):
-		if dir.x > 0:
-			anim_handler.set_facing_direction("right")
-		else:
-			anim_handler.set_facing_direction("left")
-	else:
-		if dir.y > 0:
-			anim_handler.set_facing_direction("down")
-		else:
-			anim_handler.set_facing_direction("up")
+	var look_dir: String = find_look_direction(tween_target_pos, global_position)
+	anim_handler.set_facing_direction(look_dir)
 
 	teleport_tween = create_tween()
 	# PHASE 1: Tween the player into the stairs AND fade the screen to black simultaneously
@@ -88,10 +80,10 @@ func start_teleport(target_position: Vector2, tween_target_pos: Vector2, face_di
 
 	# PHASE 2: Once black, turn off parallel mode and trigger the teleport
 	teleport_tween.set_parallel(false)
-	teleport_tween.tween_callback(func(): end_teleport(target_position, duration, face_dir))
+	teleport_tween.tween_callback(func(): end_teleport(target_position, duration, stairs_end))
 
 
-func end_teleport(target_position: Vector2, fade_duration: float, face_dir: Vector2 = Vector2.DOWN) -> void:
+func end_teleport(target_position: Vector2, fade_duration: float, stairs_end: Vector2 = Vector2.ZERO) -> void:
 	# Teleport the player to the target spawn position
 	global_position = target_position
 	# Force the camera to instantly snap to the new floor without panning
@@ -103,30 +95,42 @@ func end_teleport(target_position: Vector2, fade_duration: float, face_dir: Vect
 	is_teleporting = false
 
 	# Calculate the facing direction after the teleport. It should face away from the stairs.
-	if abs(face_dir.x) >= abs(face_dir.y):
-		if face_dir.x > 0:
-			anim_handler.set_facing_direction("right")
-		else:
-			anim_handler.set_facing_direction("left")
-	else:
-		if face_dir.y > 0:
-			anim_handler.set_facing_direction("down")
-		else:
-			anim_handler.set_facing_direction("up")
+	var look_dir: String = find_look_direction(global_position, stairs_end)
+	anim_handler.set_facing_direction(look_dir)
 		
 	# PHASE 3: Create a new tween to fade the screen back to transparent
 	var fade_in_tween = create_tween()
 	fade_in_tween.tween_property(fade_rect, "modulate:a", 0.0, fade_duration)
 
-func on_door_interacted(interaction: int) -> void:
-	# Pass the interaction to the animation handler to play the appropriate animation
-	anim_handler.handle_door_interaction(interaction)
+func on_door_interacted(interaction: Interactions.InteractionType) -> void:
 	handle_interactions()
+
+	# Pass the interaction to the animation handler to play the appropriate animation
+	anim_handler.handle_interaction_anim(interaction)
+
+func on_sit_triggered(isSeated: bool, sitPosition: Vector2, standPosition: Vector2) -> void:
+	handle_interactions()
+
+	# Player should face away from the chair for both sitting and standing up.
+	# This is standPosition - sitPosition, normalized to get the direction vector.
+	var look_dir: String = find_look_direction(standPosition, sitPosition)
+	anim_handler.set_facing_direction(look_dir)
+
+	if isSeated:
+		# Snap the player to the seat position
+		global_position = sitPosition
+		anim_handler.handle_interaction_anim(Interactions.InteractionType.SITDOWN)
+	else:
+		# Snap the player to the stand up position
+		global_position = standPosition
+		anim_handler.handle_interaction_anim(Interactions.InteractionType.STANDUP)
 
 
 # Stop player movement during interactions and resume it after the interaction animation is finished
 func handle_interactions() -> void:
-	anim_handler.interact_anim_finish.connect(_on_interact_anim_finish)
+	if not anim_handler.interact_anim_finish.is_connected(_on_interact_anim_finish):
+		anim_handler.interact_anim_finish.connect(_on_interact_anim_finish)
+
 	stop_player_movement()
 
 func _on_interact_anim_finish() -> void:
@@ -144,3 +148,17 @@ func stop_player_movement() -> void:
 func resume_player_movement() -> void:
 	# Resume accepting input
 	accept_input = true
+
+
+func find_look_direction(target_position: Vector2, start_position: Vector2) -> String:
+	var direction_vector = (target_position - start_position).normalized()
+	if abs(direction_vector.x) >= abs(direction_vector.y):
+		if direction_vector.x > 0:
+			return "right"
+		else:
+			return "left"
+	else:
+		if direction_vector.y > 0:
+			return "down"
+		else:
+			return "up"

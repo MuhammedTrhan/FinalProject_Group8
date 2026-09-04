@@ -1,6 +1,7 @@
 extends AnimationPlayer
 class_name PlayerAnimationHandler
 
+
 signal interact_anim_finish()
 
 @export var anim_player: AnimationPlayer
@@ -11,7 +12,7 @@ var interact_state: String = ""
 var last_direction: String = "down"
 
 # These interaction anims should override the default walk/idle animations
-var interaction_anims = ["slash", "back_slash", "lock"]
+var interaction_anims = ["slash", "back_slash", "lock", "sit"]
 
 # Call this function from your Player's _physics_process
 func update_animations(velocity: Vector2) -> void:
@@ -44,18 +45,23 @@ func set_facing_direction(direction: String) -> void:
     if direction in ["up", "down", "left", "right"]:
         last_direction = direction
     
-func handle_door_interaction(interaction: int) -> void:
+func handle_interaction_anim(interaction: Interactions.InteractionType) -> void:
     is_interacting = true
 
     match interaction:
-        0: # DoorInteraction.OPEN
+        Interactions.InteractionType.OPEN:
             interact_state = "slash"
-        1: # DoorInteraction.CLOSE
+        Interactions.InteractionType.CLOSE:
             interact_state = "back_slash"
-        2: # DoorInteraction.LOCK
+        Interactions.InteractionType.LOCK:
             interact_state = "lock"
-        3: # DoorInteraction.UNLOCK
+        Interactions.InteractionType.UNLOCK:
             interact_state = "lock"
+        Interactions.InteractionType.SITDOWN:
+            interact_state = "sit"
+        Interactions.InteractionType.STANDUP:
+            # manually call the animation finished signal for stand up since it doesn't have an animation
+            _on_animation_finished("sit_" + last_direction)
 
 
 func _on_animation_finished(anim_name: StringName) -> void:

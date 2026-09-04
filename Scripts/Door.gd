@@ -1,14 +1,8 @@
 class_name Door
 extends StaticBody2D
 
-enum DoorInteraction {
-	OPEN,
-	CLOSE,
-	LOCK,
-	UNLOCK
-}
 
-signal door_interacted(interaction: DoorInteraction)
+signal door_interacted(interaction: Interactions.InteractionType)
 
 @export var is_locked := false
 @export var required_key: PackedScene
@@ -87,7 +81,7 @@ func open_door() -> void:
 	if player_in_area:
 		update_info_label()
 	
-	door_interacted.emit(DoorInteraction.OPEN)
+	door_interacted.emit(Interactions.InteractionType.OPEN)
 
 
 func close_door() -> void:
@@ -101,17 +95,17 @@ func close_door() -> void:
 		update_info_label()
 		info_label.show()
 	
-	door_interacted.emit(DoorInteraction.CLOSE)
+	door_interacted.emit(Interactions.InteractionType.CLOSE)
 	
 
 func toogle_lock() -> void:
 	is_locked = not is_locked
 	if is_locked:
 		lock_icon.show()
-		door_interacted.emit(DoorInteraction.LOCK)
+		door_interacted.emit(Interactions.InteractionType.LOCK)
 	else:
 		lock_icon.hide()
-		door_interacted.emit(DoorInteraction.UNLOCK)
+		door_interacted.emit(Interactions.InteractionType.UNLOCK)
 
 	if player_in_area:
 		update_info_label()
@@ -191,6 +185,5 @@ func _on_interraction_area_body_exited(body: Node2D) -> void:
 	if body_key in interacting_bodies and interacting_bodies[body_key] == body:
 		interacting_bodies.erase(body_key)
 		
-		if body.has_method("on_door_interacted"):
-			if door_interacted.is_connected(body.on_door_interacted):
+		if body.has_method("on_door_interacted") and door_interacted.is_connected(body.on_door_interacted):
 				door_interacted.disconnect(body.on_door_interacted)
