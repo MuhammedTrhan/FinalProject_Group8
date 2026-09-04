@@ -57,10 +57,10 @@ label_settings = SubResource("LabelSettings_avjte")
 horizontal_alignment = 1
 
 [node name="StandUpMarker" type="Marker2D" parent="." unique_id=1118046313]
-position = Vector2(20, 12)
+position = Vector2(20, 10)
 
 [node name="SitDownMarker" type="Marker2D" parent="." unique_id=2074848840]
-position = Vector2(0, 12)
+position = Vector2(2, 10)
 
 [connection signal="body_entered" from="InterractionArea" to="." method="_on_interraction_area_body_entered"]
 [connection signal="body_exited" from="InterractionArea" to="." method="_on_interraction_area_body_exited"]

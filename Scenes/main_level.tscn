@@ -1451,7 +1451,6 @@ end_position = Vector2(-1079, 528)
 [node name="Player" parent="." unique_id=496936875 instance=ExtResource("6_236hc")]
 position = Vector2(415, 177)
 scale = Vector2(0.75, 0.75)
-keys = null
 
 [node name="EditorLabels" type="Node2D" parent="." unique_id=1631701532]
 
@@ -1826,28 +1825,22 @@ position = Vector2(688, 88)
 
 [node name="Fridge" parent="Furnitures/Kitchen" unique_id=1076947886 instance=ExtResource("22_8ce4n")]
 position = Vector2(467, 73)
-is_active = null
 
 [node name="SpoonHolder" parent="Furnitures/Kitchen" unique_id=441619324 instance=ExtResource("23_8ce4n")]
 position = Vector2(544, 78)
-is_active = null
 
 [node name="KitchenSink" parent="Furnitures/Kitchen" unique_id=1230200324 instance=ExtResource("13_vgie2")]
 y_sort_enabled = false
 position = Vector2(609, 79)
-is_active = null
 
 [node name="KitchenDrawr" parent="Furnitures/Kitchen" unique_id=558337155 instance=ExtResource("18_and0o")]
 position = Vector2(633, 79)
-is_active = null
 
 [node name="KitchenShelf" parent="Furnitures/Kitchen" unique_id=1161149733 instance=ExtResource("19_jf8f8")]
 position = Vector2(649, 79)
-is_active = null
 
 [node name="KitchenCabinet" parent="Furnitures/Kitchen" unique_id=263241115 instance=ExtResource("20_qx7ya")]
 position = Vector2(664, 79)
-is_active = null
 
 [node name="Lamps" type="Node2D" parent="Furnitures" unique_id=1321883707]
 
@@ -1947,17 +1940,14 @@ y_sort_enabled = true
 [node name="Bathtub" parent="Furnitures/Toilet" unique_id=860790252 instance=ExtResource("24_o0i6v")]
 position = Vector2(116, 395.00003)
 scale = Vector2(1.5, 1.5)
-is_active = null
 
 [node name="Sink" parent="Furnitures/Toilet" unique_id=65025301 instance=ExtResource("25_1ubp3")]
 position = Vector2(338, 392)
 scale = Vector2(1.15, 1.15)
-is_active = null
 
 [node name="ToiletVertical" parent="Furnitures/Toilet" unique_id=791603013 instance=ExtResource("26_oi0bv")]
 position = Vector2(95.00001, 518)
 scale = Vector2(1.25, 1.25)
-is_active = null
 
 [node name="TableLamp" parent="Furnitures" unique_id=1462293003 instance=ExtResource("28_eckhq")]
 position = Vector2(26, 288)
@@ -1974,4 +1964,4 @@ shadow_enabled = true
 position = Vector2(1863, 522.00006)
 
 [node name="SofaVertical" parent="." unique_id=653759380 instance=ExtResource("30_2xkur")]
-position = Vector2(280, 174)
+position = Vector2(13, 155)

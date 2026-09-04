@@ -10,6 +10,7 @@ var player_inside: bool = false
 var is_occupied: bool = false
 # Holds bodies: {"player": body_ref, "enemy": body_ref}
 var interacting_bodies: Dictionary = {}
+var occupant: Node2D = null
 
 
 func _ready() -> void:
@@ -61,22 +62,30 @@ func _unhandled_input(event: InputEvent) -> void:
         return
 
     # IF SITTING: Listen for 'action' or movement keys to stand up
-    if is_occupied:
+    if is_occupied and occupant == player_body:
         if event.is_action_pressed("action") or _is_movement_key(event):
             stand_up()
             
     # IF NOT SITTING: Listen for 'action' to sit down
-    elif player_inside:
+    elif player_inside and not is_occupied:
         if event.is_action_pressed("action"):
-            sit_down()
+            sit_down(player_body)
 
-func sit_down() -> void:
+func sit_down(character: Node2D) -> void:
     is_occupied = true
+    occupant = character
     info_label.hide()
+
+    # The chair dynamically ignores collision with whoever sat in it
+    occupant.add_collision_exception_with(self)
     
     sit_triggered.emit(true, sit_down_point.global_position, stand_up_point.global_position)
 
 func stand_up() -> void:
+    if is_instance_valid(occupant):
+        # Restore collision for the occupant before clearing the reference
+        occupant.remove_collision_exception_with(self)
+    
     is_occupied = false
     
     sit_triggered.emit(false, sit_down_point.global_position, stand_up_point.global_position)
