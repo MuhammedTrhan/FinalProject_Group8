@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://bg55ac0ppioej"]
+
+[sub_resource type="Gradient" id="Gradient_i1i1k"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_e765o"]
+gradient = SubResource("Gradient_i1i1k")
+fill = 1
+fill_from = Vector2(0.5, 0)
+fill_to = Vector2(0.5, 0.5)
+
+[node name="VerticalWindow" type="Node2D" unique_id=851949310]
+y_sort_enabled = true
+scale = Vector2(1.25, 1.25)
+
+[node name="PointLight2D" type="PointLight2D" parent="." unique_id=1348110792]
+position = Vector2(28.009186, 5.022794e-07)
+rotation = -1.5707964
+scale = Vector2(0.331, 0.64091206)
+energy = 0.4
+shadow_enabled = true
+texture = SubResource("GradientTexture2D_e765o")
