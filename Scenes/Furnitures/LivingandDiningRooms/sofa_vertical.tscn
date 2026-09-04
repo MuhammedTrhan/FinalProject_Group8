@@ -15,10 +15,12 @@ height = 76.0
 region_rect = Rect2(0, 192, 24, 64)
 
 [node name="Hitbox" parent="." index="1" unique_id=150259076]
-visible = true
 position = Vector2(-1, 5)
 shape = SubResource("RectangleShape2D_qb5qa")
 
-[node name="InterractionBox" parent="InterractionArea" parent_id_path=PackedInt32Array(97300687) index="0" unique_id=1028417380]
+[node name="InterractionArea" parent="." index="2" unique_id=97300687]
+visible = false
+
+[node name="InterractionBox" parent="InterractionArea" index="0" unique_id=1028417380]
 position = Vector2(6, 0)
 shape = SubResource("CapsuleShape2D_x3ns8")

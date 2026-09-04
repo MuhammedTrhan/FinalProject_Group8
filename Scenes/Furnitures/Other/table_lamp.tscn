@@ -5,8 +5,8 @@
 [ext_resource type="Script" uid="uid://bwrms388cydxi" path="res://Scripts/TableLamp.gd" id="2_inhaa"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6ksvj"]
-radius = 7.0
-height = 23.0
+radius = 3.0
+height = 10.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_inhaa"]
 radius = 11.0
@@ -16,19 +16,24 @@ height = 48.0
 script = ExtResource("2_inhaa")
 
 [node name="InactiveSprite" parent="." index="0" unique_id=1764835962]
+offset = Vector2(0, -10)
 region_rect = Rect2(0, 256, 16, 32)
 
 [node name="ActiveSprite" parent="." index="1" unique_id=91856626]
+offset = Vector2(0, -10)
 region_rect = Rect2(0, 256, 16, 32)
 
 [node name="Hitbox" parent="." index="2" unique_id=150259076]
-position = Vector2(0, 1)
+visible = true
+rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_6ksvj")
 
 [node name="InterractionBox" parent="InterractionArea" parent_id_path=PackedInt32Array(97300687) index="0" unique_id=1028417380]
+position = Vector2(0, -10)
 shape = SubResource("CapsuleShape2D_inhaa")
 
 [node name="PointLight2D" type="PointLight2D" parent="." index="5" unique_id=719217877]
+position = Vector2(0, -8)
 color = Color(0.6237184, 0.6237184, 0.053774156, 1)
 energy = 0.5
 shadow_enabled = true
