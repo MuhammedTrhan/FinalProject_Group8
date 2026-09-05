@@ -16,11 +16,11 @@ To ensure a smooth development process, prevent data loss, and avoid devastating
 ## 2. Branching Strategy & Conflict Resolution (Based on VL3)
 * **Use Feature Branches:** Never work directly on the `main` branch. Create a new branch for every task (e.g., `feature/player-movement`, `feature/ui-menus`, `feature/enemy-ai`).
 * **Safe Merging Practice:** Before merging your feature branch back into `main`:
-    1. Commit your current work on your feature branch.
-    2. Switch to `main` and pull the latest changes.
-    3. Switch back to your feature branch and merge `main` into your feature branch locally.
-    4. Fix any conflicts on your own branch and test the game.
-    5. Once everything works perfectly, merge your branch into `main` and push.
+	1. Commit your current work on your feature branch.
+	2. Switch to `main` and pull the latest changes.
+	3. Switch back to your feature branch and merge `main` into your feature branch locally.
+	4. Fix any conflicts on your own branch and test the game.
+	5. Once everything works perfectly, merge your branch into `main` and push.
 * *Rule of Thumb:* Always break things on your own branch, never on the shared `main` branch!
 
 ---
