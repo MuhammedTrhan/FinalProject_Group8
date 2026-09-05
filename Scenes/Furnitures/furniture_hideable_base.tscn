@@ -1,0 +1,66 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://Scripts/Hideable.gd" id="1_hdbl0"]
+[ext_resource type="Texture2D" uid="uid://b57g1d2wirast" path="res://Assets/Interior/Furnitures/furniture.png" id="1_hdbl1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hdbl0"]
+size = Vector2(28, 56)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hdbl0"]
+radius = 20.0
+height = 84.0
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_hdbl0"]
+light_mode = 1
+
+[sub_resource type="LabelSettings" id="LabelSettings_hdbl0"]
+outline_size = 5
+outline_color = Color(0, 0, 0, 1)
+
+[node name="Hideable" type="StaticBody2D" unique_id=758378394]
+y_sort_enabled = true
+collision_layer = 2
+script = ExtResource("1_hdbl0")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1764835962]
+texture = ExtResource("1_hdbl1")
+region_enabled = true
+
+[node name="Hitbox" type="CollisionShape2D" parent="." unique_id=150259076]
+visible = false
+shape = SubResource("RectangleShape2D_hdbl0")
+
+[node name="InterractionArea" type="Area2D" parent="." unique_id=97300687]
+
+[node name="InterractionBox" type="CollisionShape2D" parent="InterractionArea" unique_id=1028417380]
+shape = SubResource("CapsuleShape2D_hdbl0")
+
+[node name="InfoLabel" type="Label" parent="." unique_id=1561389019]
+visible = false
+z_index = 1
+material = SubResource("CanvasItemMaterial_hdbl0")
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -43.0
+offset_top = -37.0
+offset_right = 169.49997
+offset_bottom = -14.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.4, 0.4)
+size_flags_horizontal = 4
+text = "Press 'Space' to hide"
+label_settings = SubResource("LabelSettings_hdbl0")
+horizontal_alignment = 1
+
+[node name="HideMarker" type="Marker2D" parent="." unique_id=1118046313]
+position = Vector2(0, 10)
+
+[node name="StandMarker" type="Marker2D" parent="." unique_id=2074848840]
+position = Vector2(0, 40)
+
+[connection signal="body_entered" from="InterractionArea" to="." method="_on_interraction_area_body_entered"]
+[connection signal="body_exited" from="InterractionArea" to="." method="_on_interraction_area_body_exited"]

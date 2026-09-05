@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://ok4242evxvb6"]
+
+[ext_resource type="PackedScene" path="res://Scenes/Furnitures/furniture_hideable_base.tscn" id="1_odfwg"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_beda0"]
+size = Vector2(28, 37)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_beda0"]
+radius = 21.0
+height = 84.0
+
+[node name="SingleVerticalBed1" unique_id=2065614399 instance=ExtResource("1_odfwg")]
+
+[node name="Sprite2D" parent="." index="0" unique_id=1764835962]
+region_rect = Rect2(0, 32, 32, 48)
+
+[node name="Hitbox" parent="." index="1" unique_id=150259076]
+visible = true
+position = Vector2(0, 4.5)
+shape = SubResource("RectangleShape2D_beda0")
+
+[node name="InterractionBox" parent="InterractionArea" parent_id_path=PackedInt32Array(97300687) index="0" unique_id=1028417380]
+shape = SubResource("CapsuleShape2D_beda0")

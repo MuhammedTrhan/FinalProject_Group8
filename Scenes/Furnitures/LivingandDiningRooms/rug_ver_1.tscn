@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://cjqpouhri8a3j"]
+
+[ext_resource type="PackedScene" uid="uid://dh5f37ia22vin" path="res://Scenes/Furnitures/furniture_uninteractable_base.tscn" id="1_fhiue"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fhiue"]
+size = Vector2(16, 42)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rug00"]
+radius = 12.0
+height = 44.0
+
+[node name="RugVertical" unique_id=1811262912 instance=ExtResource("1_fhiue")]
+z_index = -1
+y_sort_enabled = false
+
+[node name="Sprite2D" parent="." index="0" unique_id=1764835962]
+region_rect = Rect2(112, 32, 16, 32)
+
+[node name="Hitbox" parent="." index="1" unique_id=150259076]
+shape = SubResource("RectangleShape2D_fhiue")
+disabled = true
+
+[node name="InterractionArea" parent="." index="2" unique_id=97300687]
+visible = false
+
+[node name="InterractionBox" parent="InterractionArea" index="0" unique_id=1028417380]
+shape = SubResource("CapsuleShape2D_rug00")

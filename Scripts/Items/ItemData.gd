@@ -23,4 +23,4 @@ extends Resource
 
 
 func _to_string() -> String:
-	return "ItemData(%s)" % (id if id != &"" else "<unnamed>")
+	return "ItemData(%s)" % (String(id) if id != &"" else "<unnamed>")
