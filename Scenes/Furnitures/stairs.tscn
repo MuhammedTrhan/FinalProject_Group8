@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dlj2bnqinapht"]
 
 [ext_resource type="Texture2D" uid="uid://b42sy7cylvcnm" path="res://Assets/Interior/FloorsAndWalls/TopDownHouse_DoorsAndWindows.png" id="1_aiuvb"]
-[ext_resource type="Script" uid="uid://pr81frccc6h2" path="res://Scripts/stairs.gd" id="1_qbift"]
+[ext_resource type="Script" uid="uid://cb4eqqckxamtc" path="res://Scripts/Stairs.gd" id="1_qbift"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qbift"]
 size = Vector2(45.625, 35.75)

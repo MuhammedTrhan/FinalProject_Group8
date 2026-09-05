@@ -2,3 +2,19 @@ root = true
 
 [*]
 charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+# GDScript requires consistent indentation. Mixing tabs and spaces in a single
+# file is a hard parser error, so the whole project is normalised to tabs.
+[*.gd]
+indent_style = tab
+indent_size = 4
+
+[*.{tscn,tres,godot,cfg}]
+indent_style = tab
+trim_trailing_whitespace = false
+
+[*.md]
+trim_trailing_whitespace = false

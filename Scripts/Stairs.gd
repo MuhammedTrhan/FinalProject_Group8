@@ -17,7 +17,10 @@ var tween_target_pos: Vector2
 
 func _ready() -> void:
 	if not destination_stairs:
-		print("Destination stairs not set for %s" % self.name)
+		# Without a destination the triggers below would fire and do nothing,
+		# which reads as "the stairs are silently broken". Fail loudly instead.
+		push_error("Stairs '%s' has no destination_stairs assigned." % name)
+		return
 
 	if leads_upstairs:
 		# Set the climb trigger to monitor and the descend trigger to not monitor
@@ -42,6 +45,11 @@ func _ready() -> void:
 
 
 func on_teleport_trigger(body: Node) -> void:
+	# Never restart a teleport that is already running: start_teleport() kills
+	# the in-flight tween, so a re-entry mid-transition would loop.
+	if body.get("is_teleporting"):
+		return
+
 	if destination_stairs and (body.is_in_group("player") or body.is_in_group("enemy")):
 		var dest_stair_start_point: Vector2
 		var target_spawn_pos: Vector2
