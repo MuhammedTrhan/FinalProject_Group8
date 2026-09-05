@@ -1,0 +1,47 @@
+[gd_scene format=3 uid="uid://da3iv0lrn4ne2"]
+
+[ext_resource type="PackedScene" uid="uid://lgxl3cht6vlk" path="res://Scenes/Furnitures/furniture_interactable_base.tscn" id="1_frpl0"]
+[ext_resource type="Script" uid="uid://bwrms388cydxi" path="res://Scripts/LightSourceFurniture.gd" id="2_fuqo7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_frpl0"]
+size = Vector2(24, 24)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_frpl0"]
+radius = 18.0
+height = 56.0
+
+[sub_resource type="Gradient" id="Gradient_ssfek"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_fuqo7"]
+gradient = SubResource("Gradient_ssfek")
+width = 512
+height = 512
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+
+[node name="Fireplace" unique_id=2054074670 instance=ExtResource("1_frpl0")]
+script = ExtResource("2_fuqo7")
+
+[node name="InactiveSprite" parent="." index="0" unique_id=1764835962]
+region_rect = Rect2(144, 112, 32, 48)
+
+[node name="ActiveSprite" parent="." index="1" unique_id=91856626]
+region_rect = Rect2(144, 112, 32, 48)
+
+[node name="Hitbox" parent="." index="2" unique_id=150259076]
+visible = true
+position = Vector2(0, 4)
+shape = SubResource("RectangleShape2D_frpl0")
+
+[node name="InterractionBox" parent="InterractionArea" parent_id_path=PackedInt32Array(97300687) index="0" unique_id=1028417380]
+position = Vector2(0, 4)
+shape = SubResource("CapsuleShape2D_frpl0")
+
+[node name="PointLight2D" type="PointLight2D" parent="." index="5" unique_id=1106447393]
+position = Vector2(0, 8)
+color = Color(0.76862746, 0.62352943, 0.05490196, 1)
+shadow_enabled = true
+texture = SubResource("GradientTexture2D_fuqo7")
+texture_scale = 0.33

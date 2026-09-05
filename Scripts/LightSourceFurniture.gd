@@ -1,4 +1,4 @@
-class_name TableLamp
+class_name LightSourceFurniture
 extends Furniture
 
 @onready var light_node: PointLight2D = $PointLight2D
