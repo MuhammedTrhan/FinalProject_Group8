@@ -11,12 +11,20 @@ config_version=5
 [application]
 
 config/name="FinalProject_Group8"
+run/main_scene="res://Scenes/main_level.tscn"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
 Interactions="*uid://dc32btgeaseow"
+
+[display]
+
+window/size/viewport_width=1152
+window/size/viewport_height=648
+window/stretch/mode="viewport"
+window/stretch/aspect="keep"
 
 [global_group]
 
@@ -64,7 +72,11 @@ action={
 
 2d_physics/layer_1="Player"
 2d_physics/layer_2="Walls"
+2d_physics/layer_3="Interactable"
+2d_physics/layer_4="Enemy"
 2d_physics/layer_5="StairsTransition"
+2d_physics/layer_6="HidingSpot"
+2d_physics/layer_7="NoiseSource"
 
 [physics]
 
@@ -72,4 +84,5 @@ action={
 
 [rendering]
 
+textures/canvas_textures/default_texture_filter=0
 rendering_device/driver.windows="d3d12"
