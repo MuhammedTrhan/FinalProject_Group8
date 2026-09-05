@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cfssyo7rsboex"]
 
 [ext_resource type="PackedScene" uid="uid://lgxl3cht6vlk" path="res://Scenes/Furnitures/furniture_interactable_base.tscn" id="1_4o0pg"]
-[ext_resource type="Script" uid="uid://bwrms388cydxi" path="res://Scripts/TableLamp.gd" id="2_inhaa"]
+[ext_resource type="Script" uid="uid://bwrms388cydxi" path="res://Scripts/LightSourceFurniture.gd" id="2_inhaa"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6ksvj"]
 radius = 3.0

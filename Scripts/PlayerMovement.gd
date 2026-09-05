@@ -13,6 +13,7 @@ const FRICTION = 600.0
 @onready var anim_handler = $PlayerAnimationHandler
 @onready var fade_rect = $TransitionLayer/FadeRect
 @onready var camera = $Camera2D
+@onready var sprite = $Sprite2D
 
 var is_teleporting: bool = false
 var accept_input: bool = true
@@ -125,6 +126,25 @@ func on_sit_triggered(isSeated: bool, sitPosition: Vector2, standPosition: Vecto
 		# Snap the player to the stand up position
 		global_position = standPosition
 		anim_handler.handle_interaction_anim(Interactions.InteractionType.STANDUP)
+
+
+## Called by Hideable when the player hides inside/under a piece of furniture.
+## Unlike sitting, there is no animation for this - the player simply
+## disappears, and is frozen in place (collision_layer = 0) so the enemy's
+## TouchArea and any future Perception raycast pass straight through them.
+func on_hide_triggered(isHidden: bool, hidePosition: Vector2, standPosition: Vector2) -> void:
+	if isHidden:
+		global_position = hidePosition
+		collision_layer = 0
+		sprite.hide()
+		accept_input = false
+	else:
+		global_position = standPosition
+		collision_layer = Layers.PLAYER
+		sprite.show()
+		accept_input = true
+
+	GameEvents.player_hidden_changed.emit(isHidden)
 
 
 # Stop player movement during interactions and resume it after the interaction animation is finished

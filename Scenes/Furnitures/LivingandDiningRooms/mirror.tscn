@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://dbntw3v6y40n4"]
+
+[ext_resource type="PackedScene" uid="uid://dh5f37ia22vin" path="res://Scenes/Furnitures/furniture_uninteractable_base.tscn" id="1_mrr00"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mrr00"]
+size = Vector2(24, 44)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_mrr00"]
+radius = 18.0
+height = 76.0
+
+[node name="Mirror" unique_id=1824194741 instance=ExtResource("1_mrr00")]
+
+[node name="Sprite2D" parent="." index="0" unique_id=1764835962]
+region_rect = Rect2(112, 112, 32, 48)
+
+[node name="Hitbox" parent="." index="1" unique_id=150259076]
+visible = true
+shape = SubResource("RectangleShape2D_mrr00")
+
+[node name="InterractionBox" parent="InterractionArea" parent_id_path=PackedInt32Array(97300687) index="0" unique_id=1028417380]
+visible = false
+shape = SubResource("CapsuleShape2D_mrr00")
