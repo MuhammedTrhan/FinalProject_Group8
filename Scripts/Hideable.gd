@@ -39,8 +39,15 @@ func _on_interraction_area_body_entered(body: Node2D) -> void:
 
 	interacting_bodies[body_key] = body
 
-	if body.has_method("on_hide_triggered"):
+	# Guarded: revealing the player restores collision_layer, which makes
+	# this Area2D re-detect them as "entering" again (see the comment in
+	# _on_interraction_area_body_exited) even though the connection was
+	# never dropped - connecting twice would otherwise throw
+	# "Signal is already connected".
+	if body.has_method("on_hide_triggered") and not hide_triggered.is_connected(body.on_hide_triggered):
 		hide_triggered.connect(body.on_hide_triggered)
+		
+	print("Hideable: body entered: ", body_key, " player_inside=", player_inside, " interacting_bodies=", interacting_bodies)
 
 
 func _on_interraction_area_body_exited(body: Node2D) -> void:
@@ -48,8 +55,13 @@ func _on_interraction_area_body_exited(body: Node2D) -> void:
 
 	if body.is_in_group("player"):
 		body_key = "player"
-		player_inside = false
-		info_label.hide()
+		# if the player is still inside, they are probably hiding
+		# and will be revealed soon. Do not set the player_inside flag yet,
+		# it will be set after reveal_player() emits hide_triggered(false, ...).
+		# If we set player_inside = false here, the player will trap under forever.
+		if not is_occupied:
+			player_inside = false
+			info_label.hide()
 	else:
 		body_key = "enemy"
 
@@ -57,8 +69,16 @@ func _on_interraction_area_body_exited(body: Node2D) -> void:
 	if body_key in interacting_bodies and interacting_bodies[body_key] == body and not is_occupied:
 		interacting_bodies.erase(body_key)
 
-	if body.has_method("on_hide_triggered") and hide_triggered.is_connected(body.on_hide_triggered):
+	# Do not disconnect while occupied. hide_player() sets
+	# collision_layer = 0 on the player, which removes them from this
+	# Area2D's layer/mask match and fires body_exited on the next
+	# physics tick. If we disconnected here, reveal_player()'s 
+	# hide_triggered.emit(false, ...) would never reach the player.
+	if not is_occupied and body.has_method("on_hide_triggered") and hide_triggered.is_connected(body.on_hide_triggered):
 		hide_triggered.disconnect(body.on_hide_triggered)
+		print("Hideable: disconnected hide_triggered from ", body.name, " because not occupied")
+		
+	print("Hideable: body exited: ", body_key, " player_inside=", player_inside, " interacting_bodies=", interacting_bodies)
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -78,6 +98,9 @@ func _unhandled_input(event: InputEvent) -> void:
 	elif player_inside and not is_occupied:
 		if event.is_action_pressed("Interact"):
 			hide_player(player_body)
+		
+		
+	print("Hideable: unhandled_input: player_inside=", player_inside, " is_occupied=", is_occupied, " occupant=", occupant)
 
 
 func hide_player(character: Node2D) -> void:

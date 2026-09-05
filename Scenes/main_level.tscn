@@ -30,8 +30,9 @@
 [ext_resource type="PackedScene" uid="uid://cfssyo7rsboex" path="res://Scenes/Furnitures/Other/table_lamp.tscn" id="28_eckhq"]
 [ext_resource type="PackedScene" uid="uid://bg55ac0ppioej" path="res://Scenes/Furnitures/Windows/vertical_window.tscn" id="29_i7ce5"]
 [ext_resource type="PackedScene" uid="uid://ckl6pml1arlel" path="res://Scenes/Furnitures/LivingandDiningRooms/sofa_vertical.tscn" id="30_2xkur"]
-[ext_resource type="PackedScene" uid="uid://ckgim32h3mg8a" path="res://Scenes/Furnitures/LivingandDiningRooms/dining_chair_down_1.tscn" id="31_edjj2"]
+[ext_resource type="PackedScene" uid="uid://cadmydpg0i4n4" path="res://Scenes/Furnitures/Bedroom/doub_ver_bed_1.tscn" id="31_edjj2"]
 [ext_resource type="PackedScene" uid="uid://m2bg23lydct5" path="res://Scenes/Furnitures/LivingandDiningRooms/dining_chair_ver_2.tscn" id="32_ehh7o"]
+[ext_resource type="PackedScene" uid="uid://ckgim32h3mg8a" path="res://Scenes/Furnitures/LivingandDiningRooms/dining_chair_down_1.tscn" id="32_m5xbg"]
 [ext_resource type="PackedScene" uid="uid://b8l6bkrw8f8dk" path="res://Scenes/Furnitures/LivingandDiningRooms/dining_table_1.tscn" id="33_b8vxi"]
 [ext_resource type="PackedScene" uid="uid://da3iv0lrn4ne2" path="res://Scenes/Furnitures/LivingandDiningRooms/fireplace.tscn" id="34_lkiyy"]
 [ext_resource type="PackedScene" uid="uid://cjqpouhri8a3j" path="res://Scenes/Furnitures/LivingandDiningRooms/rug_ver_1.tscn" id="35_bm8oi"]
@@ -1827,6 +1828,10 @@ position = Vector2(2469, 377.00003)
 [node name="FourSegmentWindow25" parent="Furnitures/Windows" unique_id=1186437692 instance=ExtResource("14_5vthg")]
 position = Vector2(1863, 522.00006)
 
+[node name="DoubleVerticalBed1" parent="Furnitures/Windows" unique_id=3782362 instance=ExtResource("31_edjj2")]
+position = Vector2(584, 492)
+scale = Vector2(1.15, 1.15)
+
 [node name="Kitchen" type="Node2D" parent="Furnitures" unique_id=139201753]
 y_sort_enabled = true
 
@@ -1965,7 +1970,7 @@ position = Vector2(26, 288)
 [node name="SofaVertical" parent="Furnitures" unique_id=653759380 instance=ExtResource("30_2xkur")]
 position = Vector2(13, 155)
 
-[node name="DiningChair1" parent="Furnitures" unique_id=1249556265 instance=ExtResource("31_edjj2")]
+[node name="DiningChair1" parent="Furnitures" unique_id=1249556265 instance=ExtResource("32_m5xbg")]
 position = Vector2(118.00003, 65)
 scale = Vector2(1.15, 1.15)
 
