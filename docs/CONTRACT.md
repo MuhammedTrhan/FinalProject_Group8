@@ -90,7 +90,7 @@ signal sfx_requested(sfx_id: StringName, world_position: Vector2)
 
 ### 3.2 Passcode digit ownership
 
-The passcode is **4 digits**. `GameManager` generates the values; each digit is
+The passcode is **3 digits**. `GameManager` generates the values; each digit is
 revealed by a fixed source:
 
 | `digit_index` | Revealed by | Owner |
@@ -98,7 +98,6 @@ revealed by a fixed source:
 | 0 | UV floor clue (needs the UV Flashlight) | Dev3 |
 | 1 | Loose floorboard (needs the Crowbar) | Dev3 |
 | 2 | Torn diary (3 scraps combined) | Dev3 |
-| 3 | Day-one computer terminal | Dev1 |
 
 Only the **values** are randomised per run; the digit-to-source mapping is fixed.
 
@@ -108,7 +107,7 @@ Only the **values** are randomised per run; the digit-to-source mapping is fixed
 - `Scripts/Enemy/PersonalityProfile.gd` — one antagonist personality
 - `Scripts/Layers.gd` — named physics-layer constants
 
-Items live in `res://Resources/Items/`:
+Items will live in `res://Resources/Items/`:
 `crowbar`, `uv_flashlight`, `scrap_a`, `scrap_b`, `scrap_c`, `diary_page`,
 `common_key`, `rare_key`, `precious_key`.
 
