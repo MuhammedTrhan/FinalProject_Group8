@@ -1,3 +1,19 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:a8645efed866c0ecba65153edc9b468be9572ff88ecd8f8909e1ba786873af6a
-size 709
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://dasqffceouryn"
+
+[deps]
+
+files=["res://Assets/Player/credits/credits.notes.translation", "res://Assets/Player/credits/credits.authors.translation", "res://Assets/Player/credits/credits.licenses.translation", "res://Assets/Player/credits/credits.urls.translation"]
+
+source_file="res://Assets/Player/credits/credits.csv"
+dest_files=["res://Assets/Player/credits/credits.notes.translation", "res://Assets/Player/credits/credits.authors.translation", "res://Assets/Player/credits/credits.licenses.translation", "res://Assets/Player/credits/credits.urls.translation"]
+
+[params]
+
+compress=1
+delimiter=0
+unescape_keys=false
+unescape_translations=true

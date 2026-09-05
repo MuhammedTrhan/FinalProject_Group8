@@ -6,6 +6,9 @@
 *.svg filter=lfs diff=lfs merge=lfs -text
 *.jpg filter=lfs diff=lfs merge=lfs -text
 *.res filter=lfs diff=lfs merge=lfs -text
-*.tres filter=lfs diff=lfs merge=lfs -text
-*.import filter=lfs diff=lfs merge=lfs -text
 *.stex filter=lfs diff=lfs merge=lfs -text
+
+# NOTE: *.tres and *.import are deliberately NOT tracked by LFS.
+# Both are small text files. Putting *.import in LFS breaks texture importing
+# for anyone who clones without running `git lfs pull`, and *.tres is the
+# format used for every ItemData / PersonalityProfile resource in this project.
