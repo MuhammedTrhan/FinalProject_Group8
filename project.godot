@@ -19,6 +19,8 @@ config/icon="res://icon.svg"
 
 Interactions="*uid://dc32btgeaseow"
 GameEvents="*res://Scripts/Autoload/GameEvents.gd"
+ProceduralGenerator="*res://Scripts/ProceduralGenerator.gd"
+GameManager="*res://Scripts/GameManager.gd"
 
 [display]
 
