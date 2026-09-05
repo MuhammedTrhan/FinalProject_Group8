@@ -2,7 +2,21 @@
 .godot/
 /android/
 *.translation
+
 # If you use C#, ignore build artifacts
 .mono/
 bin/
 obj/
+
+# Godot editor crash/save artifacts
+*.tmp
+*.depren
+
+# Export output and local export configuration
+# (export_presets.cfg holds absolute local paths and any signing credentials)
+export_presets.cfg
+/builds/
+
+# OS junk
+.DS_Store
+Thumbs.db
