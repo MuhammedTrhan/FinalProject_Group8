@@ -1,0 +1,47 @@
+[gd_scene format=3 uid="uid://baqmx0lo2syip"]
+
+[ext_resource type="Script" uid="uid://1fdxegpt4m2l" path="res://Scripts/MainMenu.gd" id="1_mm"]
+
+[node name="MainMenu" type="Control" unique_id=101561797]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_mm")
+
+[node name="Background" type="ColorRect" parent="." unique_id=1384705793]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.05, 0.05, 0.05, 1)
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=487962253]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer" unique_id=560563500]
+layout_mode = 2
+theme_override_constants/separation = 24
+
+[node name="Title" type="Label" parent="CenterContainer/VBoxContainer" unique_id=1399102305]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "GAME??? "
+horizontal_alignment = 1
+
+[node name="PlayButton" type="Button" parent="CenterContainer/VBoxContainer" unique_id=1195702548]
+custom_minimum_size = Vector2(220, 56)
+layout_mode = 2
+text = "Play"
+
+[node name="QuitButton" type="Button" parent="CenterContainer/VBoxContainer" unique_id=1616461204]
+custom_minimum_size = Vector2(220, 56)
+layout_mode = 2
+text = "Quit"

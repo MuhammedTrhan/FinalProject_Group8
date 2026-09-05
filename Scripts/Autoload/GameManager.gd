@@ -1,13 +1,14 @@
 extends Node
 ## Day/night cycle + active personality. Only talks to the team via GameEvents.
+## Public API for Dev2/Dev3 (see docs/CONTRACT.md): current_personality, is_day().
 
 enum Phase { DAY, NIGHT }
 
-# 4 passcode digits: 0=UV floor, 1=floorboard, 2=diary, 3=terminal.
-const PASSCODE_LENGTH := 4
+# 3 passcode digits, per docs/CONTRACT.md: 0=UV floor, 1=floorboard, 2=diary.
+const PASSCODE_LENGTH := 3
 
-@export var day_duration_sec: float = 7.0   #REAL VALUES LATER = 90-60
-@export var night_duration_sec: float = 5.0
+@export var day_duration_sec: float = 30   #REAL VALUES LATER = 90-60
+@export var night_duration_sec: float = 20
 @export var allow_repeat_personality := false
 
 const PERSONALITIES: Array[PersonalityProfile.Personality] = [
@@ -18,13 +19,15 @@ const PERSONALITIES: Array[PersonalityProfile.Personality] = [
 
 var current_day := 1
 var current_phase: Phase = Phase.DAY
-var active_personality: PersonalityProfile.Personality = PersonalityProfile.Personality.FORGETFUL
+var current_personality: PersonalityProfile.Personality = PersonalityProfile.Personality.FORGETFUL
 var run_seed: int = 0
 
 # -1 = digit not found yet. Filled in by Dev3's clue_revealed.
-var passcode_digits: Array[int] = [-1, -1, -1, -1]
+var passcode_digits: Array[int] = [-1, -1, -1]
 
 const DAY_TRANSITION_SCENE := preload("res://Scenes/day_transition.tscn")
+const LOCKDOWN_SCREEN_SCENE := preload("res://Scenes/UI/lockdown_screen.tscn")
+const INVENTORY_UI_SCENE := preload("res://Scenes/UI/inventory_ui.tscn")
 
 var _phase_timer: Timer
 var _locked_down := false
@@ -43,15 +46,17 @@ func _ready() -> void:
 	GameEvents.clue_revealed.connect(_on_clue_revealed)
 
 	add_child(DAY_TRANSITION_SCENE.instantiate())
-
-	start_new_run()
+	add_child(LOCKDOWN_SCREEN_SCENE.instantiate())
+	add_child(INVENTORY_UI_SCENE.instantiate())
+	# start_new_run() is NOT called here - the main menu's Play button starts it,
+	# otherwise the day/night timer would already be ticking at the title screen.
 
 
 func start_new_run() -> void:
 	_locked_down = false
 	current_day = 1
 	run_seed = randi()
-	passcode_digits = [-1, -1, -1, -1]
+	passcode_digits = [-1, -1, -1]
 
 	ProceduralGenerator.generate(run_seed)
 	GameEvents.run_started.emit(run_seed)
@@ -59,11 +64,15 @@ func start_new_run() -> void:
 	_start_day()
 
 
+func is_day() -> bool:
+	return current_phase == Phase.DAY
+
+
 func _start_day() -> void:
 	current_phase = Phase.DAY
-	active_personality = _pick_personality()
+	current_personality = _pick_personality()
 
-	GameEvents.day_started.emit(current_day, active_personality)
+	GameEvents.day_started.emit(current_day, current_personality)
 	_phase_timer.start(day_duration_sec)
 
 
@@ -108,7 +117,7 @@ func _pick_personality() -> PersonalityProfile.Personality:
 		return PERSONALITIES[randi() % PERSONALITIES.size()]
 
 	var choices := PERSONALITIES.duplicate()
-	choices.erase(active_personality)
+	choices.erase(current_personality)
 	return choices[randi() % choices.size()]
 
 
@@ -117,6 +126,6 @@ func _unhandled_input(event: InputEvent) -> void:
 		return
 
 	if event.is_action_pressed("debug_cycle_personality"):
-		var idx := PERSONALITIES.find(active_personality)
-		active_personality = PERSONALITIES[(idx + 1) % PERSONALITIES.size()]
-		GameEvents.day_started.emit(current_day, active_personality)
+		var idx := PERSONALITIES.find(current_personality)
+		current_personality = PERSONALITIES[(idx + 1) % PERSONALITIES.size()]
+		GameEvents.day_started.emit(current_day, current_personality)

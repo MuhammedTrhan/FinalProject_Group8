@@ -1,7 +1,7 @@
 extends Node
-## Generates the run's 4-digit passcode. Puzzles call get_digit(index) for their clue.
+## Generates the run's 3-digit passcode. Puzzles call get_digit(index) for their clue.
 
-const PASSCODE_LENGTH := 4
+const PASSCODE_LENGTH := 3
 
 var _passcode: Array[int] = []
 

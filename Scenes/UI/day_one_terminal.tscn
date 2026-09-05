@@ -1,0 +1,58 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://Scripts/Autoload/DayOneTerminal.gd" id="1_dot"]
+
+[node name="DayOneTerminal" type="CanvasLayer"]
+script = ExtResource("1_dot")
+
+[node name="Root" type="Control" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="Root"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="Root/CenterContainer"]
+layout_mode = 2
+custom_minimum_size = Vector2(480, 400)
+
+[node name="MarginContainer" type="MarginContainer" parent="Root/CenterContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBox" type="VBoxContainer" parent="Root/CenterContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="PortraitRect" type="TextureRect" parent="Root/CenterContainer/PanelContainer/MarginContainer/VBox"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 128)
+expand_mode = 1
+stretch_mode = 5
+
+[node name="NameLabel" type="Label" parent="Root/CenterContainer/PanelContainer/MarginContainer/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+horizontal_alignment = 1
+text = ""
+
+[node name="DossierLabel" type="Label" parent="Root/CenterContainer/PanelContainer/MarginContainer/VBox"]
+layout_mode = 2
+autowrap_mode = 2
+text = ""
+
+[node name="CloseButton" type="Button" parent="Root/CenterContainer/PanelContainer/MarginContainer/VBox"]
+layout_mode = 2
+custom_minimum_size = Vector2(160, 48)
+text = "Close"
