@@ -2,16 +2,16 @@ class_name PersonalityProfile
 extends Resource
 ## Everything that makes one of the antagonist's personalities different from
 ## the others, authored as a .tres under res://Resources/Personalities/.
-##
+
 ## The behaviour state machine is SHARED across all personalities; only the
 ## numbers below change. Personality-specific mechanics live in a separate
 ## PersonalityModule node, not here.
-##
+
 ## OWNERSHIP: Dev2 owns this file and the .tres files. Dev1's day-one terminal
 ## screen reads `display_name`, `dossier_text` and `portrait` from the same
 ## resources so the two sides never touch each other's scenes.
 
-enum Personality { FORGETFUL, PARANOID, OVERWHELMED }
+enum Personality {FORGETFUL, PARANOID, OVERWHELMED}
 
 
 @export_group("Identity")
@@ -24,12 +24,8 @@ enum Personality { FORGETFUL, PARANOID, OVERWHELMED }
 
 
 @export_group("Spritesheets")
-## Universal LPC Spritesheet Generator output. Same body, different face and
-## clothes. All four MUST use the same frame layout as the player's sheets
-## (13 hframes x 4 vframes) or every animation will address the wrong frames.
-## The clothing/face difference IS the visual identification cue - no extra
-## tint or halo on top of it.
-##
+## Universal LPC Spritesheet Generator output. Same body, different face and clothes.
+
 ## These are swapped into the AnimationLibrary at runtime rather than assigned
 ## to Sprite2D directly, because every animation keyframes `Sprite2D:texture`
 ## and would immediately overwrite a direct assignment.

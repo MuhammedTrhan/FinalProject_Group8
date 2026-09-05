@@ -1,13 +1,13 @@
 extends Node
 ## Global signal bus. Holds NO state and contains NO logic. Never connects to
 ## itself. This file is the contract sheet between the three developers.
-##
+
 ## THE RULE:
 ##   You may EMIT only the signals in your own section.
 ##   You may CONNECT to any signal in this file.
 ##   If you need a new signal, add it here in its own commit and announce it.
 ##   Never add signals to another developer's script.
-##
+
 ## Dev1 = game flow / inventory / UI
 ## Dev2 = antagonist AI
 ## Dev3 = player / world / puzzles

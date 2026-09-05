@@ -1,12 +1,12 @@
 class_name ItemData
 extends Resource
 ## A single inventory item, authored as a .tres file under res://Resources/Items/.
-##
+
 ## Items are compared by identity (pointer), not by id, because every reference
 ## in the project comes from the same preloaded resource. The `id` field exists
 ## for save data, debug output and content lookups.
-##
-## OWNERSHIP: this schema is shared. Dev1 owns the Inventory logic that stores
+
+## OWNERSHIP: this is shared. Dev1 owns the Inventory logic that stores
 ## these; Dev2/Dev3 own the world objects that grant and require them.
 ## Changing a field here affects all three - announce it.
 
