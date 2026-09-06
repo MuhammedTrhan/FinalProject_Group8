@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://cuypiire5hhga"]
 
-[ext_resource type="Script" uid="uid://b7suakb28m8gp" path="res://Scripts/PlayerMovement.gd" id="1_cvnsp"]
+[ext_resource type="Script" uid="uid://b7suakb28m8gp" path="res://Scripts/Player/PlayerMovement.gd" id="1_cvnsp"]
 [ext_resource type="Texture2D" uid="uid://bldglbpa420de" path="res://Assets/Player/standard/idle.png" id="1_v0iea"]
-[ext_resource type="Script" uid="uid://bpgm6bh6mfqtp" path="res://Scripts/PlayerAnimationHandler.gd" id="3_6t5aa"]
+[ext_resource type="Script" uid="uid://bpgm6bh6mfqtp" path="res://Scripts/Player/PlayerAnimationHandler.gd" id="3_6t5aa"]
 [ext_resource type="Texture2D" uid="uid://bko47g71q7q55" path="res://Assets/Player/standard/slash.png" id="3_fkybt"]
 [ext_resource type="Texture2D" uid="uid://ddjdt1gosvwy2" path="res://Assets/Player/standard/walk.png" id="3_vgqql"]
 [ext_resource type="Texture2D" uid="uid://cknx51uo0l5nq" path="res://Assets/Player/standard/hurt.png" id="4_3smsa"]
