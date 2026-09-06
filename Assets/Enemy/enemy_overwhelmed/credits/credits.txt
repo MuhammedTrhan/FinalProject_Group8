@@ -1,0 +1,133 @@
+body/bodies/male/walk.png
+	- Note: see details at https://opengameart.org/content/lpc-character-bases; 'Thick' Male Revised Run/Climb by JaidynReiman (based on ElizaWy's LPC Revised)
+	- Licenses:
+		- OGA-BY 3.0
+		- CC-BY-SA 3.0
+		- GPL 3.0
+	- Authors:
+		- bluecarrot16
+		- JaidynReiman
+		- Benjamin K. Smith (BenCreating)
+		- Evert
+		- Eliza Wyatt (ElizaWy)
+		- TheraHedwig
+		- MuffinElZangano
+		- Durrani
+		- Johannes Sjölund (wulax)
+		- Stephen Challener (Redshrike)
+	- Links:
+		- https://opengameart.org/content/liberated-pixel-cup-lpc-base-assets-sprites-map-tiles
+		- https://opengameart.org/content/lpc-medieval-fantasy-character-sprites
+		- https://opengameart.org/content/lpc-male-jumping-animation-by-durrani
+		- https://opengameart.org/content/lpc-runcycle-and-diagonal-walkcycle
+		- https://opengameart.org/content/lpc-revised-character-basics
+		- https://opengameart.org/content/lpc-be-seated
+		- https://opengameart.org/content/lpc-runcycle-for-male-muscular-and-pregnant-character-bases-with-modular-heads
+		- https://opengameart.org/content/lpc-jump-expanded
+		- https://opengameart.org/content/lpc-character-bases
+
+head/heads/human/male_small/walk.png
+	- Note: original head by Redshrike, reduced size head by ElizaWy
+	- Licenses:
+		- OGA-BY 3.0
+		- CC-BY
+	- Authors:
+		- ElizaWy
+		- Stephen Challener (Redshrike)
+	- Links:
+		- 
+
+head/faces/global/sad2/walk.png
+	- Note: Original Bases by Redshrike, Alt Sad Expression by Laetissima and Pennomi, mapped to all frames by JaidynReiman
+	- Licenses:
+		- CC-BY-SA 3.0
+		- GPL 3.0
+	- Authors:
+		- JaidynReiman
+		- Thane Brimhall (pennomi)
+		- laetissima
+		- Stephen Challener (Redshrike)
+	- Links:
+		- https://opengameart.org/content/lpc-base-character-expressions
+		- https://opengameart.org/content/ulpc-expanded-expressions
+
+head/nose/elderly/adult/walk.png
+	- Licenses:
+		- OGA-BY 3.0
+	- Authors:
+		- ElizaWy
+	- Links:
+		- https://opengameart.org/content/lpc-revised-elders
+
+eyes/eyebrows/thick/adult/walk.png
+	- Licenses:
+		- OGA-BY 3.0
+	- Authors:
+		- ElizaWy
+	- Links:
+		- https://github.com/ElizaWy/LPC/tree/main/Characters/Hair
+		- https://opengameart.org/content/lpc-expanded-sit-run-jump-more
+
+beards/beard/5oclock_shadow/walk.png
+	- Note: Original by Pennomi, repositioning by JaidynReiman.
+	- Licenses:
+		- CC-BY-SA 3.0
+		- GPL 3.0
+	- Authors:
+		- JaidynReiman
+		- Thane Brimhall (pennomi)
+		- laetissima
+	- Links:
+		- https://opengameart.org/content/lpc-base-character-expressions
+
+hair/bedhead/adult/walk.png
+	- Licenses:
+		- CC-BY-SA 3.0
+		- GPL 3.0
+	- Authors:
+		- JaidynReiman
+		- Manuel Riecke (MrBeast)
+	- Links:
+		- https://opengameart.org/content/liberated-pixel-cup-lpc-base-assets-sprites-map-tiles
+		- https://opengameart.org/content/lpc-expanded-hair
+
+torso/clothes/shortsleeve/tshirt_vneck/male/walk.png
+	- Note: original by ElizaWy; spellcast/thrust/shoot/hurt/male adapted from original by JaidynReiman
+	- Licenses:
+		- OGA-BY 3.0
+	- Authors:
+		- ElizaWy
+		- JaidynReiman
+		- Stephen Challener (Redshrike)
+		- Johannes Sjölund (wulax)
+	- Links:
+		- https://opengameart.org/content/lpc-revised-character-basics
+		- https://github.com/ElizaWy/LPC/tree/main/Characters/Clothing
+		- https://opengameart.org/content/lpc-expanded-sit-run-jump-more
+		- https://opengameart.org/content/lpc-expanded-simple-shirts
+
+legs/shorts/shorts/male/walk.png
+	- Note: Original bases by Redshrike, thrust/shoot bases by Wulax, original overalls and shorts by ElizaWy, base animations adapted from v3 overalls by bluecarrot16, shorts by JaidynReiman
+	- Licenses:
+		- OGA-BY 3.0
+		- GPL 3.0
+	- Authors:
+		- JaidynReiman
+		- ElizaWy
+		- Bluecarrot16
+		- Johannes Sjölund (wulax)
+		- Stephen Challener (Redshrike)
+	- Links:
+		- https://github.com/ElizaWy/LPC/tree/main/Characters/Clothing
+		- https://opengameart.org/content/lpc-expanded-pants
+
+shadow/adult/walk.png
+	- Note: Original by Dr. Jamgo, jump/sit/emote/run/revised combat by JaidynReiman
+	- Licenses:
+		- CC0
+	- Authors:
+		- drjamgo@hotmail.com
+		- JaidynReiman
+	- Links:
+		- https://opengameart.org/content/shadow-for-lpc-sprite
+
