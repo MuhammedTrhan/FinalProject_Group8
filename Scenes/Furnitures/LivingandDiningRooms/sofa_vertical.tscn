@@ -6,8 +6,8 @@
 size = Vector2(20, 44)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_x3ns8"]
-radius = 18.0
-height = 76.0
+radius = 15.0
+height = 70.0
 
 [node name="SofaVertical" unique_id=758378394 instance=ExtResource("1_qb5qa")]
 
@@ -18,9 +18,6 @@ region_rect = Rect2(0, 192, 24, 64)
 position = Vector2(-1, 5)
 shape = SubResource("RectangleShape2D_qb5qa")
 
-[node name="InterractionArea" parent="." index="2" unique_id=97300687]
-visible = false
-
-[node name="InterractionBox" parent="InterractionArea" index="0" unique_id=1028417380]
-position = Vector2(6, 0)
+[node name="InterractionBox" parent="InterractionArea" parent_id_path=PackedInt32Array(97300687) index="0" unique_id=1028417380]
+position = Vector2(4, 0)
 shape = SubResource("CapsuleShape2D_x3ns8")
