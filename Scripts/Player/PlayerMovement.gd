@@ -81,7 +81,8 @@ func _on_interract_area_exited(area: Area2D) -> void:
 		_candidates.erase(interactable)
 
 
-# Nearest candidate wins; `priority` breaks ties.
+# Nearest candidate wins - by distance to its interaction shape, not its
+# origin (see Interactable.get_distance_to()). `priority` breaks ties.
 func _get_nearest_candidate() -> Interactable:
 	var nearest: Interactable = null
 	var nearest_dist := INF
@@ -90,7 +91,7 @@ func _get_nearest_candidate() -> Interactable:
 		if not is_instance_valid(candidate):
 			continue
 
-		var dist := global_position.distance_squared_to(candidate.global_position)
+		var dist := candidate.get_distance_to(global_position)
 		if nearest == null or dist < nearest_dist or (dist == nearest_dist and candidate.priority > nearest.priority):
 			nearest = candidate
 			nearest_dist = dist

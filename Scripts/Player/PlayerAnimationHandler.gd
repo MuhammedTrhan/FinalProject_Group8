@@ -16,7 +16,7 @@ var last_direction: String = "down"
 
 ## Interaction poses override the default walk/idle animations. Matched by
 ## prefix against the finished animation's name.
-var interaction_anims: Array[String] = ["slash", "back_slash", "lock", "sit"]
+var interaction_anims: Array[String] = ["slash", "back_slash", "lock", "sit", "pickup"]
 
 
 ## Call this from the actor's _physics_process.
@@ -25,6 +25,10 @@ func update_animations(velocity: Vector2) -> void:
 
 	if is_interacting:
 		state = interact_state
+
+		# There is only one pickup animation, and it is always facing down.
+		if state == "pickup":
+			last_direction = "down"
 	else:
 		# Not interacting: walking or idling.
 		if velocity.length() > 0:
@@ -60,7 +64,7 @@ func handle_interaction_anim(interaction: Interactions.InteractionType) -> void:
 		Interactions.InteractionType.LOCK, Interactions.InteractionType.UNLOCK:
 			interact_state = "lock"
 		Interactions.InteractionType.PICKUP:
-			interact_state = "slash"
+			interact_state = "pickup"
 		Interactions.InteractionType.SITDOWN:
 			interact_state = "sit"
 		Interactions.InteractionType.STANDUP:
