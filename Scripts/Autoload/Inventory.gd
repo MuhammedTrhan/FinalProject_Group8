@@ -6,6 +6,14 @@ extends Node
 ## the future Inventory UI screen listens to this.
 signal items_changed
 
+# Placeholder ItemData until Dev3 authors the real ones at the same paths
+# (see docs/CONTRACT.md §3.2) - combining logic doesn't change either way.
+const SCRAP_A := preload("res://Resources/Items/scrap_a.tres")
+const SCRAP_B := preload("res://Resources/Items/scrap_b.tres")
+const SCRAP_C := preload("res://Resources/Items/scrap_c.tres")
+const DIARY_PAGE := preload("res://Resources/Items/diary_page.tres")
+const DIARY_SCRAPS := [SCRAP_A, SCRAP_B, SCRAP_C]
+
 var _items: Array[ItemData] = []
 
 
@@ -35,3 +43,21 @@ func remove_item(item: ItemData) -> bool:
 
 func get_items() -> Array[ItemData]:
 	return _items.duplicate()
+
+
+func is_diary_scrap(item: ItemData) -> bool:
+	return item in DIARY_SCRAPS
+
+
+# Combines the 3 diary scraps into DIARY_PAGE if all are present.
+# NOTE: revealing the passcode digit for the diary (clue_revealed, digit_index
+# 2) is Dev3's job per docs/CONTRACT.md - not wired here yet, pending their hookup.
+func try_combine_diary_scraps() -> bool:
+	for scrap in DIARY_SCRAPS:
+		if not has_item(scrap):
+			return false
+
+	for scrap in DIARY_SCRAPS:
+		remove_item(scrap)
+	add_item(DIARY_PAGE)
+	return true
