@@ -21,3 +21,9 @@ shape = SubResource("RectangleShape2D_owhcg")
 
 [node name="InterractionBox" parent="InterractionArea" parent_id_path=PackedInt32Array(97300687) index="0" unique_id=1028417380]
 shape = SubResource("CapsuleShape2D_p2pfh")
+
+[node name="StandUpMarker" parent="." index="4" unique_id=1118046313]
+position = Vector2(18, 6)
+
+[node name="SitDownMarker" parent="." index="5" unique_id=2074848840]
+position = Vector2(-1, 6)
