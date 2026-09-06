@@ -1,0 +1,19 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://bs57jd0fprw1n"
+
+[deps]
+
+files=["res://Assets/Enemy/enemy_neatfreak/credits/credits.notes.translation", "res://Assets/Enemy/enemy_neatfreak/credits/credits.authors.translation", "res://Assets/Enemy/enemy_neatfreak/credits/credits.licenses.translation", "res://Assets/Enemy/enemy_neatfreak/credits/credits.urls.translation"]
+
+source_file="res://Assets/Enemy/enemy_neatfreak/credits/credits.csv"
+dest_files=["res://Assets/Enemy/enemy_neatfreak/credits/credits.notes.translation", "res://Assets/Enemy/enemy_neatfreak/credits/credits.authors.translation", "res://Assets/Enemy/enemy_neatfreak/credits/credits.licenses.translation", "res://Assets/Enemy/enemy_neatfreak/credits/credits.urls.translation"]
+
+[params]
+
+compress=1
+delimiter=0
+unescape_keys=false
+unescape_translations=true

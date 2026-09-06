@@ -1,0 +1,804 @@
+{
+  "version": 2,
+  "bodyType": "male",
+  "selections": {
+    "body": {
+      "itemId": "body",
+      "subId": null,
+      "variant": "",
+      "recolor": "olive",
+      "name": "Body Color (olive)"
+    },
+    "head": {
+      "itemId": "heads_human_male_small",
+      "subId": null,
+      "variant": "",
+      "recolor": "olive",
+      "name": "Human Male Small (olive)"
+    },
+    "expression": {
+      "itemId": "face_angry",
+      "subId": null,
+      "variant": "",
+      "recolor": "olive",
+      "name": "Angry (olive)"
+    },
+    "nose": {
+      "itemId": "head_nose_elderly",
+      "subId": null,
+      "variant": "",
+      "recolor": "olive",
+      "name": "Elderly nose (olive)"
+    },
+    "eyebrows": {
+      "itemId": "eyebrows_thick",
+      "subId": null,
+      "variant": "",
+      "recolor": "dark_brown",
+      "name": "Thick Eyebrows (dark_brown)"
+    },
+    "hair": {
+      "itemId": "hair_cowlick",
+      "subId": null,
+      "variant": "",
+      "recolor": "dark_brown",
+      "name": "Cowlick (dark_brown)"
+    },
+    "legs": {
+      "itemId": "legs_pantaloons",
+      "subId": null,
+      "variant": "",
+      "recolor": "black",
+      "name": "Pantaloons (black)"
+    },
+    "shadow": {
+      "itemId": "shadow",
+      "subId": null,
+      "variant": "",
+      "recolor": "brown",
+      "name": "Shadow (brown)"
+    },
+    "clothes": {
+      "itemId": "torso_clothes_longsleeve2_cardigan",
+      "subId": null,
+      "variant": "",
+      "recolor": "black",
+      "name": "Cardigan (black)"
+    },
+    "mustache": {
+      "itemId": "beards_mustache",
+      "subId": null,
+      "variant": "",
+      "recolor": "dark_brown",
+      "name": "Mustache (dark_brown)"
+    },
+    "hat": {
+      "itemId": "hat_hood_cloth",
+      "subId": null,
+      "variant": "",
+      "recolor": "black",
+      "name": "Hood (black)"
+    },
+    "socks": {
+      "itemId": "feet_socks_ankle",
+      "subId": null,
+      "variant": "",
+      "recolor": "brown",
+      "name": "Ankle Socks (brown)"
+    },
+    "shoes": {
+      "itemId": "feet_shoes_sara",
+      "subId": null,
+      "variant": "",
+      "recolor": "brown",
+      "name": "Sara Shoes (brown)"
+    }
+  },
+  "selectedAnimation": "sit",
+  "showTransparencyGrid": true,
+  "applyTransparencyMask": false,
+  "matchBodyColorEnabled": true,
+  "compactDisplay": false,
+  "enabledLicenses": {
+    "CC0": true,
+    "CC-BY-SA": true,
+    "CC-BY": true,
+    "OGA-BY": true,
+    "GPL": true
+  },
+  "enabledAnimations": {
+    "spellcast": false,
+    "thrust": false,
+    "walk": false,
+    "slash": false,
+    "shoot": false,
+    "hurt": false,
+    "climb": false,
+    "idle": false,
+    "jump": false,
+    "sit": false,
+    "emote": false,
+    "run": false,
+    "watering": false,
+    "combat": false,
+    "1h_slash": false,
+    "1h_backslash": false,
+    "1h_halfslash": false
+  },
+  "url": "https://liberatedpixelcup.github.io/Universal-LPC-Spritesheet-Character-Generator/#sex=male&body=Body_Color_olive&head=Human_Male_Small_olive&expression=Angry_olive&nose=Elderly_nose_olive&eyebrows=Thick_Eyebrows_dark_brown&hair=Cowlick_dark_brown&legs=Pantaloons_black&shadow=Shadow_brown&clothes=Cardigan_black&mustache=Mustache_dark_brown&hat=Hood_black&socks=Ankle_Socks_brown&shoes=Sara_Shoes_brown",
+  "layers": [
+    {
+      "itemId": "shadow",
+      "name": "Shadow (brown)",
+      "variant": "",
+      "recolors": {
+        "shadow": "brown"
+      },
+      "zPos": 0,
+      "layerNum": 1,
+      "yPos": 0,
+      "needsRecolor": false,
+      "source": {
+        "kind": "catalog",
+        "spritePath": "shadow/adult/spellcast.png"
+      },
+      "supportedAnimations": [
+        "spellcast",
+        "thrust",
+        "walk",
+        "slash",
+        "shoot",
+        "hurt",
+        "climb",
+        "idle",
+        "jump",
+        "sit",
+        "emote",
+        "run",
+        "combat_idle",
+        "backslash",
+        "halfslash"
+      ]
+    },
+    {
+      "itemId": "body",
+      "name": "Body Color (olive)",
+      "variant": "",
+      "recolors": {
+        "body": "olive"
+      },
+      "zPos": 10,
+      "layerNum": 1,
+      "yPos": 0,
+      "needsRecolor": false,
+      "source": {
+        "kind": "catalog",
+        "spritePath": "body/bodies/male/spellcast.png"
+      },
+      "supportedAnimations": [
+        "spellcast",
+        "thrust",
+        "walk",
+        "slash",
+        "shoot",
+        "hurt",
+        "climb",
+        "idle",
+        "jump",
+        "sit",
+        "emote",
+        "run",
+        "combat_idle",
+        "backslash",
+        "halfslash"
+      ]
+    },
+    {
+      "itemId": "feet_socks_ankle",
+      "name": "Ankle Socks (brown)",
+      "variant": "",
+      "recolors": {
+        "socks": "brown"
+      },
+      "zPos": 14,
+      "layerNum": 1,
+      "yPos": 0,
+      "needsRecolor": false,
+      "source": {
+        "kind": "catalog",
+        "spritePath": "feet/socks/ankle/male/spellcast.png"
+      },
+      "supportedAnimations": [
+        "spellcast",
+        "thrust",
+        "walk",
+        "slash",
+        "shoot",
+        "hurt",
+        "climb",
+        "idle",
+        "jump",
+        "sit",
+        "emote",
+        "run",
+        "combat_idle",
+        "backslash",
+        "halfslash"
+      ]
+    },
+    {
+      "itemId": "feet_shoes_sara",
+      "name": "Sara Shoes (brown)",
+      "variant": "",
+      "recolors": {
+        "shoes": "brown"
+      },
+      "zPos": 15,
+      "layerNum": 1,
+      "yPos": 0,
+      "needsRecolor": false,
+      "source": {
+        "kind": "catalog",
+        "spritePath": "feet/shoes/sara/male/spellcast.png"
+      },
+      "supportedAnimations": [
+        "spellcast",
+        "thrust",
+        "walk",
+        "slash",
+        "shoot",
+        "hurt",
+        "climb",
+        "idle",
+        "jump",
+        "sit",
+        "emote",
+        "run",
+        "combat_idle",
+        "backslash",
+        "halfslash"
+      ]
+    },
+    {
+      "itemId": "legs_pantaloons",
+      "name": "Pantaloons (black)",
+      "variant": "",
+      "recolors": {
+        "legs": "black"
+      },
+      "zPos": 20,
+      "layerNum": 1,
+      "yPos": 0,
+      "needsRecolor": false,
+      "source": {
+        "kind": "catalog",
+        "spritePath": "legs/pantaloons/male/spellcast.png"
+      },
+      "supportedAnimations": [
+        "spellcast",
+        "thrust",
+        "walk",
+        "slash",
+        "shoot",
+        "hurt",
+        "climb",
+        "idle",
+        "jump",
+        "sit",
+        "emote",
+        "run",
+        "combat_idle",
+        "backslash",
+        "halfslash"
+      ]
+    },
+    {
+      "itemId": "torso_clothes_longsleeve2_cardigan",
+      "name": "Cardigan (black)",
+      "variant": "",
+      "recolors": {
+        "clothes": "black"
+      },
+      "zPos": 35,
+      "layerNum": 1,
+      "yPos": 0,
+      "needsRecolor": false,
+      "source": {
+        "kind": "catalog",
+        "spritePath": "torso/clothes/longsleeve/longsleeve2_cardigan/male/spellcast.png"
+      },
+      "supportedAnimations": [
+        "spellcast",
+        "thrust",
+        "walk",
+        "slash",
+        "shoot",
+        "hurt",
+        "climb",
+        "idle",
+        "jump",
+        "sit",
+        "emote",
+        "run",
+        "combat_idle",
+        "backslash",
+        "halfslash"
+      ]
+    },
+    {
+      "itemId": "heads_human_male_small",
+      "name": "Human Male Small (olive)",
+      "variant": "",
+      "recolors": {
+        "head": "olive"
+      },
+      "zPos": 100,
+      "layerNum": 1,
+      "yPos": 0,
+      "needsRecolor": false,
+      "source": {
+        "kind": "catalog",
+        "spritePath": "head/heads/human/male_small/spellcast.png"
+      },
+      "supportedAnimations": [
+        "spellcast",
+        "thrust",
+        "walk",
+        "slash",
+        "shoot",
+        "hurt",
+        "climb",
+        "idle",
+        "jump",
+        "sit",
+        "emote",
+        "run",
+        "combat_idle",
+        "backslash",
+        "halfslash"
+      ]
+    },
+    {
+      "itemId": "face_angry",
+      "name": "Angry (olive)",
+      "variant": "",
+      "recolors": {
+        "expression": "olive"
+      },
+      "zPos": 101,
+      "layerNum": 1,
+      "yPos": 0,
+      "needsRecolor": false,
+      "source": {
+        "kind": "catalog",
+        "spritePath": "head/faces/male/anger/spellcast.png"
+      },
+      "supportedAnimations": [
+        "spellcast",
+        "thrust",
+        "walk",
+        "slash",
+        "shoot",
+        "idle",
+        "jump",
+        "sit",
+        "emote",
+        "run",
+        "combat_idle",
+        "backslash",
+        "halfslash"
+      ]
+    },
+    {
+      "itemId": "head_nose_elderly",
+      "name": "Elderly nose (olive)",
+      "variant": "",
+      "recolors": {
+        "nose": "olive"
+      },
+      "zPos": 105,
+      "layerNum": 1,
+      "yPos": 0,
+      "needsRecolor": false,
+      "source": {
+        "kind": "catalog",
+        "spritePath": "head/nose/elderly/adult/spellcast.png"
+      },
+      "supportedAnimations": [
+        "spellcast",
+        "thrust",
+        "walk",
+        "slash",
+        "shoot",
+        "hurt",
+        "climb",
+        "idle",
+        "jump",
+        "sit",
+        "emote",
+        "run",
+        "combat_idle",
+        "backslash",
+        "halfslash"
+      ]
+    },
+    {
+      "itemId": "eyebrows_thick",
+      "name": "Thick Eyebrows (dark_brown)",
+      "variant": "",
+      "recolors": {
+        "eyebrows": "dark_brown"
+      },
+      "zPos": 106,
+      "layerNum": 1,
+      "yPos": 0,
+      "needsRecolor": false,
+      "source": {
+        "kind": "catalog",
+        "spritePath": "eyes/eyebrows/thick/adult/spellcast.png"
+      },
+      "supportedAnimations": [
+        "spellcast",
+        "thrust",
+        "walk",
+        "slash",
+        "shoot",
+        "hurt",
+        "climb",
+        "idle",
+        "jump",
+        "sit",
+        "emote",
+        "run",
+        "combat_idle",
+        "backslash",
+        "halfslash"
+      ]
+    },
+    {
+      "itemId": "beards_mustache",
+      "name": "Mustache (dark_brown)",
+      "variant": "",
+      "recolors": {
+        "mustache": "dark_brown"
+      },
+      "zPos": 111,
+      "layerNum": 1,
+      "yPos": 0,
+      "needsRecolor": false,
+      "source": {
+        "kind": "catalog",
+        "spritePath": "beards/mustache/basic/spellcast.png"
+      },
+      "supportedAnimations": [
+        "spellcast",
+        "thrust",
+        "walk",
+        "slash",
+        "shoot",
+        "hurt",
+        "climb",
+        "idle",
+        "jump",
+        "sit",
+        "emote",
+        "run",
+        "combat_idle",
+        "backslash",
+        "halfslash"
+      ]
+    },
+    {
+      "itemId": "hair_cowlick",
+      "name": "Cowlick (dark_brown)",
+      "variant": "",
+      "recolors": {
+        "hair": "dark_brown"
+      },
+      "zPos": 120,
+      "layerNum": 1,
+      "yPos": 0,
+      "needsRecolor": false,
+      "source": {
+        "kind": "catalog",
+        "spritePath": "hair/cowlick/adult/spellcast.png"
+      },
+      "supportedAnimations": [
+        "spellcast",
+        "thrust",
+        "walk",
+        "slash",
+        "shoot",
+        "hurt",
+        "climb",
+        "idle",
+        "jump",
+        "sit",
+        "emote",
+        "run",
+        "combat_idle",
+        "backslash",
+        "halfslash"
+      ]
+    },
+    {
+      "itemId": "hat_hood_cloth",
+      "name": "Hood (black)",
+      "variant": "",
+      "recolors": {
+        "hat": "black"
+      },
+      "zPos": 130,
+      "layerNum": 1,
+      "yPos": 0,
+      "needsRecolor": false,
+      "source": {
+        "kind": "catalog",
+        "spritePath": "hat/cloth/hood/adult/spellcast.png"
+      },
+      "supportedAnimations": [
+        "spellcast",
+        "thrust",
+        "walk",
+        "slash",
+        "shoot",
+        "hurt",
+        "climb",
+        "idle",
+        "jump",
+        "sit",
+        "emote",
+        "run",
+        "combat_idle",
+        "backslash",
+        "halfslash"
+      ]
+    }
+  ],
+  "credits": [
+    {
+      "fileName": "body/bodies/male/walk.png",
+      "file": "body/bodies/male",
+      "notes": "see details at https://opengameart.org/content/lpc-character-bases; 'Thick' Male Revised Run/Climb by JaidynReiman (based on ElizaWy's LPC Revised)",
+      "authors": [
+        "bluecarrot16",
+        "JaidynReiman",
+        "Benjamin K. Smith (BenCreating)",
+        "Evert",
+        "Eliza Wyatt (ElizaWy)",
+        "TheraHedwig",
+        "MuffinElZangano",
+        "Durrani",
+        "Johannes Sjölund (wulax)",
+        "Stephen Challener (Redshrike)"
+      ],
+      "licenses": [
+        "OGA-BY 3.0",
+        "CC-BY-SA 3.0",
+        "GPL 3.0"
+      ],
+      "urls": [
+        "https://opengameart.org/content/liberated-pixel-cup-lpc-base-assets-sprites-map-tiles",
+        "https://opengameart.org/content/lpc-medieval-fantasy-character-sprites",
+        "https://opengameart.org/content/lpc-male-jumping-animation-by-durrani",
+        "https://opengameart.org/content/lpc-runcycle-and-diagonal-walkcycle",
+        "https://opengameart.org/content/lpc-revised-character-basics",
+        "https://opengameart.org/content/lpc-be-seated",
+        "https://opengameart.org/content/lpc-runcycle-for-male-muscular-and-pregnant-character-bases-with-modular-heads",
+        "https://opengameart.org/content/lpc-jump-expanded",
+        "https://opengameart.org/content/lpc-character-bases"
+      ]
+    },
+    {
+      "fileName": "head/heads/human/male_small/walk.png",
+      "file": "head/heads/human/male_small",
+      "notes": "original head by Redshrike, reduced size head by ElizaWy",
+      "authors": [
+        "ElizaWy",
+        "Stephen Challener (Redshrike)"
+      ],
+      "licenses": [
+        "OGA-BY 3.0",
+        "CC-BY"
+      ],
+      "urls": []
+    },
+    {
+      "fileName": "head/faces/male/anger/walk.png",
+      "file": "head/faces",
+      "notes": "Original by Redshrike, Expressions by ElizaWy, mapped to all frames by JaidynReiman",
+      "authors": [
+        "JaidynReiman",
+        "ElizaWy",
+        "Stephen Challener (Redshrike)"
+      ],
+      "licenses": [
+        "OGA-BY 3.0"
+      ],
+      "urls": [
+        "https://github.com/ElizaWy/LPC/tree/main/Characters/Head",
+        "https://opengameart.org/content/ulpc-expanded-expressions"
+      ]
+    },
+    {
+      "fileName": "head/nose/elderly/adult/walk.png",
+      "file": "head/nose/elderly",
+      "notes": "",
+      "authors": [
+        "ElizaWy"
+      ],
+      "licenses": [
+        "OGA-BY 3.0"
+      ],
+      "urls": [
+        "https://opengameart.org/content/lpc-revised-elders"
+      ]
+    },
+    {
+      "fileName": "eyes/eyebrows/thick/adult/walk.png",
+      "file": "eyes/eyebrows/thick",
+      "notes": "",
+      "authors": [
+        "ElizaWy"
+      ],
+      "licenses": [
+        "OGA-BY 3.0"
+      ],
+      "urls": [
+        "https://github.com/ElizaWy/LPC/tree/main/Characters/Hair",
+        "https://opengameart.org/content/lpc-expanded-sit-run-jump-more"
+      ]
+    },
+    {
+      "fileName": "hair/cowlick/adult/walk.png",
+      "file": "hair/cowlick",
+      "notes": "Original by bluecarrot16, animated by ElizaWy.",
+      "authors": [
+        "ElizaWy",
+        "bluecarrot16"
+      ],
+      "licenses": [
+        "CC0"
+      ],
+      "urls": [
+        "https://opengameart.org/content/lpc-hair",
+        "https://github.com/ElizaWy/LPC/blob/main/Characters/Hair",
+        "https://opengameart.org/content/lpc-expanded-sit-run-jump-more"
+      ]
+    },
+    {
+      "fileName": "legs/pantaloons/male/walk.png",
+      "file": "legs/pantaloons",
+      "notes": "Original bases by Redshrike, thrust/shoot bases by Wulax, Original Pantaloons by Nila122, climb/jump/run/sit/emotes/revised combat by JaidynReiman",
+      "authors": [
+        "Nila122",
+        "JaidynReiman",
+        "Johannes Sjölund (wulax)",
+        "Stephen Challener (Redshrike)"
+      ],
+      "licenses": [
+        "OGA-BY 3.0",
+        "GPL 2.0",
+        "GPL 3.0",
+        "CC-BY-SA 3.0"
+      ],
+      "urls": [
+        "https://opengameart.org/content/lpc-pirates",
+        "https://opengameart.org/content/more-lpc-clothes-and-hair",
+        "https://opengameart.org/content/lpc-expanded-pants"
+      ]
+    },
+    {
+      "fileName": "shadow/adult/walk.png",
+      "file": "shadow",
+      "notes": "Original by Dr. Jamgo, jump/sit/emote/run/revised combat by JaidynReiman",
+      "authors": [
+        "drjamgo@hotmail.com",
+        "JaidynReiman"
+      ],
+      "licenses": [
+        "CC0"
+      ],
+      "urls": [
+        "https://opengameart.org/content/shadow-for-lpc-sprite"
+      ]
+    },
+    {
+      "fileName": "torso/clothes/longsleeve/longsleeve2_cardigan/male/walk.png",
+      "file": "torso/clothes/longsleeve/longsleeve2_cardigan",
+      "notes": "original by ElizaWy; spellcast/thrust/shoot/hurt/male adapted from original by JaidynReiman",
+      "authors": [
+        "ElizaWy",
+        "JaidynReiman",
+        "Stephen Challener (Redshrike)",
+        "Johannes Sjölund (wulax)"
+      ],
+      "licenses": [
+        "OGA-BY 3.0"
+      ],
+      "urls": [
+        "http://opengameart.org/content/lpc-revised-character-basics",
+        "https://github.com/ElizaWy/LPC/tree/main/Characters/Clothing",
+        "https://opengameart.org/content/lpc-expanded-sit-run-jump-more",
+        "https://opengameart.org/content/lpc-expanded-simple-shirts"
+      ]
+    },
+    {
+      "fileName": "beards/mustache/basic/walk.png",
+      "file": "beards/mustache/basic",
+      "notes": "Original by Nemisys, repositioning by JaidynReiman.",
+      "authors": [
+        "JaidynReiman",
+        "Carlo Enrico Victoria (Nemisys)"
+      ],
+      "licenses": [
+        "CC-BY-SA 3.0",
+        "GPL 3.0"
+      ],
+      "urls": [
+        "https://opengameart.org/content/lpc-brunet-mustache"
+      ]
+    },
+    {
+      "fileName": "hat/cloth/hood/adult/walk.png",
+      "file": "hat/cloth/hood",
+      "notes": "Brown hood by Wulax, original black/white recolors by ??, mapped to idle/run/jump/revised combat by JaidynReiman, along with additional recolors.",
+      "authors": [
+        "Johannes Sjölund (wulax)",
+        "JaidynReiman"
+      ],
+      "licenses": [
+        "OGA-BY 3.0",
+        "CC-BY-SA 3.0",
+        "GPL 3.0"
+      ],
+      "urls": [
+        "https://opengameart.org/content/lpc-medieval-fantasy-character-sprites",
+        "https://opengameart.org/content/lpc-expanded-hats-facial-helmets"
+      ]
+    },
+    {
+      "fileName": "feet/socks/ankle/male/walk.png",
+      "file": "feet/socks/ankle/male",
+      "notes": "original overalls and thin socks by ElizaWy, base animations adapted from v3 overalls by bluecarrot16, socks by JaidynReiman",
+      "authors": [
+        "JaidynReiman",
+        "ElizaWy",
+        "Bluecarrot16",
+        "Stephen Challener (Redshrike)",
+        "Johannes Sjölund (wulax)"
+      ],
+      "licenses": [
+        "OGA-BY 3.0",
+        "GPL 3.0"
+      ],
+      "urls": [
+        "https://github.com/ElizaWy/LPC/tree/main/Characters/Clothing",
+        "https://opengameart.org/content/lpc-expanded-socks-shoes"
+      ]
+    },
+    {
+      "fileName": "feet/shoes/sara/male/walk.png",
+      "file": "feet/shoes/sara/male",
+      "notes": "LPC Sara by Redshrike, contributed by William Thompsonj, Shoes Separated by Bluecarrot16, Male Version and Jump/Sit/Emote/Run/Revised Combat by JaidynReiman",
+      "authors": [
+        "JaidynReiman",
+        "Bluecarrot16",
+        "Mandi Paugh",
+        "Stephen Challener (Redshrike)",
+        "William.Thompsonj"
+      ],
+      "licenses": [
+        "OGA-BY 3.0",
+        "CC-BY 3.0+",
+        "GPL 2.0",
+        "GPL 3.0"
+      ],
+      "urls": [
+        "http://opengameart.org/content/sara-wizard",
+        "https://opengameart.org/content/lpc-sara",
+        "https://opengameart.org/content/lpc-expanded-socks-shoes"
+      ]
+    }
+  ]
+}
