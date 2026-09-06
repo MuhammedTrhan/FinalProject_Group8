@@ -7,8 +7,8 @@
 size = Vector2(24, 24)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_frpl0"]
-radius = 18.0
-height = 56.0
+radius = 15.0
+height = 44.0
 
 [sub_resource type="Gradient" id="Gradient_ssfek"]
 colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)

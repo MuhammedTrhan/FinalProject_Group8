@@ -1,75 +1,69 @@
 class_name Door
-extends StaticBody2D
+extends Interactable
 
-
-signal door_interacted(interaction: Interactions.InteractionType)
 
 @export var is_locked := false
 @export var required_key: PackedScene
 
-@onready var info_label = $DoorInfoLabel
 @onready var hitbox = $Hitbox
 @onready var closed_door: Sprite2D = $DoorClosed
 @onready var opened_door: Sprite2D = $DoorOpen
 @onready var lock_icon: Sprite2D = $LockIcon
 
-var player_in_area := false
 var is_open := false
-# Holds bodies: {"player": body_ref, "enemy": body_ref}
-var interacting_bodies: Dictionary = {}
-var error_message_label: Label
 
 
 func _ready() -> void:
-	info_label.hide()
 	if not is_open:
 		closed_door.show()
 		opened_door.hide()
 	else:
 		opened_door.show()
 		closed_door.hide()
-	
+
 	if is_locked:
 		lock_icon.show()
 	else:
 		lock_icon.hide()
 
+	_update_prompts()
 
-func _unhandled_input(event: InputEvent) -> void:
-	if not player_in_area or not "player" in interacting_bodies:
-		return
-	
-	var player_body = interacting_bodies["player"]
-	if not is_instance_valid(player_body):
-		return
 
-	if event.is_action_pressed("action"):
-		if has_required_key():
-			if not is_open:
-				toogle_lock()
-			else:
-				if not is_locked:
-					show_error_message("I need to close this door to lock it.")
-				else:
-					show_error_message("I need to close this door to unlock it.")
+# Primary (Interact/Space): open/close.
+func _do_interact(_actor: Node2D) -> Interactions.InteractionType:
+	if is_locked:
+		GameEvents.message_requested.emit("I need to unlock this door first.")
+		return Interactions.InteractionType.NONE
 
-			# If the door is still open somehow, close it when locking it.
-			if is_locked and is_open:
-				close_door()
-			
-			update_info_label()
-		
+	if is_open:
+		close_door()
+		return Interactions.InteractionType.CLOSE
+	else:
+		open_door()
+		return Interactions.InteractionType.OPEN
+
+
+## Secondary (action/E): lock/unlock.
+func _do_secondary(actor: Node2D) -> Interactions.InteractionType:
+	if not has_required_key(actor):
+		GameEvents.message_requested.emit("I don't have the right key.")
+		return Interactions.InteractionType.NONE
+
+	var result := Interactions.InteractionType.NONE
+	if not is_open:
+		toogle_lock()
+		result = Interactions.InteractionType.LOCK if is_locked else Interactions.InteractionType.UNLOCK
+	else:
+		if not is_locked:
+			GameEvents.message_requested.emit("I need to close this door to lock it.")
 		else:
-			show_error_message("I don't have the right key.")
+			GameEvents.message_requested.emit("I need to close this door to unlock it.")
 
-	elif event.is_action_pressed("Interact") and not is_locked:
-		if is_open:
-			close_door()
-		else:
-			open_door()
+	# Safety net: if the door is somehow both open and locked, force it closed.
+	if is_locked and is_open:
+		close_door()
 
-	elif event.is_action_pressed("Interact") and is_locked:
-		show_error_message("I need to unlock this door first.")
+	return result
 
 
 func open_door() -> void:
@@ -77,113 +71,39 @@ func open_door() -> void:
 	hitbox.set_deferred("disabled", true)
 	closed_door.hide()
 	opened_door.show()
-
-	if player_in_area:
-		update_info_label()
-	
-	door_interacted.emit(Interactions.InteractionType.OPEN)
+	_update_prompts()
 
 
 func close_door() -> void:
 	is_open = false
 	hitbox.set_deferred("disabled", false)
-
 	closed_door.show()
 	opened_door.hide()
+	_update_prompts()
 
-	if player_in_area:
-		update_info_label()
-		info_label.show()
-	
-	door_interacted.emit(Interactions.InteractionType.CLOSE)
-	
 
 func toogle_lock() -> void:
 	is_locked = not is_locked
 	if is_locked:
 		lock_icon.show()
-		door_interacted.emit(Interactions.InteractionType.LOCK)
 	else:
 		lock_icon.hide()
-		door_interacted.emit(Interactions.InteractionType.UNLOCK)
-
-	if player_in_area:
-		update_info_label()
+	_update_prompts()
 
 
-func has_required_key() -> bool:
-	if not "player" in interacting_bodies:
-		return false
-	var player_body = interacting_bodies["player"]
-	return required_key == null or (player_body.has_method("has_key") and player_body.has_key(required_key))
+# required_key is still the pre-refactor PackedScene key system (migrating
+# to ItemData waits for the Resources/Items/*.tres key resources to exist).
+func has_required_key(actor: Node2D) -> bool:
+	return required_key == null or (actor.has_method("has_key") and actor.has_key(required_key))
 
 
-func update_info_label() -> void:
+func _update_prompts() -> void:
 	if is_open:
-		info_label.text = "Press 'Space' to close the door"
+		prompt_text = "Close the door"
+		secondary_prompt_text = ""
 	elif is_locked:
-		info_label.text = "Press 'E' to unlock the door."
+		prompt_text = ""
+		secondary_prompt_text = "Unlock the door"
 	else:
-		info_label.text = "Press 'Space' to open the door\n Press 'E' to lock the door."
-
-
-func show_error_message(message: String) -> void:
-	if not "player" in interacting_bodies:
-		return
-	
-	var player_body = interacting_bodies["player"]
-	if not is_instance_valid(player_body):
-		return
-
-	if is_instance_valid(error_message_label):
-		error_message_label.queue_free()
-
-	error_message_label = Label.new()
-	error_message_label.text = message
-	error_message_label.position = Vector2(-90, -64)
-	error_message_label.z_index = 10
-	error_message_label.add_theme_color_override("font_color", Color.WHITE)
-	error_message_label.add_theme_color_override("font_shadow_color", Color.BLACK)
-	error_message_label.add_theme_constant_override("shadow_offset_x", 2)
-	error_message_label.add_theme_constant_override("shadow_offset_y", 2)
-	player_body.add_child(error_message_label)
-
-	await get_tree().create_timer(2.0).timeout
-	if is_instance_valid(error_message_label):
-		error_message_label.queue_free()
-		error_message_label = null
-
-	
-func _on_interraction_area_body_entered(body: Node2D) -> void:
-	var body_key: String
-	
-	if body.is_in_group("player"):
-		body_key = "player"
-		player_in_area = true
-		update_info_label()
-		info_label.show()
-	else:
-		body_key = "enemy"
-	
-	interacting_bodies[body_key] = body
-
-	# Connect the door_interacted signal to the interacting body if it has the on_door_interacted method
-	if body.has_method("on_door_interacted"):
-		door_interacted.connect(body.on_door_interacted)
-
-
-func _on_interraction_area_body_exited(body: Node2D) -> void:
-	var body_key: String
-	
-	if body.is_in_group("player"):
-		body_key = "player"
-		player_in_area = false
-		info_label.hide()
-	else:
-		body_key = "enemy"
-	
-	if body_key in interacting_bodies and interacting_bodies[body_key] == body:
-		interacting_bodies.erase(body_key)
-		
-		if body.has_method("on_door_interacted") and door_interacted.is_connected(body.on_door_interacted):
-				door_interacted.disconnect(body.on_door_interacted)
+		prompt_text = "Open the door"
+		secondary_prompt_text = "Lock the door"

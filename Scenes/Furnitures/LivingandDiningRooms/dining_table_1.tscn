@@ -6,8 +6,8 @@
 size = Vector2(42, 23)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_dtbl0"]
-radius = 22.0
-height = 68.0
+radius = 20.0
+height = 62.0
 
 [node name="DiningTable" unique_id=2143569362 instance=ExtResource("1_dtbl0")]
 

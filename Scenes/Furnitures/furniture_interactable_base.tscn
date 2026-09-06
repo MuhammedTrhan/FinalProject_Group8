@@ -36,6 +36,10 @@ visible = false
 shape = SubResource("RectangleShape2D_h0llp")
 
 [node name="InterractionArea" type="Area2D" parent="." unique_id=97300687]
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+monitorable = true
 
 [node name="InterractionBox" type="CollisionShape2D" parent="InterractionArea" unique_id=1028417380]
 shape = SubResource("CapsuleShape2D_ao6dg")
@@ -61,5 +65,3 @@ text = "Press 'E' to interact"
 label_settings = SubResource("LabelSettings_2d3bi")
 horizontal_alignment = 1
 
-[connection signal="body_entered" from="InterractionArea" to="." method="_on_interraction_area_body_entered"]
-[connection signal="body_exited" from="InterractionArea" to="." method="_on_interraction_area_body_exited"]

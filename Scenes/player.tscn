@@ -1005,13 +1005,19 @@ _data = {
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6t5aa"]
-radius = 79.40403
+radius = 34.826553
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_vgqql"]
-radius = 47.67599
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_prompt"]
+light_mode = 1
+
+[sub_resource type="LabelSettings" id="LabelSettings_prompt"]
+font_size = 32
+outline_size = 5
+outline_color = Color(0, 0, 0, 1)
 
 [node name="Player" type="CharacterBody2D" unique_id=496936875 groups=["player"]]
 y_sort_enabled = true
+scale = Vector2(0.75, 0.75)
 collision_mask = 18
 motion_mode = 1
 platform_wall_layers = 2
@@ -1035,18 +1041,52 @@ script = ExtResource("3_6t5aa")
 
 [node name="InterractArea" type="Area2D" parent="." unique_id=1161698486]
 position = Vector2(0, -26)
-collision_mask = 0
+collision_mask = 4
 
 [node name="InterractBox" type="CollisionShape2D" parent="InterractArea" unique_id=1005426027]
 shape = SubResource("CircleShape2D_6t5aa")
 
-[node name="PickupArea" type="Area2D" parent="." unique_id=379452320]
-position = Vector2(0, -26)
-collision_mask = 0
+[node name="PromptLabel" type="Label" parent="." unique_id=2073319199]
+visible = false
+z_index = 10
+material = SubResource("CanvasItemMaterial_prompt")
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -80.0
+offset_top = -55.0
+offset_right = 80.0
+offset_bottom = -32.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.4, 0.4)
+label_settings = SubResource("LabelSettings_prompt")
+horizontal_alignment = 1
 
-[node name="PickupBox" type="CollisionShape2D" parent="PickupArea" unique_id=1518216644]
-position = Vector2(0, 10)
-shape = SubResource("CircleShape2D_vgqql")
+[node name="MessageLabel" type="Label" parent="." unique_id=941872600]
+visible = false
+z_index = 10
+material = SubResource("CanvasItemMaterial_prompt")
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -90.0
+offset_top = -78.0
+offset_right = 90.0
+offset_bottom = -55.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.4, 0.4)
+label_settings = SubResource("LabelSettings_prompt")
+horizontal_alignment = 1
+
+[node name="MessageTimer" type="Timer" parent="." unique_id=1189411005]
+wait_time = 2.0
+one_shot = true
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1552206405]
 zoom = Vector2(2, 2)

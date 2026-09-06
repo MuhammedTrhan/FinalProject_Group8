@@ -20,3 +20,6 @@ export_presets.cfg
 # OS junk
 .DS_Store
 Thumbs.db
+
+# Per-developer editor config (include paths, debug launch targets)
+.vscode/
