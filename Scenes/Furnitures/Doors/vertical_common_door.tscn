@@ -69,6 +69,12 @@ texture = ExtResource("5_6xkmc")
 [node name="Hitbox" type="CollisionShape2D" parent="." unique_id=150259076]
 shape = SubResource("RectangleShape2D_h0llp")
 
+[node name="ExitMarkerA" type="Marker2D" parent="." unique_id=1157559513]
+position = Vector2(-20, 0)
+
+[node name="ExitMarkerB" type="Marker2D" parent="." unique_id=1421466124]
+position = Vector2(20, 0)
+
 [node name="InterractionArea" type="Area2D" parent="." unique_id=97300687]
 collision_layer = 4
 collision_mask = 0

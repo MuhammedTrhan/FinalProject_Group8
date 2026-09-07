@@ -9,6 +9,10 @@ extends Interactable
 @onready var closed_door: Sprite2D = $DoorClosed
 @onready var opened_door: Sprite2D = $DoorOpen
 @onready var lock_icon: Sprite2D = $LockIcon
+## The two valid "outside the doorway" points, one per side. Whoever is still
+## standing in the hitbox when it closes gets snapped to whichever is nearer.
+@onready var exit_marker_a: Marker2D = $ExitMarkerA
+@onready var exit_marker_b: Marker2D = $ExitMarkerB
 
 var is_open := false
 
@@ -75,11 +79,32 @@ func open_door() -> void:
 
 
 func close_door() -> void:
+	_evacuate_hitbox()
+
 	is_open = false
 	hitbox.set_deferred("disabled", false)
 	closed_door.show()
 	opened_door.hide()
 	_update_prompts()
+
+
+# Snap the body to nearest exit marker if it's still in the hitbox
+# when the door closes.
+func _evacuate_hitbox() -> void:
+	var query := PhysicsShapeQueryParameters2D.new()
+	query.shape = hitbox.shape
+	query.transform = hitbox.global_transform
+	query.collision_mask = Layers.PLAYER | Layers.ENEMY
+
+	var space_state := get_world_2d().direct_space_state
+	for result in space_state.intersect_shape(query, 4):
+		var body: Node2D = result.get("collider")
+		if body == null:
+			continue
+
+		var to_a := body.global_position.distance_squared_to(exit_marker_a.global_position)
+		var to_b := body.global_position.distance_squared_to(exit_marker_b.global_position)
+		body.global_position = exit_marker_a.global_position if to_a <= to_b else exit_marker_b.global_position
 
 
 func toogle_lock() -> void:

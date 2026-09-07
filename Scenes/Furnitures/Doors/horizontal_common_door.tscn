@@ -66,6 +66,12 @@ offset = Vector2(0, -32)
 position = Vector2(0, -32)
 shape = SubResource("RectangleShape2D_h0llp")
 
+[node name="ExitMarkerA" type="Marker2D" parent="." unique_id=378009464]
+position = Vector2(0, -80)
+
+[node name="ExitMarkerB" type="Marker2D" parent="." unique_id=1091290355]
+position = Vector2(0, 16)
+
 [node name="InterractionArea" type="Area2D" parent="." unique_id=97300687]
 position = Vector2(0, -16)
 collision_layer = 4
