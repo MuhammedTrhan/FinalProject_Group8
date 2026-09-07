@@ -1,0 +1,49 @@
+[gd_scene format=3 uid="uid://nbcsiidio0wd"]
+
+[ext_resource type="PackedScene" uid="uid://lgxl3cht6vlk" path="res://Scenes/Furnitures/furniture_interactable_base.tscn" id="1_55vwf"]
+[ext_resource type="Script" uid="uid://bwrms388cydxi" path="res://Scripts/Interactables/LightSourceFurniture.gd" id="2_ieaos"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_so404"]
+radius = 5.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_thl40"]
+radius = 12.0
+height = 54.0
+
+[sub_resource type="Gradient" id="Gradient_ssfek"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_3s8f1"]
+gradient = SubResource("Gradient_ssfek")
+width = 512
+height = 512
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+
+[node name="StandingLamp" unique_id=758378394 instance=ExtResource("1_55vwf")]
+script = ExtResource("2_ieaos")
+
+[node name="InactiveSprite" parent="." index="0" unique_id=1764835962]
+offset = Vector2(0, -18)
+region_rect = Rect2(96, 112, 16, 48)
+
+[node name="ActiveSprite" parent="." index="1" unique_id=91856626]
+offset = Vector2(0, -18)
+region_rect = Rect2(96, 112, 16, 48)
+
+[node name="Hitbox" parent="." index="2" unique_id=150259076]
+visible = true
+shape = SubResource("CircleShape2D_so404")
+
+[node name="InterractionBox" parent="InterractionArea" parent_id_path=PackedInt32Array(97300687) index="0" unique_id=1028417380]
+position = Vector2(0, -19)
+shape = SubResource("CapsuleShape2D_thl40")
+
+[node name="PointLight2D" type="PointLight2D" parent="." index="5" unique_id=1897675088]
+position = Vector2(0, -11)
+color = Color(0.6237184, 0.6237184, 0.053774156, 1)
+energy = 0.5
+shadow_enabled = true
+texture = SubResource("GradientTexture2D_3s8f1")
+texture_scale = 0.33

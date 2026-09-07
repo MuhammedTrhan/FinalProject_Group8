@@ -31,6 +31,10 @@ signal interacted(actor: Node2D)
 # Every subclass's scene has a child Area2D named exactly this - it's the
 # passive marker Player's InterractArea sensor detects (see class doc above).
 @onready var interaction_area: Area2D = $InterractionArea
+# ...and this is its collision shape, also a fixed name by convention. Used
+# by get_distance_to() below - NOT for detection, InterractionArea already
+# handles that.
+@onready var interaction_box: CollisionShape2D = $InterractionArea/InterractionBox
 
 # This is how Player's sensor finds this object at all.
 @warning_ignore("unused_private_class_variable")
@@ -40,6 +44,43 @@ signal interacted(actor: Node2D)
 func _set_interactable_meta() -> bool:
 	interaction_area.set_meta(&"interactable", self)
 	return true
+
+
+## Distance from `point` to the NEAREST POINT of this object's interaction
+## shape (0 if `point` is already inside it) - deliberately not distance to
+## this node's origin. Origins can sit far from where the player actually
+## needs to stand; comparing origins made a nearer object lose to a farther
+## one whenever the farther one's origin happened to be closer than its own shape.
+## Player uses this for nearest-candidate selection instead of raw global_position distance.
+func get_distance_to(point: Vector2) -> float:
+	var shape := interaction_box.shape if interaction_box else null
+	if shape == null:
+		return global_position.distance_to(point)
+
+	var local_point: Vector2 = interaction_box.global_transform.affine_inverse() * point
+
+	if shape is CircleShape2D:
+		return maxf(0.0, local_point.length() - shape.radius)
+
+	if shape is CapsuleShape2D:
+		# Capsule's long axis is always local Y in Godot, regardless of
+		# whatever rotation this particular instance's node carries - that
+		# rotation is already baked into global_transform above.
+		var half_segment: float = maxf(0.0, shape.height * 0.5 - shape.radius)
+		var closest_on_axis := Vector2(0.0, clampf(local_point.y, -half_segment, half_segment))
+		return maxf(0.0, local_point.distance_to(closest_on_axis) - shape.radius)
+
+	if shape is RectangleShape2D:
+		var half_size: Vector2 = shape.size * 0.5
+		var closest := Vector2(
+			clampf(local_point.x, -half_size.x, half_size.x),
+			clampf(local_point.y, -half_size.y, half_size.y)
+		)
+		return local_point.distance_to(closest)
+
+	# Unhandled shape type (e.g. a polygon) - fall back to origin distance
+	# rather than guessing at its geometry.
+	return global_position.distance_to(point)
 
 
 func interact(actor: Node2D) -> Interactions.InteractionType:

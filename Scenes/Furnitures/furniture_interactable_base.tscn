@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://lgxl3cht6vlk"]
 
 [ext_resource type="Texture2D" uid="uid://bnqp3ro7aluuu" path="res://Assets/Interior/Furnitures/TopDownHouse_FurnitureState1.png" id="1_2d3bi"]
-[ext_resource type="Script" uid="uid://bafsab75v6ak4" path="res://Scripts/Furniture.gd" id="1_xgchm"]
+[ext_resource type="Script" uid="uid://bafsab75v6ak4" path="res://Scripts/Interactables/Furniture.gd" id="1_xgchm"]
 [ext_resource type="Texture2D" uid="uid://bu7s235skbrck" path="res://Assets/Interior/Furnitures/TopDownHouse_FurnitureState2.png" id="2_08fgv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h0llp"]
@@ -22,6 +22,7 @@ outline_color = Color(0, 0, 0, 1)
 y_sort_enabled = true
 collision_layer = 2
 script = ExtResource("1_xgchm")
+priority = 3
 
 [node name="InactiveSprite" type="Sprite2D" parent="." unique_id=1764835962]
 texture = ExtResource("1_2d3bi")
@@ -39,7 +40,6 @@ shape = SubResource("RectangleShape2D_h0llp")
 collision_layer = 4
 collision_mask = 0
 monitoring = false
-monitorable = true
 
 [node name="InterractionBox" type="CollisionShape2D" parent="InterractionArea" unique_id=1028417380]
 shape = SubResource("CapsuleShape2D_ao6dg")
@@ -64,4 +64,3 @@ size_flags_horizontal = 4
 text = "Press 'E' to interact"
 label_settings = SubResource("LabelSettings_2d3bi")
 horizontal_alignment = 1
-
