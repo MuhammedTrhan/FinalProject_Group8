@@ -46,8 +46,8 @@ func hide_player(actor: Node2D) -> void:
 	actor.add_collision_exception_with(self)
 
 	if actor.has_method("set_hidden"):
-		actor.set_hidden(true, hide_point.global_position)
-	
+		actor.set_hidden(true, hide_point.global_position, self)
+
 	prompt_text = "Reveal"
 
 
@@ -59,7 +59,7 @@ func reveal_player(actor: Node2D) -> void:
 	occupant = null
 
 	if actor.has_method("set_hidden"):
-		actor.set_hidden(false, stand_point.global_position)
+		actor.set_hidden(false, stand_point.global_position, self)
 
 	prompt_text = "Hide"
 

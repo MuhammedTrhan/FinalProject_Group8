@@ -75,7 +75,7 @@ GameManager.is_day() -> bool
 signal clue_revealed(digit_index: int, digit_value: int, flavour: String)
 signal item_pickup_requested(item: ItemData)
 signal noise_source_silenced(source: Node, remaining: int)
-signal player_hidden_changed(hidden: bool)
+signal player_hidden_changed(hidden: bool, hideable: Hideable)
 
 # Antagonist (Dev2)
 signal player_caught(reason: StringName)

@@ -211,7 +211,7 @@ func orient_for_furniture(snap_pos: Vector2, facing_from: Vector2, facing_to: Ve
 # from) a piece of furniture. Unlike sitting, there is no animation for
 # this - the player simply disappears, and is frozen in place
 # (collision_layer = 0) so the enemy's TouchArea and any raycast pass through them.
-func set_hidden(is_hidden: bool, snap_pos: Vector2) -> void:
+func set_hidden(is_hidden: bool, snap_pos: Vector2, hideable: Hideable = null) -> void:
 	global_position = snap_pos
 
 	if is_hidden:
@@ -223,7 +223,7 @@ func set_hidden(is_hidden: bool, snap_pos: Vector2) -> void:
 		sprite.show()
 		accept_input = true
 
-	GameEvents.player_hidden_changed.emit(is_hidden)
+	GameEvents.player_hidden_changed.emit(is_hidden, hideable)
 
 
 # Stop player movement during interactions and resume it after the interaction animation is finished

@@ -11,13 +11,6 @@ size = Vector2(16, 42)
 radius = 16.0
 height = 68.0
 
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_xgchm"]
-light_mode = 1
-
-[sub_resource type="LabelSettings" id="LabelSettings_2d3bi"]
-outline_size = 5
-outline_color = Color(0, 0, 0, 1)
-
 [node name="Furniture" type="StaticBody2D" unique_id=758378394]
 y_sort_enabled = true
 collision_layer = 2
@@ -43,24 +36,3 @@ monitoring = false
 
 [node name="InterractionBox" type="CollisionShape2D" parent="InterractionArea" unique_id=1028417380]
 shape = SubResource("CapsuleShape2D_ao6dg")
-
-[node name="InfoLabel" type="Label" parent="." unique_id=1002307500]
-visible = false
-z_index = 1
-material = SubResource("CanvasItemMaterial_xgchm")
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -43.0
-offset_top = -37.0
-offset_right = 169.49997
-offset_bottom = -14.0
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(0.4, 0.4)
-size_flags_horizontal = 4
-text = "Press 'E' to interact"
-label_settings = SubResource("LabelSettings_2d3bi")
-horizontal_alignment = 1

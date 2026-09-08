@@ -68,6 +68,13 @@ var _pause_timer: float = 0.0
 var _idle_duration: float = 0.0
 var _look_around_timer: float = 0.0
 var _lost_timer: float = 0.0
+## True while the current Investigate leg is a "caught you hiding" walk, not
+## an ordinary lost-track - set by _on_player_hidden_changed(), consumed on
+## arrival in _process_investigate().
+var _capture_on_arrival: bool = false
+## The Hideable _capture_on_arrival is walking to - rechecked on arrival in
+## case the player left before the enemy got there.
+var _capture_hideable: Hideable = null
 
 var _ai_frozen: bool = false
 var _debug_player_hidden: bool = false
@@ -95,6 +102,7 @@ func _ready() -> void:
 	touch_area.body_entered.connect(_on_touch_area_body_entered)
 	anim_handler.animation_finished.connect(anim_handler._on_animation_finished)
 	GameEvents.day_started.connect(_on_day_started)
+	GameEvents.player_hidden_changed.connect(_on_player_hidden_changed)
 
 	# Safe baseline before anything else touches target_position
 	nav_agent.target_position = global_position
@@ -170,7 +178,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		GameEvents.player_caught.emit(&"timeout")
 	elif event.is_action_pressed("debug_toggle_hidden"):
 		_debug_player_hidden = not _debug_player_hidden
-		GameEvents.player_hidden_changed.emit(_debug_player_hidden)
+		GameEvents.player_hidden_changed.emit(_debug_player_hidden, null)
 	elif event.is_action_pressed("debug_toggle_overlay"):
 		debug_overlay.visible = not debug_overlay.visible
 
@@ -213,6 +221,9 @@ func _enter_state(new_state: State) -> void:
 	_pause_timer = 0.0
 	_look_around_timer = 0.0
 	_lost_timer = 0.0
+	# Clear the flag here.
+	_capture_on_arrival = false
+	_capture_hideable = null
 
 	if new_state == State.IDLE:
 		# Every patrol arrival gets at least a brief "looking around" beat
@@ -231,6 +242,30 @@ func _enter_special() -> void:
 	velocity = Vector2.ZERO
 	if active_module:
 		active_module.on_enter_special()
+
+
+## Hiding while seen shouldn't be a free escape. player_hidden_changed
+## can fire with the player's collision_layer already at 0
+## (set before the signal fires, in PlayerMovement.set_hidden()), so a fresh
+## raycast here would miss them - was_visible_last_frame() is the cached
+## answer from this same frame's perception.update() instead.
+func _on_player_hidden_changed(is_hidden: bool, hideable: Hideable) -> void:
+	if not is_hidden or state == State.SPECIAL or not perception.was_visible_last_frame():
+		return
+
+	var player := perception.get_player()
+	if player == null:
+		return
+
+	# stand_point - the exit marker of the hideable (He pulls out the player here). 
+	investigate_target = hideable.stand_point.global_position if hideable else player.global_position
+
+	if not profile.catches_hidden_in_sight and active_module:
+		active_module.on_lost_target()
+	_enter_state(State.INVESTIGATE)  # also clears _capture_on_arrival/_capture_hideable
+	if profile.catches_hidden_in_sight:
+		_capture_on_arrival = true
+		_capture_hideable = hideable
 
 
 func _check_perception_transitions(dwelled: bool) -> void:
@@ -276,6 +311,20 @@ func _process_investigate(delta: float) -> void:
 	_move_toward(nav_agent.get_next_path_position(), profile.move_speed)
 
 	if nav_agent.is_navigation_finished():
+		if _capture_on_arrival:
+			# Re-check rather than trust the flag blindly - the player may
+			# have fled the hiding spot before the enemy actually got here.
+			var still_hiding_there := _capture_hideable == null or (
+				is_instance_valid(_capture_hideable)
+				and _capture_hideable.is_occupied
+				and _capture_hideable.occupant == perception.get_player()
+			)
+			_capture_on_arrival = false
+			_capture_hideable = null
+			if still_hiding_there:
+				GameEvents.player_caught.emit(&"seen")
+				return
+
 		_look_around_timer += delta
 		if _look_around_timer >= investigate_look_around_time:
 			_enter_state(State.PATROL)

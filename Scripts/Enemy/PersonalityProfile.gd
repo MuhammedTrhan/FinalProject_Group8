@@ -70,6 +70,11 @@ enum Personality {FORGETFUL, PARANOID, OVERWHELMED}
 ## behind him again. 0.0 means "always closes up (and re-locks) behind
 ## itself" - only Forgetful has this above zero.
 @export_range(0.0, 1.0) var leave_door_open_chance: float = 0.0
+## If the player hides while still clearly in view (Perception.was_visible_
+## last_frame() was true the instant player_hidden_changed(true) fires), this
+## personality walks straight to the hiding spot and drags the player out. Only
+## Forgetful just treats it as an ordinary lost-track (Investigate, then give up).
+@export var catches_hidden_in_sight: bool = true
 
 
 @export_group("Reward")
