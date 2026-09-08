@@ -49,9 +49,8 @@ func is_diary_scrap(item: ItemData) -> bool:
 	return item in DIARY_SCRAPS
 
 
-# Combines the 3 diary scraps into DIARY_PAGE if all are present.
-# NOTE: revealing the passcode digit for the diary (clue_revealed, digit_index
-# 2) is Dev3's job per docs/CONTRACT.md - not wired here yet, pending their hookup.
+# Combines the 3 diary scraps into DIARY_PAGE if all are present, and reveals
+# digit_index 2 of the exit passcode (see docs/CONTRACT.md §3.2).
 func try_combine_diary_scraps() -> bool:
 	for scrap in DIARY_SCRAPS:
 		if not has_item(scrap):
@@ -60,4 +59,6 @@ func try_combine_diary_scraps() -> bool:
 	for scrap in DIARY_SCRAPS:
 		remove_item(scrap)
 	add_item(DIARY_PAGE)
+
+	GameEvents.clue_revealed.emit(2, ProceduralGenerator.get_digit(2), "You piece the diary pages together.")
 	return true

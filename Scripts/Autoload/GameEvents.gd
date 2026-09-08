@@ -58,9 +58,9 @@ signal enemy_state_changed(state: StringName)
 # World and puzzles  (Dev3 emits, Dev1 consumes)
 # ---------------------------------------------------------------------------
 
-## A puzzle has revealed one digit of the exit passcode.
+## A puzzle has revealed one digit of the exit passcode (3 digits total).
 ## `digit_index` is fixed per puzzle: 0 = UV floor clue, 1 = loose floorboard,
-## 2 = torn diary, 3 = day-one terminal.
+## 2 = torn diary. See docs/CONTRACT.md §3.2.
 @warning_ignore("unused_signal")
 signal clue_revealed(digit_index: int, digit_value: int, flavour: String)
 

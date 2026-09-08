@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://bnqp3ro7aluuu" path="res://Assets/Interior/Furnitures/TopDownHouse_FurnitureState1.png" id="2_d627x"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h0llp"]
-size = Vector2(16, 42)
+size = Vector2(16, 37)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ao6dg"]
 radius = 18.0
