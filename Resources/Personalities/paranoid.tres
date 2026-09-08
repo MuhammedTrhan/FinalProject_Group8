@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="PersonalityProfile" load_steps=7 format=3 uid="uid://c8kqn3paranoi"]
+
+[ext_resource type="Script" uid="uid://orcuat2oln63" path="res://Scripts/Enemy/PersonalityProfile.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://c28x47tby5vsm" path="res://Assets/Enemy/enemy_paranoid/portrait.png" id="2_portrait"]
+[ext_resource type="Texture2D" uid="uid://nyhgrprgqxvb" path="res://Assets/Enemy/enemy_paranoid/standard/idle.png" id="3_idle"]
+[ext_resource type="Texture2D" uid="uid://bcuvbmo4cojtk" path="res://Assets/Enemy/enemy_paranoid/standard/walk.png" id="4_walk"]
+[ext_resource type="Texture2D" uid="uid://dwtb5jkdgfq6x" path="res://Assets/Enemy/enemy_paranoid/standard/slash.png" id="5_slash"]
+[ext_resource type="Texture2D" uid="uid://dk7bofpr4naep" path="res://Assets/Enemy/enemy_paranoid/standard/sit.png" id="6_sit"]
+
+[resource]
+script = ExtResource("1_script")
+personality = 1
+display_name = "The Scary One"
+dossier_text = "I absolutely do not want to be seen wandering around this guy. He moves so erratically, constantly stopping and doing these quick 180-degree turns. You can't trick or distract him at all. One day, I used pure stealth and used the hiding spots to follow him only to find out he was throwing something's pieces into different garbage cans. He has this massive vision cone, and if you get caught in it for more than one single second, it triggers an immediate lockdown."
+portrait = ExtResource("2_portrait")
+idle_sheet = ExtResource("3_idle")
+walk_sheet = ExtResource("4_walk")
+slash_sheet = ExtResource("5_slash")
+sit_sheet = ExtResource("6_sit")
+move_speed = 95.0
+chase_speed = 145.0
+pause_chance = 0.15
+pause_duration_range = Vector2(0.6, 1.8)
+turn_around_chance = 0.35
+view_distance = 220.0
+fov_degrees = 110.0
+detect_dwell = 0.5
+can_chase = true
+starts_in_special = false
+leaves_doors_open = false

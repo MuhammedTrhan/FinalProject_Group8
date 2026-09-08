@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="PersonalityProfile" load_steps=7 format=3 uid="uid://dhw6r2overwhl"]
+
+[ext_resource type="Script" uid="uid://orcuat2oln63" path="res://Scripts/Enemy/PersonalityProfile.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://bjrp50nx50rvo" path="res://Assets/Enemy/enemy_overwhelmed/portrait.png" id="2_portrait"]
+[ext_resource type="Texture2D" uid="uid://d2uc8wu6tl10f" path="res://Assets/Enemy/enemy_overwhelmed/standard/idle.png" id="3_idle"]
+[ext_resource type="Texture2D" uid="uid://dv34hmeocrbri" path="res://Assets/Enemy/enemy_overwhelmed/standard/walk.png" id="4_walk"]
+[ext_resource type="Texture2D" uid="uid://d8ai8sbuj86" path="res://Assets/Enemy/enemy_overwhelmed/standard/slash.png" id="5_slash"]
+[ext_resource type="Texture2D" uid="uid://crmugmtqpj2jw" path="res://Assets/Enemy/enemy_overwhelmed/standard/sit.png" id="6_sit"]
+
+[resource]
+script = ExtResource("1_script")
+personality = 2
+display_name = "The Loud Guy"
+dossier_text = "He gets so panicked and covers his ears, rocking back and forth just because of sensory overload. You have 45 seconds to run around and turn off the disturbing TV, the boiling kettle, and stuff to calm him down. If you actually manage to make the house quiet, he feels better and drops something for you. He totally hates washing the dishes, and sometimes complains about that all day long. But if you run out of time and leave the noise on, he has a complete breakdown, flies into a rage, and locks everything down instantly."
+portrait = ExtResource("2_portrait")
+idle_sheet = ExtResource("3_idle")
+walk_sheet = ExtResource("4_walk")
+slash_sheet = ExtResource("5_slash")
+sit_sheet = ExtResource("6_sit")
+move_speed = 70.0
+chase_speed = 100.0
+pause_chance = 0.0
+pause_duration_range = Vector2(0.6, 1.8)
+turn_around_chance = 0.0
+view_distance = 130.0
+fov_degrees = 60.0
+detect_dwell = 1.2
+can_chase = true
+starts_in_special = true
+leaves_doors_open = false

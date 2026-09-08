@@ -16,6 +16,11 @@ var tween_start_pos: Vector2
 var tween_target_pos: Vector2
 
 func _ready() -> void:
+	add_to_group(&"stairs")
+
+	climb_trigger.collision_mask = Layers.PLAYER | Layers.ENEMY
+	descend_trigger.collision_mask = Layers.PLAYER | Layers.ENEMY
+
 	if not destination_stairs:
 		# Without a destination the triggers below would fire and do nothing,
 		# which reads as "the stairs are silently broken". Fail loudly instead.

@@ -31,9 +31,9 @@ func _do_interact(_actor: Node2D) -> Interactions.InteractionType:
 	return Interactions.InteractionType.PICKUP
 
 
-static func spawn(item: ItemData, parent: Node, position: Vector2) -> WorldItem:
+static func spawn(spawn_item: ItemData, parent: Node, spawn_pos: Vector2) -> WorldItem:
 	var instance: WorldItem = preload("res://Scenes/world_item.tscn").instantiate()
-	instance.item = item
-	instance.global_position = position
+	instance.item = spawn_item
+	instance.global_position = spawn_pos
 	parent.add_child(instance)
 	return instance
