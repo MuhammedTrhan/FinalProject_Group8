@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3]
+
+[ext_resource type="Script" uid="uid://sam1gdk4y73n" path="res://Scripts/Items/ItemData.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://88juhvv3nv6f" path="res://Assets/Items/Key locks 16x16/CommonKey.png" id="2_icon"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"common_key"
+display_name = "Common Key"
+description = "A plain key. Opens one of the ordinary doors."
+icon = ExtResource("2_icon")
+is_key = true
+pickup_flavour = "Picked up a common key."

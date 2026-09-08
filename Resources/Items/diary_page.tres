@@ -1,10 +1,11 @@
 [gd_resource type="Resource" script_class="ItemData" load_steps=2 format=3]
 
-[ext_resource type="Script" path="res://Scripts/Items/ItemData.gd" id="1_id"]
+[ext_resource type="Script" uid="uid://sam1gdk4y73n" path="res://Scripts/Items/ItemData.gd" id="1_script"]
 
 [resource]
-script = ExtResource("1_id")
+script = ExtResource("1_script")
 id = &"diary_page"
-display_name = "Complete Diary"
-description = "PLACEHOLDER - Dev3 to replace with real art/text."
-pickup_flavour = "You piece the diary pages together."
+display_name = "Reassembled Diary Page"
+description = "The three torn scraps, pieced back together. It reveals a digit."
+is_key = false
+pickup_flavour = ""

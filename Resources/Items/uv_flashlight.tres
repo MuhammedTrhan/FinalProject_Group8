@@ -1,10 +1,13 @@
-[gd_resource type="Resource" script_class="ItemData" load_steps=2 format=3]
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3]
 
-[ext_resource type="Script" path="res://Scripts/Items/ItemData.gd" id="1_id"]
+[ext_resource type="Script" uid="uid://sam1gdk4y73n" path="res://Scripts/Items/ItemData.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://bui6oh0cr1tkh" path="res://Assets/Items/flashlight/flashlight.png" id="2_icon"]
 
 [resource]
-script = ExtResource("1_id")
+script = ExtResource("1_script")
 id = &"uv_flashlight"
 display_name = "UV Flashlight"
-description = "PLACEHOLDER - Dev3 to replace with real art/text."
+description = "A small UV flashlight. Some things only show up under this light."
+icon = ExtResource("2_icon")
+is_key = false
 pickup_flavour = "A small UV flashlight. Reveals things invisible in normal light."

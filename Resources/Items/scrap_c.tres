@@ -1,10 +1,11 @@
 [gd_resource type="Resource" script_class="ItemData" load_steps=2 format=3]
 
-[ext_resource type="Script" path="res://Scripts/Items/ItemData.gd" id="1_id"]
+[ext_resource type="Script" uid="uid://sam1gdk4y73n" path="res://Scripts/Items/ItemData.gd" id="1_script"]
 
 [resource]
-script = ExtResource("1_id")
+script = ExtResource("1_script")
 id = &"scrap_c"
 display_name = "Torn Diary Page (3/3)"
-description = "PLACEHOLDER - Dev3 to replace with real art/text."
-pickup_flavour = "A torn page from a diary."
+description = "The last scrap of the torn diary."
+is_key = false
+pickup_flavour = "The last torn diary page. It reads whole now."

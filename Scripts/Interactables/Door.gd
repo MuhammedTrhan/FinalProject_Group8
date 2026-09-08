@@ -3,7 +3,11 @@ extends Interactable
 
 
 @export var is_locked := false
-@export var required_key: PackedScene
+## Deliberately its own field, not the base Interactable.required_item: that
+## one gates BOTH interact() and secondary_interact(), but a key should only
+## gate lock/unlock (secondary) - opening/closing an already-unlocked door
+## must never require holding anything.
+@export var required_key_item: ItemData
 
 @onready var hitbox = $Hitbox
 @onready var closed_door: Sprite2D = $DoorClosed
@@ -48,8 +52,8 @@ func _do_interact(_actor: Node2D) -> Interactions.InteractionType:
 
 
 ## Secondary (action/E): lock/unlock.
-func _do_secondary(actor: Node2D) -> Interactions.InteractionType:
-	if not has_required_key(actor):
+func _do_secondary(_actor: Node2D) -> Interactions.InteractionType:
+	if not _has_required_key():
 		GameEvents.message_requested.emit("I don't have the right key.")
 		return Interactions.InteractionType.NONE
 
@@ -116,10 +120,8 @@ func toogle_lock() -> void:
 	_update_prompts()
 
 
-# required_key is still the pre-refactor PackedScene key system (migrating
-# to ItemData waits for the Resources/Items/*.tres key resources to exist).
-func has_required_key(actor: Node2D) -> bool:
-	return required_key == null or (actor.has_method("has_key") and actor.has_key(required_key))
+func _has_required_key() -> bool:
+	return required_key_item == null or Inventory.has_item(required_key_item)
 
 
 func _update_prompts() -> void:

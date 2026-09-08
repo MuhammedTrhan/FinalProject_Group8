@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3]
+
+[ext_resource type="Script" uid="uid://sam1gdk4y73n" path="res://Scripts/Items/ItemData.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://d04q6ag5yk03i" path="res://Assets/Items/Key locks 16x16/PreciousKey.png" id="2_icon"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"precious_key"
+display_name = "Precious Key"
+description = "A heavy, ornamented key. Whatever it opens, it matters."
+icon = ExtResource("2_icon")
+is_key = true
+pickup_flavour = "Picked up a precious key."

@@ -66,7 +66,24 @@ enum Personality {FORGETFUL, PARANOID, OVERWHELMED}
 ## The Overwhelmed never patrols - he rocks in place from the moment the day
 ## starts, so his module drives the Special state immediately.
 @export var starts_in_special: bool = false
-@export var leaves_doors_open: bool = false
+## Chance, each time he opens a door, that he just doesn't bother closing it
+## behind him again. 0.0 means "always closes up (and re-locks) behind
+## itself" - only Forgetful has this above zero.
+@export_range(0.0, 1.0) var leave_door_open_chance: float = 0.0
+
+
+@export_group("Reward")
+## The item WorldItem.spawn()s when this personality is satisfied - the
+## crowbar (Forgetful, on a successful stalk), the UV flashlight
+## (Overwhelmed, once the house is quiet). Left null for a personality that
+## doesn't drop a single reward item.
+@export var reward_item: ItemData
+## Paranoid-specific: the torn diary pages he deposits into the three
+## garbage cans while patrolling. Left empty for personalities that
+## use reward_item instead. Depositing them is not yet implemented -
+## it needs the garbage-can puzzle objects to exist first;
+## this field just holds the data for when it is.
+@export var reward_items: Array[ItemData] = []
 
 
 ## Returns the sheet an animation should use, keyed off the animation's name.
