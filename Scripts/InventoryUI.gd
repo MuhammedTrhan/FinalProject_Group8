@@ -1,5 +1,8 @@
 extends CanvasLayer
 ## Toggle-able inventory panel (Tab). Reads Inventory directly - see docs/CONTRACT.md.
+## Drag one diary scrap onto another to combine them (see InventorySlot.gd).
+
+const INVENTORY_SLOT_SCENE := preload("res://Scenes/UI/inventory_slot.tscn")
 
 @onready var item_list: VBoxContainer = $Root/CenterContainer/PanelContainer/MarginContainer/VBox/ItemList
 
@@ -20,6 +23,6 @@ func _refresh() -> void:
 		child.queue_free()
 
 	for item in Inventory.get_items():
-		var label := Label.new()
-		label.text = item.display_name
-		item_list.add_child(label)
+		var slot: PanelContainer = INVENTORY_SLOT_SCENE.instantiate()
+		item_list.add_child(slot)
+		slot.item = item

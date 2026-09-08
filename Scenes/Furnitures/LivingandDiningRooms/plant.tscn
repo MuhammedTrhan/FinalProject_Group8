@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://x5pbc6j101nh"]
+
+[ext_resource type="PackedScene" uid="uid://dh5f37ia22vin" path="res://Scenes/Furnitures/furniture_uninteractable_base.tscn" id="1_vrvxg"]
+[ext_resource type="Texture2D" uid="uid://b57g1d2wirast" path="res://Assets/Interior/Furnitures/furniture.png" id="2_7njas"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vrvxg"]
+size = Vector2(16, 37)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7njas"]
+radius = 18.0
+height = 76.0
+
+[node name="Furniture" unique_id=758378394 instance=ExtResource("1_vrvxg")]
+
+[node name="Sprite2D" parent="." index="0" unique_id=1764835962]
+texture = ExtResource("2_7njas")
+region_rect = Rect2(191.88248, 112.01056, 17.148163, 50.58969)
+
+[node name="Hitbox" parent="." index="1" unique_id=150259076]
+visible = true
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_vrvxg")
+
+[node name="InterractionBox" parent="InterractionArea" parent_id_path=PackedInt32Array(97300687) index="0" unique_id=1028417380]
+shape = SubResource("CapsuleShape2D_7njas")
