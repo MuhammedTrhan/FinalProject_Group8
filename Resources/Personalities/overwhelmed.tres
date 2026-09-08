@@ -1,11 +1,13 @@
-[gd_resource type="Resource" script_class="PersonalityProfile" load_steps=7 format=3 uid="uid://dhw6r2overwhl"]
+[gd_resource type="Resource" script_class="PersonalityProfile" format=3 uid="uid://dhw6r2overwhl"]
 
 [ext_resource type="Script" uid="uid://orcuat2oln63" path="res://Scripts/Enemy/PersonalityProfile.gd" id="1_script"]
 [ext_resource type="Texture2D" uid="uid://bjrp50nx50rvo" path="res://Assets/Enemy/enemy_overwhelmed/portrait.png" id="2_portrait"]
 [ext_resource type="Texture2D" uid="uid://d2uc8wu6tl10f" path="res://Assets/Enemy/enemy_overwhelmed/standard/idle.png" id="3_idle"]
+[ext_resource type="Script" uid="uid://sam1gdk4y73n" path="res://Scripts/Items/ItemData.gd" id="4_qqkc3"]
 [ext_resource type="Texture2D" uid="uid://dv34hmeocrbri" path="res://Assets/Enemy/enemy_overwhelmed/standard/walk.png" id="4_walk"]
 [ext_resource type="Texture2D" uid="uid://d8ai8sbuj86" path="res://Assets/Enemy/enemy_overwhelmed/standard/slash.png" id="5_slash"]
 [ext_resource type="Texture2D" uid="uid://crmugmtqpj2jw" path="res://Assets/Enemy/enemy_overwhelmed/standard/sit.png" id="6_sit"]
+[ext_resource type="Resource" path="res://Resources/Items/uv_flashlight.tres" id="7_reward"]
 
 [resource]
 script = ExtResource("1_script")
@@ -20,11 +22,8 @@ sit_sheet = ExtResource("6_sit")
 move_speed = 70.0
 chase_speed = 100.0
 pause_chance = 0.0
-pause_duration_range = Vector2(0.6, 1.8)
-turn_around_chance = 0.0
 view_distance = 130.0
 fov_degrees = 60.0
 detect_dwell = 1.2
-can_chase = true
 starts_in_special = true
-leaves_doors_open = false
+reward_item = ExtResource("7_reward")

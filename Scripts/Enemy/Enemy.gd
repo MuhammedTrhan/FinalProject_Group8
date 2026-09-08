@@ -52,6 +52,8 @@ var is_teleporting: bool = false
 var teleport_tween: Tween
 
 var _pause_timer: float = 0.0
+## Randomized (once, on entering IDLE) between profile.pause_duration_range's x and y
+var _idle_duration: float = 0.0
 var _look_around_timer: float = 0.0
 var _lost_timer: float = 0.0
 
@@ -69,6 +71,9 @@ func _ready() -> void:
 	touch_area.body_entered.connect(_on_touch_area_body_entered)
 	anim_handler.animation_finished.connect(anim_handler._on_animation_finished)
 	GameEvents.day_started.connect(_on_day_started)
+
+	# Safe baseline before anything else touches target_position
+	nav_agent.target_position = global_position
 
 	_index_stairs()
 	_collect_patrol_points()
@@ -175,7 +180,9 @@ func _enter_state(new_state: State) -> void:
 	_look_around_timer = 0.0
 	_lost_timer = 0.0
 
-	if new_state == State.PATROL:
+	if new_state == State.IDLE:
+		_idle_duration = randf_range(profile.pause_duration_range.x, profile.pause_duration_range.y)
+	elif new_state == State.PATROL:
 		_go_to_next_patrol_point()
 
 
@@ -207,7 +214,7 @@ func _check_perception_transitions(dwelled: bool) -> void:
 
 func _process_idle(delta: float) -> void:
 	_pause_timer += delta
-	if _pause_timer >= profile.pause_duration_range.x:
+	if _pause_timer >= _idle_duration:
 		_enter_state(State.PATROL)
 
 
@@ -283,14 +290,25 @@ func _go_to_next_patrol_point() -> void:
 
 func _collect_patrol_points() -> void:
 	# Populated by whichever level places this Enemy - patrol points are
-	# expected to sit in a "patrol_point_<floor index>" group (see
-	# Scenes/Enemy/patrol_routes.tscn, not built yet). Falls back to standing
-	# still rather than erroring if none exist. NOTE: this reads
-	# global_position at _ready() time, so it needs re-running if something
-	# later repositions this Enemy to an EnemySpawnPoint.
-	for n in get_tree().get_nodes_in_group("patrol_point_%d" % FloorZones.get_floor(global_position)):
+	# any Marker2D (or other Node2D) added to a "patrol_point_<floor index>"
+	# group, e.g. "patrol_point_0"/"patrol_point_1"/"patrol_point_2". Falls
+	# back to standing still rather than erroring if none exist. NOTE: this
+	# reads global_position at _ready() time, so it needs re-running if
+	# something later repositions this Enemy to an EnemySpawnPoint.
+	var floor_index := FloorZones.get_floor(global_position)
+	for n in get_tree().get_nodes_in_group("patrol_point_%d" % floor_index):
 		if n is Node2D:
 			_patrol_points.append(n)
+
+	# get_nodes_in_group() returns tree-add order, not a meaningful route -
+	# sort by node name instead, so naming markers "P1"/"P2"/"P3"... per
+	# floor gives you a deliberate, authored walking order.
+	_patrol_points.sort_custom(func(a, b): return a.name < b.name)
+
+	if _patrol_points.is_empty():
+		push_warning(
+			"Enemy at %s found no patrol points in group 'patrol_point_%d' - it will stand still. Check that its markers are tagged with the matching floor index." % [global_position, floor_index]
+		)
 
 
 # --- Floor crossing ------------------------------------------------------------
@@ -352,12 +370,16 @@ func end_teleport(target_position: Vector2) -> void:
 # --- Misc hooks ------------------------------------------------------------------
 
 ## Called by OverwhelmedModule when the house goes quiet in time,
-## ForgetfulModule when player succesfully follows him, and by F4
-## (debug_force_succeed). item is left null until we create UV-Flashlight
-## and crowbar item Inventory only cares that the signal fires with
-## a valid ItemData, so wire the real item later.
+## ForgetfulModule when the player successfully follows him, and by F4
+## (debug_force_succeed). Reads profile.reward_item
+## (Paranoid uses reward_items instead, deposited into garbage cans -
+## not implemented yet, needs the puzzle objects to exist first).
 func drop_reward() -> void:
-	GameEvents.enemy_dropped_item.emit(null, global_position)
+	if profile == null or profile.reward_item == null:
+		return
+
+	WorldItem.spawn(profile.reward_item, get_parent(), global_position)
+	GameEvents.enemy_dropped_item.emit(profile.reward_item, global_position)
 
 
 func _on_touch_area_body_entered(body: Node2D) -> void:

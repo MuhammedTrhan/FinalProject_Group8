@@ -69,6 +69,20 @@ enum Personality {FORGETFUL, PARANOID, OVERWHELMED}
 @export var leaves_doors_open: bool = false
 
 
+@export_group("Reward")
+## The item WorldItem.spawn()s when this personality is satisfied - the
+## crowbar (Forgetful, on a successful stalk), the UV flashlight
+## (Overwhelmed, once the house is quiet). Left null for a personality that
+## doesn't drop a single reward item.
+@export var reward_item: ItemData
+## Paranoid-specific: the torn diary pages he deposits into the three
+## garbage cans while patrolling. Left empty for personalities that
+## use reward_item instead. Depositing them is not yet implemented -
+## it needs the garbage-can puzzle objects to exist first;
+## this field just holds the data for when it is.
+@export var reward_items: Array[ItemData] = []
+
+
 ## Returns the sheet an animation should use, keyed off the animation's name.
 ## Mapping is by name rather than by comparing the old texture, so it stays
 ## correct even if the base scene's textures are swapped later.
