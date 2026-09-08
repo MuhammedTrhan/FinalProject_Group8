@@ -38,7 +38,7 @@ func _ready() -> void:
 	GameEvents.player_hidden_changed.connect(_on_player_hidden_changed)
 
 
-func _on_player_hidden_changed(is_hidden: bool) -> void:
+func _on_player_hidden_changed(is_hidden: bool, _hideable: Hideable) -> void:
 	_player_hidden = is_hidden
 
 
