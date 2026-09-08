@@ -1577,7 +1577,6 @@ position = Vector2(456, 496)
 
 [node name="HorizontalDarkDoor" parent="Furnitures/Doors" unique_id=2118068588 instance=ExtResource("8_tqiex")]
 position = Vector2(2304, 936)
-required_key = null
 priority = 0
 
 [node name="VerticalDoor4" parent="Furnitures/Doors" unique_id=1723897376 instance=ExtResource("9_ha3dl")]
