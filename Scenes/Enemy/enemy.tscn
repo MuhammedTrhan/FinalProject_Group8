@@ -1006,9 +1006,8 @@ _data = {
 &"walk_up": SubResource("Animation_walk_up")
 }
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_touch"]
-radius = 4.0
-height = 20.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_4ad2a"]
+radius = 14.117647
 
 [node name="Enemy" type="CharacterBody2D" unique_id=1229673750 groups=["enemy"]]
 y_sort_enabled = true
@@ -1045,8 +1044,9 @@ script = ExtResource("7_perception")
 collision_layer = 0
 
 [node name="TouchShape" type="CollisionShape2D" parent="TouchArea" unique_id=1472641630]
+position = Vector2(0, -3.5294118)
 rotation = 1.5707964
-shape = SubResource("CapsuleShape2D_touch")
+shape = SubResource("CircleShape2D_4ad2a")
 
 [node name="EnemyDebugOverlay" type="Node2D" parent="." unique_id=541552310]
 script = ExtResource("8_overlay")
