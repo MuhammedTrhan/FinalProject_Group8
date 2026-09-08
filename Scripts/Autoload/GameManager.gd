@@ -7,8 +7,8 @@ enum Phase { DAY, NIGHT }
 # 3 passcode digits, per docs/CONTRACT.md: 0=UV floor, 1=floorboard, 2=diary.
 const PASSCODE_LENGTH := 3
 
-@export var day_duration_sec: float = 30   #REAL VALUES LATER = 90-60
-@export var night_duration_sec: float = 20
+@export var day_duration_sec: float = 90   #REAL VALUES LATER = 90-60
+@export var night_duration_sec: float = 60
 @export var allow_repeat_personality := false
 
 const PERSONALITIES: Array[PersonalityProfile.Personality] = [

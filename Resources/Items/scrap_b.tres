@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://Scripts/Items/ItemData.gd" id="1_id"]
+
+[resource]
+script = ExtResource("1_id")
+id = &"scrap_b"
+display_name = "Torn Diary Page (2/3)"
+description = "PLACEHOLDER - Dev3 to replace with real art/text."
+pickup_flavour = "A torn page from a diary."
