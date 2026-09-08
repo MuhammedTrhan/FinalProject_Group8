@@ -10,7 +10,7 @@
 blend_mode = 1
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h0llp"]
-size = Vector2(30, 80)
+size = Vector2(36, 80)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ao6dg"]
 radius = 24.0
@@ -63,9 +63,14 @@ texture = ExtResource("5_n56mu")
 offset = Vector2(0, -32)
 
 [node name="Hitbox" type="CollisionShape2D" parent="." unique_id=150259076]
-visible = false
 position = Vector2(0, -32)
 shape = SubResource("RectangleShape2D_h0llp")
+
+[node name="ExitMarkerA" type="Marker2D" parent="." unique_id=378009464]
+position = Vector2(0, -80)
+
+[node name="ExitMarkerB" type="Marker2D" parent="." unique_id=1091290355]
+position = Vector2(0, 16)
 
 [node name="InterractionArea" type="Area2D" parent="." unique_id=97300687]
 position = Vector2(0, -16)
