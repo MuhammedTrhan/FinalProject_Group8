@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://Scripts/LockdownScreen.gd" id="1_ls"]
 
 [node name="LockdownScreen" type="CanvasLayer"]
+process_mode = 3
 script = ExtResource("1_ls")
 
 [node name="Root" type="Control" parent="."]

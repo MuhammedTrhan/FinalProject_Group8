@@ -32,6 +32,13 @@ const INVENTORY_UI_SCENE := preload("res://Scenes/UI/inventory_ui.tscn")
 var _phase_timer: Timer
 var _locked_down := false
 
+# These overlays live under this autoload, so they survive scene changes and
+# have to be reset by hand - otherwise e.g. the game-over screen stays drawn
+# on top of the main menu.
+var _day_transition: CanvasLayer
+var _lockdown_screen: CanvasLayer
+var _inventory_ui: CanvasLayer
+
 ## Fires once the last passcode digit is found. Local signal, not part of GameEvents.
 signal passcode_completed
 
@@ -45,9 +52,12 @@ func _ready() -> void:
 	GameEvents.player_caught.connect(_on_player_caught)
 	GameEvents.clue_revealed.connect(_on_clue_revealed)
 
-	add_child(DAY_TRANSITION_SCENE.instantiate())
-	add_child(LOCKDOWN_SCREEN_SCENE.instantiate())
-	add_child(INVENTORY_UI_SCENE.instantiate())
+	_day_transition = DAY_TRANSITION_SCENE.instantiate()
+	_lockdown_screen = LOCKDOWN_SCREEN_SCENE.instantiate()
+	_inventory_ui = INVENTORY_UI_SCENE.instantiate()
+	add_child(_day_transition)
+	add_child(_lockdown_screen)
+	add_child(_inventory_ui)
 	# start_new_run() is NOT called here - the main menu's Play button starts it,
 	# otherwise the day/night timer would already be ticking at the title screen.
 
@@ -58,10 +68,31 @@ func start_new_run() -> void:
 	run_seed = randi()
 	passcode_digits = [-1, -1, -1]
 
+	get_tree().paused = false
+	Inventory.clear()
+	_reset_overlays()
+
 	ProceduralGenerator.generate(run_seed)
 	GameEvents.run_started.emit(run_seed)
 
 	_start_day()
+
+
+## Called by the game-over and win screens. Clears the run's overlays first -
+## they outlive the scene change, so without this they stay on top of the menu.
+func return_to_main_menu() -> void:
+	get_tree().paused = false
+	_reset_overlays()
+	get_tree().change_scene_to_file("res://Scenes/UI/main_menu.tscn")
+
+
+func _reset_overlays() -> void:
+	_lockdown_screen.visible = false
+	_inventory_ui.visible = false
+	_day_transition.reset()
+	WinScreen.visible = false
+	ExitKeypad.visible = false
+	DayOneTerminal.visible = false
 
 
 func is_day() -> bool:
@@ -92,8 +123,14 @@ func _on_phase_timer_timeout() -> void:
 
 
 func _on_player_caught(_reason: StringName) -> void:
+	if _locked_down: # the enemy can emit this repeatedly while touching the player
+		return
+
 	_locked_down = true
 	_phase_timer.stop()
+	# Freezes the enemy and the player underneath the game-over screen. The
+	# screen itself runs with process_mode = ALWAYS so its button still works.
+	get_tree().paused = true
 
 
 # digit_index/digit_value come from Dev3's puzzle; flavour text isn't needed here.
