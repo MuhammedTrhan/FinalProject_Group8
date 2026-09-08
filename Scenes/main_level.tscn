@@ -2037,7 +2037,7 @@ priority = 0
 position = Vector2(13, 155)
 
 [node name="DiningChair1" parent="Furnitures" unique_id=1249556265 instance=ExtResource("32_m5xbg")]
-position = Vector2(113.00003, 200)
+position = Vector2(110, 199.00002)
 scale = Vector2(1.15, 1.15)
 
 [node name="DiningChair2" parent="Furnitures" unique_id=1345435680 instance=ExtResource("32_ehh7o")]

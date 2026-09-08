@@ -23,7 +23,7 @@ shape = SubResource("RectangleShape2D_chr10")
 shape = SubResource("CapsuleShape2D_chr10")
 
 [node name="StandUpMarker" parent="." index="4" unique_id=1118046313]
-position = Vector2(0, 22)
+position = Vector2(0, 20)
 
 [node name="SitDownMarker" parent="." index="5" unique_id=2074848840]
 position = Vector2(0, 12)

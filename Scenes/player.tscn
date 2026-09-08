@@ -9,8 +9,8 @@
 [ext_resource type="Texture2D" uid="uid://b16tacmrlbvog" path="res://Assets/Player/standard/sit.png" id="4_x3wgy"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cvnsp"]
-radius = 4.0
-height = 20.0
+radius = 2.6666667
+height = 16.0
 
 [sub_resource type="Animation" id="Animation_cvnsp"]
 resource_name = "RESET"
