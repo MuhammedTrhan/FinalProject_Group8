@@ -10,8 +10,8 @@
 [ext_resource type="Script" uid="uid://8v86xwo4vqs7" path="res://Scripts/Enemy/EnemyDebugOverlay.gd" id="8_overlay"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_movement"]
-radius = 4.0
-height = 20.0
+radius = 3.5294118
+height = 18.82353
 
 [sub_resource type="Animation" id="Animation_reset"]
 resource_name = "RESET"

@@ -20,7 +20,3 @@ position = Vector2(0, -2)
 [node name="InterractionBox" parent="InterractionArea" parent_id_path=PackedInt32Array(97300687) index="0" unique_id=1028417380]
 rotation = 0.0
 shape = SubResource("CapsuleShape2D_oco3p")
-
-[node name="InfoLabel" parent="." index="4" unique_id=1002307500]
-offset_top = -36.0
-offset_bottom = -13.0
