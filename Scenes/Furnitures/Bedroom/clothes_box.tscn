@@ -3,8 +3,9 @@
 [ext_resource type="PackedScene" uid="uid://dh5f37ia22vin" path="res://Scenes/Furnitures/furniture_uninteractable_base.tscn" id="1_hu1x0"]
 [ext_resource type="Texture2D" uid="uid://b57g1d2wirast" path="res://Assets/Interior/Furnitures/furniture.png" id="2_14rve"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_bsw73"]
-size = Vector2(17, 20)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hu1x0"]
+radius = 5.5
+height = 16.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0fla3"]
 radius = 15.0
@@ -18,7 +19,7 @@ region_rect = Rect2(63.001343, 191.5377, 17.899292, 18.81456)
 [node name="Hitbox" parent="." index="1" unique_id=150259076]
 visible = true
 position = Vector2(0.5, -1)
-shape = SubResource("RectangleShape2D_bsw73")
+shape = SubResource("CapsuleShape2D_hu1x0")
 
 [node name="InterractionBox" parent="InterractionArea" parent_id_path=PackedInt32Array(97300687) index="0" unique_id=1028417380]
 shape = SubResource("CapsuleShape2D_0fla3")
