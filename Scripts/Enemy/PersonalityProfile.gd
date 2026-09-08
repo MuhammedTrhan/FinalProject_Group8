@@ -66,7 +66,10 @@ enum Personality {FORGETFUL, PARANOID, OVERWHELMED}
 ## The Overwhelmed never patrols - he rocks in place from the moment the day
 ## starts, so his module drives the Special state immediately.
 @export var starts_in_special: bool = false
-@export var leaves_doors_open: bool = false
+## Chance, each time he opens a door, that he just doesn't bother closing it
+## behind him again. 0.0 means "always closes up (and re-locks) behind
+## itself" - only Forgetful has this above zero.
+@export_range(0.0, 1.0) var leave_door_open_chance: float = 0.0
 
 
 @export_group("Reward")

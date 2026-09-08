@@ -38,6 +38,9 @@ const STUCK_TIME_THRESHOLD := 0.35
 ## Beat between locking a Door's toogle_lock() and its open_door()
 const DOOR_UNLOCK_DELAY := 0.6
 const SIDESTEP_DURATION := 0.35
+## Every patrol point arrival gets at least this much of a "looking around"
+## beat, even when the profile.pause_chance roll doesn't trigger a longer daze.
+const PATROL_GLANCE_RANGE := Vector2(0.15, 0.35)
 
 @onready var anim_handler: EnemyAnimationHandler = $EnemyAnimationHandler
 @onready var nav_agent: NavigationAgent2D = $NavigationAgent2D
@@ -82,6 +85,10 @@ var _sidestep_direction: Vector2 = Vector2.ZERO
 ## True while mid unlock-then-open sequence on a door - suppresses normal
 ## movement/stuck-detection so the two don't fight each other.
 var _door_busy: bool = false
+## Doors this enemy opened, tracked until it's clearly through the doorway
+## (see _is_clear_of_doorway()) so they can be closed - and re-locked, if
+## they were locked before it opened them - behind it. {Door: was_locked}.
+var _doors_to_close: Dictionary = {}
 
 
 func _ready() -> void:
@@ -140,6 +147,8 @@ func _physics_process(delta: float) -> void:
 		move_and_slide()
 		if not _door_busy and _sidestep_timer <= 0.0:
 			_update_stuck_detection(delta)
+
+	_update_door_closing()
 
 	anim_handler.update_animations(velocity)
 	GameEvents.enemy_state_changed.emit(StringName(State.keys()[state]))
@@ -206,7 +215,13 @@ func _enter_state(new_state: State) -> void:
 	_lost_timer = 0.0
 
 	if new_state == State.IDLE:
-		_idle_duration = randf_range(profile.pause_duration_range.x, profile.pause_duration_range.y)
+		# Every patrol arrival gets at least a brief "looking around" beat
+		# (PATROL_GLANCE_RANGE); pause_chance additionally upgrades it to a
+		# longer daze using the profile's own pause_duration_range.
+		if randf() < profile.pause_chance:
+			_idle_duration = randf_range(profile.pause_duration_range.x, profile.pause_duration_range.y)
+		else:
+			_idle_duration = randf_range(PATROL_GLANCE_RANGE.x, PATROL_GLANCE_RANGE.y)
 	elif new_state == State.PATROL:
 		_go_to_next_patrol_point()
 
@@ -247,12 +262,13 @@ func _process_patrol(_delta: float) -> void:
 	_move_toward(nav_agent.get_next_path_position(), profile.move_speed)
 
 	if nav_agent.is_navigation_finished():
-		if randf() < profile.pause_chance:
-			_enter_state(State.IDLE)
-		else:
-			if randf() < profile.turn_around_chance and not _patrol_points.is_empty():
-				_patrol_index = (_patrol_index + _patrol_points.size() - 1) % _patrol_points.size()
-			_go_to_next_patrol_point()
+		# Every arrival pauses briefly (see _enter_state's IDLE branch) -
+		# reads as "looking around" rather than snapping instantly to the
+		# next point. turn_around_chance is rolled now so it's decided
+		# before the glance, and applied once patrol resumes.
+		if randf() < profile.turn_around_chance and not _patrol_points.is_empty():
+			_patrol_index = (_patrol_index + _patrol_points.size() - 1) % _patrol_points.size()
+		_enter_state(State.IDLE)
 
 
 func _process_investigate(delta: float) -> void:
@@ -354,6 +370,7 @@ func _handle_door_obstruction(door: Door) -> void:
 
 	_door_busy = true
 	velocity = Vector2.ZERO
+	var was_locked := door.is_locked
 
 	if door.is_locked:
 		door.toogle_lock()
@@ -364,6 +381,43 @@ func _handle_door_obstruction(door: Door) -> void:
 	door.open_door()
 	anim_handler.handle_interaction_anim(Interactions.InteractionType.OPEN)
 	_door_busy = false
+
+	# Forgetful sometimes just doesn't bother, everyone else always
+	# closes up (and re-locks) behind itself, tracked here until
+	# it's actually clear of the doorway.
+	if randf() >= profile.leave_door_open_chance:
+		_doors_to_close[door] = was_locked
+
+
+## Closes (and re-locks, if it was locked before) every door this enemy
+## opened, once it's no longer standing in the doorway.
+## "clear" means past BOTH ExitMarkers.
+func _update_door_closing() -> void:
+	if _doors_to_close.is_empty():
+		return
+
+	for door: Door in _doors_to_close.keys():
+		if not is_instance_valid(door):
+			_doors_to_close.erase(door)
+			continue
+
+		if _is_clear_of_doorway(door):
+			var was_locked: bool = _doors_to_close[door]
+			door.close_door()
+			if was_locked:
+				door.toogle_lock()
+			_doors_to_close.erase(door)
+
+
+func _is_clear_of_doorway(door: Door) -> bool:
+	var diff: Vector2 = door.exit_marker_a.global_position - door.exit_marker_b.global_position
+	var axis := 1 if absf(diff.y) > absf(diff.x) else 0
+
+	var a: float = door.exit_marker_a.global_position[axis]
+	var b: float = door.exit_marker_b.global_position[axis]
+	var pos: float = global_position[axis]
+
+	return pos <= minf(a, b) or pos >= maxf(a, b)
 
 
 func _collect_patrol_points() -> void:

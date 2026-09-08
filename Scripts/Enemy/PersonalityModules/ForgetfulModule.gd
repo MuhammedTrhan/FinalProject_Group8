@@ -1,6 +1,6 @@
 class_name ForgetfulModule
 extends PersonalityModule
-## Gives up investigating quickly. leaves_doors_open (on the active
+## Gives up investigating quickly. leave_door_open_chance (on the active
 ## PersonalityProfile) is read directly by Enemy's door-handling code, not
 ## here - this module only owns the "how long does he look around" number.
 
