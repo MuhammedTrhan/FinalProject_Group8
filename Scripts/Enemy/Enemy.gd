@@ -30,6 +30,15 @@ const LOST_TOLERANCE := 2.0
 ## Matches PlayerMovement.gd's start_teleport() default duration exactly -
 const STAIR_TWEEN_DURATION := 0.5
 
+## Stuck detection: if velocity implies motion but the body barely moved
+## for this long, something's physically blocking it.
+const STUCK_VELOCITY_THRESHOLD := 5.0
+const STUCK_MOVED_THRESHOLD := 0.4
+const STUCK_TIME_THRESHOLD := 0.35
+## Beat between locking a Door's toogle_lock() and its open_door()
+const DOOR_UNLOCK_DELAY := 0.6
+const SIDESTEP_DURATION := 0.35
+
 @onready var anim_handler: EnemyAnimationHandler = $EnemyAnimationHandler
 @onready var nav_agent: NavigationAgent2D = $NavigationAgent2D
 @onready var perception: Perception = $Perception
@@ -66,6 +75,14 @@ var _stairs_by_floor_pair: Dictionary = {}
 var _patrol_points: Array[Node2D] = []
 var _patrol_index: int = 0
 
+var _last_position: Vector2
+var _stuck_timer: float = 0.0
+var _sidestep_timer: float = 0.0
+var _sidestep_direction: Vector2 = Vector2.ZERO
+## True while mid unlock-then-open sequence on a door - suppresses normal
+## movement/stuck-detection so the two don't fight each other.
+var _door_busy: bool = false
+
 
 func _ready() -> void:
 	touch_area.body_entered.connect(_on_touch_area_body_entered)
@@ -74,6 +91,7 @@ func _ready() -> void:
 
 	# Safe baseline before anything else touches target_position
 	nav_agent.target_position = global_position
+	_last_position = global_position
 
 	_index_stairs()
 	_collect_patrol_points()
@@ -114,7 +132,14 @@ func _physics_process(delta: float) -> void:
 
 	if state != State.SPECIAL:
 		_check_perception_transitions(dwelled)
+		if _door_busy:
+			velocity = Vector2.ZERO
+		elif _sidestep_timer > 0.0:
+			_sidestep_timer -= delta
+			velocity = _sidestep_direction * profile.move_speed
 		move_and_slide()
+		if not _door_busy and _sidestep_timer <= 0.0:
+			_update_stuck_detection(delta)
 
 	anim_handler.update_animations(velocity)
 	GameEvents.enemy_state_changed.emit(StringName(State.keys()[state]))
@@ -288,6 +313,59 @@ func _go_to_next_patrol_point() -> void:
 	_patrol_index = (_patrol_index + 1) % _patrol_points.size()
 
 
+# --- Obstruction handling --------------------------------------------
+#
+# The nav mesh has zero holes cut for doors/furniture - the
+# NavigationAgent2D's path assumes a closed door isn't there at all. The only
+# thing that actually stops the body is the Door's physical Hitbox, so this
+# is handled dynamically here rather than by re-baking the mesh.
+
+func _update_stuck_detection(delta: float) -> void:
+	var moving_intent := velocity.length() > STUCK_VELOCITY_THRESHOLD
+	var actually_moved := global_position.distance_to(_last_position) > STUCK_MOVED_THRESHOLD
+	_last_position = global_position
+
+	if moving_intent and not actually_moved:
+		_stuck_timer += delta
+	else:
+		_stuck_timer = 0.0
+		return
+
+	if _stuck_timer >= STUCK_TIME_THRESHOLD:
+		_stuck_timer = 0.0
+		_resolve_obstruction()
+
+
+func _resolve_obstruction() -> void:
+	for i in get_slide_collision_count():
+		var collider: Object = get_slide_collision(i).get_collider()
+		if collider is Door:
+			_handle_door_obstruction(collider)
+			return
+
+	# Not a door (furniture, a wall corner, another body) - a brief perpendicular sidestep.
+	_sidestep_direction = velocity.normalized().rotated(PI / 2.0)
+	_sidestep_timer = SIDESTEP_DURATION
+
+
+func _handle_door_obstruction(door: Door) -> void:
+	if door.is_open or _door_busy:
+		return  # already open (something else is blocking) or already handling one
+
+	_door_busy = true
+	velocity = Vector2.ZERO
+
+	if door.is_locked:
+		door.toogle_lock()
+		anim_handler.handle_interaction_anim(Interactions.InteractionType.UNLOCK)
+		# "The lock is turning" - a beat, not an instant pass-through.
+		await get_tree().create_timer(DOOR_UNLOCK_DELAY).timeout
+
+	door.open_door()
+	anim_handler.handle_interaction_anim(Interactions.InteractionType.OPEN)
+	_door_busy = false
+
+
 func _collect_patrol_points() -> void:
 	# Populated by whichever level places this Enemy - patrol points are
 	# any Marker2D (or other Node2D) added to a "patrol_point_<floor index>"
@@ -303,12 +381,22 @@ func _collect_patrol_points() -> void:
 	# get_nodes_in_group() returns tree-add order, not a meaningful route -
 	# sort by node name instead, so naming markers "P1"/"P2"/"P3"... per
 	# floor gives you a deliberate, authored walking order.
-	_patrol_points.sort_custom(func(a, b): return a.name < b.name)
+	_patrol_points.sort_custom(func(a, b): return _natural_name_key(a.name) < _natural_name_key(b.name))
 
 	if _patrol_points.is_empty():
 		push_warning(
 			"Enemy at %s found no patrol points in group 'patrol_point_%d' - it will stand still. Check that its markers are tagged with the matching floor index." % [global_position, floor_index]
 		)
+
+
+## Splits "P10" into ["P", 10] so an Array comparison sorts the
+## prefix alphabetically and the trailing number numerically.
+func _natural_name_key(node_name: String) -> Array:
+	var i := node_name.length()
+	while i > 0 and node_name[i - 1].is_valid_int():
+		i -= 1
+	var suffix := node_name.substr(i)
+	return [node_name.substr(0, i), int(suffix) if suffix != "" else -1]
 
 
 # --- Floor crossing ------------------------------------------------------------

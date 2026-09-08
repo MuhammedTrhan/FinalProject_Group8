@@ -2011,7 +2011,7 @@ position = Vector2(517, 559)
 position = Vector2(354, 688)
 
 [node name="P6" type="Marker2D" parent="patrol_point_1" unique_id=1442191245 groups=["patrol_point_1"]]
-position = Vector2(154, 923)
+position = Vector2(155, 901)
 
 [node name="P7" type="Marker2D" parent="patrol_point_1" unique_id=1234185595 groups=["patrol_point_1"]]
 position = Vector2(527, 969)
