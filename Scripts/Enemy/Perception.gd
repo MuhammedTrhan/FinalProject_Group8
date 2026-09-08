@@ -26,6 +26,11 @@ var last_known_position: Vector2
 var _dwell_timer: float = 0.0
 var _player_hidden: bool = false
 var _player: Node2D
+## Cached result of the last update() call. player_hidden_changed can fire
+## mid-frame with the player's collision_layer already at 0 (a raycast would
+## miss them by then) - Enemy uses this to distinguish between "was I actually
+## watching them the instant they hid" from "they were already out of sight".
+var _was_visible: bool = false
 
 
 func _ready() -> void:
@@ -40,12 +45,17 @@ func _on_player_hidden_changed(is_hidden: bool) -> void:
 ## Call once per physics frame. Returns true the instant the player has been
 ## continuously visible for detect_dwell seconds.
 func update(delta: float) -> bool:
-	if is_player_visible():
+	_was_visible = is_player_visible()
+	if _was_visible:
 		_dwell_timer += delta
 		last_known_position = _player.global_position
 	else:
 		_dwell_timer = 0.0
 	return _dwell_timer >= detect_dwell
+
+
+func was_visible_last_frame() -> bool:
+	return _was_visible
 
 
 func is_player_visible() -> bool:

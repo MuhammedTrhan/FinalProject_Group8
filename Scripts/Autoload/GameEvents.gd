@@ -75,9 +75,12 @@ signal noise_source_silenced(source: Node, remaining: int)
 
 ## The player entered or left a hiding spot. Dev2's Perception checks this
 ## first, as a belt-and-braces companion to the player's collision layer going
-## to 0 while hidden.
+## to 0 while hidden. `hideable` is the Hideable node itself while hidden
+## (null when revealed, and always null from debug_toggle_hidden's fake
+## toggle) - lets the enemy walk straight to that spot's exit marker if it
+## catches the player hiding in plain sight.
 @warning_ignore("unused_signal")
-signal player_hidden_changed(hidden: bool)
+signal player_hidden_changed(hidden: bool, hideable: Hideable)
 
 
 # ---------------------------------------------------------------------------
