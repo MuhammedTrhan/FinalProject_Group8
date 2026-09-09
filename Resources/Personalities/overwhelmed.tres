@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://dv34hmeocrbri" path="res://Assets/Enemy/enemy_overwhelmed/standard/walk.png" id="4_walk"]
 [ext_resource type="Texture2D" uid="uid://d8ai8sbuj86" path="res://Assets/Enemy/enemy_overwhelmed/standard/slash.png" id="5_slash"]
 [ext_resource type="Texture2D" uid="uid://crmugmtqpj2jw" path="res://Assets/Enemy/enemy_overwhelmed/standard/sit.png" id="6_sit"]
-[ext_resource type="Resource" path="res://Resources/Items/uv_flashlight.tres" id="7_reward"]
+[ext_resource type="Resource" uid="uid://dwtjgj1x87bus" path="res://Resources/Items/uv_flashlight.tres" id="7_reward"]
 
 [resource]
 script = ExtResource("1_script")
