@@ -13,23 +13,27 @@ extends Node
 var enemy: Enemy
 
 const MAX_LIVES := 3
-## The walk-home beat's cap. Ends earlier if they arrive at the target.
+## WALKING phase cap. Ends earlier if they arrive at the target first.
 const ESCORT_DURATION := 4.0
-## Matches DayTransition's fade length - a stopgap until day/night_started
-## fire at fade-end instead of fade-start. Remove this once the Dev-1
-## creates a signal for fade-end and we can hook into that instead.
+## FADING phase length - matches DayTransition's fade length. A stopgap
+## until day/night_started fire at fade-end instead of fade-start; remove
+## this (and just snap on that signal) once Dev1 makes that change.
 const SPAWN_SNAP_FADE_DELAY := 0.5
 const ESCORT_APPROACH_DISTANCE := 40.0  # "hop next to player" lands this close - not touching
 const ESCORT_ARRIVAL_DISTANCE := 12.0
 ## How far ahead of the enemy the player is herded while walking home.
 const ESCORT_LEAD_DISTANCE := 18.0
 
+enum _Phase { WALKING, FADING }
+
 var _lives_remaining: int = MAX_LIVES
 var _run_over: bool = false
 var _escorting: bool = false
-var _escort_timer: float = 0.0
+var _phase: _Phase = _Phase.WALKING
+var _phase_timer: float = 0.0
 ## True while the escort in progress was triggered by a catch (day_end_requested
-## fires at the end); false for a natural day-timeout escort (day already ended).
+## fires at the end of WALKING); false for a natural day-timeout escort (day
+## already ended, nothing to request).
 var _escort_triggered_by_catch: bool = false
 var _escort_target: Vector2
 
@@ -66,11 +70,28 @@ func is_escorting() -> bool:
 
 
 ## Called by Enemy every physics frame while _escorting is true, instead of
-## its normal state-machine dispatch.
+## its normal state-machine dispatch. Both phases keep walking toward the
+## room the whole time - only the phase transitions differ in what they check.
 func process(delta: float) -> void:
-	_escort_timer += delta
+	_phase_timer += delta
+	_walk_step(delta)
 
-	var direction := enemy.escort_step_toward(_escort_target, enemy.profile.move_speed)
+	match _phase:
+		_Phase.WALKING:
+			var arrived := FloorZones.get_floor(enemy.global_position) == FloorZones.get_floor(_escort_target) \
+				and enemy.global_position.distance_to(_escort_target) <= ESCORT_ARRIVAL_DISTANCE
+			if arrived or _phase_timer >= ESCORT_DURATION:
+				if _escort_triggered_by_catch:
+					GameEvents.day_end_requested.emit(&"caught")
+				_phase = _Phase.FADING
+				_phase_timer = 0.0
+		_Phase.FADING:
+			if _phase_timer >= SPAWN_SNAP_FADE_DELAY:
+				_finish_escort()
+
+
+func _walk_step(delta: float) -> void:
+	var direction := enemy.escort_step_toward(_escort_target, delta, enemy.profile.move_speed)
 
 	var player := enemy.perception.get_player()
 	if player and is_instance_valid(player) and player.has_method("escort_step"):
@@ -79,16 +100,12 @@ func process(delta: float) -> void:
 			lead_position += direction * ESCORT_LEAD_DISTANCE
 		player.escort_step(lead_position, direction * enemy.profile.move_speed)
 
-	var arrived := FloorZones.get_floor(enemy.global_position) == FloorZones.get_floor(_escort_target) \
-		and enemy.global_position.distance_to(_escort_target) <= ESCORT_ARRIVAL_DISTANCE
-	if arrived or _escort_timer >= ESCORT_DURATION:
-		_end_escort()
-
 
 func _start_escort(triggered_by_catch: bool) -> void:
 	_escorting = true
 	_escort_triggered_by_catch = triggered_by_catch
-	_escort_timer = 0.0
+	_phase = _Phase.WALKING
+	_phase_timer = 0.0
 	enemy.velocity = Vector2.ZERO
 
 	var player := enemy.perception.get_player()
@@ -106,38 +123,18 @@ func _resolve_escort_target() -> Vector2:
 	var guard_point := enemy.get_parent().get_node_or_null("DoorGuardPoint")
 	if guard_point:
 		return guard_point.global_position
-	
-	# Safety net: if the door is missing, just walk to the enemy's spawn point instead.
+
+	# Safety net: if the door marker is missing, just walk to the enemy's spawn point instead.
 	var enemy_spawn := enemy.get_parent().get_node_or_null("EnemySpawnPoint")
 	return enemy_spawn.global_position if enemy_spawn else enemy.global_position  # last-resort: don't crash, just stop in place
 
 
-## Ends the walk-home beat and gives the player control back right away. A
-## real trip to the room usually won't have actually finished by now, so
-## _schedule_snap() separately guarantees both actors end up in the right
-## place a beat later, once the screen should already be black.
-func _end_escort() -> void:
-	# Emit BEFORE clearing _escorting: if this synchronously causes GameManager
-	# to fire night_started, the re-entrant _on_night_started must still see
-	# _escorting == true so it doesn't start a redundant second escort.
-	if _escort_triggered_by_catch:
-		GameEvents.day_end_requested.emit(&"caught")
+## Ends the whole escort (WALKING + FADING both done) - guarantees both
+## actors actually end up at the room door (enemy at the guard point, player
+## at her spawn), locks the door, and gives the player control back.
+func _finish_escort() -> void:
 	_escorting = false
 
-	var player := enemy.perception.get_player()
-	if player and is_instance_valid(player) and player.has_method("end_escort"):
-		player.end_escort()
-
-	_schedule_snap()
-
-
-func _schedule_snap() -> void:
-	get_tree().create_timer(SPAWN_SNAP_FADE_DELAY).timeout.connect(_snap_to_lockdown_positions)
-
-
-## Guarantees both actors actually end up at the room door (enemy at the
-## guard point, player at her spawn) and locks the door behind them.
-func _snap_to_lockdown_positions() -> void:
 	var guard_point := enemy.get_parent().get_node_or_null("DoorGuardPoint")
 	if guard_point:
 		enemy.global_position = guard_point.global_position
@@ -152,8 +149,11 @@ func _snap_to_lockdown_positions() -> void:
 
 	var player := enemy.perception.get_player()
 	var player_spawn := enemy.get_parent().get_node_or_null("PlayerSpawnPoint")
-	if player and player_spawn and player.has_method("snap_to_spawn"):
-		player.snap_to_spawn(player_spawn.global_position)
+	if player and is_instance_valid(player):
+		if player_spawn and player.has_method("snap_to_spawn"):
+			player.snap_to_spawn(player_spawn.global_position)
+		if player.has_method("end_escort"):
+			player.end_escort()
 
 
 func _lock_room_door() -> void:

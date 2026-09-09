@@ -35,7 +35,7 @@ const STAIR_TWEEN_DURATION := 0.5
 const STUCK_VELOCITY_THRESHOLD := 5.0
 const STUCK_MOVED_THRESHOLD := 0.4
 const STUCK_TIME_THRESHOLD := 0.35
-const SIDESTEP_DURATION := 0.35
+const SIDESTEP_DURATION := 0.25
 ## Every patrol point arrival gets at least this much of a "looking around"
 ## beat, even when the profile.pause_chance roll doesn't trigger a longer daze.
 const PATROL_GLANCE_RANGE := Vector2(0.15, 0.35)
@@ -156,14 +156,7 @@ func _physics_process(delta: float) -> void:
 
 	if state != State.SPECIAL:
 		_check_perception_transitions(dwelled)
-		if _door_busy or _capturing:
-			velocity = Vector2.ZERO
-		elif _sidestep_timer > 0.0:
-			_sidestep_timer -= delta
-			velocity = _sidestep_direction * profile.move_speed
-		move_and_slide()
-		if not _door_busy and _sidestep_timer <= 0.0:
-			_update_stuck_detection(delta)
+		_resolve_movement_and_obstructions(delta)
 
 	_update_door_closing()
 
@@ -390,6 +383,21 @@ func _process_stunned(delta: float) -> void:
 
 # --- Movement helpers ----------------------------------------------------------
 
+## Applies obstruction overrides (frozen while a door is being
+## unlocked/opened/closed, sidestepping furniture) on top of whatever
+## velocity the caller already computed, then slides and runs stuck
+## detection, so the walk doesn't just stall dead at the first closed door.
+func _resolve_movement_and_obstructions(delta: float) -> void:
+	if _door_busy or _capturing:
+		velocity = Vector2.ZERO
+	elif _sidestep_timer > 0.0:
+		_sidestep_timer -= delta
+		velocity = _sidestep_direction * profile.move_speed
+	move_and_slide()
+	if not _door_busy and _sidestep_timer <= 0.0:
+		_update_stuck_detection(delta)
+
+
 func _move_toward(target: Vector2, speed: float) -> void:
 	if global_position.distance_to(target) < 2.0:
 		velocity = velocity.move_toward(Vector2.ZERO, speed)
@@ -591,10 +599,12 @@ func _find_stairs_toward(my_floor: int, target_floor: int) -> Node:
 ## Used by EscortController while walking the player back to her room
 ## (is_teleporting still short-circuits _physics_process at the top for the
 ## actual stairs crossing). Returns the direction actually walked this frame.
-func escort_step_toward(target: Vector2, speed: float) -> Vector2:
+func escort_step_toward(target: Vector2, delta: float, speed: float) -> Vector2:
 	nav_agent.target_position = _resolve_nav_target(target)
-	_move_toward(nav_agent.get_next_path_position(), speed)
-	move_and_slide()
+	if not _door_busy and not _capturing:
+		_move_toward(nav_agent.get_next_path_position(), speed)
+	_resolve_movement_and_obstructions(delta)
+	_update_door_closing()
 	return velocity.normalized() if velocity.length() > 1.0 else Vector2.ZERO
 
 
