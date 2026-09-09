@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3]
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://l0c6t3uxoyj5"]
 
 [ext_resource type="Script" uid="uid://sam1gdk4y73n" path="res://Scripts/Items/ItemData.gd" id="1_script"]
 [ext_resource type="Texture2D" uid="uid://dwf58ouggpj2y" path="res://Assets/Items/crowbar.png" id="2_icon"]
@@ -9,5 +9,4 @@ id = &"crowbar"
 display_name = "Crowbar"
 description = "A rusty crowbar, heavy enough to pry something open."
 icon = ExtResource("2_icon")
-is_key = false
 pickup_flavour = "Dropped a crowbar. Something in this house is probably nailed shut."
