@@ -8,10 +8,11 @@
 [ext_resource type="Script" uid="uid://bgnclkcjlwlq7" path="res://Scripts/Enemy/EnemyAnimationHandler.gd" id="6_animhandler"]
 [ext_resource type="Script" uid="uid://dyn4xlsho255" path="res://Scripts/Enemy/Perception.gd" id="7_perception"]
 [ext_resource type="Script" uid="uid://8v86xwo4vqs7" path="res://Scripts/Enemy/EnemyDebugOverlay.gd" id="8_overlay"]
+[ext_resource type="Script" uid="uid://bpr17dlr34lum" path="res://Scripts/Enemy/EscortController.gd" id="9_escort"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_movement"]
 radius = 3.5294118
-height = 18.82353
+height = 16.470589
 
 [sub_resource type="Animation" id="Animation_reset"]
 resource_name = "RESET"
@@ -1050,3 +1051,6 @@ shape = SubResource("CircleShape2D_4ad2a")
 
 [node name="EnemyDebugOverlay" type="Node2D" parent="." unique_id=541552310]
 script = ExtResource("8_overlay")
+
+[node name="EscortController" type="Node" parent="." unique_id=925922604]
+script = ExtResource("9_escort")

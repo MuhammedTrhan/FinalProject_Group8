@@ -8,7 +8,7 @@ extends CharacterBody2D
 ## through _resolve_nav_target(), which substitutes a same-floor stairs
 ## approach point whenever the real target is on a different floor.
 
-enum State { IDLE, PATROL, INVESTIGATE, CHASE, STUNNED, SPECIAL }
+enum State {IDLE, PATROL, INVESTIGATE, CHASE, STUNNED, SPECIAL}
 
 const PERSONALITY_PROFILES: Dictionary = {
 	PersonalityProfile.Personality.FORGETFUL: preload("res://Resources/Personalities/forgetful.tres"),
@@ -35,9 +35,7 @@ const STAIR_TWEEN_DURATION := 0.5
 const STUCK_VELOCITY_THRESHOLD := 5.0
 const STUCK_MOVED_THRESHOLD := 0.4
 const STUCK_TIME_THRESHOLD := 0.35
-## Beat between locking a Door's toogle_lock() and its open_door()
-const DOOR_UNLOCK_DELAY := 0.6
-const SIDESTEP_DURATION := 0.35
+const SIDESTEP_DURATION := 0.25
 ## Every patrol point arrival gets at least this much of a "looking around"
 ## beat, even when the profile.pause_chance roll doesn't trigger a longer daze.
 const PATROL_GLANCE_RANGE := Vector2(0.15, 0.35)
@@ -47,6 +45,7 @@ const PATROL_GLANCE_RANGE := Vector2(0.15, 0.35)
 @onready var perception: Perception = $Perception
 @onready var touch_area: Area2D = $TouchArea
 @onready var debug_overlay: EnemyDebugOverlay = $EnemyDebugOverlay
+@onready var escort_controller: EscortController = $EscortController
 
 var profile: PersonalityProfile
 var active_module: PersonalityModule
@@ -75,6 +74,9 @@ var _capture_on_arrival: bool = false
 ## The Hideable _capture_on_arrival is walking to - rechecked on arrival in
 ## case the player left before the enemy got there.
 var _capture_hideable: Hideable = null
+## True while playing the "pulling the player out of hiding" slash beat -
+## suppresses Investigate's own movement/timeout so they don't fight it.
+var _capturing: bool = false
 
 var _ai_frozen: bool = false
 var _debug_player_hidden: bool = false
@@ -99,6 +101,8 @@ var _doors_to_close: Dictionary = {}
 
 
 func _ready() -> void:
+	escort_controller.enemy = self
+
 	touch_area.body_entered.connect(_on_touch_area_body_entered)
 	anim_handler.animation_finished.connect(anim_handler._on_animation_finished)
 	GameEvents.day_started.connect(_on_day_started)
@@ -120,6 +124,11 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	if is_teleporting:
+		return
+
+	if escort_controller.is_escorting():
+		escort_controller.process(delta)
+		anim_handler.update_animations(velocity)
 		return
 
 	if _ai_frozen:
@@ -147,14 +156,7 @@ func _physics_process(delta: float) -> void:
 
 	if state != State.SPECIAL:
 		_check_perception_transitions(dwelled)
-		if _door_busy:
-			velocity = Vector2.ZERO
-		elif _sidestep_timer > 0.0:
-			_sidestep_timer -= delta
-			velocity = _sidestep_direction * profile.move_speed
-		move_and_slide()
-		if not _door_busy and _sidestep_timer <= 0.0:
-			_update_stuck_detection(delta)
+		_resolve_movement_and_obstructions(delta)
 
 	_update_door_closing()
 
@@ -175,7 +177,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	elif event.is_action_pressed("debug_force_succeed"):
 		drop_reward()
 	elif event.is_action_pressed("debug_force_fail"):
-		GameEvents.player_caught.emit(&"timeout")
+		escort_controller.register_catch(&"timeout")
 	elif event.is_action_pressed("debug_toggle_hidden"):
 		_debug_player_hidden = not _debug_player_hidden
 		GameEvents.player_hidden_changed.emit(_debug_player_hidden, null)
@@ -262,7 +264,7 @@ func _on_player_hidden_changed(is_hidden: bool, hideable: Hideable) -> void:
 
 	if not profile.catches_hidden_in_sight and active_module:
 		active_module.on_lost_target()
-	_enter_state(State.INVESTIGATE)  # also clears _capture_on_arrival/_capture_hideable
+	_enter_state(State.INVESTIGATE) # also clears _capture_on_arrival/_capture_hideable
 	if profile.catches_hidden_in_sight:
 		_capture_on_arrival = true
 		_capture_hideable = hideable
@@ -282,7 +284,7 @@ func _check_perception_transitions(dwelled: bool) -> void:
 		# you. can_chase is true for all three personalities, so this
 		# path is effectively unused today - it keeps &"seen"'s place in the
 		# signal contract ready for a future personality that needs it.
-		GameEvents.player_caught.emit(&"seen")
+		escort_controller.register_catch(&"seen")
 
 
 # --- State bodies --------------------------------------------------------------
@@ -307,6 +309,9 @@ func _process_patrol(_delta: float) -> void:
 
 
 func _process_investigate(delta: float) -> void:
+	if _capturing:
+		return
+
 	nav_agent.target_position = _resolve_nav_target(investigate_target)
 	_move_toward(nav_agent.get_next_path_position(), profile.move_speed)
 
@@ -320,14 +325,28 @@ func _process_investigate(delta: float) -> void:
 				and _capture_hideable.occupant == perception.get_player()
 			)
 			_capture_on_arrival = false
-			_capture_hideable = null
 			if still_hiding_there:
-				GameEvents.player_caught.emit(&"seen")
+				_perform_capture(_capture_hideable)
+				_capture_hideable = null
 				return
+			_capture_hideable = null
 
 		_look_around_timer += delta
 		if _look_around_timer >= investigate_look_around_time:
 			_enter_state(State.PATROL)
+
+
+## Play the slash anim then reveal player and fire the catch, once the swipe finish.
+func _perform_capture(hideable: Hideable) -> void:
+	_capturing = true
+	velocity = Vector2.ZERO
+	anim_handler.handle_interaction_anim(Interactions.InteractionType.OPEN)
+	await anim_handler.interact_anim_finish
+
+	if is_instance_valid(hideable):
+		hideable.reveal_player(perception.get_player())
+	escort_controller.register_catch(&"seen")
+	_capturing = false
 
 
 func _process_chase(delta: float) -> void:
@@ -352,7 +371,7 @@ func _process_chase(delta: float) -> void:
 	_move_toward(nav_agent.get_next_path_position(), profile.chase_speed)
 
 	if perception.is_player_visible() and global_position.distance_to(player.global_position) <= TOO_CLOSE_DISTANCE:
-		GameEvents.player_caught.emit(&"too_close")
+		escort_controller.register_catch(&"too_close")
 
 
 func _process_stunned(delta: float) -> void:
@@ -363,6 +382,21 @@ func _process_stunned(delta: float) -> void:
 
 
 # --- Movement helpers ----------------------------------------------------------
+
+## Applies obstruction overrides (frozen while a door is being
+## unlocked/opened/closed, sidestepping furniture) on top of whatever
+## velocity the caller already computed, then slides and runs stuck
+## detection, so the walk doesn't just stall dead at the first closed door.
+func _resolve_movement_and_obstructions(delta: float) -> void:
+	if _door_busy or _capturing:
+		velocity = Vector2.ZERO
+	elif _sidestep_timer > 0.0:
+		_sidestep_timer -= delta
+		velocity = _sidestep_direction * profile.move_speed
+	move_and_slide()
+	if not _door_busy and _sidestep_timer <= 0.0:
+		_update_stuck_detection(delta)
+
 
 func _move_toward(target: Vector2, speed: float) -> void:
 	if global_position.distance_to(target) < 2.0:
@@ -415,7 +449,7 @@ func _resolve_obstruction() -> void:
 
 func _handle_door_obstruction(door: Door) -> void:
 	if door.is_open or _door_busy:
-		return  # already open (something else is blocking) or already handling one
+		return # already open (something else is blocking) or already handling one
 
 	_door_busy = true
 	velocity = Vector2.ZERO
@@ -424,11 +458,13 @@ func _handle_door_obstruction(door: Door) -> void:
 	if door.is_locked:
 		door.toogle_lock()
 		anim_handler.handle_interaction_anim(Interactions.InteractionType.UNLOCK)
-		# "The lock is turning" - a beat, not an instant pass-through.
-		await get_tree().create_timer(DOOR_UNLOCK_DELAY).timeout
+		# Frozen for the lock animation.
+		await anim_handler.interact_anim_finish
 
 	door.open_door()
 	anim_handler.handle_interaction_anim(Interactions.InteractionType.OPEN)
+	# Stay frozen until the swipe actually finishes playing.
+	await anim_handler.interact_anim_finish
 	_door_busy = false
 
 	# Forgetful sometimes just doesn't bother, everyone else always
@@ -442,7 +478,7 @@ func _handle_door_obstruction(door: Door) -> void:
 ## opened, once it's no longer standing in the doorway.
 ## "clear" means past BOTH ExitMarkers.
 func _update_door_closing() -> void:
-	if _doors_to_close.is_empty():
+	if _doors_to_close.is_empty() or _door_busy:
 		return
 
 	for door: Door in _doors_to_close.keys():
@@ -452,10 +488,27 @@ func _update_door_closing() -> void:
 
 		if _is_clear_of_doorway(door):
 			var was_locked: bool = _doors_to_close[door]
-			door.close_door()
-			if was_locked:
-				door.toogle_lock()
 			_doors_to_close.erase(door)
+			_handle_door_closing(door, was_locked)
+			return # one door's close animation at a time - _door_busy guards re-entry
+
+
+## Locked in place through the back_slash swipe, then (if it was locked before)
+## the lock process.
+func _handle_door_closing(door: Door, was_locked: bool) -> void:
+	_door_busy = true
+	velocity = Vector2.ZERO
+
+	door.close_door()
+	anim_handler.handle_interaction_anim(Interactions.InteractionType.CLOSE)
+	await anim_handler.interact_anim_finish
+
+	if was_locked:
+		anim_handler.handle_interaction_anim(Interactions.InteractionType.LOCK)
+		await anim_handler.interact_anim_finish
+		door.toogle_lock()
+
+	_door_busy = false
 
 
 func _is_clear_of_doorway(door: Door) -> bool:
@@ -467,6 +520,14 @@ func _is_clear_of_doorway(door: Door) -> bool:
 	var pos: float = global_position[axis]
 
 	return pos <= minf(a, b) or pos >= maxf(a, b)
+
+
+## Called by EscortController after teleporting this Enemy to a fresh spot.
+## Patrol points are read fresh for whatever floor it landed on.
+func reset_patrol_for_current_position() -> void:
+	_patrol_points.clear()
+	_collect_patrol_points()
+	_patrol_index = 0
 
 
 func _collect_patrol_points() -> void:
@@ -525,7 +586,7 @@ func _resolve_nav_target(real_target: Vector2) -> Vector2:
 
 	var stairs = _find_stairs_toward(my_floor, target_floor)
 	if stairs == null:
-		return real_target  # safety net - never crash, never stall forever
+		return real_target # safety net - never crash, never stall forever
 
 	return stairs.tween_start_pos
 
@@ -533,6 +594,18 @@ func _resolve_nav_target(real_target: Vector2) -> Vector2:
 func _find_stairs_toward(my_floor: int, target_floor: int) -> Node:
 	var step := signi(target_floor - my_floor)
 	return _stairs_by_floor_pair.get([my_floor, my_floor + step])
+
+
+## Used by EscortController while walking the player back to her room
+## (is_teleporting still short-circuits _physics_process at the top for the
+## actual stairs crossing). Returns the direction actually walked this frame.
+func escort_step_toward(target: Vector2, delta: float, speed: float) -> Vector2:
+	nav_agent.target_position = _resolve_nav_target(target)
+	if not _door_busy and not _capturing:
+		_move_toward(nav_agent.get_next_path_position(), speed)
+	_resolve_movement_and_obstructions(delta)
+	_update_door_closing()
+	return velocity.normalized() if velocity.length() > 1.0 else Vector2.ZERO
 
 
 ## Called by Stairs.gd's teleport() via duck typing (body.has_method(...)),
@@ -575,4 +648,4 @@ func drop_reward() -> void:
 
 func _on_touch_area_body_entered(body: Node2D) -> void:
 	if body.is_in_group(&"player"):
-		GameEvents.player_caught.emit(&"touched")
+		escort_controller.register_catch(&"touched")

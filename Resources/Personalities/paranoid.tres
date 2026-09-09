@@ -25,6 +25,6 @@ chase_speed = 125.0
 pause_chance = 0.15
 turn_around_chance = 0.35
 view_distance = 220.0
-fov_degrees = 110.0
+fov_degrees = 80.0
 detect_dwell = 0.5
 reward_items = Array[ExtResource("3_ke2cr")]([ExtResource("7_scrap_a"), ExtResource("8_scrap_b"), ExtResource("9_scrap_c")])
