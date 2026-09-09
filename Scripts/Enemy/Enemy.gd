@@ -588,6 +588,16 @@ func _find_stairs_toward(my_floor: int, target_floor: int) -> Node:
 	return _stairs_by_floor_pair.get([my_floor, my_floor + step])
 
 
+## Used by EscortController while walking the player back to her room
+## (is_teleporting still short-circuits _physics_process at the top for the
+## actual stairs crossing). Returns the direction actually walked this frame.
+func escort_step_toward(target: Vector2, speed: float) -> Vector2:
+	nav_agent.target_position = _resolve_nav_target(target)
+	_move_toward(nav_agent.get_next_path_position(), speed)
+	move_and_slide()
+	return velocity.normalized() if velocity.length() > 1.0 else Vector2.ZERO
+
+
 ## Called by Stairs.gd's teleport() via duck typing (body.has_method(...)),
 ## exactly like PlayerMovement.gd's version - but with no camera/fade.
 ## Duration matches PlayerMovement.gd's default exactly so neither side

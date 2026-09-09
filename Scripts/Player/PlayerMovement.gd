@@ -21,6 +21,11 @@ var is_teleporting: bool = false
 var accept_input: bool = true
 var teleport_tween: Tween
 
+## True while EscortController is walking the caught player back to her room -
+## bypasses normal input-driven movement in handle_movement() the same way
+## is_teleporting does; EscortController repositions the player directly instead.
+var is_being_escorted: bool = false
+
 # Interactable candidates currently overlapping InterractArea.
 var _candidates: Array[Interactable] = []
 var _last_primary_prompt: String = ""
@@ -131,8 +136,9 @@ func _on_message_requested(text: String) -> void:
 
 
 func handle_movement(_delta: float) -> void:
-	# Skip movement handling if the player is currently teleporting
-	if is_teleporting:
+	# Skip movement handling if the player is currently teleporting or being
+	# marched back to her room by EscortController.
+	if is_teleporting or is_being_escorted:
 		return
 	
 	# Get the input direction and handle the movement/deceleration.
@@ -205,6 +211,30 @@ func snap_to_spawn(spawn_position: Vector2) -> void:
 	global_position = spawn_position
 	velocity = Vector2.ZERO
 	camera.reset_smoothing()
+
+
+# Called once by EscortController when a non-final catch's (or the day's
+# natural end's) escort beat starts - hands movement over to escort_step().
+func start_escort() -> void:
+	is_being_escorted = true
+	accept_input = false
+	velocity = Vector2.ZERO
+
+
+# Called every escort frame - herds the player just ahead of the enemy.
+# The actual movement is a direct position set.
+func escort_step(step_position: Vector2, facing_velocity: Vector2) -> void:
+	global_position = step_position
+	# facing_velocity isn't applied to actual motion. It's read by anim_handler
+	velocity = facing_velocity
+
+
+# Called once the escort ends (arrived at the room, or the safety-net
+# duration ran out) - gives control back to the player.
+func end_escort() -> void:
+	is_being_escorted = false
+	velocity = Vector2.ZERO
+	accept_input = true
 
 
 # Called by Sitable to snap the player to a seat/stand-up marker and face
