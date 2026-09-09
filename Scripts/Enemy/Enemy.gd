@@ -320,10 +320,14 @@ func _process_investigate(delta: float) -> void:
 				and _capture_hideable.occupant == perception.get_player()
 			)
 			_capture_on_arrival = false
-			_capture_hideable = null
 			if still_hiding_there:
+				# Pull the player out of hiding so they're visible for the catch
+				if is_instance_valid(_capture_hideable):
+					_capture_hideable.reveal_player(perception.get_player())
+				_capture_hideable = null
 				GameEvents.player_caught.emit(&"seen")
 				return
+			_capture_hideable = null
 
 		_look_around_timer += delta
 		if _look_around_timer >= investigate_look_around_time:
