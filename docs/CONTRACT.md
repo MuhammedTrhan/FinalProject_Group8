@@ -38,12 +38,51 @@ from day one). Its ownership transfers to Developer 1.
 signal run_started(run_seed: int)
 signal day_started(day: int, personality: int)   # personality = PersonalityProfile.Personality
 signal night_started(day: int)
+signal day_ended(day: int)      # requested 09.09.2026, not yet emitted - see below
+signal night_ended(day: int)    # requested 09.09.2026, not yet emitted - see below
 ```
 
 `day_started` is what switches the antagonist's active personality. Until it
 exists, Dev2 cycles personalities manually with **F1**.
 
-### 2.3 API Developer 2/3 call directly
+**`day_ended`/`night_ended` (requested, not yet implemented):** Dev2's
+escort beat (§2.3) needs to fully play out — walk the caught/timed-out
+player back to her room, lock her in — *before* night actually begins, then
+keep walking through the fade itself, only finishing once it's visually
+complete. Sequence: `day_ended -> (~5s, escort walking) -> night_ended ->
+(fadeout, escort still walking) -> night_started -> escort finishes (snap +
+lock)`. Concretely: split the existing day-duration timer into two stages —
+fire `day_ended(day)` exactly where `night_started` fires today (right when
+the day's timer would otherwise have ended it), wait a further fixed ~5s,
+then fire `night_ended(day)` and proceed into the existing fadeout exactly
+as today, with `night_started` unchanged (still fires once that fadeout
+completes). Total day length as the player experiences it is unchanged.
+
+This only covers the *natural* day-timeout case. A catch-triggered escort
+starts immediately (no lead time needed — the catch itself is the trigger),
+self-times an equivalent ~5s window, and asks for night to start via
+`night_start_requested` instead — see §2.3.
+
+Until `day_ended`/`night_ended` exist, `EscortController` falls back to
+starting that same walk on today's `night_started` instead (later than
+ideal — the escort ends up overlapping whatever comes after night begins
+rather than finishing before it — but not broken).
+
+### 2.3 Reacting to `night_start_requested`
+
+Added 09.09.2026 (see §3.1). A non-final catch has no `day_ended` to react to,
+ so it self-times its own ~5s walk-home window and then emits
+`GameEvents.night_start_requested(reason: StringName)` once that's done —
+the player is already walked home, the door already locked. `GameManager`
+should treat this exactly as if `night_ended` had just fired: skip the
+`day_ended`/5s-wait part entirely (Dev2 already ran the equivalent window
+itself) and go straight into starting the fadeout, letting `night_started`
+fire once it completes as normal. `reason` is currently always `&"caught"`.
+`&"clue_revealed"` will be added later.
+`player_caught` is completely unchanged by any of this — it still only
+fires on the run's final, permanent catch.
+
+### 2.4 API Developer 2/3 call directly
 
 ```gdscript
 Inventory.add_item(item: ItemData) -> void
@@ -54,7 +93,7 @@ GameManager.current_personality -> int      # PersonalityProfile.Personality
 GameManager.is_day() -> bool
 ```
 
-### 2.4 Screens
+### 2.5 Screens
 
 - Main menu
 - Day-one computer terminal (personality dossiers — see §4)
@@ -81,6 +120,7 @@ signal player_hidden_changed(hidden: bool, hideable: Hideable)
 signal player_caught(reason: StringName)
 signal enemy_dropped_item(item: ItemData, world_position: Vector2)
 signal enemy_state_changed(state: StringName)
+signal night_start_requested(reason: StringName)   # added 09.09.2026 - see §2.3
 
 # Presentation (either)
 signal interaction_prompt_changed(primary: String, secondary: String)

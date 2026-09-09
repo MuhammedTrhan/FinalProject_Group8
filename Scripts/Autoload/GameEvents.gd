@@ -35,6 +35,25 @@ signal day_started(day: int, personality: int)
 @warning_ignore("unused_signal")
 signal night_started(day: int)
 
+## NOT YET EMITTED - requested of Dev1 09.09.2026, see docs/CONTRACT.md §2.2.
+## Fires the instant the day's timer would otherwise have fired
+## night_started right away - GameManager should then wait a further fixed
+## ~5s (matching Dev2's EscortController.ESCORT_DURATION) before actually
+## proceeding into the fadeout, giving Dev2 a window to walk the player back
+## to her room BEFORE night begins. Until this exists, EscortController
+## falls back to starting that same walk on today's night_started instead
+## (later than ideal, but not broken).
+@warning_ignore("unused_signal")
+signal day_ended(day: int)
+
+## NOT YET EMITTED - see day_ended above. Fires once that ~5s wait elapses,
+## right as the day/night fadeout itself begins; night_started (unchanged)
+## still fires once the fadeout completes. Dev2's escort keeps walking
+## through both windows - day_ended..night_ended and night_ended..night_started -
+## only actually finishing (snap + lock) on night_started.
+@warning_ignore("unused_signal")
+signal night_ended(day: int)
+
 
 # ---------------------------------------------------------------------------
 # Antagonist  (Dev2 emits, Dev1 consumes)
@@ -53,12 +72,14 @@ signal enemy_dropped_item(item: ItemData, world_position: Vector2)
 @warning_ignore("unused_signal")
 signal enemy_state_changed(state: StringName)
 
-## A non-final catch's escort-back-to-her-room beat finished, or the day
-## somehow needs to end right now for a reason other than the normal timer.
-## GameManager reacts exactly like its existing day-duration timeout.
-## `reason` is currently always &"caught".
+## A non-final catch's own escort-back-to-her-room window just finished (the
+## self-timed ~5s equivalent of day_ended..night_ended, since a catch has no
+## day_ended to react to). GameManager should react as if night_ended had
+## just fired - skip straight into starting the fadeout - since Dev2 already
+## ran the equivalent window itself before asking. `reason` is currently
+## always &"caught".
 @warning_ignore("unused_signal")
-signal day_end_requested(reason: StringName)
+signal night_start_requested(reason: StringName)
 
 
 # ---------------------------------------------------------------------------
