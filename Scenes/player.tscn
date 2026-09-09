@@ -1131,7 +1131,7 @@ wait_time = 2.0
 one_shot = true
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1552206405]
-zoom = Vector2(2, 2)
+zoom = Vector2(2.25, 2.25)
 position_smoothing_enabled = true
 
 [node name="TransitionLayer" type="CanvasLayer" parent="." unique_id=2030172031]
