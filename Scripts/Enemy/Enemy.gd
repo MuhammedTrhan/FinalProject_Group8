@@ -35,8 +35,6 @@ const STAIR_TWEEN_DURATION := 0.5
 const STUCK_VELOCITY_THRESHOLD := 5.0
 const STUCK_MOVED_THRESHOLD := 0.4
 const STUCK_TIME_THRESHOLD := 0.35
-## Beat between locking a Door's toogle_lock() and its open_door()
-const DOOR_UNLOCK_DELAY := 0.6
 const SIDESTEP_DURATION := 0.35
 ## Every patrol point arrival gets at least this much of a "looking around"
 ## beat, even when the profile.pause_chance roll doesn't trigger a longer daze.
@@ -444,8 +442,8 @@ func _handle_door_obstruction(door: Door) -> void:
 	if door.is_locked:
 		door.toogle_lock()
 		anim_handler.handle_interaction_anim(Interactions.InteractionType.UNLOCK)
-		# "The lock is turning" - a beat, not an instant pass-through.
-		await get_tree().create_timer(DOOR_UNLOCK_DELAY).timeout
+		# Frozen for the lock animation.
+		await anim_handler.interact_anim_finish
 
 	door.open_door()
 	anim_handler.handle_interaction_anim(Interactions.InteractionType.OPEN)
@@ -464,7 +462,7 @@ func _handle_door_obstruction(door: Door) -> void:
 ## opened, once it's no longer standing in the doorway.
 ## "clear" means past BOTH ExitMarkers.
 func _update_door_closing() -> void:
-	if _doors_to_close.is_empty():
+	if _doors_to_close.is_empty() or _door_busy:
 		return
 
 	for door: Door in _doors_to_close.keys():
@@ -474,10 +472,27 @@ func _update_door_closing() -> void:
 
 		if _is_clear_of_doorway(door):
 			var was_locked: bool = _doors_to_close[door]
-			door.close_door()
-			if was_locked:
-				door.toogle_lock()
 			_doors_to_close.erase(door)
+			_handle_door_closing(door, was_locked)
+			return  # one door's close animation at a time - _door_busy guards re-entry
+
+
+## Locked in place through the back_slash swipe, then (if it was locked before)
+## the lock process.
+func _handle_door_closing(door: Door, was_locked: bool) -> void:
+	_door_busy = true
+	velocity = Vector2.ZERO
+
+	door.close_door()
+	anim_handler.handle_interaction_anim(Interactions.InteractionType.CLOSE)
+	await anim_handler.interact_anim_finish
+
+	if was_locked:
+		anim_handler.handle_interaction_anim(Interactions.InteractionType.LOCK)
+		await anim_handler.interact_anim_finish
+		door.toogle_lock()
+
+	_door_busy = false
 
 
 func _is_clear_of_doorway(door: Door) -> bool:
