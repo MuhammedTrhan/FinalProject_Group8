@@ -1647,22 +1647,22 @@ position = Vector2(758, 497)
 position = Vector2(758, 618)
 
 [node name="VerticalWindow8" parent="Furnitures/Windows" unique_id=291237223 instance=ExtResource("29_i7ce5")]
-position = Vector2(1795, 688)
+position = Vector2(1751.0001, 696)
 
 [node name="VerticalWindow9" parent="Furnitures/Windows" unique_id=987590920 instance=ExtResource("29_i7ce5")]
-position = Vector2(1800, 844.00006)
+position = Vector2(1751, 864)
 
 [node name="VerticalWindow12" parent="Furnitures/Windows" unique_id=1137019235 instance=ExtResource("29_i7ce5")]
-position = Vector2(1686, 201)
+position = Vector2(1751, 255.00003)
 
 [node name="VerticalWindow13" parent="Furnitures/Windows" unique_id=188887474 instance=ExtResource("29_i7ce5")]
-position = Vector2(1686, 364)
+position = Vector2(1750.0001, 376)
 
 [node name="VerticalWindow14" parent="Furnitures/Windows" unique_id=364396439 instance=ExtResource("29_i7ce5")]
-position = Vector2(2469, 244.99998)
+position = Vector2(2406, 234.00002)
 
 [node name="VerticalWindow15" parent="Furnitures/Windows" unique_id=1613846405 instance=ExtResource("29_i7ce5")]
-position = Vector2(2469, 377.00003)
+position = Vector2(2406, 380.00003)
 
 [node name="FourSegmentWindow25" parent="Furnitures/Windows" unique_id=1186437692 instance=ExtResource("14_5vthg")]
 position = Vector2(1863, 522.00006)
