@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="ItemData" load_steps=2 format=3]
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://b48wpaq7lcsd1"]
 
 [ext_resource type="Script" uid="uid://sam1gdk4y73n" path="res://Scripts/Items/ItemData.gd" id="1_script"]
 
@@ -7,5 +7,4 @@ script = ExtResource("1_script")
 id = &"scrap_b"
 display_name = "Torn Diary Page (2/3)"
 description = "A scrap of paper, torn from a diary. One more piece is out there."
-is_key = false
 pickup_flavour = "Another torn diary page."

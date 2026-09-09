@@ -7,9 +7,9 @@
 [ext_resource type="Texture2D" uid="uid://bcuvbmo4cojtk" path="res://Assets/Enemy/enemy_paranoid/standard/walk.png" id="4_walk"]
 [ext_resource type="Texture2D" uid="uid://dwtb5jkdgfq6x" path="res://Assets/Enemy/enemy_paranoid/standard/slash.png" id="5_slash"]
 [ext_resource type="Texture2D" uid="uid://dk7bofpr4naep" path="res://Assets/Enemy/enemy_paranoid/standard/sit.png" id="6_sit"]
-[ext_resource type="Resource" path="res://Resources/Items/scrap_a.tres" id="7_scrap_a"]
-[ext_resource type="Resource" path="res://Resources/Items/scrap_b.tres" id="8_scrap_b"]
-[ext_resource type="Resource" path="res://Resources/Items/scrap_c.tres" id="9_scrap_c"]
+[ext_resource type="Resource" uid="uid://ddm6x7jtlp6wh" path="res://Resources/Items/scrap_a.tres" id="7_scrap_a"]
+[ext_resource type="Resource" uid="uid://b48wpaq7lcsd1" path="res://Resources/Items/scrap_b.tres" id="8_scrap_b"]
+[ext_resource type="Resource" uid="uid://cp1wbjd5n4b6y" path="res://Resources/Items/scrap_c.tres" id="9_scrap_c"]
 
 [resource]
 script = ExtResource("1_script")
