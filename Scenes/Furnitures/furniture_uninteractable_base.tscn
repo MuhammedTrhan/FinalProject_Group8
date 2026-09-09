@@ -7,7 +7,7 @@ size = Vector2(16, 37)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ao6dg"]
 radius = 18.0
-height = 36.0
+height = 76.0
 
 [node name="Furniture" type="StaticBody2D" unique_id=758378394]
 y_sort_enabled = true
