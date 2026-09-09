@@ -2028,3 +2028,9 @@ position = Vector2(2064, 542)
 
 [node name="WakePoint_FORGETFUL" type="Marker2D" parent="." unique_id=2004565522]
 position = Vector2(2260, 367)
+
+[node name="WakePoint_PARANOID" type="Marker2D" parent="." unique_id=329301347]
+position = Vector2(297, 737)
+
+[node name="WakePoint_OVERWHELMED" type="Marker2D" parent="." unique_id=1853430030]
+position = Vector2(-1352, 527)
