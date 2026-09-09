@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://Scripts/Autoload/WinScreen.gd" id="1_ws"]
 
 [node name="WinScreen" type="CanvasLayer"]
+process_mode = 3
 script = ExtResource("1_ws")
 
 [node name="Root" type="Control" parent="."]

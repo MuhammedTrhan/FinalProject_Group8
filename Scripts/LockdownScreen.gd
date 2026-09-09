@@ -25,4 +25,4 @@ func _on_player_caught(reason: StringName) -> void:
 
 
 func _on_menu_pressed() -> void:
-	get_tree().change_scene_to_file("res://Scenes/UI/main_menu.tscn")
+	GameManager.return_to_main_menu()

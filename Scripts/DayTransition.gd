@@ -20,6 +20,16 @@ func _ready() -> void:
 	GameEvents.night_started.connect(_on_night_started)
 
 
+## Clears the card and the night dimming - otherwise a run that ended at
+## night leaves the screen darkened over the main menu.
+func reset() -> void:
+	if _current_tween:
+		_current_tween.kill()
+
+	fade.color.a = 0.0
+	label.modulate.a = 0.0
+
+
 func _on_day_started(day: int, _personality: int) -> void:
 	_show_text("Day %d" % day, 0.0) # day is fully clear once the card is gone
 

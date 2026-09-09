@@ -45,6 +45,12 @@ func get_items() -> Array[ItemData]:
 	return _items.duplicate()
 
 
+# Called by GameManager at the start of a run - items must not carry over.
+func clear() -> void:
+	_items.clear()
+	items_changed.emit()
+
+
 func is_diary_scrap(item: ItemData) -> bool:
 	return item in DIARY_SCRAPS
 
