@@ -199,6 +199,14 @@ func end_teleport(target_position: Vector2, fade_duration: float, stairs_end: Ve
 	var fade_in_tween = create_tween()
 	fade_in_tween.tween_property(fade_rect, "modulate:a", 0.0, fade_duration)
 
+# Called by EscortController after a day/night transition, once the screen
+# should already be covered by the fade. No local fade of its own.
+func snap_to_spawn(spawn_position: Vector2) -> void:
+	global_position = spawn_position
+	velocity = Vector2.ZERO
+	camera.reset_smoothing()
+
+
 # Called by Sitable to snap the player to a seat/stand-up marker and face
 # them away from the chair. The look direction is `facing_to - facing_from`
 # regardless of whether this is a sit or a stand - same formula both ways.

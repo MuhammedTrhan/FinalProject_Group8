@@ -25,7 +25,7 @@ func process_special(delta: float) -> void:
 
 	_panic_timer += delta
 	if _panic_timer >= PANIC_TIME:
-		GameEvents.player_caught.emit(&"timeout")
+		enemy.escort_controller.register_catch(&"timeout")
 
 
 func _on_noise_source_silenced_signal(_source: Node, remaining: int) -> void:

@@ -53,6 +53,13 @@ signal enemy_dropped_item(item: ItemData, world_position: Vector2)
 @warning_ignore("unused_signal")
 signal enemy_state_changed(state: StringName)
 
+## A non-final catch's escort-back-to-her-room beat finished, or the day
+## somehow needs to end right now for a reason other than the normal timer.
+## GameManager reacts exactly like its existing day-duration timeout.
+## `reason` is currently always &"caught".
+@warning_ignore("unused_signal")
+signal day_end_requested(reason: StringName)
+
 
 # ---------------------------------------------------------------------------
 # World and puzzles  (Dev3 emits, Dev1 consumes)

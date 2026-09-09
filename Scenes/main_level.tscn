@@ -1602,7 +1602,7 @@ position = Vector2(2280, 688)
 [node name="HorizontalDoor3" parent="Furnitures/Doors" unique_id=334777180 instance=ExtResource("7_lwkuy")]
 position = Vector2(2112, 632)
 
-[node name="HorizontalDoor4" parent="Furnitures/Doors" unique_id=1295449415 instance=ExtResource("7_lwkuy")]
+[node name="HorizontalDoor4" parent="Furnitures/Doors" unique_id=1295449415 groups=["player_room_door"] instance=ExtResource("7_lwkuy")]
 position = Vector2(2064, 520)
 
 [node name="HorizontalDoor5" parent="Furnitures/Doors" unique_id=1309051741 instance=ExtResource("7_lwkuy")]
@@ -2132,3 +2132,6 @@ position = Vector2(2017, 368)
 
 [node name="EnemySpawnPoint" type="Marker2D" parent="." unique_id=1683696210]
 position = Vector2(537, 521)
+
+[node name="DoorGuardPoint" type="Marker2D" parent="." unique_id=1971122366]
+position = Vector2(2064, 542)
