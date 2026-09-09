@@ -75,6 +75,9 @@ var _capture_on_arrival: bool = false
 ## The Hideable _capture_on_arrival is walking to - rechecked on arrival in
 ## case the player left before the enemy got there.
 var _capture_hideable: Hideable = null
+## True while playing the "pulling the player out of hiding" slash beat -
+## suppresses Investigate's own movement/timeout so they don't fight it.
+var _capturing: bool = false
 
 var _ai_frozen: bool = false
 var _debug_player_hidden: bool = false
@@ -147,7 +150,7 @@ func _physics_process(delta: float) -> void:
 
 	if state != State.SPECIAL:
 		_check_perception_transitions(dwelled)
-		if _door_busy:
+		if _door_busy or _capturing:
 			velocity = Vector2.ZERO
 		elif _sidestep_timer > 0.0:
 			_sidestep_timer -= delta
@@ -307,6 +310,9 @@ func _process_patrol(_delta: float) -> void:
 
 
 func _process_investigate(delta: float) -> void:
+	if _capturing:
+		return
+
 	nav_agent.target_position = _resolve_nav_target(investigate_target)
 	_move_toward(nav_agent.get_next_path_position(), profile.move_speed)
 
@@ -321,17 +327,27 @@ func _process_investigate(delta: float) -> void:
 			)
 			_capture_on_arrival = false
 			if still_hiding_there:
-				# Pull the player out of hiding so they're visible for the catch
-				if is_instance_valid(_capture_hideable):
-					_capture_hideable.reveal_player(perception.get_player())
+				_perform_capture(_capture_hideable)
 				_capture_hideable = null
-				GameEvents.player_caught.emit(&"seen")
 				return
 			_capture_hideable = null
 
 		_look_around_timer += delta
 		if _look_around_timer >= investigate_look_around_time:
 			_enter_state(State.PATROL)
+
+
+## Play the slash anim then reveal player and fire the catch, once the swipe finish.
+func _perform_capture(hideable: Hideable) -> void:
+	_capturing = true
+	velocity = Vector2.ZERO
+	anim_handler.handle_interaction_anim(Interactions.InteractionType.OPEN)
+	await anim_handler.interact_anim_finish
+
+	if is_instance_valid(hideable):
+		hideable.reveal_player(perception.get_player())
+	GameEvents.player_caught.emit(&"seen")
+	_capturing = false
 
 
 func _process_chase(delta: float) -> void:
@@ -433,6 +449,8 @@ func _handle_door_obstruction(door: Door) -> void:
 
 	door.open_door()
 	anim_handler.handle_interaction_anim(Interactions.InteractionType.OPEN)
+	# Stay frozen until the swipe actually finishes playing.
+	await anim_handler.interact_anim_finish
 	_door_busy = false
 
 	# Forgetful sometimes just doesn't bother, everyone else always
