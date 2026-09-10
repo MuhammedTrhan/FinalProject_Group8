@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://c3xfv6eb4yr6u"]
 
 [ext_resource type="PackedScene" uid="uid://lgxl3cht6vlk" path="res://Scenes/Furnitures/furniture_interactable_base.tscn" id="1_4r6ab"]
+[ext_resource type="Script" path="res://Scripts/Interactables/NoiseSourceFurniture.gd" id="2_noise"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4r6ab"]
 size = Vector2(32, 42)
@@ -10,6 +11,7 @@ radius = 16.0
 height = 68.0
 
 [node name="KitchenSink" unique_id=758378394 instance=ExtResource("1_4r6ab")]
+script = ExtResource("2_noise")
 
 [node name="InactiveSprite" parent="." index="0" unique_id=1764835962]
 region_rect = Rect2(96, 192, 32, 48)
@@ -23,3 +25,5 @@ shape = SubResource("RectangleShape2D_4r6ab")
 
 [node name="InterractionBox" parent="InterractionArea" parent_id_path=PackedInt32Array(97300687) index="0" unique_id=1028417380]
 shape = SubResource("CapsuleShape2D_4r6ab")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]

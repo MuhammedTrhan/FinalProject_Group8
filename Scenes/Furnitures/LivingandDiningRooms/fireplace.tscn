@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://da3iv0lrn4ne2"]
 
 [ext_resource type="PackedScene" uid="uid://lgxl3cht6vlk" path="res://Scenes/Furnitures/furniture_interactable_base.tscn" id="1_frpl0"]
-[ext_resource type="Script" uid="uid://bwrms388cydxi" path="res://Scripts/Interactables/LightSourceFurniture.gd" id="2_fuqo7"]
+[ext_resource type="Script" path="res://Scripts/Interactables/NoiseLightSourceFurniture.gd" id="2_fuqo7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_frpl0"]
 size = Vector2(24, 24)
@@ -45,3 +45,5 @@ color = Color(0.76862746, 0.62352943, 0.05490196, 1)
 shadow_enabled = true
 texture = SubResource("GradientTexture2D_fuqo7")
 texture_scale = 0.33
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]

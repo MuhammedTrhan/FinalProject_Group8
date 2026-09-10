@@ -1,11 +1,13 @@
 [gd_scene format=3 uid="uid://buxvgeg644ea1"]
 
 [ext_resource type="PackedScene" uid="uid://lgxl3cht6vlk" path="res://Scenes/Furnitures/furniture_interactable_base.tscn" id="1_l8v67"]
+[ext_resource type="Script" path="res://Scripts/Interactables/NoiseSourceFurniture.gd" id="2_noise"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dv8gn"]
 size = Vector2(19, 29)
 
 [node name="Sink" unique_id=758378394 instance=ExtResource("1_l8v67")]
+script = ExtResource("2_noise")
 
 [node name="InactiveSprite" parent="." index="0" unique_id=1764835962]
 region_rect = Rect2(16, 256, 32, 32)
@@ -17,3 +19,5 @@ region_rect = Rect2(16, 256, 32, 32)
 visible = true
 position = Vector2(0.5, 0.5)
 shape = SubResource("RectangleShape2D_dv8gn")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]

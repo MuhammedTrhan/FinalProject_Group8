@@ -48,6 +48,7 @@
 [ext_resource type="PackedScene" uid="uid://cya0uat4e4t7b" path="res://Scenes/Furnitures/Bedroom/ironing_board.tscn" id="40_p5w27"]
 [ext_resource type="PackedScene" uid="uid://btmyniusddecj" path="res://Scenes/Furnitures/Bedroom/clothes_box.tscn" id="41_r6y0e"]
 [ext_resource type="PackedScene" uid="uid://ch1l8ykh1dgkq" path="res://Scenes/Furnitures/Bedroom/carpet_cat.tscn" id="42_76m0p"]
+[ext_resource type="PackedScene" uid="uid://cc54sop0gt8ot" path="res://Scenes/Furnitures/Other/music_player.tscn" id="50_3loty"]
 [ext_resource type="PackedScene" uid="uid://vbeu5e84bbqx" path="res://Scenes/Enemy/enemy.tscn" id="900_enemy"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_qbrl8"]
@@ -1926,6 +1927,9 @@ priority = 0
 [node name="RugVertical" parent="Furnitures" unique_id=1811262912 instance=ExtResource("35_bm8oi")]
 position = Vector2(402, 379)
 scale = Vector2(2, 2)
+
+[node name="MusicPlayer" parent="Furnitures" unique_id=235341659 instance=ExtResource("50_3loty")]
+position = Vector2(2373, 423)
 
 [node name="Darkness" type="CanvasModulate" parent="." unique_id=722425196]
 color = Color(0, 0, 0, 1)
