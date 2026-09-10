@@ -28,9 +28,11 @@ extends Node
 ##   control back - the player is never touched again after this point.
 ## - WAITING_AT_SPAWN: the enemy (alone now, no more player puppeting) walks
 ##   to EnemySpawnPoint and waits there for the rest of the night. Ends on
-##   GameEvents.day_started (per the user: night_ended and day_started land
-##   at the same moment once Dev1's side exists, so day_started - already
-##   real today - is the sole trigger here).
+##   GameEvents.day_started specifically - NOT the moment night's own timer
+##   expires. That moment is followed by its own separate ~0.5s night->day
+##   fade before day_started actually fires, so day_started is the one
+##   signal that actually means "day has truly begun" - already real today,
+##   so no fallback is needed here the way day_ended/night_ended need one.
 ## - UNLOCKING: walks back to the door guard point and unlocks the door in
 ##   person once it actually arrives (or a generous fallback, in case
 ##   pathing gets stuck - the door must never stay locked forever).
