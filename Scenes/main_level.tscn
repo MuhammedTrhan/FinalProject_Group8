@@ -2029,6 +2029,7 @@ position = Vector2(537, 521)
 [node name="DoorGuardPoint" type="Marker2D" parent="." unique_id=1971122366]
 position = Vector2(2064, 542)
 
+<<<<<<<<< Temporary merge branch 1
 [node name="WakePoint_FORGETFUL" type="Marker2D" parent="." unique_id=2004565522]
 position = Vector2(2260, 367)
 
