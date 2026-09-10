@@ -36,6 +36,7 @@ player=""
 enemy=""
 stairs=""
 player_room_door=""
+noise_source=""
 
 [gui]
 

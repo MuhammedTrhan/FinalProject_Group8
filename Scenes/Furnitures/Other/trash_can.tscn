@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://crox24t3d1hny"]
+
+[ext_resource type="PackedScene" uid="uid://lgxl3cht6vlk" path="res://Scenes/Furnitures/furniture_interactable_base.tscn" id="1_base"]
+[ext_resource type="Script" uid="uid://cp2o2ersf3dbi" path="res://Scripts/Interactables/ContainerFurniture.gd" id="2_container"]
+[ext_resource type="Texture2D" uid="uid://dll8q2n4uuj5o" path="res://Assets/Interior/Furnitures/trash_can.png" id="3_trashcan"]
+[ext_resource type="Script" uid="uid://sam1gdk4y73n" path="res://Scripts/Items/ItemData.gd" id="3_yu472"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xh22m"]
+radius = 4.0
+height = 14.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_trashcan"]
+radius = 12.0
+height = 32.0
+
+[node name="TrashCan" unique_id=497810441 instance=ExtResource("1_base")]
+script = ExtResource("2_container")
+initial_items = Array[ExtResource("3_yu472")]([])
+not_found_text = "Nothing fancy here."
+prompt_text = "Look inside"
+
+[node name="InactiveSprite" parent="." index="0" unique_id=1764835962]
+texture = ExtResource("3_trashcan")
+offset = Vector2(0, -8)
+region_enabled = false
+
+[node name="ActiveSprite" parent="." index="1" unique_id=91856626]
+texture = ExtResource("3_trashcan")
+offset = Vector2(0, -8)
+region_enabled = false
+
+[node name="Hitbox" parent="." index="2" unique_id=150259076]
+visible = true
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_xh22m")
+
+[node name="InterractionBox" parent="InterractionArea" parent_id_path=PackedInt32Array(97300687) index="0" unique_id=1028417380]
+position = Vector2(0, -9)
+shape = SubResource("CapsuleShape2D_trashcan")

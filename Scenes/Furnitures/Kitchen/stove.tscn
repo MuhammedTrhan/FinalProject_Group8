@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://6nma3osflq12"]
+
+[ext_resource type="PackedScene" uid="uid://b1kemfw8db4p6" path="res://Scenes/Furnitures/furniture_noise_source_base.tscn" id="1_al1a7"]
+[ext_resource type="AudioStream" uid="uid://6fomvbl1dlf5" path="res://Assets/Audio/FurnitureSounds/stove.wav" id="2_oo43u"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oo43u"]
+size = Vector2(30, 32)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_il7d8"]
+radius = 17.0
+height = 66.0
+
+[node name="Stove" unique_id=758378394 instance=ExtResource("1_al1a7")]
+noise_audio = ExtResource("2_oo43u")
+
+[node name="InactiveSprite" parent="." index="0" unique_id=1764835962]
+offset = Vector2(0, -8)
+region_rect = Rect2(64, 192, 32, 48)
+
+[node name="ActiveSprite" parent="." index="1" unique_id=91856626]
+offset = Vector2(0, -8)
+region_rect = Rect2(64, 192, 32, 48)
+
+[node name="Hitbox" parent="." index="2" unique_id=150259076]
+visible = true
+position = Vector2(0, -6)
+shape = SubResource("RectangleShape2D_oo43u")
+
+[node name="InterractionBox" parent="InterractionArea" parent_id_path=PackedInt32Array(97300687) index="0" unique_id=1028417380]
+position = Vector2(0, -7)
+shape = SubResource("CapsuleShape2D_il7d8")
