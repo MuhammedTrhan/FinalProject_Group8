@@ -11,7 +11,7 @@ size = Vector2(16, 42)
 radius = 16.0
 height = 68.0
 
-[node name="NoiseFurniture" type="StaticBody2D" unique_id=758378394 groups=["noise_source"]]
+[node name="NoiseFurniture" type="StaticBody2D" unique_id=758378394]
 y_sort_enabled = true
 collision_layer = 2
 script = ExtResource("1_noqfr")
