@@ -29,6 +29,7 @@
 [ext_resource type="PackedScene" uid="uid://c1y43vyig73ck" path="res://Scenes/Furnitures/Bathroom/bathtub.tscn" id="24_o0i6v"]
 [ext_resource type="PackedScene" uid="uid://buxvgeg644ea1" path="res://Scenes/Furnitures/Bathroom/sink.tscn" id="25_1ubp3"]
 [ext_resource type="PackedScene" uid="uid://cw4tlpp6i1hud" path="res://Scenes/Furnitures/Bathroom/toilet_horizontal.tscn" id="26_oi0bv"]
+[ext_resource type="PackedScene" path="res://Scenes/Furnitures/Other/trash_can.tscn" id="27_ok16x"]
 [ext_resource type="PackedScene" uid="uid://c1p1phglcs2ne" path="res://Scenes/lamp.tscn" id="27_yfdo3"]
 [ext_resource type="PackedScene" uid="uid://cfssyo7rsboex" path="res://Scenes/Furnitures/Other/table_lamp.tscn" id="28_eckhq"]
 [ext_resource type="PackedScene" uid="uid://bg55ac0ppioej" path="res://Scenes/Furnitures/Windows/vertical_window.tscn" id="29_i7ce5"]
@@ -1701,6 +1702,21 @@ priority = 0
 position = Vector2(600, 95)
 priority = 0
 
+[node name="Stove" parent="Furnitures/Kitchen" unique_id=758378394 instance=ExtResource("14_ykarw")]
+position = Vector2(512, 107)
+
+[node name="TrashCan" parent="Furnitures/Kitchen" unique_id=497810441 instance=ExtResource("27_ok16x")]
+position = Vector2(630, 148)
+
+[node name="TrashCan2" parent="Furnitures/Kitchen" unique_id=670679579 instance=ExtResource("27_ok16x")]
+position = Vector2(437, 875)
+
+[node name="TrashCan3" parent="Furnitures/Kitchen" unique_id=156304085 instance=ExtResource("27_ok16x")]
+position = Vector2(2123, 216)
+
+[node name="TrashCan4" parent="Furnitures/Kitchen" unique_id=1336871702 instance=ExtResource("27_ok16x")]
+position = Vector2(-1683, 427)
+
 [node name="Lamps" type="Node2D" parent="Furnitures" unique_id=1321883707]
 
 [node name="Light" parent="Furnitures/Lamps" unique_id=1604036555 instance=ExtResource("27_yfdo3")]
@@ -2012,6 +2028,3 @@ position = Vector2(537, 521)
 
 [node name="DoorGuardPoint" type="Marker2D" parent="." unique_id=1971122366]
 position = Vector2(2064, 542)
-
-[node name="Stove" parent="." unique_id=758378394 instance=ExtResource("14_ykarw")]
-position = Vector2(512, 107)
