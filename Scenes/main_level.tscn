@@ -17,7 +17,7 @@
 [ext_resource type="PackedScene" uid="uid://c3xfv6eb4yr6u" path="res://Scenes/Furnitures/Kitchen/kitchen_sink.tscn" id="13_vgie2"]
 [ext_resource type="PackedScene" uid="uid://b1ogjx4ss530h" path="res://Scenes/Furnitures/Windows/four_segment_window.tscn" id="14_5vthg"]
 [ext_resource type="PackedScene" uid="uid://dlj2bnqinapht" path="res://Scenes/Furnitures/stairs.tscn" id="14_hd7sb"]
-[ext_resource type="PackedScene" path="res://Scenes/Furnitures/Kitchen/stove.tscn" id="14_ykarw"]
+[ext_resource type="PackedScene" uid="uid://6nma3osflq12" path="res://Scenes/Furnitures/Kitchen/stove.tscn" id="14_ykarw"]
 [ext_resource type="PackedScene" uid="uid://dbs2m3air4w0p" path="res://Scenes/Furnitures/Windows/two_segment_window.tscn" id="15_unus1"]
 [ext_resource type="PackedScene" uid="uid://ciycttlvju13g" path="res://Scenes/Furnitures/Windows/one_segment_window.tscn" id="16_unus1"]
 [ext_resource type="PackedScene" uid="uid://x67sckpbm50c" path="res://Scenes/Furnitures/Kitchen/kitchen_drawr.tscn" id="18_and0o"]
