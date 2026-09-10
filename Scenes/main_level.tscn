@@ -1522,6 +1522,7 @@ position = Vector2(400, 328)
 
 [node name="VerticalPreciousDoor2" parent="Furnitures/Doors" unique_id=1429660404 instance=ExtResource("10_o18aq")]
 position = Vector2(648, 800)
+is_locked = true
 priority = 0
 
 [node name="VerticalCommonDoor" parent="Furnitures/Doors" unique_id=1509812519 instance=ExtResource("9_ha3dl")]
