@@ -1,48 +1,26 @@
 class_name EscortController
 extends Node
-## 3-lives catch funnel PLUS the whole night routine around it: the first two
-## catches in a run walk the player back toward her room (herded just ahead
-## of the enemy) and end the day right away; only the 3rd catch is the real,
-## permanent game-over.
+## Manages the 3-lives catch funnel and the full night routine. The first
+## two catches herd the player to her room and end the day early; the 3rd
+## catch triggers a permanent game-over.
 ##
-## Also runs the same walk-home beat before the day ends naturally, so it
-## fully plays out BEFORE night begins rather than overlapping the day/night
-## fade: day -> escort -> night. From there, _escorting stays true for the
-## ENTIRE night (blocking Enemy's normal state-machine dispatch the whole
-## time - nights already mean "day mechanics stop being evaluated" and no
-## catches can happen then anyway) through a full routine:
+## Also handles the natural walk-home beat before night falls. Escorting
+## blocks the Enemy's normal state machine entirely throughout the night
+## using this sequence:
+## WALKING_HOME -> LOCKING_IN -> WAITING_AT_SPAWN -> UNLOCKING -> WAKE
 ##
-##   WALKING_HOME -> LOCKING_IN -> WAITING_AT_SPAWN -> UNLOCKING -> WALKING_TO_WAKE
+## - WALKING_HOME: Self-timed for catches, or uses day_ended/night_ended
+##   signals for natural escorts.
+## - LOCKING_IN: Overlaps the day/night fade until night_started fires.
+##   The player is snapped to her room, locked in, and regains control.
+## - WAITING_AT_SPAWN: The enemy (alone) waits at EnemySpawnPoint until
+##   day_started explicitly signals true morning.
+## - UNLOCKING: Enemy walks to the door and unlocks it (has a fallback
+##   timeout to prevent permanent soft-locks).
+## - WALKING_TO_WAKE: Enemy walks to the active personality's wake marker,
+##   then returns control to its normal state machine.
 ##
-## - WALKING_HOME: a catch self-times this (nothing external tells it when
-##   to stop) and ends by asking Dev1 to start the night right away via
-##   night_start_requested. A natural escort starts on GameEvents.day_ended
-##   and ends on GameEvents.night_ended (Dev1's own timing, not a number
-##   Dev2 has to match) - falling back to the same self-timed cap if
-##   night_ended isn't wired yet.
-## - LOCKING_IN: both cases keep walking here too (meant to overlap Dev1's
-##   actual fadeout) until GameEvents.night_started fires (or a generous
-##   fallback, which is what keeps catches working today since nothing
-##   consumes night_start_requested yet). That's when the player is actually
-##   snapped to her lockdown position, the door locks, and she's handed
-##   control back - the player is never touched again after this point.
-## - WAITING_AT_SPAWN: the enemy (alone now, no more player puppeting) walks
-##   to EnemySpawnPoint and waits there for the rest of the night. Ends on
-##   GameEvents.day_started specifically - NOT the moment night's own timer
-##   expires. That moment is followed by its own separate ~0.5s night->day
-##   fade before day_started actually fires, so day_started is the one
-##   signal that actually means "day has truly begun" - already real today,
-##   so no fallback is needed here the way day_ended/night_ended need one.
-## - UNLOCKING: walks back to the door guard point and unlocks the door in
-##   person once it actually arrives (or a generous fallback, in case
-##   pathing gets stuck - the door must never stay locked forever).
-## - WALKING_TO_WAKE: walks to the active personality's wake marker (falls
-##   back to just ending the routine from wherever it already is if that
-##   marker doesn't exist yet). Once there (or a generous fallback), control
-##   is finally handed back to Enemy's normal state machine.
-##
-## Kept as its own node (a back-reference to the owning Enemy, set once from
-## outside) rather than growing Enemy.gd or PlayerMovement.gd further.
+## Abstracted into its own node to keep Enemy.gd and PlayerMovement.gd clean.
 
 ## Set by Enemy, first thing in _ready() - before anything else touches it.
 var enemy: Enemy
@@ -59,7 +37,7 @@ const ESCORT_DURATION := 5.0
 ## the real night_started signal always wins the race and this almost never
 ## actually fires - it's a last-resort recovery, not a stand-in for the fade.
 const LOCK_IN_FALLBACK_DELAY := 2.0
-const ESCORT_APPROACH_DISTANCE := 40.0  # "hop next to player" lands this close - not touching
+const ESCORT_APPROACH_DISTANCE := 40.0 # "hop next to player" lands this close - not touching
 ## How far ahead of the enemy the player is herded while walking home.
 const ESCORT_LEAD_DISTANCE := 18.0
 ## "Close enough" for the night routine's UNLOCKING/WALKING_TO_WAKE legs.
@@ -70,7 +48,7 @@ const NIGHT_ROUTINE_ARRIVAL_DISTANCE := 12.0
 const UNLOCK_FALLBACK_DURATION := 15.0
 const WAKE_WALK_FALLBACK_DURATION := 20.0
 
-enum _Phase { WALKING_HOME, LOCKING_IN, WAITING_AT_SPAWN, UNLOCKING, WALKING_TO_WAKE }
+enum _Phase {WALKING_HOME, LOCKING_IN, WAITING_AT_SPAWN, UNLOCKING, WALKING_TO_WAKE}
 
 var _lives_remaining: int = MAX_LIVES
 var _run_over: bool = false
@@ -114,7 +92,7 @@ func register_catch(reason: StringName) -> void:
 	_lives_remaining -= 1
 	if _lives_remaining <= 0:
 		_run_over = true
-		GameEvents.player_caught.emit(reason)  # unchanged meaning: final, permanent game-over
+		GameEvents.player_caught.emit(reason) # unchanged meaning: final, permanent game-over
 		return
 
 	_start_escort(true)
@@ -206,7 +184,7 @@ func _resolve_door_guard_target() -> Vector2:
 		return guard_point.global_position
 
 	var enemy_spawn := enemy.get_parent().get_node_or_null("EnemySpawnPoint")
-	return enemy_spawn.global_position if enemy_spawn else enemy.global_position  # last-resort: don't crash, just stop in place
+	return enemy_spawn.global_position if enemy_spawn else enemy.global_position # last-resort: don't crash, just stop in place
 
 
 ## WALKING_HOME -> LOCKING_IN. A catch additionally asks Dev1 to start the
