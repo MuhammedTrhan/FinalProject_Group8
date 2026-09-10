@@ -5,7 +5,6 @@
 [ext_resource type="Texture2D" uid="uid://cgcmih4swq4pp" path="res://Assets/Interior/FloorsAndWalls/TopDownHouse_FloorsAndWalls_OpenDoors.png" id="4_236hc"]
 [ext_resource type="Texture2D" uid="uid://bafrr543js3up" path="res://Assets/Interior/FloorsAndWalls/floors-walls-opendoors.png" id="5_a2ia3"]
 [ext_resource type="Texture2D" uid="uid://rjsqmfcs0jws" path="res://Assets/Interior/FloorsAndWalls/Balcony garden.png" id="6_2jcip"]
-[ext_resource type="PackedScene" uid="uid://cuypiire5hhga" path="res://Scenes/player.tscn" id="6_236hc"]
 [ext_resource type="PackedScene" uid="uid://nbcsiidio0wd" path="res://Scenes/Furnitures/Other/standing_lamp.tscn" id="6_bhrpm"]
 [ext_resource type="PackedScene" uid="uid://cmmc7elxr0abu" path="res://Scenes/Furnitures/LivingandDiningRooms/sofa_ver_3.tscn" id="7_c1xrl"]
 [ext_resource type="PackedScene" uid="uid://c5e5675r3u1m6" path="res://Scenes/Furnitures/Doors/horizontal_common_door.tscn" id="7_lwkuy"]
@@ -29,7 +28,7 @@
 [ext_resource type="PackedScene" uid="uid://c1y43vyig73ck" path="res://Scenes/Furnitures/Bathroom/bathtub.tscn" id="24_o0i6v"]
 [ext_resource type="PackedScene" uid="uid://buxvgeg644ea1" path="res://Scenes/Furnitures/Bathroom/sink.tscn" id="25_1ubp3"]
 [ext_resource type="PackedScene" uid="uid://cw4tlpp6i1hud" path="res://Scenes/Furnitures/Bathroom/toilet_horizontal.tscn" id="26_oi0bv"]
-[ext_resource type="PackedScene" path="res://Scenes/Furnitures/Other/trash_can.tscn" id="27_ok16x"]
+[ext_resource type="PackedScene" uid="uid://crox24t3d1hny" path="res://Scenes/Furnitures/Other/trash_can.tscn" id="27_ok16x"]
 [ext_resource type="PackedScene" uid="uid://c1p1phglcs2ne" path="res://Scenes/lamp.tscn" id="27_yfdo3"]
 [ext_resource type="PackedScene" uid="uid://cfssyo7rsboex" path="res://Scenes/Furnitures/Other/table_lamp.tscn" id="28_eckhq"]
 [ext_resource type="PackedScene" uid="uid://bg55ac0ppioej" path="res://Scenes/Furnitures/Windows/vertical_window.tscn" id="29_i7ce5"]
@@ -51,7 +50,6 @@
 [ext_resource type="PackedScene" uid="uid://btmyniusddecj" path="res://Scenes/Furnitures/Bedroom/clothes_box.tscn" id="41_r6y0e"]
 [ext_resource type="PackedScene" uid="uid://ch1l8ykh1dgkq" path="res://Scenes/Furnitures/Bedroom/carpet_cat.tscn" id="42_76m0p"]
 [ext_resource type="PackedScene" uid="uid://cc54sop0gt8ot" path="res://Scenes/Furnitures/Other/music_player.tscn" id="50_3loty"]
-[ext_resource type="PackedScene" uid="uid://vbeu5e84bbqx" path="res://Scenes/Enemy/enemy.tscn" id="900_enemy"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_qbrl8"]
 vertices = PackedVector2Array(479, 111, 479, 33.34375, 481, 33.351563, 481, 111, 671, 783, 750.46094, 783, 750.4219, 817, 671, 799, 111, 1073, 80.96875, 1073, 80.88281, 975, 433, 975, 433, 1023, 625, 111, 625, 241, 401, 241, 353, 111, 399, 241, 401, 351, 513, 351, 513, 369, 465, 369, 465, 385, 433, 385, 737, 495, 737, 673, 479, 673, 479, 497, 433, 495, 433, 497, 433, 529, 401, 529, 401, 639, 433, 639, 433, 783, 625, 783, 625, 799, 671, 817, 671, 801, 625, 801, 625, 817, 513, 817, 513, 927, 737, 927, 737, 1089, 705, 1089, 705, 1101, 511, 1101, 511, 1089, 479, 1089, 479, 1025, 433, 1025, 433, 1101, 111, 1101, 479, 1023, 511, 927, 479, 927, 511, 817, 433, 817, 433, 865, 95, 865, 95, 639, 399, 639, 353, 465, 353, 529, 95, 529, 95, 415, 353, 415, 353, 463, 399, 465, 399, 463, 353, 241, 353, 305, 95, 305, 95, 63, 353, 63, 2303, 975, 2305, 849, 2305, 1023, 2303, 977, 2303, 689, 2480.5703, 1023, 2480.0703, 1116.2109, 2395.5938, 1117.4375, 2303, 1117.4375, 2289, -17, 2289, 113, 2081, 113, 2063, -17, 2127, 223, 2385, 223, 2385, 433, 2129, 433, 2127, 543, 2129, 543, 2193, 543, 2193, 545, 2113, 545, 2065, 543, 2111, 545, 2159, 687, 2159, 655, 2257, 655, 2257, 687, 2303, 687, 2303, 655, 2465, 655, 2465, 913, 2351, 849, 2351, 913, 2257, 689, 2159, 689, 2257, 785, 2159, 785, 2113, 687, 2113, 689, 2257, 975, 2257, 977, 2257, 1041, 2159, 1041, 2159, 897, 2257, 895, 2113, 895, 2113, 897, 2113, 961, 1775, 961, 1775, 655, 2111, 655, 2063, 545, 2063, 433, 2065, 433, 1775, 433, 1775, 223, 2079, 223, 2081, 433, 2079, 113, 2063, 113, -1087, 769, -1681, 769, -1409, 431, -1407, 431, -1551, 431, -1087, 111, -1087, 321, -1407, 321, -1457, 113, -1087, 431, -1409, 321, -1457, 321, -1503, 113, -1503, 321, -1551, 321, -1681, 431, -1553, 431, -1553, 321, -1681, 321, -1681, 111)
@@ -1307,12 +1305,6 @@ position = Vector2(14, -8)
 start_position = Vector2(448, 392)
 end_position = Vector2(-1166, 526)
 
-[node name="Player" parent="." unique_id=496936875 instance=ExtResource("6_236hc")]
-position = Vector2(319.00003, 100.00001)
-
-[node name="Enemy" parent="." unique_id=1539074268 instance=ExtResource("900_enemy")]
-position = Vector2(321, 250)
-
 [node name="EditorLabels" type="Node2D" parent="." unique_id=1631701532]
 
 [node name="EditorLabel" parent="EditorLabels" unique_id=1569352386 instance=ExtResource("10_f3gli")]
@@ -2024,14 +2016,10 @@ position = Vector2(2237, 977)
 position = Vector2(2017, 368)
 
 [node name="EnemySpawnPoint" type="Marker2D" parent="." unique_id=1683696210]
-position = Vector2(537, 521)
+position = Vector2(2000, 688)
 
 [node name="DoorGuardPoint" type="Marker2D" parent="." unique_id=1971122366]
 position = Vector2(2064, 542)
-
-<<<<<<<<< Temporary merge branch 1
-[node name="WakePoint_FORGETFUL" type="Marker2D" parent="." unique_id=2004565522]
-position = Vector2(2260, 367)
 
 [node name="WakePoint_PARANOID" type="Marker2D" parent="." unique_id=329301347]
 position = Vector2(297, 737)

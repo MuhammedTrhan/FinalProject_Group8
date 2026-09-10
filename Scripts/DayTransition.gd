@@ -4,6 +4,7 @@ extends CanvasLayer
 ## on_black callback, so the teleport and personality swap they trigger happen
 ## while the screen is covered and stay invisible.
 
+@export var begin_text: String = "BEGIN: Night 1"
 @export var fade_duration: float = 0.5
 @export var hold_duration: float = 1.0
 # How dark the screen stays during the night, after the card fades out. 0 = clear.
@@ -50,6 +51,24 @@ func play_day_card(day: int, on_black: Callable) -> void:
 
 func play_night_card(day: int, on_black: Callable) -> void:
 	_play("Night %d" % day, night_ambient_alpha, on_black) # night stays dim
+
+
+func play_begin_card() -> void:
+	# Similar to _play, but there is no fadeout, only a hold and a fadein.
+	if _current_tween:
+		_current_tween.kill()
+	
+	label.text = begin_text
+
+	fade.color.a = 1.0
+	label.modulate.a = 1.0
+	
+	_current_tween = create_tween()
+	_current_tween.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+
+	_current_tween.tween_interval(hold_duration)
+	_current_tween.tween_property(fade, "color:a", 0.0, fade_duration)
+	_current_tween.parallel().tween_property(label, "modulate:a", 0.0, fade_duration)
 
 
 # end_alpha is how dark the screen stays once the card fades out. `on_black`
