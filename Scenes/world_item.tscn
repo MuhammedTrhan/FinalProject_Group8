@@ -1,16 +1,61 @@
 [gd_scene format=3 uid="uid://c5alv8go6xeq2"]
 
 [ext_resource type="Script" uid="uid://bjg0wk4o0bgmu" path="res://Scripts/Interactables/WorldItem.gd" id="1_worlditem"]
+[ext_resource type="Texture2D" uid="uid://b1ootk4vkbpgf" path="res://Assets/Items/Shadow.png" id="2_etyx1"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_worlditem"]
 radius = 24.0
 
+[sub_resource type="Animation" id="Animation_etyx1"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_aeu3x"]
+resource_name = "idle"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(-2, -2, -2),
+"update": 0,
+"values": [Vector2(0, -3), Vector2(0, 3), Vector2(0, -3)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_etyx1"]
+_data = {
+&"RESET": SubResource("Animation_etyx1"),
+&"idle": SubResource("Animation_aeu3x")
+}
+
 [node name="WorldItem" type="StaticBody2D" unique_id=2115147253]
 collision_layer = 0
 script = ExtResource("1_worlditem")
+priority = 10
+
+[node name="Shadow" type="Sprite2D" parent="." unique_id=36272571]
+modulate = Color(1, 1, 1, 0.49803922)
+position = Vector2(0, 12)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("2_etyx1")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=577523007]
-scale = Vector2(0.5, 0.5)
+scale = Vector2(0.4, 0.4)
 
 [node name="InterractionArea" type="Area2D" parent="." unique_id=1823874236]
 collision_layer = 4
@@ -19,3 +64,8 @@ monitoring = false
 
 [node name="InterractionBox" type="CollisionShape2D" parent="InterractionArea" unique_id=55568224]
 shape = SubResource("CircleShape2D_worlditem")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=430734100]
+libraries/ = SubResource("AnimationLibrary_etyx1")
+autoplay = &"idle"
+speed_scale = 0.7
