@@ -1983,25 +1983,25 @@ position = Vector2(375, 1079)
 
 [node name="patrol_point_2" type="Node2D" parent="." unique_id=10228709 groups=["patrol_point_2"]]
 
-[node name="P1" type="Marker2D" parent="patrol_point_2" unique_id=303558682 groups=["patrol_point_2"]]
-position = Vector2(2149, 542)
-
-[node name="P2" type="Marker2D" parent="patrol_point_2" unique_id=2088448158 groups=["patrol_point_2"]]
+[node name="P1" type="Marker2D" parent="patrol_point_2" unique_id=2088448158 groups=["patrol_point_2"]]
 position = Vector2(2166, 404)
 
-[node name="P4" type="Marker2D" parent="patrol_point_2" unique_id=622566062 groups=["patrol_point_2"]]
+[node name="P2" type="Marker2D" parent="patrol_point_2" unique_id=303558682 groups=["patrol_point_2"]]
+position = Vector2(2149, 542)
+
+[node name="P3" type="Marker2D" parent="patrol_point_2" unique_id=622566062 groups=["patrol_point_2"]]
 position = Vector2(2070, 674)
 
-[node name="P5" type="Marker2D" parent="patrol_point_2" unique_id=275600560 groups=["patrol_point_2"]]
+[node name="P4" type="Marker2D" parent="patrol_point_2" unique_id=275600560 groups=["patrol_point_2"]]
 position = Vector2(2173, 685)
 
-[node name="P6" type="Marker2D" parent="patrol_point_2" unique_id=533473541 groups=["patrol_point_2"]]
+[node name="P5" type="Marker2D" parent="patrol_point_2" unique_id=533473541 groups=["patrol_point_2"]]
 position = Vector2(2318, 690)
 
-[node name="P7" type="Marker2D" parent="patrol_point_2" unique_id=739178391 groups=["patrol_point_2"]]
+[node name="P6" type="Marker2D" parent="patrol_point_2" unique_id=739178391 groups=["patrol_point_2"]]
 position = Vector2(2316, 1036)
 
-[node name="P8" type="Marker2D" parent="patrol_point_2" unique_id=661121553 groups=["patrol_point_2"]]
+[node name="P7" type="Marker2D" parent="patrol_point_2" unique_id=661121553 groups=["patrol_point_2"]]
 position = Vector2(2237, 977)
 
 [node name="PlayerSpawnPoint" type="Marker2D" parent="." unique_id=295150092]
@@ -2015,3 +2015,12 @@ position = Vector2(2064, 542)
 
 [node name="Stove" parent="." unique_id=758378394 instance=ExtResource("14_ykarw")]
 position = Vector2(512, 107)
+
+[node name="WakePoint_FORGETFUL" type="Marker2D" parent="." unique_id=2004565522]
+position = Vector2(2260, 367)
+
+[node name="WakePoint_PARANOID" type="Marker2D" parent="." unique_id=329301347]
+position = Vector2(297, 737)
+
+[node name="WakePoint_OVERWHELMED" type="Marker2D" parent="." unique_id=1853430030]
+position = Vector2(-1352, 527)
