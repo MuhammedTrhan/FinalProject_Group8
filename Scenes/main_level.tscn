@@ -17,6 +17,7 @@
 [ext_resource type="PackedScene" uid="uid://c3xfv6eb4yr6u" path="res://Scenes/Furnitures/Kitchen/kitchen_sink.tscn" id="13_vgie2"]
 [ext_resource type="PackedScene" uid="uid://b1ogjx4ss530h" path="res://Scenes/Furnitures/Windows/four_segment_window.tscn" id="14_5vthg"]
 [ext_resource type="PackedScene" uid="uid://dlj2bnqinapht" path="res://Scenes/Furnitures/stairs.tscn" id="14_hd7sb"]
+[ext_resource type="PackedScene" uid="uid://6nma3osflq12" path="res://Scenes/Furnitures/Kitchen/stove.tscn" id="14_ykarw"]
 [ext_resource type="PackedScene" uid="uid://dbs2m3air4w0p" path="res://Scenes/Furnitures/Windows/two_segment_window.tscn" id="15_unus1"]
 [ext_resource type="PackedScene" uid="uid://ciycttlvju13g" path="res://Scenes/Furnitures/Windows/one_segment_window.tscn" id="16_unus1"]
 [ext_resource type="PackedScene" uid="uid://x67sckpbm50c" path="res://Scenes/Furnitures/Kitchen/kitchen_drawr.tscn" id="18_and0o"]
@@ -48,6 +49,7 @@
 [ext_resource type="PackedScene" uid="uid://cya0uat4e4t7b" path="res://Scenes/Furnitures/Bedroom/ironing_board.tscn" id="40_p5w27"]
 [ext_resource type="PackedScene" uid="uid://btmyniusddecj" path="res://Scenes/Furnitures/Bedroom/clothes_box.tscn" id="41_r6y0e"]
 [ext_resource type="PackedScene" uid="uid://ch1l8ykh1dgkq" path="res://Scenes/Furnitures/Bedroom/carpet_cat.tscn" id="42_76m0p"]
+[ext_resource type="PackedScene" uid="uid://cc54sop0gt8ot" path="res://Scenes/Furnitures/Other/music_player.tscn" id="50_3loty"]
 [ext_resource type="PackedScene" uid="uid://vbeu5e84bbqx" path="res://Scenes/Enemy/enemy.tscn" id="900_enemy"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_qbrl8"]
@@ -1296,12 +1298,12 @@ tile_set = SubResource("TileSet_5erdv")
 
 [node name="NavigationLink2D" type="NavigationLink2D" parent="NavigationRegion2D" unique_id=1942282567]
 position = Vector2(14, -8)
-start_position = Vector2(458, 377)
+start_position = Vector2(458, 375)
 end_position = Vector2(2196, 547)
 
 [node name="NavigationLink2D2" type="NavigationLink2D" parent="NavigationRegion2D" unique_id=1777077021]
 position = Vector2(14, -8)
-start_position = Vector2(455, 397)
+start_position = Vector2(448, 392)
 end_position = Vector2(-1166, 526)
 
 [node name="Player" parent="." unique_id=496936875 instance=ExtResource("6_236hc")]
@@ -1521,6 +1523,7 @@ position = Vector2(400, 328)
 
 [node name="VerticalPreciousDoor2" parent="Furnitures/Doors" unique_id=1429660404 instance=ExtResource("10_o18aq")]
 position = Vector2(648, 800)
+is_locked = true
 priority = 0
 
 [node name="VerticalCommonDoor" parent="Furnitures/Doors" unique_id=1509812519 instance=ExtResource("9_ha3dl")]
@@ -1537,7 +1540,7 @@ priority = 0
 y_sort_enabled = true
 
 [node name="Stairs" parent="Furnitures/Stairs" unique_id=564583785 node_paths=PackedStringArray("destination_stairs") instance=ExtResource("14_hd7sb")]
-position = Vector2(511, 432)
+position = Vector2(502, 432)
 destination_stairs = NodePath("../Stairs4")
 leads_upstairs = false
 
@@ -1821,7 +1824,7 @@ position = Vector2(281, 614)
 scale = Vector2(1.5, 1.5)
 priority = 0
 
-[node name="Sitable" parent="Furnitures/Livingroom" unique_id=758378394 instance=ExtResource("30_c1xrl")]
+[node name="Sitable" parent="Furnitures/Livingroom" unique_id=1226844377 instance=ExtResource("30_c1xrl")]
 position = Vector2(345, 621)
 scale = Vector2(1.2, 1.2)
 
@@ -1927,6 +1930,9 @@ priority = 0
 position = Vector2(402, 379)
 scale = Vector2(2, 2)
 
+[node name="MusicPlayer" parent="Furnitures" unique_id=235341659 instance=ExtResource("50_3loty")]
+position = Vector2(2373, 423)
+
 [node name="Darkness" type="CanvasModulate" parent="." unique_id=722425196]
 color = Color(0, 0, 0, 1)
 
@@ -2006,3 +2012,6 @@ position = Vector2(537, 521)
 
 [node name="DoorGuardPoint" type="Marker2D" parent="." unique_id=1971122366]
 position = Vector2(2064, 542)
+
+[node name="Stove" parent="." unique_id=758378394 instance=ExtResource("14_ykarw")]
+position = Vector2(512, 107)

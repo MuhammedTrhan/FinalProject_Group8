@@ -1,21 +1,21 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene format=3 uid="uid://c5alv8go6xeq2"]
 
 [ext_resource type="Script" uid="uid://bjg0wk4o0bgmu" path="res://Scripts/Interactables/WorldItem.gd" id="1_worlditem"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_worlditem"]
 radius = 24.0
 
-[node name="WorldItem" type="StaticBody2D"]
+[node name="WorldItem" type="StaticBody2D" unique_id=2115147253]
 collision_layer = 0
 script = ExtResource("1_worlditem")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=577523007]
+scale = Vector2(0.5, 0.5)
 
-[node name="InterractionArea" type="Area2D" parent="."]
+[node name="InterractionArea" type="Area2D" parent="." unique_id=1823874236]
 collision_layer = 4
 collision_mask = 0
 monitoring = false
-monitorable = true
 
-[node name="InterractionBox" type="CollisionShape2D" parent="InterractionArea"]
+[node name="InterractionBox" type="CollisionShape2D" parent="InterractionArea" unique_id=55568224]
 shape = SubResource("CircleShape2D_worlditem")
