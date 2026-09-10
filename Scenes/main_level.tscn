@@ -1296,12 +1296,12 @@ tile_set = SubResource("TileSet_5erdv")
 
 [node name="NavigationLink2D" type="NavigationLink2D" parent="NavigationRegion2D" unique_id=1942282567]
 position = Vector2(14, -8)
-start_position = Vector2(458, 377)
+start_position = Vector2(458, 375)
 end_position = Vector2(2196, 547)
 
 [node name="NavigationLink2D2" type="NavigationLink2D" parent="NavigationRegion2D" unique_id=1777077021]
 position = Vector2(14, -8)
-start_position = Vector2(455, 397)
+start_position = Vector2(448, 392)
 end_position = Vector2(-1166, 526)
 
 [node name="Player" parent="." unique_id=496936875 instance=ExtResource("6_236hc")]
@@ -1537,7 +1537,7 @@ priority = 0
 y_sort_enabled = true
 
 [node name="Stairs" parent="Furnitures/Stairs" unique_id=564583785 node_paths=PackedStringArray("destination_stairs") instance=ExtResource("14_hd7sb")]
-position = Vector2(511, 432)
+position = Vector2(502, 432)
 destination_stairs = NodePath("../Stairs4")
 leads_upstairs = false
 
