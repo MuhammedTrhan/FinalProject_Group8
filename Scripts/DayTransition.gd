@@ -67,7 +67,8 @@ func play_begin_card() -> void:
 	_current_tween.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 
 	_current_tween.tween_interval(hold_duration)
-	_current_tween.tween_property(fade, "color:a", 0.0, fade_duration)
+	# Settles at the same dim as every other night, not fully clear.
+	_current_tween.tween_property(fade, "color:a", night_ambient_alpha, fade_duration)
 	_current_tween.parallel().tween_property(label, "modulate:a", 0.0, fade_duration)
 
 

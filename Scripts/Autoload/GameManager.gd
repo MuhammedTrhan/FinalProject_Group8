@@ -73,7 +73,7 @@ func _ready() -> void:
 	GameEvents.player_caught.connect(_on_player_caught)
 	GameEvents.clue_revealed.connect(_on_clue_revealed)
 	GameEvents.night_start_requested.connect(_on_night_start_requested)
-	# TODO: swap to the GameEvents signal for this once the team adds one.
+	GameEvents.computer_interact_requested.connect(_on_computer_interact_requested)
 	DayOneTerminal.dossier_closed.connect(_on_dossier_closed)
 
 	_day_transition = DAY_TRANSITION_SCENE.instantiate()
@@ -106,10 +106,9 @@ func start_new_run() -> void:
 	ProceduralGenerator.generate(run_seed)
 	GameEvents.run_started.emit(run_seed)
 
-	# The run opens on Night 1, shut in her own room, where she's meant to read
-	# the computer before the first day. That terminal ends this night early -
-	# but until the computer object exists the ordinary night clock still runs,
-	# so the run can't soft-lock here.
+	# The run opens on Night 1, shut in her own room. It has no clock: the night
+	# ends only once she reads the computer, which is how she learns who she's
+	# dealing with before the first day starts.
 	_waiting_for_terminal = true
 	_day_transition.play_begin_card()
 	
@@ -198,7 +197,10 @@ func _start_day() -> void:
 func _start_night() -> void:
 	current_phase = Phase.NIGHT
 	GameEvents.night_started.emit(current_day)
-	_phase_timer.start(night_duration_sec)
+
+	# The opening night has no clock: it ends when she reads the computer.
+	if not _waiting_for_terminal:
+		_phase_timer.start(night_duration_sec)
 
 
 ## The day's play is over, but night doesn't begin yet - Dev2's enemy gets a
@@ -233,7 +235,18 @@ func _on_night_start_requested(_reason: StringName) -> void:
 
 
 # The opening night ends only once the player has actually read the dossier.
+## Reading the computer freezes the house around her - the terminal itself
+## runs with process_mode = ALWAYS so its Close button still works.
+func _on_computer_interact_requested() -> void:
+	get_tree().paused = true
+	DayOneTerminal.open()
+
+
 func _on_dossier_closed() -> void:
+	get_tree().paused = false
+
+	# Only the opening night is gated on the computer; reading it again on any
+	# later day just closes the screen and hands the house back.
 	if not _waiting_for_terminal:
 		return
 
