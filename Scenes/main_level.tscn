@@ -1493,7 +1493,6 @@ position = Vector2(2112, 632)
 
 [node name="HorizontalDoor4" parent="Furnitures/Doors" unique_id=1295449415 groups=["player_room_door"] instance=ExtResource("7_lwkuy")]
 position = Vector2(2064, 520)
-is_locked = true
 
 [node name="HorizontalDoor5" parent="Furnitures/Doors" unique_id=1309051741 instance=ExtResource("7_lwkuy")]
 position = Vector2(2128, 520)

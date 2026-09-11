@@ -18,7 +18,6 @@ height = 48.0
 
 [node name="Computer" unique_id=758378394 instance=ExtResource("1_q8n5e")]
 script = ExtResource("2_lhjed")
-prompt_text = "Open"
 priority = 0
 
 [node name="InactiveSprite" parent="." index="0" unique_id=1764835962]
