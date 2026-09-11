@@ -76,15 +76,15 @@ func play_begin_card() -> void:
 func _play(text: String, end_alpha: float, on_black: Callable) -> void:
 	if _current_tween: # stop a still-playing transition so they don't overlap
 		_current_tween.kill()
+	
+	label.text = text.to_upper()
+	label.modulate.a = 0.0
 
 	_current_tween = create_tween()
 	_current_tween.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 
 	_current_tween.tween_property(fade, "color:a", 1.0, fade_duration)
 	_current_tween.parallel().tween_property(label, "modulate:a", 1.0, fade_duration)
-	# Swapped under cover, so a notice already on screen ("DAY ENDED") doesn't
-	# visibly snap to the new text mid-fade.
-	_current_tween.tween_callback(func() -> void: label.text = text.to_upper())
 	_current_tween.tween_callback(on_black)
 	_current_tween.tween_interval(hold_duration)
 	_current_tween.tween_property(fade, "color:a", end_alpha, fade_duration)
