@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://Scripts/Autoload/DayOneTerminal.gd" id="1_dot"]
 
 [node name="DayOneTerminal" type="CanvasLayer"]
+process_mode = 3
 script = ExtResource("1_dot")
 
 [node name="Root" type="Control" parent="."]
@@ -22,13 +23,13 @@ grow_vertical = 2
 
 [node name="PanelContainer" type="PanelContainer" parent="Root/CenterContainer"]
 layout_mode = 2
-custom_minimum_size = Vector2(480, 400)
+custom_minimum_size = Vector2(560, 460)
 
 [node name="MarginContainer" type="MarginContainer" parent="Root/CenterContainer/PanelContainer"]
 layout_mode = 2
-theme_override_constants/margin_left = 20
+theme_override_constants/margin_left = 24
 theme_override_constants/margin_top = 20
-theme_override_constants/margin_right = 20
+theme_override_constants/margin_right = 24
 theme_override_constants/margin_bottom = 20
 
 [node name="VBox" type="VBoxContainer" parent="Root/CenterContainer/PanelContainer/MarginContainer"]
@@ -37,22 +38,44 @@ theme_override_constants/separation = 12
 
 [node name="PortraitRect" type="TextureRect" parent="Root/CenterContainer/PanelContainer/MarginContainer/VBox"]
 layout_mode = 2
-custom_minimum_size = Vector2(0, 128)
+custom_minimum_size = Vector2(0, 150)
 expand_mode = 1
 stretch_mode = 5
 
 [node name="NameLabel" type="Label" parent="Root/CenterContainer/PanelContainer/MarginContainer/VBox"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 28
+theme_override_font_sizes/font_size = 30
 horizontal_alignment = 1
 text = ""
 
 [node name="DossierLabel" type="Label" parent="Root/CenterContainer/PanelContainer/MarginContainer/VBox"]
 layout_mode = 2
+size_flags_vertical = 3
 autowrap_mode = 2
 text = ""
 
-[node name="CloseButton" type="Button" parent="Root/CenterContainer/PanelContainer/MarginContainer/VBox"]
+[node name="PageLabel" type="Label" parent="Root/CenterContainer/PanelContainer/MarginContainer/VBox"]
 layout_mode = 2
-custom_minimum_size = Vector2(160, 48)
+theme_override_font_sizes/font_size = 18
+horizontal_alignment = 1
+text = ""
+
+[node name="Nav" type="HBoxContainer" parent="Root/CenterContainer/PanelContainer/MarginContainer/VBox"]
+layout_mode = 2
+alignment = 1
+theme_override_constants/separation = 16
+
+[node name="PrevButton" type="Button" parent="Root/CenterContainer/PanelContainer/MarginContainer/VBox/Nav"]
+layout_mode = 2
+custom_minimum_size = Vector2(110, 48)
+text = "< Back"
+
+[node name="CloseButton" type="Button" parent="Root/CenterContainer/PanelContainer/MarginContainer/VBox/Nav"]
+layout_mode = 2
+custom_minimum_size = Vector2(150, 48)
 text = "Close"
+
+[node name="NextButton" type="Button" parent="Root/CenterContainer/PanelContainer/MarginContainer/VBox/Nav"]
+layout_mode = 2
+custom_minimum_size = Vector2(110, 48)
+text = "Next >"
