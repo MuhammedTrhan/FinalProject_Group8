@@ -9,4 +9,5 @@ id = &"crowbar"
 display_name = "Crowbar"
 description = "A rusty crowbar, heavy enough to pry something open."
 icon = ExtResource("2_icon")
+is_usable = true
 pickup_flavour = "Dropped a crowbar. Something in this house is probably nailed shut."
