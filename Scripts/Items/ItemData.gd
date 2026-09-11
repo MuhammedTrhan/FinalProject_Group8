@@ -15,6 +15,9 @@ extends Resource
 @export_multiline var description: String = ""
 @export var icon: Texture2D
 
+## Can be used in the inventory UI by clicking on it. (e.g. flashlight, crowbar, etc.)
+@export var is_usable: bool = false
+
 ## Groups keys together in the inventory UI. Purely cosmetic.
 @export var is_key: bool = false
 
