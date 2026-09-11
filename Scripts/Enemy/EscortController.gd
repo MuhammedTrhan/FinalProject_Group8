@@ -1,46 +1,27 @@
 class_name EscortController
 extends Node
-## 3-lives catch funnel PLUS the whole night routine around it: the first two
-## catches in a run walk the player back toward her room (herded just ahead
-## of the enemy) and end the day right away; only the 3rd catch is the real,
-## permanent game-over.
+## Manages the 3-lives catch funnel and the full night routine. The first
+## two catches herd the player to her room and end the day early; the 3rd
+## catch triggers a permanent game-over.
 ##
-## Also runs the same walk-home beat before the day ends naturally, so it
-## fully plays out BEFORE night begins rather than overlapping the day/night
-## fade: day -> escort -> night. From there, _escorting stays true for the
-## ENTIRE night (blocking Enemy's normal state-machine dispatch the whole
-## time - nights already mean "day mechanics stop being evaluated" and no
-## catches can happen then anyway) through a full routine:
+## Also handles the natural walk-home beat before night falls. Escorting
+## blocks the Enemy's normal state machine entirely throughout the night
+## using this sequence:
+## WALKING_HOME -> LOCKING_IN -> WALKING_TO_GUARD -> WAITING_AT_SPAWN -> UNLOCKING -> WAKE
 ##
-##   WALKING_HOME -> LOCKING_IN -> WAITING_AT_SPAWN -> UNLOCKING -> WALKING_TO_WAKE
+## - WALKING_HOME: Self-timed for catches, or uses day_ended/night_ended
+##   signals for natural escorts.
+## - LOCKING_IN: Overlaps the day/night fade until night_started fires.
+## - WALKING_TO_GUARD: Both are snapped to her spawn, she's frozen, and the
+##   enemy walksto the door guard point.
+## - WAITING_AT_SPAWN: The door is locked, she regains control, and
+##   the enemywaits at EnemySpawnPoint until day_started signals true morning.
+## - UNLOCKING: Enemy walks to the door and unlocks it (has a
+##   fallback timeout to prevent permanent soft-locks).
+## - WALKING_TO_WAKE: Enemy walks to the active personality's wake marker,
+##   then returns control to its normal state machine.
 ##
-## - WALKING_HOME: a catch self-times this (nothing external tells it when
-##   to stop) and ends by asking Dev1 to start the night right away via
-##   night_start_requested. A natural escort starts on GameEvents.day_ended
-##   and ends on GameEvents.night_ended (Dev1's own timing, not a number
-##   Dev2 has to match) - falling back to the same self-timed cap if
-##   night_ended isn't wired yet.
-## - LOCKING_IN: both cases keep walking here too (meant to overlap Dev1's
-##   actual fadeout) until GameEvents.night_started fires (or a generous
-##   fallback, which is what keeps catches working today since nothing
-##   consumes night_start_requested yet). That's when the player is actually
-##   snapped to her lockdown position, the door locks, and she's handed
-##   control back - the player is never touched again after this point.
-## - WAITING_AT_SPAWN: the enemy (alone now, no more player puppeting) walks
-##   to EnemySpawnPoint and waits there for the rest of the night. Ends on
-##   GameEvents.day_started (per the user: night_ended and day_started land
-##   at the same moment once Dev1's side exists, so day_started - already
-##   real today - is the sole trigger here).
-## - UNLOCKING: walks back to the door guard point and unlocks the door in
-##   person once it actually arrives (or a generous fallback, in case
-##   pathing gets stuck - the door must never stay locked forever).
-## - WALKING_TO_WAKE: walks to the active personality's wake marker (falls
-##   back to just ending the routine from wherever it already is if that
-##   marker doesn't exist yet). Once there (or a generous fallback), control
-##   is finally handed back to Enemy's normal state machine.
-##
-## Kept as its own node (a back-reference to the owning Enemy, set once from
-## outside) rather than growing Enemy.gd or PlayerMovement.gd further.
+## Abstracted into its own node to keep Enemy.gd and PlayerMovement.gd clean.
 
 ## Set by Enemy, first thing in _ready() - before anything else touches it.
 var enemy: Enemy
@@ -57,7 +38,7 @@ const ESCORT_DURATION := 5.0
 ## the real night_started signal always wins the race and this almost never
 ## actually fires - it's a last-resort recovery, not a stand-in for the fade.
 const LOCK_IN_FALLBACK_DELAY := 2.0
-const ESCORT_APPROACH_DISTANCE := 40.0  # "hop next to player" lands this close - not touching
+const ESCORT_APPROACH_DISTANCE := 40.0 # "hop next to player" lands this close - not touching
 ## How far ahead of the enemy the player is herded while walking home.
 const ESCORT_LEAD_DISTANCE := 18.0
 ## "Close enough" for the night routine's UNLOCKING/WALKING_TO_WAKE legs.
@@ -67,8 +48,11 @@ const NIGHT_ROUTINE_ARRIVAL_DISTANCE := 12.0
 ## the door shut or leave the enemy stuck forever if pathing fails.
 const UNLOCK_FALLBACK_DURATION := 15.0
 const WAKE_WALK_FALLBACK_DURATION := 20.0
+## Same "generous, not time-critical" role as the two above, for the
+## WALKING_TO_GUARD leg.
+const LOCK_WALK_FALLBACK_DURATION := 5.0
 
-enum _Phase { WALKING_HOME, LOCKING_IN, WAITING_AT_SPAWN, UNLOCKING, WALKING_TO_WAKE }
+enum _Phase {WALKING_HOME, LOCKING_IN, WALKING_TO_GUARD, WAITING_AT_SPAWN, UNLOCKING, WALKING_TO_WAKE}
 
 var _lives_remaining: int = MAX_LIVES
 var _run_over: bool = false
@@ -84,6 +68,9 @@ var _escort_target: Vector2
 ## natural escort after one already ran (via day_ended or a catch) this
 ## day/night cycle. Reset each new day.
 var _did_escort_this_cycle: bool = false
+## True while a door open/close/lock/unlock animation is being awaited, so
+## process() doesn't re-enter to a state (or keep walking) while one is playing.
+var _door_anim_in_progress: bool = false
 
 
 func _ready() -> void:
@@ -92,6 +79,24 @@ func _ready() -> void:
 	GameEvents.night_ended.connect(_on_night_ended)
 	GameEvents.night_started.connect(_on_night_started)
 	GameEvents.day_started.connect(_on_day_started)
+	GameEvents.clue_revealed.connect(_on_clue_revealed)
+
+
+## Called once by Enemy._ready(), first thing - the run always opens on
+## Night 1 with both already at their spawns and the door not yet locked,
+## so there's no WALKING_HOME leg to run. Seeds the state as if that leg had
+## just finished, so night_started's normal handling below plays out
+## unchanged for the opening night too - and disables her input immediately,
+## since there's no preceding walk-home to have done that already.
+func begin_opening_night() -> void:
+	_escorting = true
+	_did_escort_this_cycle = true
+	_phase = _Phase.LOCKING_IN
+	_phase_timer = 0.0
+
+	var player := enemy.perception.get_player()
+	if player and is_instance_valid(player) and player.has_method("start_escort"):
+		player.start_escort()
 
 
 func _on_run_started(_run_seed: int) -> void:
@@ -112,7 +117,7 @@ func register_catch(reason: StringName) -> void:
 	_lives_remaining -= 1
 	if _lives_remaining <= 0:
 		_run_over = true
-		GameEvents.player_caught.emit(reason)  # unchanged meaning: final, permanent game-over
+		GameEvents.player_caught.emit(reason) # unchanged meaning: final, permanent game-over
 		return
 
 	_start_escort(true)
@@ -140,11 +145,19 @@ func process(delta: float) -> void:
 		_Phase.LOCKING_IN:
 			_walk_step_with_player(delta)
 			if _phase_timer >= LOCK_IN_FALLBACK_DELAY:
+				_enter_walking_to_guard()
+		_Phase.WALKING_TO_GUARD:
+			if _door_anim_in_progress:
+				return
+			_enemy_walk_step(delta)
+			if _has_arrived_at(_escort_target) or _phase_timer >= LOCK_WALK_FALLBACK_DURATION:
 				_enter_waiting_at_spawn()
 		_Phase.WAITING_AT_SPAWN:
 			_enemy_walk_step(delta)
 			# Ends only on day_started (_on_day_started) - see class doc.
 		_Phase.UNLOCKING:
+			if _door_anim_in_progress:
+				return
 			_enemy_walk_step(delta)
 			if _has_arrived_at(_escort_target) or _phase_timer >= UNLOCK_FALLBACK_DURATION:
 				_finish_unlocking()
@@ -176,10 +189,10 @@ func _has_arrived_at(target: Vector2) -> bool:
 		and enemy.global_position.distance_to(target) <= NIGHT_ROUTINE_ARRIVAL_DISTANCE
 
 
-func _start_escort(triggered_by_catch: bool) -> void:
+func _start_escort(triggered_internally: bool) -> void:
 	_escorting = true
 	_did_escort_this_cycle = true
-	_escort_triggered_by_catch = triggered_by_catch
+	_escort_triggered_by_catch = triggered_internally
 	_phase = _Phase.WALKING_HOME
 	_phase_timer = 0.0
 	enemy.velocity = Vector2.ZERO
@@ -195,16 +208,24 @@ func _start_escort(triggered_by_catch: bool) -> void:
 		player.start_escort()
 
 
-## The door guard point (WALKING_HOME/LOCKING_IN/UNLOCKING all walk here) -
-## falls back to the enemy's spawn point if the marker's missing so this is
-## always safe to call.
+## The door guard point (WALKING_TO_GUARD/UNLOCKING walk here) - falls back
+## to the enemy's spawn point if the marker's missing so this is always
+## safe to call.
 func _resolve_door_guard_target() -> Vector2:
 	var guard_point := enemy.get_parent().get_node_or_null("DoorGuardPoint")
-	if guard_point:
-		return guard_point.global_position
+	if _phase == _Phase.WALKING_HOME:
+		var player_spawn := enemy.get_parent().get_node_or_null("PlayerSpawnPoint")
+		if player_spawn:
+			return player_spawn.global_position
+		# Fallback: if the player spawn is missing, use the guard point if it exists.
+		elif guard_point:
+			return guard_point.global_position
+	else:
+		if guard_point:
+			return guard_point.global_position
 
 	var enemy_spawn := enemy.get_parent().get_node_or_null("EnemySpawnPoint")
-	return enemy_spawn.global_position if enemy_spawn else enemy.global_position  # last-resort: don't crash, just stop in place
+	return enemy_spawn.global_position if enemy_spawn else enemy.global_position # last-resort: don't crash, just stop in place
 
 
 ## WALKING_HOME -> LOCKING_IN. A catch additionally asks Dev1 to start the
@@ -216,26 +237,46 @@ func _enter_locking_in() -> void:
 	_phase_timer = 0.0
 
 
-## LOCKING_IN -> WAITING_AT_SPAWN. This is where the escort's actual
-## "arrival" happens regardless of how far the timed walk really got:
-## guaranteed snap to the door guard point, door locked, player snapped to
-## her spawn and handed control back for good - nothing after this point
-## ever touches the player again, only the enemy's own night routine.
-func _enter_waiting_at_spawn() -> void:
-	var guard_point := enemy.get_parent().get_node_or_null("DoorGuardPoint")
-	if guard_point:
-		enemy.global_position = guard_point.global_position
+## LOCKING_IN -> WALKING_TO_GUARD. This is where the escort's actual
+## "arrival at home" happens regardless of how far the timed walk really
+## got: guaranteed snap of both to her spawn, player frozen (idempotent -
+## also covers Night 1, which has no preceding WALKING_HOME leg to have
+## frozen her already), then the enemy walks to the guard point.
+func _enter_walking_to_guard() -> void:
+	var player_spawn: Node2D = enemy.get_parent().get_node_or_null("PlayerSpawnPoint")
+	var spawn_pos: Vector2 = player_spawn.global_position if player_spawn else enemy.global_position
+	enemy.global_position = spawn_pos
 	enemy.velocity = Vector2.ZERO
-	_lock_room_door()
 
 	var player := enemy.perception.get_player()
-	var player_spawn := enemy.get_parent().get_node_or_null("PlayerSpawnPoint")
 	if player and is_instance_valid(player):
-		if player_spawn and player.has_method("snap_to_spawn"):
-			player.snap_to_spawn(player_spawn.global_position)
-		if player.has_method("end_escort"):
-			player.end_escort()
+		if player.has_method("snap_to_spawn"):
+			player.snap_to_spawn(spawn_pos)
+		if player.has_method("start_escort"):
+			player.start_escort()
 
+	_phase = _Phase.WALKING_TO_GUARD
+	_phase_timer = 0.0
+	_escort_target = _resolve_door_guard_target() # DoorGuardPoint, since _phase != WALKING_HOME
+
+
+## WALKING_TO_GUARD -> WAITING_AT_SPAWN, once the enemy has actually arrived
+## at the guard point. Locks the door, then hands control back to the player
+## nothing after this point touches the player again,
+## only the enemy's own night routine.
+func _enter_waiting_at_spawn() -> void:
+	if _door_anim_in_progress:
+		return
+	_door_anim_in_progress = true
+	enemy.velocity = Vector2.ZERO
+
+	await _lock_room_door()
+
+	var player := enemy.perception.get_player()
+	if player and is_instance_valid(player) and player.has_method("end_escort"):
+		player.end_escort() # released only after the door is actually locked
+
+	_door_anim_in_progress = false
 	_phase = _Phase.WAITING_AT_SPAWN
 	_phase_timer = 0.0
 	var enemy_spawn := enemy.get_parent().get_node_or_null("EnemySpawnPoint")
@@ -250,11 +291,17 @@ func _enter_unlocking() -> void:
 
 
 ## UNLOCKING -> WALKING_TO_WAKE (or straight to the end if there's no wake
-## marker for the active personality yet).
+## marker for the active personality yet). Unlocks the door with its
+## animation, freezing the enemy at the guard point for it.
 func _finish_unlocking() -> void:
+	if _door_anim_in_progress:
+		return
+	_door_anim_in_progress = true
+
 	var door := get_tree().get_first_node_in_group(&"player_room_door")
-	if door and door.is_locked:
-		door.toogle_lock()
+	await enemy.unlock_room_door(door)
+
+	_door_anim_in_progress = false
 
 	var wake_point := _resolve_wake_point()
 	if wake_point == null:
@@ -288,10 +335,7 @@ func _lock_room_door() -> void:
 	var door := get_tree().get_first_node_in_group(&"player_room_door")
 	if door == null:
 		return
-	if door.is_open:
-		door.close_door()
-	if not door.is_locked:
-		door.toogle_lock()
+	await enemy.close_and_lock_room_door(door)
 
 
 ## Natural-timeout start trigger (primary, once Dev1 wires it).
@@ -316,10 +360,18 @@ func _on_night_ended(_day: int) -> void:
 func _on_night_started(_day: int) -> void:
 	if _escorting:
 		if _phase == _Phase.LOCKING_IN:
-			_enter_waiting_at_spawn()
+			_enter_walking_to_guard()
 		return
 	if not _did_escort_this_cycle:
 		_start_escort(false)
+
+
+## Finding a clue ends the day early, same as a non-lethal catch - snaps
+## near the player and walks her home - but doesn't cost a life.
+func _on_clue_revealed(_digit_index: int, _digit_value: int, _flavour: String) -> void:
+	if _run_over or _escorting or enemy.is_teleporting:
+		return
+	_start_escort(true)
 
 
 ## day_started alone drives WAITING_AT_SPAWN ->

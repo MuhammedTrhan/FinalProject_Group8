@@ -96,6 +96,10 @@ signal clue_revealed(digit_index: int, digit_value: int, flavour: String)
 @warning_ignore("unused_signal")
 signal item_pickup_requested(item: ItemData)
 
+## Player opens the computer to check for info. Dev1's ComputerUI opens.
+@warning_ignore("unused_signal")
+signal computer_interact_requested()
+
 ## One of the Overwhelmed's noise sources was switched off.
 ## `remaining` is how many are still making noise; 0 means the house is quiet.
 @warning_ignore("unused_signal")

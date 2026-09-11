@@ -102,6 +102,7 @@ var _doors_to_close: Dictionary = {}
 
 func _ready() -> void:
 	escort_controller.enemy = self
+	escort_controller.begin_opening_night()
 
 	touch_area.body_entered.connect(_on_touch_area_body_entered)
 	anim_handler.animation_finished.connect(anim_handler._on_animation_finished)
@@ -606,6 +607,40 @@ func escort_step_toward(target: Vector2, delta: float, speed: float) -> Vector2:
 	_resolve_movement_and_obstructions(delta)
 	_update_door_closing()
 	return velocity.normalized() if velocity.length() > 1.0 else Vector2.ZERO
+
+
+## Plays the enemy's close-then-lock sequence on the player's room door
+## freezing the Enemy in place throughout. Used by EscortController
+## instead of calling Door.close_door()/ toogle_lock() directly.
+func close_and_lock_room_door(door: Door) -> void:
+	if door == null:
+		return
+	_door_busy = true
+	velocity = Vector2.ZERO
+
+	if door.is_open:
+		door.close_door()
+		anim_handler.handle_interaction_anim(Interactions.InteractionType.CLOSE)
+		await anim_handler.interact_anim_finish
+
+	if not door.is_locked:
+		anim_handler.handle_interaction_anim(Interactions.InteractionType.LOCK)
+		await anim_handler.interact_anim_finish
+		door.toogle_lock()
+
+	_door_busy = false
+
+
+## Same shape, for the morning unlock step. No-op if already unlocked.
+func unlock_room_door(door: Door) -> void:
+	if door == null or not door.is_locked:
+		return
+	_door_busy = true
+	velocity = Vector2.ZERO
+	anim_handler.handle_interaction_anim(Interactions.InteractionType.UNLOCK)
+	await anim_handler.interact_anim_finish
+	door.toogle_lock()
+	_door_busy = false
 
 
 ## Called by Stairs.gd's teleport() via duck typing (body.has_method(...)),

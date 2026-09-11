@@ -5,7 +5,10 @@ extends Node
 ## ESCORT is the gap between the day's play ending and night beginning: the
 ## day is over and she can't act, but the enemy still has to walk her home,
 ## and that has to be visible. See docs/CONTRACT.md §2.2.
-enum Phase { DAY, ESCORT, NIGHT }
+enum Phase {DAY, ESCORT, NIGHT}
+
+const PLAYER_SCENE = preload("res://Scenes/player.tscn")
+const ENEMY_SCENE = preload("res://Scenes/Enemy/enemy.tscn")
 
 # 3 passcode digits, per docs/CONTRACT.md: 0=UV floor, 1=floorboard, 2=diary.
 const PASSCODE_LENGTH := 3
@@ -98,7 +101,7 @@ func start_new_run() -> void:
 	_reset_overlays()
 
 	get_tree().change_scene_to_file("res://Scenes/main_level.tscn")
-	await get_tree().process_frame
+	await get_tree().scene_changed
 
 	ProceduralGenerator.generate(run_seed)
 	GameEvents.run_started.emit(run_seed)
@@ -108,50 +111,55 @@ func start_new_run() -> void:
 	# but until the computer object exists the ordinary night clock still runs,
 	# so the run can't soft-lock here.
 	_waiting_for_terminal = true
-	_day_transition.play_night_card(current_day, func() -> void:
-		_snap_player_to_spawn()
-		_lock_player_room_door()
-		_start_night()
-	)
+	_day_transition.play_begin_card()
+	
+	spawn_player()
+	spawn_enemy()
+	_start_night()
 
 
-# The Player node sits wherever it was convenient to author, but a run always
-# begins in her own room - same snap Dev2's escort uses to put her back there.
-func _snap_player_to_spawn() -> void:
-	_snap_player_to("PlayerSpawnPoint", true)
-
-
-# She's shut in her room every night, so each day starts by putting her back
-# out in the house. Optional: without a DayStartPoint marker she simply walks
-# out of her room herself once the door unlocks.
-func _snap_player_to_day_start() -> void:
-	_snap_player_to("DayStartPoint", false)
-
-
-func _snap_player_to(marker_name: String, required: bool) -> void:
-	var marker: Node2D = get_tree().current_scene.get_node_or_null(marker_name)
-	var player := get_tree().get_first_node_in_group(&"player")
-
-	if marker == null or player == null or not player.has_method("snap_to_spawn"):
-		if required:
-			push_warning("No %s or player - she won't start in her room." % marker_name)
+func spawn_player() -> void:
+	if PLAYER_SCENE == null:
+		push_warning("PLAYER_SCENE is null - can't spawn player")
 		return
+	
+	# Instatiates the player scene and adds it to the current scene tree.
+	var player_instance = PLAYER_SCENE.instantiate()
+	
+	var marker: Node2D = get_tree().current_scene.get_node_or_null("PlayerSpawnPoint")
 
-	player.snap_to_spawn(marker.global_position)
+	var spawn_position: Vector2 = Vector2.ZERO
+
+	# Snap the player to the requested coordinate
+	if marker != null:
+		spawn_position = marker.global_position
+
+	player_instance.global_position = spawn_position
+
+	# Add the player as a child to the main level
+	get_tree().current_scene.add_child(player_instance)
 
 
-# Dev2's EscortController already unlocks this again on day_started, so the
-# run start only needs to do the locking half.
-func _lock_player_room_door() -> void:
-	var door := get_tree().get_first_node_in_group(&"player_room_door")
-	if door == null:
-		push_warning("No node in the player_room_door group - she won't start locked in.")
+func spawn_enemy() -> void:
+	if ENEMY_SCENE == null:
+		push_warning("ENEMY_SCENE is null - can't spawn enemy")
 		return
+	
+	# Instatiates the enemy scene and adds it to the current scene tree.
+	var enemy_instance = ENEMY_SCENE.instantiate()
+	
+	var marker: Node2D = get_tree().current_scene.get_node_or_null("EnemySpawnPoint")
 
-	if door.is_open:
-		door.close_door()
-	if not door.is_locked:
-		door.toogle_lock()
+	var spawn_position: Vector2 = Vector2.ZERO
+
+	# Snap the enemy to the requested coordinate
+	if marker != null:
+		spawn_position = marker.global_position
+
+	enemy_instance.global_position = spawn_position
+
+	# Add the enemy as a child to the main level
+	get_tree().current_scene.add_child(enemy_instance)
 
 
 ## Called by the game-over and win screens. Clears the run's overlays first -
@@ -183,7 +191,6 @@ func _start_day() -> void:
 	current_phase = Phase.DAY
 	current_personality = _pick_personality()
 
-	_snap_player_to_day_start()
 	GameEvents.day_started.emit(current_day, current_personality)
 	_phase_timer.start(day_duration_sec)
 
