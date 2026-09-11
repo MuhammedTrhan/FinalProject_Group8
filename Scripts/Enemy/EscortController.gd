@@ -180,8 +180,16 @@ func _start_escort(triggered_by_catch: bool) -> void:
 ## always safe to call.
 func _resolve_door_guard_target() -> Vector2:
 	var guard_point := enemy.get_parent().get_node_or_null("DoorGuardPoint")
-	if guard_point:
-		return guard_point.global_position
+	if _phase == _Phase.WALKING_HOME:
+		var player_spawn := enemy.get_parent().get_node_or_null("PlayerSpawnPoint")
+		if player_spawn:
+			return player_spawn.global_position
+		# Fallback: if the player spawn is missing, use the guard point if it exists.
+		elif guard_point:
+			return guard_point.global_position
+	else:
+		if guard_point:
+			return guard_point.global_position
 
 	var enemy_spawn := enemy.get_parent().get_node_or_null("EnemySpawnPoint")
 	return enemy_spawn.global_position if enemy_spawn else enemy.global_position # last-resort: don't crash, just stop in place
