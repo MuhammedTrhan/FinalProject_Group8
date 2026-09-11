@@ -9,6 +9,7 @@ const REASON_TEXT := {
 	&"touched": "You were caught.",
 }
 
+@onready var title_label: Label = $Root/CenterContainer/VBoxContainer/Title
 @onready var reason_label: Label = $Root/CenterContainer/VBoxContainer/ReasonLabel
 @onready var menu_button: Button = $Root/CenterContainer/VBoxContainer/MenuButton
 
@@ -20,6 +21,13 @@ func _ready() -> void:
 
 
 func _on_player_caught(reason: StringName) -> void:
+	show_game_over(reason)
+
+
+## Also called directly by GameManager for a run that ends without a catch
+## (the day cap), since player_caught is Dev2's signal to emit, not ours.
+func show_game_over(reason: StringName) -> void:
+	title_label.text = "OUT OF TIME" if reason == &"timeout" else "CAUGHT"
 	reason_label.text = REASON_TEXT.get(reason, "You were caught.")
 	visible = true
 

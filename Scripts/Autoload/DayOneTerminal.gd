@@ -9,6 +9,11 @@ const PROFILE_PATHS := {
 	PersonalityProfile.Personality.OVERWHELMED: "res://Resources/Personalities/overwhelmed.tres",
 }
 
+## Fires when the player closes the dossier, i.e. they have actually read it.
+## GameManager uses this to end the opening night. Local signal for now - the
+## team plans a GameEvents signal for this later.
+signal dossier_closed
+
 @onready var name_label: Label = $Root/CenterContainer/PanelContainer/MarginContainer/VBox/NameLabel
 @onready var dossier_label: Label = $Root/CenterContainer/PanelContainer/MarginContainer/VBox/DossierLabel
 @onready var portrait_rect: TextureRect = $Root/CenterContainer/PanelContainer/MarginContainer/VBox/PortraitRect
@@ -37,4 +42,8 @@ func open(personality: PersonalityProfile.Personality) -> void:
 
 
 func close() -> void:
+	if not visible: # guards against a stray close emitting a phantom "read"
+		return
+
 	visible = false
+	dossier_closed.emit()

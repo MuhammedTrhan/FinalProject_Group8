@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://xm1f56m0pcs0"]
+
+[ext_resource type="PackedScene" uid="uid://lgxl3cht6vlk" path="res://Scenes/Furnitures/furniture_interactable_base.tscn" id="1_q8n5e"]
+[ext_resource type="Script" uid="uid://cop2yso743b85" path="res://Scripts/Interactables/Computer.gd" id="2_lhjed"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_yqo3h"]
+load_path = "res://.godot/imported/PC_closed.png-63c2e5e7aa59f78ef3cd9e565c014772.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_q8n5e"]
+load_path = "res://.godot/imported/PC_open.png-018870f6d043336b9538d066fdf78635.ctex"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jad24"]
+size = Vector2(25, 18)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jad24"]
+radius = 16.0
+height = 48.0
+
+[node name="Computer" unique_id=758378394 instance=ExtResource("1_q8n5e")]
+script = ExtResource("2_lhjed")
+priority = 0
+
+[node name="InactiveSprite" parent="." index="0" unique_id=1764835962]
+texture = SubResource("CompressedTexture2D_yqo3h")
+offset = Vector2(0, -5)
+region_enabled = false
+
+[node name="ActiveSprite" parent="." index="1" unique_id=91856626]
+texture = SubResource("CompressedTexture2D_q8n5e")
+offset = Vector2(0, -5)
+region_enabled = false
+
+[node name="Hitbox" parent="." index="2" unique_id=150259076]
+visible = true
+position = Vector2(0.5, -4)
+shape = SubResource("RectangleShape2D_jad24")
+
+[node name="InterractionBox" parent="InterractionArea" parent_id_path=PackedInt32Array(97300687) index="0" unique_id=1028417380]
+position = Vector2(0, -4)
+shape = SubResource("CapsuleShape2D_jad24")

@@ -11,8 +11,7 @@ func _ready() -> void:
 
 
 func _on_play_pressed() -> void:
-	GameManager.start_new_run()
-	get_tree().change_scene_to_file("res://Scenes/main_level.tscn")
+	GameManager.start_new_run() # loads the level itself, then starts Night 1
 
 
 func _on_quit_pressed() -> void:
