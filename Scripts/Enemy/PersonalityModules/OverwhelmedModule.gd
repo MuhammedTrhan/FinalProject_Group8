@@ -45,6 +45,16 @@ func process_special(delta: float) -> void:
 		var player := enemy.perception.get_player()
 		var target := player.global_position if player and is_instance_valid(player) else enemy.global_position
 		enemy.sprite.rotation = 0.0
+
+		# Unlike an ordinary Chase (only ever started once Perception has
+		# actually dwelled on a visible player), this one can start while the
+		# player is on a different floor - Perception never having seen her
+		# today, its last_known_position is still stale/default. Chase gives
+		# up after Enemy.LOST_TOLERANCE seconds of no line of sight and drops
+		# to Investigate using that value, so without seeding it here a real
+		# cross-floor pursuit would abandon almost immediately and walk to a
+		# garbage position instead of toward the stairs/her real location.
+		enemy.perception.last_known_position = target
 		enemy.enter_chase(target)
 
 
