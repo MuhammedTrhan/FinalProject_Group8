@@ -55,6 +55,17 @@ enum Personality {FORGETFUL, PARANOID, OVERWHELMED}
 @export var can_chase: bool = true
 
 
+@export_group("Follow Area")
+## Outer "stay close and he'll warm up to you" area - separate from and
+## larger than the Perception cone/circle above. 0.0 means this personality
+## doesn't have one.
+@export var follow_area_radius: float = 0.0
+## Seconds of continuous "inside the follow area" to go from 0 to 1 progress.
+@export var follow_fill_time: float = 6.0
+## Seconds of continuous "outside the follow area" to drain 1 back to 0.
+@export var follow_drain_time: float = 4.0
+
+
 @export_group("Cues")
 ## Looping audio while this personality is active - the GDD's "auditory cue".
 @export var ambient_loop: AudioStream
