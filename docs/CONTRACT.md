@@ -116,6 +116,20 @@ connecting (rather than waiting for the next change), call
 `get_tree().get_first_node_in_group(&"enemy").get_chase_progress()` once —
 no polling loop needed beyond that.
 
+### 2.7 Reacting to `follow_progress_changed`
+
+Added 12.09.2026 (see §3.1). A **separate** 0.0–1.0 float, unrelated to
+`chase_progress_changed` above — that one tracks danger (how close to a
+chase); this one tracks a personality's own separate rewarding-outcome meter,
+today Forgetful's outer follow-area "stay close and he warms up to you"
+progress. Only meaningful while a personality that actually has one is
+active — Dev1's UI should only show this radial bar during Forgetful's day
+(gate it off `GameManager.current_personality`, or just let it sit at a
+permanent `0.0` for personalities without one, since it emits real values
+only when the value moves off `0.0`). Same emit-only-on-change behaviour and
+poll fallback as `chase_progress_changed` —
+`get_tree().get_first_node_in_group(&"enemy").get_follow_progress()`.
+
 ---
 
 ## 3. What Developer 2/3 provide
@@ -135,6 +149,7 @@ signal enemy_dropped_item(item: ItemData, world_position: Vector2)
 signal enemy_state_changed(state: StringName)
 signal night_start_requested(reason: StringName)   # added 09.09.2026 - see §2.3
 signal chase_progress_changed(progress: float)     # added 12.09.2026 - see §2.6
+signal follow_progress_changed(progress: float)    # added 12.09.2026 - see §2.7
 
 # Presentation (either)
 signal interaction_prompt_changed(primary: String, secondary: String)

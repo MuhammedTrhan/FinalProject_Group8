@@ -90,6 +90,17 @@ signal night_start_requested(reason: StringName)
 @warning_ignore("unused_signal")
 signal chase_progress_changed(progress: float)
 
+## Progress (0.0-1.0) of a personality's own separate "rewarding outcome"
+## meter - a second radial bar, unrelated to chase_progress_changed above,
+## that Dev1 should only show while a personality that actually has one is
+## active (today: Forgetful's outer follow-area "stay close" progress).
+## Emitted only on change, same reasoning as chase_progress_changed;
+## the same get_chase_progress()-style poll exists as
+## get_follow_progress() on the enemy in the &"enemy" group for a UI that
+## needs the current value right after connecting.
+@warning_ignore("unused_signal")
+signal follow_progress_changed(progress: float)
+
 
 # ---------------------------------------------------------------------------
 # World and puzzles  (Dev3 emits, Dev1 consumes)

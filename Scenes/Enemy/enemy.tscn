@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://dyn4xlsho255" path="res://Scripts/Enemy/Perception.gd" id="7_perception"]
 [ext_resource type="Script" uid="uid://8v86xwo4vqs7" path="res://Scripts/Enemy/EnemyDebugOverlay.gd" id="8_overlay"]
 [ext_resource type="Script" uid="uid://bpr17dlr34lum" path="res://Scripts/Enemy/EscortController.gd" id="9_escort"]
+[ext_resource type="Script" path="res://Scripts/Enemy/PersonalityAreaVisual.gd" id="10_areavisual"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_movement"]
 radius = 3.5294118
@@ -1040,6 +1041,9 @@ _data = {
 [sub_resource type="CircleShape2D" id="CircleShape2D_4ad2a"]
 radius = 14.117647
 
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_areavis"]
+light_mode = 1
+
 [node name="Enemy" type="CharacterBody2D" unique_id=1229673750 groups=["enemy"]]
 y_sort_enabled = true
 scale = Vector2(0.85, 0.85)
@@ -1081,6 +1085,10 @@ shape = SubResource("CircleShape2D_4ad2a")
 
 [node name="EnemyDebugOverlay" type="Node2D" parent="." unique_id=541552310]
 script = ExtResource("8_overlay")
+
+[node name="PersonalityAreaVisual" type="Node2D" parent="." unique_id=3821094457]
+material = SubResource("CanvasItemMaterial_areavis")
+script = ExtResource("10_areavisual")
 
 [node name="EscortController" type="Node" parent="." unique_id=925922604]
 script = ExtResource("9_escort")
