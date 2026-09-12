@@ -55,11 +55,6 @@ func _process(_delta: float) -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	# Temporary: simulates the computer's "closed" signal until Dev1's
-	# Computer UI emits it for real - delete this branch once it does.
-	if OS.is_debug_build() and event.is_action_pressed("debug_close_computer"):
-		DayOneTerminal.dossier_closed.emit()
-
 	if event.is_action_pressed("Interact"):
 		_try_interact(false)
 	elif event.is_action_pressed("action"):
