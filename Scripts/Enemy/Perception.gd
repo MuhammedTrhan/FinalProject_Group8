@@ -58,6 +58,13 @@ func was_visible_last_frame() -> bool:
 	return _was_visible
 
 
+## 0.0-1.0 progress toward the current continuous-visibility dwell completing.
+## General-purpose - used by Overwhelmed's post-calm chase-progress reporting,
+## available to Forgetful/Paranoid's own accumulators later.
+func get_dwell_progress() -> float:
+	return clampf(_dwell_timer / detect_dwell, 0.0, 1.0) if detect_dwell > 0.0 else 0.0
+
+
 func is_player_visible() -> bool:
 	if _player_hidden or _player == null or not is_instance_valid(_player):
 		return false

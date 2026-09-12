@@ -654,6 +654,35 @@ tracks/1/keys = {
 "values": [2]
 }
 
+[sub_resource type="Animation" id="Animation_sit_special"]
+resource_name = "sit_special"
+length = 0.0333
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("5_sit")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [14]
+}
+
 [sub_resource type="Animation" id="Animation_slash_down"]
 resource_name = "slash_down"
 length = 0.2
@@ -997,6 +1026,7 @@ _data = {
 &"sit_left": SubResource("Animation_sit_left"),
 &"sit_right": SubResource("Animation_sit_right"),
 &"sit_up": SubResource("Animation_sit_up"),
+&"sit_special": SubResource("Animation_sit_special"),
 &"slash_down": SubResource("Animation_slash_down"),
 &"slash_left": SubResource("Animation_slash_left"),
 &"slash_right": SubResource("Animation_slash_right"),

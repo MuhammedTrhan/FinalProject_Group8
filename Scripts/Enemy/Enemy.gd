@@ -46,6 +46,7 @@ const PATROL_GLANCE_RANGE := Vector2(0.15, 0.35)
 @onready var touch_area: Area2D = $TouchArea
 @onready var debug_overlay: EnemyDebugOverlay = $EnemyDebugOverlay
 @onready var escort_controller: EscortController = $EscortController
+@onready var sprite: Sprite2D = $Sprite2D
 
 var profile: PersonalityProfile
 var active_module: PersonalityModule
@@ -87,6 +88,10 @@ var _stairs_by_floor_pair: Dictionary = {}
 var _patrol_points: Array[Node2D] = []
 var _patrol_index: int = 0
 
+## Last value passed to GameEvents.chase_progress_changed.
+## Only emits again once the value actually moves.
+var _last_chase_progress: float = 0.0
+
 var _last_position: Vector2
 var _stuck_timer: float = 0.0
 var _sidestep_timer: float = 0.0
@@ -101,6 +106,8 @@ var _doors_to_close: Dictionary = {}
 
 
 func _ready() -> void:
+	add_to_group(&"enemy") # lets any system look this instance up.
+
 	escort_controller.enemy = self
 	escort_controller.begin_opening_night()
 
@@ -130,10 +137,12 @@ func _physics_process(delta: float) -> void:
 	if escort_controller.is_escorting():
 		escort_controller.process(delta)
 		anim_handler.update_animations(velocity)
+		_emit_chase_progress(0.0)
 		return
 
 	if _ai_frozen:
 		anim_handler.update_animations(Vector2.ZERO)
+		_emit_chase_progress(0.0)
 		return
 
 	perception.facing_dir = anim_handler.get_facing_vector()
@@ -161,8 +170,13 @@ func _physics_process(delta: float) -> void:
 
 	_update_door_closing()
 
-	anim_handler.update_animations(velocity)
+	if state == State.SPECIAL and active_module and active_module.special_pose_animation() != &"":
+		anim_handler.play_special_pose(active_module.special_pose_animation())
+	else:
+		anim_handler.update_animations(velocity)
+
 	GameEvents.enemy_state_changed.emit(StringName(State.keys()[state]))
+	_emit_chase_progress(active_module.get_chase_progress() if active_module else 0.0)
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -667,6 +681,33 @@ func end_teleport(target_position: Vector2) -> void:
 
 
 # --- Misc hooks ------------------------------------------------------------------
+
+## Public entry point for a PersonalityModule to force a real Chase,
+## bypassing the normal perception-dwell gate - unlike a stealth catch.
+## Used by OverwhelmedModule when the panic timer runs out.
+func enter_chase(target_position: Vector2) -> void:
+	investigate_target = target_position
+	_enter_state(State.CHASE)
+
+
+## Public entry point for a PersonalityModule to leave SPECIAL (or any other
+## state) and resume ordinary patrol. Used by OverwhelmedModule once calmed.
+func enter_patrol() -> void:
+	_enter_state(State.PATROL)
+
+
+## One-shot poll for a UI that just connected to GameEvents.chase_progress_changed
+## and wants the current value immediately, without waiting for the next change.
+func get_chase_progress() -> float:
+	return active_module.get_chase_progress() if active_module else 0.0
+
+
+## Only actually emits when the value has moved.
+func _emit_chase_progress(value: float) -> void:
+	if absf(value - _last_chase_progress) > 0.001:
+		_last_chase_progress = value
+		GameEvents.chase_progress_changed.emit(value)
+
 
 ## Called by OverwhelmedModule when the house goes quiet in time,
 ## ForgetfulModule when the player successfully follows him, and by F4

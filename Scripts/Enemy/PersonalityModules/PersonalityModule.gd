@@ -26,3 +26,17 @@ func on_lost_target() -> void:
 ## Called whenever GameEvents.noise_source_silenced fires. Only Overwhelmed cares about this.
 func on_noise_source_silenced(_remaining: int) -> void:
 	pass
+
+
+## 0.0-1.0 progress toward this personality's own punishing outcome (a chase
+## bar Dev1 shows in the UI).
+func get_chase_progress() -> float:
+	return 0.0
+
+
+## Name of a fixed, non-directional Animation to play instead of the usual
+## idle/walk state while in State.SPECIAL (see EnemyAnimationHandler.
+## play_special_pose()). Empty string (the default) means "no override, just
+## play idle/walk as normal".
+func special_pose_animation() -> StringName:
+	return &""

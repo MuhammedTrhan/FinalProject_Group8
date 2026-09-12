@@ -81,6 +81,15 @@ signal enemy_state_changed(state: StringName)
 @warning_ignore("unused_signal")
 signal night_start_requested(reason: StringName)
 
+## Progress (0.0-1.0) toward a chase - Forgetful/Paranoid's time-in-vision-area
+## chase-trigger accumulator, Overwhelmed's panic countdown (and his post-calm
+## vision-cone dwell). A UI that connects mid-run and needs the current value
+## immediately (rather than waiting for the next change) should call
+## get_tree().get_first_node_in_group(&"enemy").get_chase_progress() once,
+## right after connecting.
+@warning_ignore("unused_signal")
+signal chase_progress_changed(progress: float)
+
 
 # ---------------------------------------------------------------------------
 # World and puzzles  (Dev3 emits, Dev1 consumes)
