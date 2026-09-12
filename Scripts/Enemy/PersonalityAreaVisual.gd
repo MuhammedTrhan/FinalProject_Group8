@@ -27,6 +27,11 @@ func _draw() -> void:
 	if not _enemy or not _enemy.profile:
 		return
 
+	# Nothing to show at night/during the escort walk/mid-stairs-crossing -
+	# the enemy isn't running its normal perception-driven behaviour then.
+	if not GameManager.is_day() or _enemy.escort_controller.is_escorting() or _enemy.is_teleporting:
+		return
+
 	_draw_outer_ring()
 
 	# A vision area that can't currently trigger anything would be a
@@ -50,6 +55,27 @@ func _draw_inner_area() -> void:
 	if perception.view_distance <= 0.0:
 		return
 
+	# A fov_degrees of (essentially) 360 is Forgetful's inner circle. Drawing
+	# it as a cone would mean the sector's start and end rays land on nearly
+	# - but, due to float rounding, not always exactly - the same point,
+	# which the renderer's polygon triangulator intermittently rejects
+	# ("Invalid polygon data, triangulation failed"). A plain closed N-gon
+	# has no such seam, so use it whenever there's no real cone to show.
+	if perception.fov_degrees >= 359.99:
+		_draw_filled_circle(perception.view_distance)
+	else:
+		_draw_filled_cone(perception)
+
+
+func _draw_filled_circle(radius: float) -> void:
+	var points := PackedVector2Array()
+	for i in SEGMENTS:
+		var angle := TAU * float(i) / float(SEGMENTS)
+		points.append(Vector2.RIGHT.rotated(angle) * radius)
+	draw_colored_polygon(points, fill_color)
+
+
+func _draw_filled_cone(perception: Perception) -> void:
 	var facing_angle := perception.facing_dir.angle()
 	var half_fov := deg_to_rad(perception.fov_degrees * 0.5)
 
