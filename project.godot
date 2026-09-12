@@ -19,12 +19,15 @@ config/icon="res://icon.svg"
 
 Interactions="*uid://dc32btgeaseow"
 GameEvents="*res://Scripts/Autoload/GameEvents.gd"
+Settings="*res://Scripts/Autoload/Settings.gd"
 Inventory="*res://Scripts/Autoload/Inventory.gd"
 DayOneTerminal="*res://Scenes/UI/day_one_terminal.tscn"
 WinScreen="*res://Scenes/UI/win_screen.tscn"
 ExitKeypad="*res://Scenes/UI/exit_keypad.tscn"
 ProceduralGenerator="*res://Scripts/Autoload/ProceduralGenerator.gd"
 GameManager="*res://Scripts/Autoload/GameManager.gd"
+OptionsMenu="*res://Scenes/UI/options_menu.tscn"
+PauseMenu="*res://Scenes/UI/pause_menu.tscn"
 
 [display]
 

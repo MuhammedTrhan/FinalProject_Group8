@@ -46,6 +46,9 @@ const INVENTORY_UI_SCENE := preload("res://Scenes/UI/inventory_ui.tscn")
 
 var _phase_timer: Timer
 var _locked_down := false
+# True between start_new_run() and going back to the title screen - the pause
+# menu has nothing to pause outside that window.
+var _run_active := false
 # The opening night runs without a clock - it ends only once the player has
 # read the day-one terminal.
 var _waiting_for_terminal := false
@@ -91,6 +94,7 @@ func _ready() -> void:
 ## doors are all still unloaded and miss them.
 func start_new_run() -> void:
 	_locked_down = false
+	_run_active = true
 	current_day = 1
 	run_seed = randi()
 	passcode_digits = [-1, -1, -1]
@@ -164,6 +168,7 @@ func spawn_enemy() -> void:
 ## Called by the game-over and win screens. Clears the run's overlays first -
 ## they outlive the scene change, so without this they stay on top of the menu.
 func return_to_main_menu() -> void:
+	_run_active = false
 	get_tree().paused = false
 	_reset_overlays()
 	get_tree().change_scene_to_file("res://Scenes/UI/main_menu.tscn")
@@ -180,6 +185,14 @@ func _reset_overlays() -> void:
 
 func is_day() -> bool:
 	return current_phase == Phase.DAY
+
+
+## Whether the pause menu may open right now. False on the title screen, and
+## false whenever something else already owns the pause (the game-over screen,
+## the win screen, the computer terminal) - resuming from the pause menu would
+## otherwise hand the house back mid-death or mid-read.
+func can_pause() -> bool:
+	return _run_active and not _locked_down and not get_tree().paused
 
 
 func _start_day() -> void:

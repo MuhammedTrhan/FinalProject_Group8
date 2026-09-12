@@ -16,6 +16,7 @@ extends Furniture
 func _ready() -> void:
 	add_to_group(&"noise_source")
 	audio_player.stream = noise_audio
+	audio_player.bus = &"SFX" # so the SFX volume slider actually reaches it
 	super._ready()  # Furniture._ready() calls activate()/deactivate() per is_active
 
 	GameEvents.day_started.connect(_on_day_started)

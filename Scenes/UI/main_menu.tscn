@@ -41,6 +41,11 @@ custom_minimum_size = Vector2(220, 56)
 layout_mode = 2
 text = "Play"
 
+[node name="OptionsButton" type="Button" parent="CenterContainer/VBoxContainer"]
+custom_minimum_size = Vector2(220, 56)
+layout_mode = 2
+text = "Options"
+
 [node name="QuitButton" type="Button" parent="CenterContainer/VBoxContainer" unique_id=1616461204]
 custom_minimum_size = Vector2(220, 56)
 layout_mode = 2

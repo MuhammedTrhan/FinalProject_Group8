@@ -1,0 +1,87 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://Scripts/OptionsMenu.gd" id="1_om"]
+
+[node name="OptionsMenu" type="CanvasLayer"]
+process_mode = 3
+layer = 2
+script = ExtResource("1_om")
+
+[node name="Root" type="Control" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="ColorRect" parent="Root"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.03, 0.03, 0.04, 0.9)
+
+[node name="CenterContainer" type="CenterContainer" parent="Root"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="Root/CenterContainer"]
+layout_mode = 2
+custom_minimum_size = Vector2(460, 0)
+
+[node name="MarginContainer" type="MarginContainer" parent="Root/CenterContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 28
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 28
+theme_override_constants/margin_bottom = 24
+
+[node name="VBox" type="VBoxContainer" parent="Root/CenterContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Title" type="Label" parent="Root/CenterContainer/PanelContainer/MarginContainer/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+horizontal_alignment = 1
+text = "Options"
+
+[node name="MusicRow" type="VBoxContainer" parent="Root/CenterContainer/PanelContainer/MarginContainer/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="MusicLabel" type="Label" parent="Root/CenterContainer/PanelContainer/MarginContainer/VBox/MusicRow"]
+layout_mode = 2
+text = "Music"
+
+[node name="MusicSlider" type="HSlider" parent="Root/CenterContainer/PanelContainer/MarginContainer/VBox/MusicRow"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 24)
+max_value = 1.0
+step = 0.01
+value = 1.0
+
+[node name="SfxRow" type="VBoxContainer" parent="Root/CenterContainer/PanelContainer/MarginContainer/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="SfxLabel" type="Label" parent="Root/CenterContainer/PanelContainer/MarginContainer/VBox/SfxRow"]
+layout_mode = 2
+text = "Sound Effects"
+
+[node name="SfxSlider" type="HSlider" parent="Root/CenterContainer/PanelContainer/MarginContainer/VBox/SfxRow"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 24)
+max_value = 1.0
+step = 0.01
+value = 1.0
+
+[node name="BackButton" type="Button" parent="Root/CenterContainer/PanelContainer/MarginContainer/VBox"]
+layout_mode = 2
+custom_minimum_size = Vector2(180, 48)
+size_flags_horizontal = 4
+text = "Back"
