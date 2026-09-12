@@ -91,6 +91,8 @@ var _patrol_index: int = 0
 ## Last value passed to GameEvents.chase_progress_changed.
 ## Only emits again once the value actually moves.
 var _last_chase_progress: float = 0.0
+## Same, for GameEvents.follow_progress_changed.
+var _last_follow_progress: float = 0.0
 
 var _last_position: Vector2
 var _stuck_timer: float = 0.0
@@ -138,11 +140,13 @@ func _physics_process(delta: float) -> void:
 		escort_controller.process(delta)
 		anim_handler.update_animations(velocity)
 		_emit_chase_progress(0.0)
+		_emit_follow_progress(0.0)
 		return
 
 	if _ai_frozen:
 		anim_handler.update_animations(Vector2.ZERO)
 		_emit_chase_progress(0.0)
+		_emit_follow_progress(0.0)
 		return
 
 	perception.facing_dir = anim_handler.get_facing_vector()
@@ -177,6 +181,7 @@ func _physics_process(delta: float) -> void:
 
 	GameEvents.enemy_state_changed.emit(StringName(State.keys()[state]))
 	_emit_chase_progress(active_module.get_chase_progress() if active_module else 0.0)
+	_emit_follow_progress(active_module.get_follow_progress() if active_module else 0.0)
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -702,11 +707,23 @@ func get_chase_progress() -> float:
 	return active_module.get_chase_progress() if active_module else 0.0
 
 
+## Same, for GameEvents.follow_progress_changed - the separate, per-
+## personality "rewarding outcome" bar (Forgetful's stalk meter today).
+func get_follow_progress() -> float:
+	return active_module.get_follow_progress() if active_module else 0.0
+
+
 ## Only actually emits when the value has moved.
 func _emit_chase_progress(value: float) -> void:
 	if absf(value - _last_chase_progress) > 0.001:
 		_last_chase_progress = value
 		GameEvents.chase_progress_changed.emit(value)
+
+
+func _emit_follow_progress(value: float) -> void:
+	if absf(value - _last_follow_progress) > 0.001:
+		_last_follow_progress = value
+		GameEvents.follow_progress_changed.emit(value)
 
 
 ## Called by OverwhelmedModule when the house goes quiet in time,

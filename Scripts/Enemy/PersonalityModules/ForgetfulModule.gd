@@ -51,5 +51,16 @@ func _physics_process(delta: float) -> void:
 		_follow_progress = maxf(_follow_progress - delta / enemy.profile.follow_drain_time, 0.0)
 
 
+## The shared chase bar tracks danger - how close to a Chase starting - not
+## the stalk/reward meter. That's Perception's own dwell timer against the
+## inner circle (fov_degrees=360), which already hard-resets to 0 the instant
+## she's not continuously watched - the same "drains when not being watched"
+## behaviour Paranoid/post-calm-Overwhelmed report through this same hook.
 func get_chase_progress() -> float:
+	return enemy.perception.get_dwell_progress() if enemy else 0.0
+
+
+## The separate, Forgetful-only radial bar - see PersonalityModule.
+## get_follow_progress().
+func get_follow_progress() -> float:
 	return _follow_progress
