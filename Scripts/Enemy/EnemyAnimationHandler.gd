@@ -26,6 +26,15 @@ func update_animations(velocity: Vector2) -> void:
 	play(state + "_" + last_direction)
 
 
+## Plays a fixed, non-directional pose (e.g. Overwhelmed's rocking-in-place
+## sit_special) instead of the usual idle/walk state - used while the active
+## PersonalityModule wants a custom Special-state visual.
+## See PersonalityModule.special_pose_animation().
+func play_special_pose(anim_name: StringName) -> void:
+	if not is_interacting and current_animation != anim_name:
+		play(anim_name)
+
+
 func get_facing_direction(velocity: Vector2) -> String:
 	if abs(velocity.x) >= abs(velocity.y):
 		return "right" if velocity.x > 0 else "left"

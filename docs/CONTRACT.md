@@ -103,6 +103,19 @@ GameManager.is_day() -> bool
 - Inventory UI
 - Passcode entry (keypad) on the exit door
 
+### 2.6 Reacting to `chase_progress_changed`
+
+Added 12.09.2026 (see §3.1). A 0.0–1.0 float meant to drive an in-game chase
+bar (how close the active personality is to a chase — Overwhelmed's
+panic countdown, Forgetful/Paranoid's own time-in-vision-area accumulator once
+that's built). Emitted only when the value actually changes, not every frame —
+it changes on practically every physics tick during an active countdown
+anyway, so this just skips redundant emits of a flat, unchanging `0.0` the
+rest of the time. If your UI needs the *current* value immediately after
+connecting (rather than waiting for the next change), call
+`get_tree().get_first_node_in_group(&"enemy").get_chase_progress()` once —
+no polling loop needed beyond that.
+
 ---
 
 ## 3. What Developer 2/3 provide
@@ -121,6 +134,7 @@ signal player_caught(reason: StringName)
 signal enemy_dropped_item(item: ItemData, world_position: Vector2)
 signal enemy_state_changed(state: StringName)
 signal night_start_requested(reason: StringName)   # added 09.09.2026 - see §2.3
+signal chase_progress_changed(progress: float)     # added 12.09.2026 - see §2.6
 
 # Presentation (either)
 signal interaction_prompt_changed(primary: String, secondary: String)

@@ -55,11 +55,6 @@ func _process(_delta: float) -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	# Temporary: simulates the computer's "closed" signal until Dev1's
-	# Computer UI emits it for real - delete this branch once it does.
-	if OS.is_debug_build() and event.is_action_pressed("debug_close_computer"):
-		DayOneTerminal.dossier_closed.emit()
-
 	if event.is_action_pressed("Interact"):
 		_try_interact(false)
 	elif event.is_action_pressed("action"):
@@ -213,6 +208,15 @@ func end_teleport(target_position: Vector2, fade_duration: float, stairs_end: Ve
 # Called by EscortController after a day/night transition, once the screen
 # should already be covered by the fade. No local fade of its own.
 func snap_to_spawn(spawn_position: Vector2) -> void:
+	# Belt-and-braces alongside start_escort()'s own guard below - if a stairs
+	# teleport tween is still mid-flight (e.g. the player was crossing floors
+	# to flee right as the escort caught up with her), it keeps overwriting
+	# global_position on top of this snap every frame until it finishes,
+	# silently dragging her back toward the stairs instead of her room.
+	if teleport_tween:
+		teleport_tween.kill()
+	is_teleporting = false
+
 	global_position = spawn_position
 	velocity = Vector2.ZERO
 	camera.reset_smoothing()
@@ -221,6 +225,15 @@ func snap_to_spawn(spawn_position: Vector2) -> void:
 # Called once by EscortController when a non-final catch's (or the day's
 # natural end's) escort beat starts - hands movement over to escort_step().
 func start_escort() -> void:
+	# A stairs-crossing teleport tween can still be mid-flight here (the
+	# player fled across floors right as the escort began) - it would keep
+	# fighting escort_step()'s/snap_to_spawn()'s positioning every frame
+	# until it finished on its own. Cancel it up front so nothing contests
+	# position for the rest of the escort.
+	if teleport_tween:
+		teleport_tween.kill()
+	is_teleporting = false
+
 	is_being_escorted = true
 	accept_input = false
 	velocity = Vector2.ZERO

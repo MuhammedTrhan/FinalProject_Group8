@@ -23,7 +23,6 @@ chase_speed = 110.0
 pause_chance = 0.35
 view_distance = 140.0
 fov_degrees = 70.0
-detect_dwell = 1.6
 leave_door_open_chance = 0.6
 catches_hidden_in_sight = false
 reward_item = ExtResource("7_reward")
