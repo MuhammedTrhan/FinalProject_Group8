@@ -183,6 +183,13 @@ func _physics_process(delta: float) -> void:
 	if state != State.SPECIAL:
 		_check_perception_transitions(dwelled)
 		_resolve_movement_and_obstructions(delta)
+	elif active_module and active_module.reacts_to_perception_during_special():
+		# _resolve_movement_and_obstructions() is deliberately NOT called here
+		# even for this case - a module that reacts to perception during
+		# SPECIAL (Paranoid's deposit walk) already resolves its own movement
+		# via escort_step_toward(), which calls it internally; calling it
+		# again here would double up.
+		_check_perception_transitions(dwelled)
 
 	_update_door_closing()
 
@@ -192,7 +199,13 @@ func _physics_process(delta: float) -> void:
 		anim_handler.update_animations(velocity)
 
 	GameEvents.enemy_state_changed.emit(StringName(State.keys()[state]))
-	_emit_chase_progress(active_module.get_chase_progress() if active_module else 0.0)
+	# Danger is definitionally maximal while actively chasing - Perception's
+	# own dwell timer (what get_chase_progress() reports pre-Chase) hard-resets
+	# to 0 the instant line of sight blips even for one frame, which would
+	# otherwise make the bar plunge mid-chase every time he loses sight for
+	# an instant behind a corner.
+	var chase_progress := 1.0 if state == State.CHASE else (active_module.get_chase_progress() if active_module else 0.0)
+	_emit_chase_progress(chase_progress)
 	_emit_follow_progress(active_module.get_follow_progress() if active_module else 0.0)
 
 

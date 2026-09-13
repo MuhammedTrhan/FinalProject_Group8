@@ -39,8 +39,8 @@ func deactivate() -> void:
 # Overwhelmed how many noise sources are still active.
 func _do_interact(actor: Node2D) -> Interactions.InteractionType:
 	var result := super._do_interact(actor)
-	if not is_active:
-		GameEvents.noise_source_silenced.emit(self, _count_active_siblings())
+	# Emitted both ways (not just when switching off)
+	GameEvents.noise_source_silenced.emit(self, _count_active_siblings())
 	return result
 
 

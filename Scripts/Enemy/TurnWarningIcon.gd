@@ -19,6 +19,11 @@ var _visible_phase := false
 
 func _ready() -> void:
 	_enemy = get_parent()
+	# Compensate for Enemy's own root scale (see enemy.tscn) so the icon's
+	# offset/size render at true world-space scale - same fix as
+	# PersonalityAreaVisual.
+	if _enemy and _enemy.scale.x != 0.0 and _enemy.scale.y != 0.0:
+		scale = Vector2.ONE / _enemy.scale
 
 
 func _process(delta: float) -> void:

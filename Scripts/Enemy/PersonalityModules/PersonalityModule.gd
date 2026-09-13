@@ -60,3 +60,12 @@ func special_pose_animation() -> StringName:
 ## color here each frame.
 func get_outer_area_fill_color() -> Color:
 	return Color.TRANSPARENT
+
+
+## Whether Enemy._check_perception_transitions() should still run (and
+## PersonalityAreaVisual should still show the cone) while in State.SPECIAL.
+## false (the default) - Overwhelmed's rocking/panicking is inert to
+## perception by design. Paranoid's deposit walk is a fully alert, moving
+## use of SPECIAL and overrides this to true.
+func reacts_to_perception_during_special() -> bool:
+	return false

@@ -12,7 +12,8 @@ extends PersonalityModule
 ## the area at any point drains it from wherever it sits,
 ## and draining fully gives up the attempt.
 ##
-## Chase trigger is unchanged.
+## Unlike Overwhelmed's rocking, this personality stays fully alert during
+## SPECIAL, so his chase trigger keeps working even mid-walk.
 
 const LOOK_AROUND_TIME := 5.0
 const ARRIVAL_DISTANCE := 15.0
@@ -21,6 +22,9 @@ const ARRIVAL_DISTANCE := 15.0
 ## on a timer instead, so it can still happen (possibly more than once)
 ## during a longer walk.
 const TURN_CHECK_INTERVAL := 3.0
+## Long enough for detect_dwell (0.5s on paranoid.tres) to have a real
+## chance to complete against a stalking player before he turns back.
+const LOOK_BEHIND_DURATION := 1.0
 
 const DECISION_FILL_COLOR := Color(0, 1, 0, 0.35)
 const DECISION_DRAIN_COLOR := Color(1, 0, 0, 0.35)
@@ -30,13 +34,15 @@ var _is_filling: bool = false
 var _is_depositing: bool = false
 var _target_bin: ContainerFurniture = null
 
+enum _TurnPhase {WARNING, LOOK_BEHIND}
 var _turn_check_timer: float = 0.0
-var _turn_warning_timer: float = 0.0
+var _turn_phase: _TurnPhase = _TurnPhase.WARNING
+var _turn_phase_timer: float = 0.0
 var _is_turning: bool = false
-## Guards the await in _perform_deposit() - process_special() runs every
-## physics frame, so without this it could re-enter _perform_deposit()
-## before the first call's animation await resumes. Same role as Enemy's
-## own _capturing flag around _perform_capture()'s await.
+## Guards the await in _perform_deposit() - process_special() and
+## _physics_process() both run every physics frame, so without this either
+## could re-enter/interleave with an in-flight _perform_deposit() before its
+## animation await resumes.
 var _finishing_deposit: bool = false
 
 
@@ -49,14 +55,23 @@ func get_chase_progress() -> float:
 	return enemy.perception.get_dwell_progress() if enemy else 0.0
 
 
+## The world-space ring's progress.
+func get_follow_progress() -> float:
+	return _decision_progress
+
+
 func get_outer_area_fill_color() -> Color:
 	if _decision_progress <= 0.0 or _decision_progress >= 1.0:
 		return Color.TRANSPARENT # baseline, or a decision already made - nothing to show either way
 	return DECISION_FILL_COLOR if _is_filling else DECISION_DRAIN_COLOR
 
 
+func reacts_to_perception_during_special() -> bool:
+	return true
+
+
 func _physics_process(delta: float) -> void:
-	if enemy == null or enemy.profile == null:
+	if _finishing_deposit or enemy == null or enemy.profile == null:
 		return
 	if enemy.escort_controller.is_escorting() or enemy.is_teleporting:
 		return
@@ -127,21 +142,28 @@ func process_special(delta: float) -> void:
 		return
 
 	if _is_turning:
-		_turn_warning_timer -= delta
-		if _turn_warning_timer <= 0.0:
-			_is_turning = false
-			enemy.is_turn_warning = false
-		return # frozen for the warning+spin beat, no movement this beat
+		_turn_phase_timer -= delta
+		if _turn_phase_timer <= 0.0:
+			match _turn_phase:
+				_TurnPhase.WARNING:
+					_turn_phase = _TurnPhase.LOOK_BEHIND
+					_turn_phase_timer = LOOK_BEHIND_DURATION
+					enemy.is_turn_warning = false
+					# Turn now - held for the whole look-behind phase, giving
+					# him a real chance to catch the player stalking.
+					enemy.anim_handler.set_facing_direction(_opposite_direction(enemy.anim_handler.last_direction))
+				_TurnPhase.LOOK_BEHIND:
+					_is_turning = false
+		return # frozen for both beats - no movement, facing held throughout
 
 	_turn_check_timer += delta
 	if _turn_check_timer >= TURN_CHECK_INTERVAL:
 		_turn_check_timer = 0.0
 		if randf() < enemy.profile.turn_around_chance:
 			_is_turning = true
-			_turn_warning_timer = enemy.profile.turn_around_warning_time
+			_turn_phase = _TurnPhase.WARNING
+			_turn_phase_timer = enemy.profile.turn_around_warning_time
 			enemy.is_turn_warning = true
-			# Cosmetic spin - keeps walking toward the same bin once this beat ends.
-			enemy.anim_handler.set_facing_direction(_opposite_direction(enemy.anim_handler.last_direction))
 			return
 
 	enemy.escort_step_toward(_target_bin.global_position, delta, enemy.profile.move_speed)
