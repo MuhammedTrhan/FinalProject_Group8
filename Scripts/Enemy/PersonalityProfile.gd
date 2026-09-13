@@ -44,6 +44,10 @@ enum Personality {FORGETFUL, PARANOID, OVERWHELMED}
 @export var pause_duration_range := Vector2(0.6, 1.8)
 ## Chance per patrol leg of an abrupt 180-degree turn. Reads as "paranoid".
 @export_range(0.0, 1.0) var turn_around_chance: float = 0.0
+## Seconds of warning (an exclamation mark, blinking 3 times) before a
+## turn_around_chance roll actually reverses direction. 0.0 (the default) -
+## turn immediately, no warning, unchanged from today.
+@export var turn_around_warning_time: float = 0.0
 
 
 @export_group("Perception")

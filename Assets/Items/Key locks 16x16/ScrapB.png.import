@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c5j6ay545y1xm"
-path="res://.godot/imported/09.png-a467afbdd7c7d0d822b29bbe08f4851f.ctex"
+uid="uid://iyie0w2ewtgv"
+path="res://.godot/imported/ScrapB.png-b2c1fcd5554ceb1bdb43f967bda27d61.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Items/Key locks 16x16/09.png"
-dest_files=["res://.godot/imported/09.png-a467afbdd7c7d0d822b29bbe08f4851f.ctex"]
+source_file="res://Assets/Items/Key locks 16x16/ScrapB.png"
+dest_files=["res://.godot/imported/ScrapB.png-b2c1fcd5554ceb1bdb43f967bda27d61.ctex"]
 
 [params]
 

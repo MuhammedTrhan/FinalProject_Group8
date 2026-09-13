@@ -35,7 +35,7 @@ const STAIR_TWEEN_DURATION := 0.5
 const STUCK_VELOCITY_THRESHOLD := 5.0
 const STUCK_MOVED_THRESHOLD := 0.4
 const STUCK_TIME_THRESHOLD := 0.35
-const SIDESTEP_DURATION := 0.25
+const SIDESTEP_DURATION := 0.30
 ## Every patrol point arrival gets at least this much of a "looking around"
 ## beat, even when the profile.pause_chance roll doesn't trigger a longer daze.
 const PATROL_GLANCE_RANGE := Vector2(0.15, 0.35)
@@ -82,6 +82,18 @@ var _capturing: bool = false
 var _ai_frozen: bool = false
 var _debug_player_hidden: bool = false
 
+## True for exactly as long as a turn-around warning icon should show - set
+## by _process_patrol(), or directly by a PersonalityModule's own
+## equivalent (ParanoidModule's deposit-walk turns). Read generically by
+## TurnWarningIcon.
+var is_turn_warning: bool = false
+
+## Paranoid-specific: how many of profile.reward_items have already been
+## deposited, and which bin was used last - persists across days/personality
+## switches, unlike ParanoidModule's own (day-scoped) state.
+var paranoid_deposited_count: int = 0
+var paranoid_last_used_bin: Node = null
+
 ## {[floor_a, floor_b]: Stairs} - built once in _index_stairs(). Bidirectional
 ## per pair, so a 3-floor / 2-pair level holds at most 4 entries.
 var _stairs_by_floor_pair: Dictionary = {}
@@ -98,6 +110,8 @@ var _last_position: Vector2
 var _stuck_timer: float = 0.0
 var _sidestep_timer: float = 0.0
 var _sidestep_direction: Vector2 = Vector2.ZERO
+## Alternates +1/-1 each time a sidestep is tried.
+var _sidestep_sign: float = 1.0
 ## True while mid unlock-then-open sequence on a door - suppresses normal
 ## movement/stuck-detection so the two don't fight each other.
 var _door_busy: bool = false
@@ -171,6 +185,13 @@ func _physics_process(delta: float) -> void:
 	if state != State.SPECIAL:
 		_check_perception_transitions(dwelled)
 		_resolve_movement_and_obstructions(delta)
+	elif active_module and active_module.reacts_to_perception_during_special():
+		# _resolve_movement_and_obstructions() is deliberately NOT called here
+		# even for this case - a module that reacts to perception during
+		# SPECIAL (Paranoid's deposit walk) already resolves its own movement
+		# via escort_step_toward(), which calls it internally; calling it
+		# again here would double up.
+		_check_perception_transitions(dwelled)
 
 	_update_door_closing()
 
@@ -180,7 +201,13 @@ func _physics_process(delta: float) -> void:
 		anim_handler.update_animations(velocity)
 
 	GameEvents.enemy_state_changed.emit(StringName(State.keys()[state]))
-	_emit_chase_progress(active_module.get_chase_progress() if active_module else 0.0)
+	# Danger is definitionally maximal while actively chasing - Perception's
+	# own dwell timer (what get_chase_progress() reports pre-Chase) hard-resets
+	# to 0 the instant line of sight blips even for one frame, which would
+	# otherwise make the bar plunge mid-chase every time he loses sight for
+	# an instant behind a corner.
+	var chase_progress := 1.0 if state == State.CHASE else (active_module.get_chase_progress() if active_module else 0.0)
+	_emit_chase_progress(chase_progress)
 	_emit_follow_progress(active_module.get_follow_progress() if active_module else 0.0)
 
 
@@ -246,6 +273,7 @@ func _enter_state(new_state: State) -> void:
 	# Clear the flag here.
 	_capture_on_arrival = false
 	_capture_hideable = null
+	is_turn_warning = false
 
 	if new_state == State.IDLE:
 		# Every patrol arrival gets at least a brief "looking around" beat
@@ -323,9 +351,16 @@ func _process_patrol(_delta: float) -> void:
 		# reads as "looking around" rather than snapping instantly to the
 		# next point. turn_around_chance is rolled now so it's decided
 		# before the glance, and applied once patrol resumes.
-		if randf() < profile.turn_around_chance and not _patrol_points.is_empty():
+		var will_turn := randf() < profile.turn_around_chance and not _patrol_points.is_empty()
+		if will_turn:
 			_patrol_index = (_patrol_index + _patrol_points.size() - 1) % _patrol_points.size()
 		_enter_state(State.IDLE)
+		# A configured warning extends the glance/pause beat above into a
+		# dedicated "exclamation mark" hold instead - the reversal itself
+		# already happened; only when he actually starts walking again changes.
+		if will_turn and profile.turn_around_warning_time > 0.0:
+			_idle_duration = profile.turn_around_warning_time
+			is_turn_warning = true
 
 
 func _process_investigate(delta: float) -> void:
@@ -462,9 +497,13 @@ func _resolve_obstruction() -> void:
 			_handle_door_obstruction(collider)
 			return
 
-	# Not a door (furniture, a wall corner, another body) - a brief perpendicular sidestep.
-	_sidestep_direction = velocity.normalized().rotated(PI / 2.0)
+	# Not a door (furniture, a wall corner, another body) - a brief
+	# perpendicular sidestep, alternating sides each time this fires (see
+	# _sidestep_sign) so getting stuck again right after trying one side
+	# tries the other next.
+	_sidestep_direction = velocity.normalized().rotated(PI / 2.0 * _sidestep_sign)
 	_sidestep_timer = SIDESTEP_DURATION
+	_sidestep_sign = - _sidestep_sign
 
 
 func _handle_door_obstruction(door: Door) -> void:
@@ -699,6 +738,14 @@ func enter_chase(target_position: Vector2) -> void:
 ## state) and resume ordinary patrol. Used by OverwhelmedModule once calmed.
 func enter_patrol() -> void:
 	_enter_state(State.PATROL)
+
+
+## Public entry point for a PersonalityModule to take over movement/animation
+## entirely via its own process_special()/special_pose_animation() - the same
+## vehicle Overwhelmed's rocking already uses, now also used by Paranoid's
+## walk to a chosen trash bin.
+func enter_special() -> void:
+	_enter_special()
 
 
 ## One-shot poll for a UI that just connected to GameEvents.chase_progress_changed

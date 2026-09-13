@@ -1,5 +1,6 @@
 [gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://bfrit2lh568gs"]
 
+[ext_resource type="Texture2D" uid="uid://dg824exlrsnma" path="res://Assets/Items/Key locks 16x16/DiaryPage.png" id="1_pqx0i"]
 [ext_resource type="Script" uid="uid://sam1gdk4y73n" path="res://Scripts/Items/ItemData.gd" id="1_script"]
 
 [resource]
@@ -7,3 +8,4 @@ script = ExtResource("1_script")
 id = &"diary_page"
 display_name = "Reassembled Diary Page"
 description = "The three torn scraps, pieced back together. It reveals a digit."
+icon = ExtResource("1_pqx0i")

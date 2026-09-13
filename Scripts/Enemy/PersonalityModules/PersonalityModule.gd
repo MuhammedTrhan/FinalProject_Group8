@@ -51,3 +51,21 @@ func get_follow_progress() -> float:
 ## play idle/walk as normal".
 func special_pose_animation() -> StringName:
 	return &""
+
+
+## Fill color for the outer follow-area ring in PersonalityAreaVisual.
+## Color.TRANSPARENT (the default) means "just draw the plain unfilled
+## outline" (Forgetful's ring). A personality wanting a dynamic fill
+## (Paranoid's green-while-deciding/red-while-giving-up) returns a real
+## color here each frame.
+func get_outer_area_fill_color() -> Color:
+	return Color.TRANSPARENT
+
+
+## Whether Enemy._check_perception_transitions() should still run (and
+## PersonalityAreaVisual should still show the cone) while in State.SPECIAL.
+## false (the default) - Overwhelmed's rocking/panicking is inert to
+## perception by design. Paranoid's deposit walk is a fully alert, moving
+## use of SPECIAL and overrides this to true.
+func reacts_to_perception_during_special() -> bool:
+	return false
