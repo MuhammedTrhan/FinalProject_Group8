@@ -35,7 +35,7 @@ const STAIR_TWEEN_DURATION := 0.5
 const STUCK_VELOCITY_THRESHOLD := 5.0
 const STUCK_MOVED_THRESHOLD := 0.4
 const STUCK_TIME_THRESHOLD := 0.35
-const SIDESTEP_DURATION := 0.25
+const SIDESTEP_DURATION := 0.30
 ## Every patrol point arrival gets at least this much of a "looking around"
 ## beat, even when the profile.pause_chance roll doesn't trigger a longer daze.
 const PATROL_GLANCE_RANGE := Vector2(0.15, 0.35)
@@ -110,6 +110,8 @@ var _last_position: Vector2
 var _stuck_timer: float = 0.0
 var _sidestep_timer: float = 0.0
 var _sidestep_direction: Vector2 = Vector2.ZERO
+## Alternates +1/-1 each time a sidestep is tried.
+var _sidestep_sign: float = 1.0
 ## True while mid unlock-then-open sequence on a door - suppresses normal
 ## movement/stuck-detection so the two don't fight each other.
 var _door_busy: bool = false
@@ -495,9 +497,13 @@ func _resolve_obstruction() -> void:
 			_handle_door_obstruction(collider)
 			return
 
-	# Not a door (furniture, a wall corner, another body) - a brief perpendicular sidestep.
-	_sidestep_direction = velocity.normalized().rotated(PI / 2.0)
+	# Not a door (furniture, a wall corner, another body) - a brief
+	# perpendicular sidestep, alternating sides each time this fires (see
+	# _sidestep_sign) so getting stuck again right after trying one side
+	# tries the other next.
+	_sidestep_direction = velocity.normalized().rotated(PI / 2.0 * _sidestep_sign)
 	_sidestep_timer = SIDESTEP_DURATION
+	_sidestep_sign = - _sidestep_sign
 
 
 func _handle_door_obstruction(door: Door) -> void:
