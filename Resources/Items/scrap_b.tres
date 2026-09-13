@@ -1,10 +1,12 @@
 [gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://b48wpaq7lcsd1"]
 
 [ext_resource type="Script" uid="uid://sam1gdk4y73n" path="res://Scripts/Items/ItemData.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://iyie0w2ewtgv" path="res://Assets/Items/Key locks 16x16/ScrapB.png" id="1_u4is0"]
 
 [resource]
 script = ExtResource("1_script")
 id = &"scrap_b"
 display_name = "Torn Diary Page (2/3)"
 description = "A scrap of paper, torn from a diary. One more piece is out there."
+icon = ExtResource("1_u4is0")
 pickup_flavour = "Another torn diary page."

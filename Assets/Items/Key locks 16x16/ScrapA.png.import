@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cu5tnvxkiw6kb"
-path="res://.godot/imported/07.png-ff43581dd2969170f058a52256db28be.ctex"
+path="res://.godot/imported/ScrapA.png-c5dd842c9ffdd7eefa7a05688a6eace1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Items/Key locks 16x16/07.png"
-dest_files=["res://.godot/imported/07.png-ff43581dd2969170f058a52256db28be.ctex"]
+source_file="res://Assets/Items/Key locks 16x16/ScrapA.png"
+dest_files=["res://.godot/imported/ScrapA.png-c5dd842c9ffdd7eefa7a05688a6eace1.ctex"]
 
 [params]
 
