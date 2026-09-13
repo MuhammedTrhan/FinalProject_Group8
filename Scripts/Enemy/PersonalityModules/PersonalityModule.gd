@@ -51,3 +51,12 @@ func get_follow_progress() -> float:
 ## play idle/walk as normal".
 func special_pose_animation() -> StringName:
 	return &""
+
+
+## Fill color for the outer follow-area ring in PersonalityAreaVisual.
+## Color.TRANSPARENT (the default) means "just draw the plain unfilled
+## outline" (Forgetful's ring). A personality wanting a dynamic fill
+## (Paranoid's green-while-deciding/red-while-giving-up) returns a real
+## color here each frame.
+func get_outer_area_fill_color() -> Color:
+	return Color.TRANSPARENT

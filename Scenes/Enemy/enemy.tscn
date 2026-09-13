@@ -10,6 +10,7 @@
 [ext_resource type="Script" uid="uid://8v86xwo4vqs7" path="res://Scripts/Enemy/EnemyDebugOverlay.gd" id="8_overlay"]
 [ext_resource type="Script" uid="uid://bpr17dlr34lum" path="res://Scripts/Enemy/EscortController.gd" id="9_escort"]
 [ext_resource type="Script" path="res://Scripts/Enemy/PersonalityAreaVisual.gd" id="10_areavisual"]
+[ext_resource type="Script" path="res://Scripts/Enemy/TurnWarningIcon.gd" id="11_turnwarning"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_movement"]
 radius = 3.5294118
@@ -1089,6 +1090,10 @@ script = ExtResource("8_overlay")
 [node name="PersonalityAreaVisual" type="Node2D" parent="." unique_id=3821094457]
 material = SubResource("CanvasItemMaterial_areavis")
 script = ExtResource("10_areavisual")
+
+[node name="TurnWarningIcon" type="Node2D" parent="." unique_id=2794613085]
+material = SubResource("CanvasItemMaterial_areavis")
+script = ExtResource("11_turnwarning")
 
 [node name="EscortController" type="Node" parent="." unique_id=925922604]
 script = ExtResource("9_escort")

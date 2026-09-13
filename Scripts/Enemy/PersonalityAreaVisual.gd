@@ -47,7 +47,12 @@ func _draw_outer_ring() -> void:
 	var radius := _enemy.profile.follow_area_radius
 	if radius <= 0.0:
 		return
-	draw_arc(Vector2.ZERO, radius, 0, TAU, SEGMENTS, ring_color, ring_width)
+
+	var override_color := _enemy.active_module.get_outer_area_fill_color() if _enemy.active_module else Color.TRANSPARENT
+	if override_color.a > 0.0:
+		_draw_filled_circle(radius, override_color)
+	else:
+		draw_arc(Vector2.ZERO, radius, 0, TAU, SEGMENTS, ring_color, ring_width)
 
 
 func _draw_inner_area() -> void:
@@ -62,17 +67,17 @@ func _draw_inner_area() -> void:
 	# ("Invalid polygon data, triangulation failed"). A plain closed N-gon
 	# has no such seam, so use it whenever there's no real cone to show.
 	if perception.fov_degrees >= 359.99:
-		_draw_filled_circle(perception.view_distance)
+		_draw_filled_circle(perception.view_distance, fill_color)
 	else:
 		_draw_filled_cone(perception)
 
 
-func _draw_filled_circle(radius: float) -> void:
+func _draw_filled_circle(radius: float, color: Color) -> void:
 	var points := PackedVector2Array()
 	for i in SEGMENTS:
 		var angle := TAU * float(i) / float(SEGMENTS)
 		points.append(Vector2.RIGHT.rotated(angle) * radius)
-	draw_colored_polygon(points, fill_color)
+	draw_colored_polygon(points, color)
 
 
 func _draw_filled_cone(perception: Perception) -> void:
