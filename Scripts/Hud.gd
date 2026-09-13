@@ -40,6 +40,9 @@ func _ready() -> void:
 	GameEvents.enemy_dropped_item.connect(_on_enemy_dropped_item)
 	GameEvents.clue_revealed.connect(_on_clue_revealed)
 	GameEvents.run_started.connect(_on_run_started)
+	# The run is over on a final catch - the game-over screen owns the screen
+	# from here, and this draws above it.
+	GameEvents.player_caught.connect(func(_reason: StringName) -> void: visible = false)
 
 	_refresh_passcode_readout()
 

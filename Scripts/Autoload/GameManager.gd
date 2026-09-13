@@ -177,6 +177,7 @@ func return_to_main_menu() -> void:
 func _reset_overlays() -> void:
 	_lockdown_screen.visible = false
 	_inventory_ui.visible = false
+	Hud.visible = false # day_started brings it back
 	_day_transition.reset()
 	WinScreen.visible = false
 	ExitKeypad.visible = false
