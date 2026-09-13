@@ -13,7 +13,7 @@ height = 14.0
 radius = 12.0
 height = 32.0
 
-[node name="TrashCan" unique_id=497810441 instance=ExtResource("1_base")]
+[node name="TrashCan" unique_id=497810441 groups=["diary_bin"] instance=ExtResource("1_base")]
 script = ExtResource("2_container")
 initial_items = Array[ExtResource("3_yu472")]([])
 not_found_text = "Nothing fancy here."
