@@ -8,9 +8,19 @@ extends CanvasLayer
 ## Only shown during the day - night is when day mechanics stop being
 ## evaluated, so none of these mean anything then.
 
+## Stands in for a digit she hasn't found yet, so the readout also tells her
+## how many are left and which slot each belongs to.
+const UNKNOWN_DIGIT := "*"
+const FOUND_COLOUR := Color(0.98, 0.86, 0.5)
+const UNKNOWN_COLOUR := Color(0.45, 0.41, 0.34)
+
 @onready var chase_bar: ProgressBar = $Root/ChaseBar
 @onready var follow_bar: RadialBar = $Root/FollowBar
 @onready var noise_counter: Label = $Root/NoiseCounter
+@onready var digits_row: HBoxContainer = $Root/PasscodeReadout/Margin/VBox/Digits
+
+# One Label per passcode slot, built to match however many digits there are.
+var _digit_slots: Array[Label] = []
 
 # Which readouts today's personality actually has. The noise furniture never
 # switches itself back off, so "are any still on" can't stand in for this.
@@ -28,6 +38,10 @@ func _ready() -> void:
 	GameEvents.follow_progress_changed.connect(_on_follow_progress_changed)
 	GameEvents.noise_source_silenced.connect(_on_noise_source_silenced)
 	GameEvents.enemy_dropped_item.connect(_on_enemy_dropped_item)
+	GameEvents.clue_revealed.connect(_on_clue_revealed)
+	GameEvents.run_started.connect(_on_run_started)
+
+	_refresh_passcode_readout()
 
 
 func _on_day_started(_day: int, personality: int) -> void:
@@ -82,6 +96,65 @@ func _on_follow_progress_changed(progress: float) -> void:
 
 func _on_noise_source_silenced(_source: Node, remaining: int) -> void:
 	_set_noise_count(remaining)
+
+
+func _on_clue_revealed(digit_index: int, _digit_value: int, _flavour: String) -> void:
+	# Deferred so GameManager - which connected first - has already written the
+	# digit into passcode_digits by the time this reads it.
+	_reveal_digit.call_deferred(digit_index)
+
+
+func _on_run_started(_run_seed: int) -> void:
+	_refresh_passcode_readout()
+
+
+func _reveal_digit(digit_index: int) -> void:
+	_refresh_passcode_readout()
+
+	if digit_index < 0 or digit_index >= _digit_slots.size():
+		return
+
+	# A brief flare on the slot that just filled, so a digit found across the
+	# house still reads as "that one, right there".
+	var slot := _digit_slots[digit_index]
+	slot.modulate = Color(2.2, 2.0, 1.6)
+	create_tween().tween_property(slot, "modulate", Color.WHITE, 0.6)
+
+
+## Mirrors GameManager.passcode_digits rather than keeping a second copy; that
+## array is the one the exit keypad is actually checked against.
+func _refresh_passcode_readout() -> void:
+	var digits: Array[int] = GameManager.passcode_digits
+	if _digit_slots.size() != digits.size():
+		_build_digit_slots(digits.size())
+
+	for i in digits.size():
+		var found := digits[i] >= 0
+		_digit_slots[i].text = str(digits[i]) if found else UNKNOWN_DIGIT
+		_digit_slots[i].add_theme_color_override(
+			"font_color", FOUND_COLOUR if found else UNKNOWN_COLOUR)
+
+
+func _build_digit_slots(count: int) -> void:
+	for child in digits_row.get_children():
+		child.queue_free()
+	_digit_slots.clear()
+
+	var slot_style := StyleBoxFlat.new()
+	slot_style.bg_color = Color(0.04, 0.035, 0.03, 0.9)
+	slot_style.border_color = Color(0.45, 0.37, 0.22)
+	slot_style.set_border_width_all(2)
+	slot_style.set_corner_radius_all(4)
+
+	for i in count:
+		var slot := Label.new()
+		slot.custom_minimum_size = Vector2(28, 34)
+		slot.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		slot.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+		slot.add_theme_font_size_override("font_size", 22)
+		slot.add_theme_stylebox_override("normal", slot_style)
+		digits_row.add_child(slot)
+		_digit_slots.append(slot)
 
 
 ## The meter that earned this empties itself and then stops accumulating for
