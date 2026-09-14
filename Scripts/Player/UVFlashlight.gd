@@ -10,7 +10,7 @@ const SEGMENTS := 24
 # docs/CONTRACT.md's debug key table and ToolUser.gd's debug_use_crowbar.
 const UV_FLASHLIGHT_ITEM := preload("res://Resources/Items/uv_flashlight.tres")
 
-@export var range: float = 96.0
+@export var light_range: float = 96.0
 @export var half_fov_degrees: float = 35.0
 @export var fill_color: Color = Color(0.6, 0.2, 0.9, 0.35)
 
@@ -60,7 +60,7 @@ func _physics_process(_delta: float) -> void:
 
 func _is_in_cone(point: Vector2, facing: Vector2) -> bool:
 	var to_point := point - global_position
-	if to_point.length() > range:
+	if to_point.length() > light_range:
 		return false
 	if absf(rad_to_deg(facing.angle_to(to_point))) > half_fov_degrees:
 		return false
@@ -79,7 +79,7 @@ func _draw() -> void:
 	for i in SEGMENTS + 1:
 		var t := float(i) / float(SEGMENTS)
 		var angle := -half_fov + t * (half_fov * 2.0)
-		points.append(Vector2.RIGHT.rotated(angle) * range)
+		points.append(Vector2.RIGHT.rotated(angle) * light_range)
 	draw_colored_polygon(points, fill_color)
 
 
@@ -88,4 +88,4 @@ func _facing_to_angle(direction: String) -> float:
 		"up": return -PI / 2.0
 		"down": return PI / 2.0
 		"left": return PI
-		_: return 0.0   # "right" / fallback
+		_: return 0.0 # "right" / fallback

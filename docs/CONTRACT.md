@@ -240,6 +240,7 @@ Available to everyone for testing without a full day cycle:
 | F10 | Toggle "player is hidden" |
 | F11 | Toggle the AI debug overlay |
 | F12 | Simulate "use crowbar" (stands in for the Inventory UI's `item_use_requested` until it's wired up) |
+| U | Toggle "use UV flashlight" (same stand-in, for the toggleable `item_use_requested(uv_flashlight, is_active)` case) - all F-keys are taken, so this one's a letter key |
 
 F5–F8 are deliberately unused so they do not collide with the Godot editor's
 Run / Stop shortcuts.
