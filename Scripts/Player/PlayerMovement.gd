@@ -306,6 +306,21 @@ func resume_player_movement() -> void:
 	accept_input = true
 
 
+## True while the player can't start a new interaction/tool-use (already
+## mid-animation, teleporting, being escorted, or otherwise input-locked).
+func is_busy() -> bool:
+	return anim_handler.is_interacting or is_teleporting or is_being_escorted or not accept_input
+
+
+## Plays a one-shot interaction animation and locks/unlocks movement around
+## it exactly like a normal Interactable result does - see handle_interactions()
+## and PlayerAnimationHandler.handle_interaction_anim(). Used by ToolUser for
+## tools used from the Inventory UI rather than a direct Interact press.
+func play_tool_animation(interaction: Interactions.InteractionType) -> void:
+	handle_interactions()
+	anim_handler.handle_interaction_anim(interaction)
+
+
 func find_look_direction(target_position: Vector2, start_position: Vector2) -> String:
 	var direction_vector = (target_position - start_position).normalized()
 	if abs(direction_vector.x) >= abs(direction_vector.y):

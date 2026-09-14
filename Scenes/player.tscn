@@ -3,9 +3,11 @@
 [ext_resource type="Script" uid="uid://b7suakb28m8gp" path="res://Scripts/Player/PlayerMovement.gd" id="1_cvnsp"]
 [ext_resource type="Texture2D" uid="uid://bldglbpa420de" path="res://Assets/Player/standard/idle.png" id="1_v0iea"]
 [ext_resource type="Script" uid="uid://bpgm6bh6mfqtp" path="res://Scripts/Player/PlayerAnimationHandler.gd" id="3_6t5aa"]
+[ext_resource type="Script" path="res://Scripts/Player/ToolUser.gd" id="4_tooluser"]
 [ext_resource type="Texture2D" uid="uid://bko47g71q7q55" path="res://Assets/Player/standard/slash.png" id="3_fkybt"]
 [ext_resource type="Texture2D" uid="uid://ddjdt1gosvwy2" path="res://Assets/Player/standard/walk.png" id="3_vgqql"]
 [ext_resource type="Texture2D" uid="uid://cknx51uo0l5nq" path="res://Assets/Player/standard/hurt.png" id="4_3smsa"]
+[ext_resource type="Texture2D" uid="uid://bga5juj825ohf" path="res://Assets/Player/standard/crowbar.png" id="4_8erm5"]
 [ext_resource type="Texture2D" uid="uid://b16tacmrlbvog" path="res://Assets/Player/standard/sit.png" id="4_x3wgy"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cvnsp"]
@@ -210,6 +212,166 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [0, 5, 4, 3, 2, 1]
+}
+
+[sub_resource type="Animation" id="Animation_y6uwr"]
+resource_name = "crowbar_down"
+length = 0.2667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("4_8erm5")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.033333335, 0.06666667, 0.10000001, 0.13333334, 0.16666667, 0.20000002, 0.23333335),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [26, 27, 28, 29, 30, 31, 32, 33]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PlayerAnimationHandler:speed_scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.2999999999999998]
+}
+
+[sub_resource type="Animation" id="Animation_83xs0"]
+resource_name = "crowbar_left"
+length = 0.2667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("4_8erm5")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.033333335, 0.06666667, 0.10000001, 0.13333334, 0.16666667, 0.20000002, 0.23333335),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [13, 14, 15, 16, 17, 18, 19, 20]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PlayerAnimationHandler:speed_scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.2999999999999998]
+}
+
+[sub_resource type="Animation" id="Animation_ypfnu"]
+resource_name = "crowbar_right"
+length = 0.2667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("4_8erm5")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.033333335, 0.06666667, 0.10000001, 0.13333334, 0.16666667, 0.20000002, 0.23333335),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [39, 40, 41, 42, 43, 44, 45, 46]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PlayerAnimationHandler:speed_scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.2999999999999998]
+}
+
+[sub_resource type="Animation" id="Animation_xuaoq"]
+resource_name = "crowbar_up"
+length = 0.2667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("4_8erm5")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.033333335, 0.06666667, 0.10000001, 0.13333334, 0.16666667, 0.20000002, 0.23333335),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PlayerAnimationHandler:speed_scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.2999999999999998]
 }
 
 [sub_resource type="Animation" id="Animation_6t5aa"]
@@ -1023,6 +1185,10 @@ _data = {
 &"back_slash_left": SubResource("Animation_pu2lt"),
 &"back_slash_right": SubResource("Animation_igrcy"),
 &"back_slash_up": SubResource("Animation_fd4e3"),
+&"crowbar_down": SubResource("Animation_y6uwr"),
+&"crowbar_left": SubResource("Animation_83xs0"),
+&"crowbar_right": SubResource("Animation_ypfnu"),
+&"crowbar_up": SubResource("Animation_xuaoq"),
 &"idle_down": SubResource("Animation_6t5aa"),
 &"idle_left": SubResource("Animation_vgqql"),
 &"idle_right": SubResource("Animation_fkybt"),
@@ -1080,6 +1246,9 @@ frame = 26
 libraries/ = SubResource("AnimationLibrary_vgqql")
 speed_scale = 0.05
 script = ExtResource("3_6t5aa")
+
+[node name="ToolUser" type="Node" parent="."]
+script = ExtResource("4_tooluser")
 
 [node name="InterractArea" type="Area2D" parent="." unique_id=1161698486]
 position = Vector2(0, -26)

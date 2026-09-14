@@ -46,3 +46,7 @@ position = Vector2(-27, -42)
 
 [node name="LowerEnd" type="Marker2D" parent="." unique_id=69292837]
 position = Vector2(21, 6)
+
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="." unique_id=1727616782]
+position = Vector2(0, -16)
+vertices = PackedVector2Array(-32, -30, -32, 40, 25, 40, 25, 25)

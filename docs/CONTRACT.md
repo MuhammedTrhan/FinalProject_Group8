@@ -239,6 +239,7 @@ Available to everyone for testing without a full day cycle:
 | F9 | Force the current personality's objective to fail |
 | F10 | Toggle "player is hidden" |
 | F11 | Toggle the AI debug overlay |
+| F12 | Simulate "use crowbar" (stands in for the Inventory UI's `item_use_requested` until it's wired up) |
 
 F5–F8 are deliberately unused so they do not collide with the Godot editor's
 Run / Stop shortcuts.

@@ -145,3 +145,16 @@ feet/shoes/ghillies/thin/walk.png
 		- http://opengameart.org/content/lpc-clothing-updates
 		- https://opengameart.org/content/lpc-expanded-socks-shoes
 
+tools/hoe/bg/walk.png
+	- Note: original by bluecarrot16, color reduced by JaidynReiman
+	- Licenses:
+		- CC-BY-SA 3.0
+	- Authors:
+		- bluecarrot16
+		- JaidynReiman
+		- Pierre Vigier (pvigier)
+		- Johannes Sjölund (wulax)
+		- Inboxninja
+	- Links:
+		- https://opengameart.org/content/lpc-hand-tools
+
