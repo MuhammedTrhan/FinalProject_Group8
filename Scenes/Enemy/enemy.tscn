@@ -9,8 +9,8 @@
 [ext_resource type="Script" uid="uid://dyn4xlsho255" path="res://Scripts/Enemy/Perception.gd" id="7_perception"]
 [ext_resource type="Script" uid="uid://8v86xwo4vqs7" path="res://Scripts/Enemy/EnemyDebugOverlay.gd" id="8_overlay"]
 [ext_resource type="Script" uid="uid://bpr17dlr34lum" path="res://Scripts/Enemy/EscortController.gd" id="9_escort"]
-[ext_resource type="Script" path="res://Scripts/Enemy/PersonalityAreaVisual.gd" id="10_areavisual"]
-[ext_resource type="Script" path="res://Scripts/Enemy/TurnWarningIcon.gd" id="11_turnwarning"]
+[ext_resource type="Script" uid="uid://cg08ltcr0wjyj" path="res://Scripts/Enemy/PersonalityAreaVisual.gd" id="10_areavisual"]
+[ext_resource type="Script" uid="uid://b2543f7fa2rer" path="res://Scripts/Enemy/TurnWarningIcon.gd" id="11_turnwarning"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_movement"]
 radius = 3.5294118
@@ -627,35 +627,6 @@ tracks/1/keys = {
 "values": [41]
 }
 
-[sub_resource type="Animation" id="Animation_sit_up"]
-resource_name = "sit_up"
-length = 0.0333
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("5_sit")]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [2]
-}
-
 [sub_resource type="Animation" id="Animation_sit_special"]
 resource_name = "sit_special"
 length = 0.0333
@@ -683,6 +654,35 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [14]
+}
+
+[sub_resource type="Animation" id="Animation_sit_up"]
+resource_name = "sit_up"
+length = 0.0333
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("5_sit")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
 }
 
 [sub_resource type="Animation" id="Animation_slash_down"]
@@ -1027,8 +1027,8 @@ _data = {
 &"sit_down": SubResource("Animation_sit_down"),
 &"sit_left": SubResource("Animation_sit_left"),
 &"sit_right": SubResource("Animation_sit_right"),
-&"sit_up": SubResource("Animation_sit_up"),
 &"sit_special": SubResource("Animation_sit_special"),
+&"sit_up": SubResource("Animation_sit_up"),
 &"slash_down": SubResource("Animation_slash_down"),
 &"slash_left": SubResource("Animation_slash_left"),
 &"slash_right": SubResource("Animation_slash_right"),
@@ -1071,7 +1071,7 @@ script = ExtResource("6_animhandler")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=808053889]
 path_desired_distance = 8.0
-target_desired_distance = 8.0
+target_desired_distance = 5.0
 
 [node name="Perception" type="Node2D" parent="." unique_id=510054745]
 script = ExtResource("7_perception")
@@ -1087,11 +1087,11 @@ shape = SubResource("CircleShape2D_4ad2a")
 [node name="EnemyDebugOverlay" type="Node2D" parent="." unique_id=541552310]
 script = ExtResource("8_overlay")
 
-[node name="PersonalityAreaVisual" type="Node2D" parent="." unique_id=3821094457]
+[node name="PersonalityAreaVisual" type="Node2D" parent="." unique_id=-473872839]
 material = SubResource("CanvasItemMaterial_areavis")
 script = ExtResource("10_areavisual")
 
-[node name="TurnWarningIcon" type="Node2D" parent="." unique_id=2794613085]
+[node name="TurnWarningIcon" type="Node2D" parent="." unique_id=-1500354211]
 material = SubResource("CanvasItemMaterial_areavis")
 script = ExtResource("11_turnwarning")
 
