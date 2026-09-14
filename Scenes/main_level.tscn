@@ -49,6 +49,7 @@
 [ext_resource type="PackedScene" uid="uid://btmyniusddecj" path="res://Scenes/Furnitures/Bedroom/clothes_box.tscn" id="41_r6y0e"]
 [ext_resource type="PackedScene" uid="uid://ch1l8ykh1dgkq" path="res://Scenes/Furnitures/Bedroom/carpet_cat.tscn" id="42_76m0p"]
 [ext_resource type="PackedScene" uid="uid://bre48oqyf3p16" path="res://Scenes/Furnitures/Other/ironing_table.tscn" id="42_gmjuu"]
+[ext_resource type="PackedScene" path="res://Scenes/Puzzles/uv_clue.tscn" id="44_ykarw"]
 [ext_resource type="PackedScene" uid="uid://cc54sop0gt8ot" path="res://Scenes/Furnitures/Other/music_player.tscn" id="50_3loty"]
 [ext_resource type="PackedScene" uid="uid://xm1f56m0pcs0" path="res://Scenes/Furnitures/Other/computer.tscn" id="51_gmjuu"]
 [ext_resource type="PackedScene" uid="uid://cnjvb3rpk3lvv" path="res://Scenes/Puzzles/floorboard_puzzle.tscn" id="52_ok16x"]
@@ -1904,6 +1905,10 @@ position = Vector2(2247, 739)
 [node name="IroningTable2" parent="Furnitures/MainBedroom&Dressing" unique_id=1364073033 instance=ExtResource("42_gmjuu")]
 position = Vector2(2198, 772)
 scale = Vector2(1.3, 1.3)
+
+[node name="UVClue" parent="Furnitures/MainBedroom&Dressing" unique_id=1393369613 instance=ExtResource("44_ykarw")]
+position = Vector2(-1455, 109)
+flavour_text = "Aha! I found another clue."
 
 [node name="Basement" type="Node2D" parent="Furnitures" unique_id=1081731387]
 y_sort_enabled = true
