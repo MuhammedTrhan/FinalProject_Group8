@@ -10,6 +10,7 @@ func _ready() -> void:
 
 
 func show_win() -> void:
+	Hud.visible = false # the run is over; its readouts draw above this screen
 	visible = true
 
 
