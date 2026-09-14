@@ -51,6 +51,8 @@ const WAKE_WALK_FALLBACK_DURATION := 20.0
 ## Same "generous, not time-critical" role as the two above, for the
 ## WALKING_TO_GUARD leg.
 const LOCK_WALK_FALLBACK_DURATION := 5.0
+## Beat between a clue being found and the escort actually grabbing her.
+const CLUE_REVEAL_DELAY := 3.0
 
 enum _Phase {WALKING_HOME, LOCKING_IN, WALKING_TO_GUARD, WAITING_AT_SPAWN, UNLOCKING, WALKING_TO_WAKE}
 
@@ -367,8 +369,18 @@ func _on_night_started(_day: int) -> void:
 
 
 ## Finding a clue ends the day early, same as a non-lethal catch - snaps
-## near the player and walks her home - but doesn't cost a life.
+## near the player and walks her home - but doesn't cost a life. Waits
+## CLUE_REVEAL_DELAY first so the player actually gets to see the
+## digit/message she just triggered before losing control.
 func _on_clue_revealed(_digit_index: int, _digit_value: int, _flavour: String) -> void:
+	if _run_over or _escorting or enemy.is_teleporting:
+		return
+	get_tree().create_timer(CLUE_REVEAL_DELAY).timeout.connect(_start_clue_escort)
+
+
+## Re-checks the same guard as above - something else (a real catch, the run
+## ending) may have started an escort or ended the run during the wait.
+func _start_clue_escort() -> void:
 	if _run_over or _escorting or enemy.is_teleporting:
 		return
 	_start_escort(true)
