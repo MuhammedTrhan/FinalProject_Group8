@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://mdmub6y3tpnb"
-path="res://.godot/imported/clue-scribble.png-e6849e21e9d1cc9ffe1390895657c2fb.ctex"
+uid="uid://c8cksu8gilehm"
+path="res://.godot/imported/clue_scribble.png-545c58e0bc171b3e483204b77e9af0a5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Items/clue-scribble.png"
-dest_files=["res://.godot/imported/clue-scribble.png-e6849e21e9d1cc9ffe1390895657c2fb.ctex"]
+source_file="res://Assets/Items/clue_scribble.png"
+dest_files=["res://.godot/imported/clue_scribble.png-545c58e0bc171b3e483204b77e9af0a5.ctex"]
 
 [params]
 
