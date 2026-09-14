@@ -103,6 +103,18 @@ signal follow_progress_changed(progress: float)
 
 
 # ---------------------------------------------------------------------------
+# Inventory  (Dev1 emits, Dev3 consumes)
+# ---------------------------------------------------------------------------
+
+## The player clicked a usable item (ItemData.is_usable) in the inventory UI.
+## `is_active` only matters for toggleable tools (e.g. the UV flashlight) -
+## true = switched on, false = switched off or n/a for one-shot tools like
+## the crowbar. Dev3's ToolUser (child of player.tscn) reacts.
+@warning_ignore("unused_signal")
+signal item_use_requested(item: ItemData, is_active: bool)
+
+
+# ---------------------------------------------------------------------------
 # World and puzzles  (Dev3 emits, Dev1 consumes)
 # ---------------------------------------------------------------------------
 

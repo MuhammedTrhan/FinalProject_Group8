@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://cnjvb3rpk3lvv"]
+
+[ext_resource type="Script" uid="uid://lug8cc678kt1" path="res://Scripts/Puzzles/FloorboardPuzzle.gd" id="1_fbp"]
+[ext_resource type="Resource" uid="uid://l0c6t3uxoyj5" path="res://Resources/Items/crowbar.tres" id="2_dskao"]
+[ext_resource type="Texture2D" uid="uid://mdmub6y3tpnb" path="res://Assets/Items/clue-scribble.png" id="2_scribble"]
+
+[node name="FloorboardPuzzle" type="Node2D" unique_id=83984642]
+script = ExtResource("1_fbp")
+required_item = ExtResource("2_dskao")
+
+[node name="ClueScribble" type="Sprite2D" parent="." unique_id=305798517]
+visible = false
+modulate = Color(1, 1, 1, 0.6627451)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_scribble")
