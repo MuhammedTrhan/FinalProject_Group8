@@ -30,6 +30,11 @@ var _decision_progress: float = 0.0
 var _is_filling: bool = false
 var _is_depositing: bool = false
 var _target_bin: ContainerFurniture = null
+## True after a deposit attempt (success or give-up) until he's actually
+## settled back into ordinary Patrol - no decision progress accumulates
+## during this cooldown, so he can't immediately start deciding on another
+## deposit. Chase detection is unaffected.
+var _is_returning: bool = false
 
 enum _TurnPhase {WARNING, LOOK_BEHIND}
 var _turn_check_timer: float = 0.0
@@ -69,10 +74,20 @@ func _physics_process(delta: float) -> void:
 	if enemy.escort_controller.is_escorting() or enemy.is_teleporting:
 		return
 	if enemy.state == Enemy.State.CHASE or enemy.state == Enemy.State.INVESTIGATE:
-		# A real Chase/Investigate always wins - cancel any in-progress deposit.
+		# Something else (a real spotting) already took the state machine
+		# over - drop deposit bookkeeping. Enemy's own Chase/Investigate logic
+		# is in full control now.
 		if _is_depositing:
-			_abandon_deposit()
+			_is_depositing = false
+			_target_bin = null
 		_decision_progress = 0.0
+		return
+
+	if _is_returning:
+		# Cooldown after a deposit attempt - Patrol's own IDLE (its "arrived,
+		# glancing" beat) is proof he's actually settled back into patrol.
+		if enemy.state == Enemy.State.IDLE:
+			_is_returning = false
 		return
 
 	var player := enemy.perception.get_player()
@@ -87,7 +102,7 @@ func _physics_process(delta: float) -> void:
 	else:
 		_decision_progress = maxf(_decision_progress - delta / enemy.profile.follow_drain_time, 0.0)
 		if _decision_progress <= 0.0 and _is_depositing:
-			_abandon_deposit()
+			_give_up_deposit()
 
 
 func _start_deposit_walk() -> void:
@@ -100,10 +115,12 @@ func _start_deposit_walk() -> void:
 	enemy.enter_special()
 
 
-func _abandon_deposit() -> void:
+## Follow area drained to 0 while still actively depositing.
+func _give_up_deposit() -> void:
 	_is_depositing = false
 	_target_bin = null
 	_decision_progress = 0.0
+	_is_returning = true
 	enemy.enter_patrol()
 
 
@@ -180,6 +197,7 @@ func _perform_deposit() -> void:
 	_is_depositing = false
 	_decision_progress = 0.0
 	_finishing_deposit = false
+	_is_returning = true
 	enemy.enter_patrol()
 
 
