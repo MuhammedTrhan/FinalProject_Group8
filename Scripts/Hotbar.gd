@@ -12,6 +12,9 @@ extends Control
 const SLOT_SIZE := Vector2(52, 52)
 const SELECTED_BORDER := Color(0.95, 0.82, 0.42)
 const IDLE_BORDER := Color(0.35, 0.31, 0.26)
+## A switched-on tool is bordered in its own colour - the UV cone is the only
+## other sign it is running, and that is off-screen whenever she looks away.
+const ACTIVE_BORDER := Color(0.7, 0.35, 1.0)
 
 @onready var slot_row: HBoxContainer = $SlotRow
 @onready var name_label: Label = $NameLabel
@@ -28,6 +31,9 @@ func _ready() -> void:
 
 	Inventory.items_changed.connect(_refresh)
 	Inventory.selection_changed.connect(_on_selection_changed)
+	# Toggling a tool changes neither the item list nor the selection, so the
+	# switched-on border needs its own trigger.
+	GameEvents.item_use_requested.connect(_on_item_use_requested)
 	_refresh()
 
 
@@ -70,31 +76,33 @@ func _build_slots() -> void:
 		icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		slot.add_child(icon)
 
-		# The "press 3 for this one" hint, tucked into the corner.
-		var number := Label.new()
-		number.text = str(i + 1)
-		number.add_theme_font_size_override("font_size", 11)
-		number.add_theme_color_override("font_color", Color(0.6, 0.55, 0.45))
-		number.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		number.position = Vector2(4, 1)
-		slot.add_child(number)
-
 		_slots.append(slot)
 		_icons.append(icon)
 
 
-func _make_slot_style(selected: bool) -> StyleBoxFlat:
+func _make_slot_style(selected: bool, active: bool = false) -> StyleBoxFlat:
 	var style := StyleBoxFlat.new()
 	style.bg_color = Color(0.05, 0.04, 0.04, 0.85)
-	style.border_color = SELECTED_BORDER if selected else IDLE_BORDER
-	style.set_border_width_all(3 if selected else 2)
+	if active:
+		style.border_color = ACTIVE_BORDER
+	else:
+		style.border_color = SELECTED_BORDER if selected else IDLE_BORDER
+	style.set_border_width_all(3 if selected or active else 2)
 	style.set_corner_radius_all(4)
 	return style
 
 
+## Clicking a slot picks it up; clicking the slot she is already holding uses
+## what is in it. That second click is the only way to swing a one-shot tool
+## like the crowbar from the hotbar - merely holding it does nothing.
 func _on_slot_gui_input(event: InputEvent, index: int) -> void:
 	var click := event as InputEventMouseButton
-	if click != null and click.pressed and click.button_index == MOUSE_BUTTON_LEFT:
+	if click == null or not click.pressed or click.button_index != MOUSE_BUTTON_LEFT:
+		return
+
+	if index == Inventory.get_selected_index():
+		Inventory.use_item(Inventory.get_held_item())
+	else:
 		Inventory.select_slot(index)
 
 
@@ -102,16 +110,27 @@ func _on_selection_changed(_index: int, _item: ItemData) -> void:
 	_refresh()
 
 
+func _on_item_use_requested(_item: ItemData, _is_active: bool) -> void:
+	_refresh()
+
+
 func _refresh() -> void:
 	var items := Inventory.get_items()
 	var selected := Inventory.get_selected_index()
+	var active := Inventory.get_active_tool()
 
 	for i in _slots.size():
 		var item: ItemData = items[i] if i < items.size() else null
 		_icons[i].texture = item.icon if item else null
-		_slots[i].add_theme_stylebox_override("panel", _make_slot_style(i == selected))
+		_slots[i].add_theme_stylebox_override(
+			"panel", _make_slot_style(i == selected, item != null and item == active))
 
 	# Only the held item is named - eight captions at once would be unreadable,
 	# and the point of the caption is to confirm what she just picked.
 	var held := Inventory.get_held_item()
-	name_label.text = held.display_name if held else ""
+	if held == null:
+		name_label.text = ""
+	elif held == active:
+		name_label.text = "%s (on)" % held.display_name
+	else:
+		name_label.text = held.display_name
