@@ -16,7 +16,7 @@ var last_direction: String = "down"
 
 ## Interaction poses override the default walk/idle animations. Matched by
 ## prefix against the finished animation's name.
-var interaction_anims: Array[String] = ["slash", "back_slash", "lock", "sit", "pickup"]
+var interaction_anims: Array[String] = ["slash", "back_slash", "lock", "sit", "pickup", "crowbar"]
 
 
 ## Call this from the actor's _physics_process.
@@ -65,6 +65,8 @@ func handle_interaction_anim(interaction: Interactions.InteractionType) -> void:
 			interact_state = "lock"
 		Interactions.InteractionType.PICKUP:
 			interact_state = "pickup"
+		Interactions.InteractionType.TOOL_USE:
+			interact_state = "crowbar"
 		Interactions.InteractionType.SITDOWN:
 			interact_state = "sit"
 		Interactions.InteractionType.STANDUP:
