@@ -26,9 +26,6 @@ const TURN_CHECK_INTERVAL := 3.0
 ## chance to complete against a stalking player before he turns back.
 const LOOK_BEHIND_DURATION := 1.0
 
-const DECISION_FILL_COLOR := Color(0, 1, 0, 0.35)
-const DECISION_DRAIN_COLOR := Color(1, 0, 0, 0.35)
-
 var _decision_progress: float = 0.0
 var _is_filling: bool = false
 var _is_depositing: bool = false
@@ -55,15 +52,11 @@ func get_chase_progress() -> float:
 	return enemy.perception.get_dwell_progress() if enemy else 0.0
 
 
-## The world-space ring's progress.
+## Shown on Dev1's HUD radial bar ("Gift") while Paranoid is active - the
+## world-space ring itself stays a plain unfilled outline (see
+## PersonalityAreaVisual), matching Forgetful's.
 func get_follow_progress() -> float:
 	return _decision_progress
-
-
-func get_outer_area_fill_color() -> Color:
-	if _decision_progress <= 0.0 or _decision_progress >= 1.0:
-		return Color.TRANSPARENT # baseline, or a decision already made - nothing to show either way
-	return DECISION_FILL_COLOR if _is_filling else DECISION_DRAIN_COLOR
 
 
 func reacts_to_perception_during_special() -> bool:
