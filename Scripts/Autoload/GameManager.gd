@@ -13,6 +13,20 @@ const ENEMY_SCENE = preload("res://Scenes/Enemy/enemy.tscn")
 # 3 passcode digits, per docs/CONTRACT.md: 0=UV floor, 1=floorboard, 2=diary.
 const PASSCODE_LENGTH := 3
 
+## Which personality's reward unlocks each digit - each one hands over the
+## tool its puzzle needs (Overwhelmed the UV flashlight, Forgetful the
+## crowbar, Paranoid the three diary scraps).
+##
+## A clue retires this personality rather than whoever happens to be awake:
+## the diary scraps are combined in the inventory panel, which she can do on
+## any later day, and that would otherwise retire the wrong one and leave
+## Paranoid in the pool.
+const DIGIT_OWNERS: Array[PersonalityProfile.Personality] = [
+	PersonalityProfile.Personality.OVERWHELMED,
+	PersonalityProfile.Personality.FORGETFUL,
+	PersonalityProfile.Personality.PARANOID,
+]
+
 @export var day_duration_sec: float = 90
 @export var night_duration_sec: float = 20
 ## The walk-her-home window between day and night. Matches Dev2's
@@ -313,9 +327,10 @@ func _on_clue_revealed(digit_index: int, digit_value: int, _flavour: String) -> 
 
 	passcode_digits[digit_index] = digit_value
 
-	# Whoever she was up against when she found this clue is done for the run.
-	if not _retired_personalities.has(current_personality):
-		_retired_personalities.append(current_personality)
+	# Whoever's reward unlocked this clue is done for the run - see DIGIT_OWNERS.
+	var digit_owner := DIGIT_OWNERS[digit_index]
+	if not _retired_personalities.has(digit_owner):
+		_retired_personalities.append(digit_owner)
 
 	if is_passcode_complete():
 		passcode_completed.emit()
