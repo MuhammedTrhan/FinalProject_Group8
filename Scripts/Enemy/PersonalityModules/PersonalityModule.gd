@@ -53,15 +53,6 @@ func special_pose_animation() -> StringName:
 	return &""
 
 
-## Fill color for the outer follow-area ring in PersonalityAreaVisual.
-## Color.TRANSPARENT (the default) means "just draw the plain unfilled
-## outline" (Forgetful's ring). A personality wanting a dynamic fill
-## (Paranoid's green-while-deciding/red-while-giving-up) returns a real
-## color here each frame.
-func get_outer_area_fill_color() -> Color:
-	return Color.TRANSPARENT
-
-
 ## Whether Enemy._check_perception_transitions() should still run (and
 ## PersonalityAreaVisual should still show the cone) while in State.SPECIAL.
 ## false (the default) - Overwhelmed's rocking/panicking is inert to

@@ -53,17 +53,9 @@ func _draw_outer_ring() -> void:
 	var radius := _enemy.profile.follow_area_radius
 	if radius <= 0.0:
 		return
-
-	# The boundary outline stays visible at all times (baseline, and all
-	# through filling/draining) - only the fill itself is the dynamic part.
+	# Plain unfilled outline only - the decision/stalk progress itself is
+	# shown on Dev1's HUD radial bar (get_follow_progress()), not drawn here.
 	draw_arc(Vector2.ZERO, radius, 0, TAU, SEGMENTS, ring_color, ring_width)
-
-	var override_color := _enemy.active_module.get_outer_area_fill_color() if _enemy.active_module else Color.TRANSPARENT
-	if override_color.a > 0.0:
-		# Fills from the center outward (radius scales with progress) rather
-		# than fading in place, at a constant color/opacity.
-		var progress := _enemy.active_module.get_follow_progress() if _enemy.active_module else 0.0
-		_draw_filled_circle(radius * progress, override_color)
 
 
 func _draw_inner_area() -> void:
