@@ -1306,7 +1306,7 @@ end_position = Vector2(2177, 552)
 [node name="NavigationLink2D2" type="NavigationLink2D" parent="NavigationRegion2D" unique_id=1777077021]
 position = Vector2(14, -8)
 start_position = Vector2(448, 392)
-end_position = Vector2(-1166, 526)
+end_position = Vector2(-1151, 520)
 
 [node name="EditorLabels" type="Node2D" parent="." unique_id=1631701532]
 
@@ -1552,7 +1552,7 @@ destination_stairs = NodePath("../Stairs2")
 leads_upstairs = false
 
 [node name="Stairs4" parent="Furnitures/Stairs" unique_id=588314391 node_paths=PackedStringArray("destination_stairs") instance=ExtResource("14_hd7sb")]
-position = Vector2(-1097, 502)
+position = Vector2(-1102, 504)
 rotation = 3.1415927
 scale = Vector2(1, -1)
 destination_stairs = NodePath("../Stairs")
