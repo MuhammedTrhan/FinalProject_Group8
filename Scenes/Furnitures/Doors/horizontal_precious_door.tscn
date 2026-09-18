@@ -6,7 +6,7 @@
 
 [node name="HorizontalPreciousDoor" unique_id=758378394 instance=ExtResource("1_67iqt")]
 required_key_item = ExtResource("2_5st2e")
-cant_unlock_message = "I don't know the password."
+is_escape_door = true
 
 [node name="DoorFrame" parent="." index="0" unique_id=1379340397]
 region_rect = Rect2(192, 80, 32, 48)
