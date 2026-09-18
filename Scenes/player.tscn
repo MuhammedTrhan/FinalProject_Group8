@@ -3,13 +3,13 @@
 [ext_resource type="Script" uid="uid://b7suakb28m8gp" path="res://Scripts/Player/PlayerMovement.gd" id="1_cvnsp"]
 [ext_resource type="Texture2D" uid="uid://bldglbpa420de" path="res://Assets/Player/standard/idle.png" id="1_v0iea"]
 [ext_resource type="Script" uid="uid://bpgm6bh6mfqtp" path="res://Scripts/Player/PlayerAnimationHandler.gd" id="3_6t5aa"]
-[ext_resource type="Script" path="res://Scripts/Player/ToolUser.gd" id="4_tooluser"]
-[ext_resource type="Script" path="res://Scripts/Player/UVFlashlight.gd" id="5_uvflash"]
 [ext_resource type="Texture2D" uid="uid://bko47g71q7q55" path="res://Assets/Player/standard/slash.png" id="3_fkybt"]
 [ext_resource type="Texture2D" uid="uid://ddjdt1gosvwy2" path="res://Assets/Player/standard/walk.png" id="3_vgqql"]
 [ext_resource type="Texture2D" uid="uid://cknx51uo0l5nq" path="res://Assets/Player/standard/hurt.png" id="4_3smsa"]
 [ext_resource type="Texture2D" uid="uid://bga5juj825ohf" path="res://Assets/Player/standard/crowbar.png" id="4_8erm5"]
+[ext_resource type="Script" uid="uid://d4f0c4r2udhm2" path="res://Scripts/Player/ToolUser.gd" id="4_tooluser"]
 [ext_resource type="Texture2D" uid="uid://b16tacmrlbvog" path="res://Assets/Player/standard/sit.png" id="4_x3wgy"]
+[ext_resource type="Script" uid="uid://rjabdy5ai55x" path="res://Scripts/Player/UVFlashlight.gd" id="5_uvflash"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cvnsp"]
 radius = 2.6666667
@@ -1213,11 +1213,11 @@ _data = {
 &"walk_up": SubResource("Animation_3smsa")
 }
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_6t5aa"]
-radius = 34.826553
-
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_prompt"]
 light_mode = 1
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6t5aa"]
+radius = 34.826553
 
 [sub_resource type="LabelSettings" id="LabelSettings_prompt"]
 font_size = 32
@@ -1248,10 +1248,10 @@ libraries/ = SubResource("AnimationLibrary_vgqql")
 speed_scale = 0.05
 script = ExtResource("3_6t5aa")
 
-[node name="ToolUser" type="Node" parent="."]
+[node name="ToolUser" type="Node" parent="." unique_id=1700954218]
 script = ExtResource("4_tooluser")
 
-[node name="UVFlashlight" type="Node2D" parent="."]
+[node name="UVFlashlight" type="Node2D" parent="." unique_id=1398695626]
 material = SubResource("CanvasItemMaterial_prompt")
 script = ExtResource("5_uvflash")
 
