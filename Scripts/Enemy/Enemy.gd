@@ -29,6 +29,10 @@ const TOO_CLOSE_DISTANCE := 12.0
 const LOST_TOLERANCE := 2.0
 ## Matches PlayerMovement.gd's start_teleport() default duration exactly -
 const STAIR_TWEEN_DURATION := 0.5
+## Once within this distance of the intended stairs' tween_start_pos, walk
+## straight at it instead of trusting NavigationAgent2D. This is to fix the
+## bug where enemy overshoots the stairs and gets stuck.
+const STAIRS_APPROACH_DISTANCE := 20.0
 
 ## Stuck detection: if velocity implies motion but the body barely moved
 ## for this long, something's physically blocking it.
@@ -97,8 +101,18 @@ var paranoid_last_used_bin: Node = null
 ## {[floor_a, floor_b]: Stairs} - built once in _index_stairs(). Bidirectional
 ## per pair, so a 3-floor / 2-pair level holds at most 4 entries.
 var _stairs_by_floor_pair: Dictionary = {}
+## The Stairs node _resolve_nav_target() is currently routing toward, or null
+## if the current nav target doesn't require a floor crossing. Set every
+## frame by _resolve_nav_target(); consumed by _move_toward_nav_target() and
+## read by the debug overlay.
+var _intended_stairs: Node = null
 var _patrol_points: Array[Node2D] = []
 var _patrol_index: int = 0
+## The current patrol point's raw position, re-resolved every frame through
+## _resolve_nav_target() by _process_patrol() - set by _go_to_next_patrol_point().
+## Needed for the rare case a patrol point ends up on a different floor than
+## the enemy currently is.
+var _patrol_target: Vector2
 
 ## Last value passed to GameEvents.chase_progress_changed.
 ## Only emits again once the value actually moves.
@@ -274,6 +288,9 @@ func _enter_state(new_state: State) -> void:
 	_capture_on_arrival = false
 	_capture_hideable = null
 	is_turn_warning = false
+	# Clear it on every transition so it can't hold a stale stairs reference
+	# into a state that hasn't yet recomputed it.
+	_intended_stairs = null
 
 	if new_state == State.IDLE:
 		# Every patrol arrival gets at least a brief "looking around" beat
@@ -344,7 +361,9 @@ func _process_idle(delta: float) -> void:
 
 
 func _process_patrol(_delta: float) -> void:
-	_move_toward(nav_agent.get_next_path_position(), profile.move_speed)
+	if not _patrol_points.is_empty():
+		nav_agent.target_position = _resolve_nav_target(_patrol_target)
+	_move_toward_nav_target(profile.move_speed)
 
 	if nav_agent.is_navigation_finished():
 		# Every arrival pauses briefly (see _enter_state's IDLE branch) -
@@ -368,7 +387,7 @@ func _process_investigate(delta: float) -> void:
 		return
 
 	nav_agent.target_position = _resolve_nav_target(investigate_target)
-	_move_toward(nav_agent.get_next_path_position(), profile.move_speed)
+	_move_toward_nav_target(profile.move_speed)
 
 	if nav_agent.is_navigation_finished():
 		if _capture_on_arrival:
@@ -423,7 +442,7 @@ func _process_chase(delta: float) -> void:
 			return
 
 	nav_agent.target_position = _resolve_nav_target(player.global_position)
-	_move_toward(nav_agent.get_next_path_position(), profile.chase_speed)
+	_move_toward_nav_target(profile.chase_speed)
 
 	if perception.is_player_visible() and global_position.distance_to(player.global_position) <= TOO_CLOSE_DISTANCE:
 		escort_controller.register_catch(&"too_close")
@@ -460,10 +479,20 @@ func _move_toward(target: Vector2, speed: float) -> void:
 	velocity = (target - global_position).normalized() * speed
 
 
+## Same as _move_toward(nav_agent.get_next_path_position(), speed), except
+## once close enough to a stairs target it beelines the remaining short
+## stretch directly instead of trusting the navmesh path for it.
+func _move_toward_nav_target(speed: float) -> void:
+	if _intended_stairs != null and global_position.distance_to(_intended_stairs.tween_start_pos) <= STAIRS_APPROACH_DISTANCE:
+		_move_toward(_intended_stairs.tween_start_pos, speed)
+	else:
+		_move_toward(nav_agent.get_next_path_position(), speed)
+
+
 func _go_to_next_patrol_point() -> void:
 	if _patrol_points.is_empty():
 		return
-	nav_agent.target_position = _patrol_points[_patrol_index].global_position
+	_patrol_target = _patrol_points[_patrol_index].global_position
 	_patrol_index = (_patrol_index + 1) % _patrol_points.size()
 
 
@@ -641,9 +670,11 @@ func _resolve_nav_target(real_target: Vector2) -> Vector2:
 	var target_floor := FloorZones.get_floor(real_target)
 
 	if my_floor == target_floor:
+		_intended_stairs = null
 		return real_target
 
 	var stairs = _find_stairs_toward(my_floor, target_floor)
+	_intended_stairs = stairs
 	if stairs == null:
 		return real_target # safety net - never crash, never stall forever
 
@@ -661,7 +692,7 @@ func _find_stairs_toward(my_floor: int, target_floor: int) -> Node:
 func escort_step_toward(target: Vector2, delta: float, speed: float) -> Vector2:
 	nav_agent.target_position = _resolve_nav_target(target)
 	if not _door_busy and not _capturing:
-		_move_toward(nav_agent.get_next_path_position(), speed)
+		_move_toward_nav_target(speed)
 	_resolve_movement_and_obstructions(delta)
 	_update_door_closing()
 	return velocity.normalized() if velocity.length() > 1.0 else Vector2.ZERO
@@ -746,6 +777,14 @@ func enter_patrol() -> void:
 ## walk to a chosen trash bin.
 func enter_special() -> void:
 	_enter_special()
+
+
+## True only while this Enemy's current nav resolution has deliberately
+## chosen `stairs` as the crossing point for its live target. Used by
+## Stairs.gd to distinguish "actually trying to cross floors here" from
+## "just happened to walk near the trigger box".
+func wants_to_use_stairs(stairs: Node) -> bool:
+	return _intended_stairs == stairs
 
 
 ## One-shot poll for a UI that just connected to GameEvents.chase_progress_changed

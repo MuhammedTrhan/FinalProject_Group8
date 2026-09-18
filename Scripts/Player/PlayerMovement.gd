@@ -31,6 +31,10 @@ var _candidates: Array[Interactable] = []
 var _last_primary_prompt: String = ""
 var _last_secondary_prompt: String = ""
 
+# Set by Sitable/Hideable while they occupy the player (sitting or hidden),
+# so no OTHER interactable can be reached until they release it.
+var _locked_interactable: Interactable = null
+
 
 func _ready() -> void:
 	interract_area.area_entered.connect(_on_interract_area_entered)
@@ -62,6 +66,10 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func _try_interact(secondary: bool) -> void:
+	# Same guard as handle_movement() - she shouldn't be able to interract.
+	if is_teleporting or is_being_escorted:
+		return
+
 	var candidate := _get_nearest_candidate()
 	if candidate == null:
 		return
@@ -86,9 +94,27 @@ func _on_interract_area_exited(area: Area2D) -> void:
 		_candidates.erase(interactable)
 
 
+func set_interaction_lock(interactable: Interactable) -> void:
+	_locked_interactable = interactable
+
+
+# `interactable` must match the current holder, so one object's stand-up/
+# reveal can't clobber a lock some other object legitimately holds. Always
+# clears any stale animation-interaction lock too, so a sitting/hiding pose
+# can never survive past the interaction that's ending it.
+func clear_interaction_lock(interactable: Interactable) -> void:
+	if _locked_interactable == interactable:
+		_locked_interactable = null
+	anim_handler.end_interaction()
+
+
 # Nearest candidate wins - by distance to its interaction shape, not its
 # origin (see Interactable.get_distance_to()). `priority` breaks ties.
+# While occupied by a Sitable/Hideable, that's the ONLY candidate reachable.
 func _get_nearest_candidate() -> Interactable:
+	if _locked_interactable != null and is_instance_valid(_locked_interactable):
+		return _locked_interactable
+
 	var nearest: Interactable = null
 	var nearest_dist := INF
 
@@ -263,6 +289,26 @@ func orient_for_furniture(snap_pos: Vector2, facing_from: Vector2, facing_to: Ve
 	anim_handler.set_facing_direction(find_look_direction(facing_to, facing_from))
 
 
+# The Hideable currently holding the player (null if not hidden) - lets
+# external systems (EscortController) force a clean reveal without needing
+# their own reference to the furniture.
+var _current_hideable: Hideable = null
+
+# The Sitable currently holding the player (null if not seated) - same role
+# as _current_hideable above, but for sitting. Set/cleared by Sitable itself
+# (sit_down()/stand_up()), since sitting has no PlayerMovement-owned method
+# of its own the way set_hidden() is for hiding.
+var _current_sitable: Sitable = null
+
+
+func get_current_sitable() -> Sitable:
+	return _current_sitable
+
+
+func set_current_sitable(sitable: Sitable) -> void:
+	_current_sitable = sitable
+
+
 # Called by Hideable when the player hides inside/under (or is revealed
 # from) a piece of furniture. Unlike sitting, there is no animation for
 # this - the player simply disappears, and is frozen in place
@@ -274,12 +320,18 @@ func set_hidden(is_hidden: bool, snap_pos: Vector2, hideable: Hideable = null) -
 		collision_layer = 0
 		sprite.hide()
 		accept_input = false
+		_current_hideable = hideable
 	else:
 		collision_layer = Layers.PLAYER
 		sprite.show()
 		accept_input = true
+		_current_hideable = null
 
 	GameEvents.player_hidden_changed.emit(is_hidden, hideable)
+
+
+func get_current_hideable() -> Hideable:
+	return _current_hideable
 
 
 # Stop player movement during interactions and resume it after the interaction animation is finished

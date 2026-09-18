@@ -12,7 +12,7 @@
 [ext_resource type="Script" uid="uid://rjabdy5ai55x" path="res://Scripts/Player/UVFlashlight.gd" id="5_uvflash"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cvnsp"]
-radius = 2.6666667
+radius = 3.0
 height = 16.0
 
 [sub_resource type="Animation" id="Animation_cvnsp"]
