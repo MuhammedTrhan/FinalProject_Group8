@@ -8,6 +8,9 @@ extends Interactable
 ## gate lock/unlock (secondary) - opening/closing an already-unlocked door
 ## must never require holding anything.
 @export var required_key_item: ItemData
+## Skips the key/lock logic entirely: E opens the exit keypad instead, once
+## the passcode is fully known - see _do_secondary().
+@export var is_escape_door := false
 
 @onready var hitbox = $Hitbox
 @onready var closed_door: Sprite2D = $DoorClosed
@@ -51,8 +54,15 @@ func _do_interact(_actor: Node2D) -> Interactions.InteractionType:
 		return Interactions.InteractionType.OPEN
 
 
-## Secondary (action/E): lock/unlock.
+## Secondary (action/E): lock/unlock, or enter the passcode for an escape door.
 func _do_secondary(_actor: Node2D) -> Interactions.InteractionType:
+	if is_escape_door:
+		if not GameManager.is_passcode_complete():
+			GameEvents.message_requested.emit("I don't know the password.")
+			return Interactions.InteractionType.NONE
+		ExitKeypad.open()
+		return Interactions.InteractionType.NONE
+
 	if not _has_required_key():
 		GameEvents.message_requested.emit("I don't have the right key.")
 		return Interactions.InteractionType.NONE

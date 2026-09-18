@@ -35,7 +35,6 @@ signal day_started(day: int, personality: int)
 @warning_ignore("unused_signal")
 signal night_started(day: int)
 
-## NOT YET EMITTED - requested of Dev1 09.09.2026, see docs/CONTRACT.md §2.2.
 ## Fires the instant the day's timer would otherwise have fired
 ## night_started right away - GameManager should then wait a further fixed
 ## ~5s (matching Dev2's EscortController.ESCORT_DURATION) before actually

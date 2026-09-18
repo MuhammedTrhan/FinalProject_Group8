@@ -38,8 +38,8 @@ from day one). Its ownership transfers to Developer 1.
 signal run_started(run_seed: int)
 signal day_started(day: int, personality: int)   # personality = PersonalityProfile.Personality
 signal night_started(day: int)
-signal day_ended(day: int)      # requested 09.09.2026, not yet emitted - see below
-signal night_ended(day: int)    # requested 09.09.2026, not yet emitted - see below
+signal day_ended(day: int)      # requested 09.09.2026
+signal night_ended(day: int)    # requested 09.09.2026
 ```
 
 `day_started` is what switches the antagonist's active personality. Until it
@@ -91,6 +91,7 @@ Inventory.remove_item(item: ItemData) -> bool
 
 GameManager.current_personality -> int      # PersonalityProfile.Personality
 GameManager.is_day() -> bool
+GameManager.is_passcode_complete() -> bool  # added 18.09.2026 - see escape-door gating
 ```
 
 ### 2.5 Screens
