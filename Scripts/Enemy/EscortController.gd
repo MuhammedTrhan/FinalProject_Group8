@@ -192,6 +192,8 @@ func _has_arrived_at(target: Vector2) -> bool:
 
 
 func _start_escort(triggered_internally: bool) -> void:
+	_reveal_hidden_player()
+
 	_escorting = true
 	_did_escort_this_cycle = true
 	_escort_triggered_by_catch = triggered_internally
@@ -208,6 +210,18 @@ func _start_escort(triggered_internally: bool) -> void:
 
 	if player and is_instance_valid(player) and player.has_method("start_escort"):
 		player.start_escort()
+
+
+## Forces the player out of hiding before an escort begins.
+## Safe no-op if the player isn't currently hidden.
+func _reveal_hidden_player() -> void:
+	var player := enemy.perception.get_player()
+	if player == null or not is_instance_valid(player) or not player.has_method("get_current_hideable"):
+		return
+
+	var hideable: Hideable = player.get_current_hideable()
+	if hideable != null and is_instance_valid(hideable) and hideable.has_method("reveal_player"):
+		hideable.reveal_player(player)
 
 
 ## The door guard point (WALKING_TO_GUARD/UNLOCKING walk here) - falls back

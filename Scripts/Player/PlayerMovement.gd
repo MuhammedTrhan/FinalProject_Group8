@@ -285,6 +285,12 @@ func orient_for_furniture(snap_pos: Vector2, facing_from: Vector2, facing_to: Ve
 	anim_handler.set_facing_direction(find_look_direction(facing_to, facing_from))
 
 
+# The Hideable currently holding the player (null if not hidden) - lets
+# external systems (EscortController) force a clean reveal without needing
+# their own reference to the furniture.
+var _current_hideable: Hideable = null
+
+
 # Called by Hideable when the player hides inside/under (or is revealed
 # from) a piece of furniture. Unlike sitting, there is no animation for
 # this - the player simply disappears, and is frozen in place
@@ -296,12 +302,18 @@ func set_hidden(is_hidden: bool, snap_pos: Vector2, hideable: Hideable = null) -
 		collision_layer = 0
 		sprite.hide()
 		accept_input = false
+		_current_hideable = hideable
 	else:
 		collision_layer = Layers.PLAYER
 		sprite.show()
 		accept_input = true
+		_current_hideable = null
 
 	GameEvents.player_hidden_changed.emit(is_hidden, hideable)
+
+
+func get_current_hideable() -> Hideable:
+	return _current_hideable
 
 
 # Stop player movement during interactions and resume it after the interaction animation is finished
