@@ -372,8 +372,13 @@ func _on_night_started(_day: int) -> void:
 ## near the player and walks her home - but doesn't cost a life. Waits
 ## CLUE_REVEAL_DELAY first so the player actually gets to see the
 ## digit/message she just triggered before losing control.
+##
+## Not for the FINAL clue, though - once the passcode is complete she needs
+## to actually be free to go escape, so the day just runs its normal course.
 func _on_clue_revealed(_digit_index: int, _digit_value: int, _flavour: String) -> void:
 	if _run_over or _escorting or enemy.is_teleporting:
+		return
+	if GameManager.is_passcode_complete():
 		return
 	get_tree().create_timer(CLUE_REVEAL_DELAY).timeout.connect(_start_clue_escort)
 
