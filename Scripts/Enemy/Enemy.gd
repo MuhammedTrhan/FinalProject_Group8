@@ -108,6 +108,11 @@ var _stairs_by_floor_pair: Dictionary = {}
 var _intended_stairs: Node = null
 var _patrol_points: Array[Node2D] = []
 var _patrol_index: int = 0
+## The current patrol point's raw position, re-resolved every frame through
+## _resolve_nav_target() by _process_patrol() - set by _go_to_next_patrol_point().
+## Needed for the rare case a patrol point ends up on a different floor than
+## the enemy currently is.
+var _patrol_target: Vector2
 
 ## Last value passed to GameEvents.chase_progress_changed.
 ## Only emits again once the value actually moves.
@@ -356,7 +361,9 @@ func _process_idle(delta: float) -> void:
 
 
 func _process_patrol(_delta: float) -> void:
-	_move_toward(nav_agent.get_next_path_position(), profile.move_speed)
+	if not _patrol_points.is_empty():
+		nav_agent.target_position = _resolve_nav_target(_patrol_target)
+	_move_toward_nav_target(profile.move_speed)
 
 	if nav_agent.is_navigation_finished():
 		# Every arrival pauses briefly (see _enter_state's IDLE branch) -
@@ -485,7 +492,7 @@ func _move_toward_nav_target(speed: float) -> void:
 func _go_to_next_patrol_point() -> void:
 	if _patrol_points.is_empty():
 		return
-	nav_agent.target_position = _patrol_points[_patrol_index].global_position
+	_patrol_target = _patrol_points[_patrol_index].global_position
 	_patrol_index = (_patrol_index + 1) % _patrol_points.size()
 
 
@@ -770,6 +777,14 @@ func enter_patrol() -> void:
 ## walk to a chosen trash bin.
 func enter_special() -> void:
 	_enter_special()
+
+
+## True only while this Enemy's current nav resolution has deliberately
+## chosen `stairs` as the crossing point for its live target. Used by
+## Stairs.gd to distinguish "actually trying to cross floors here" from
+## "just happened to walk near the trigger box".
+func wants_to_use_stairs(stairs: Node) -> bool:
+	return _intended_stairs == stairs
 
 
 ## One-shot poll for a UI that just connected to GameEvents.chase_progress_changed

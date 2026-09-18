@@ -55,6 +55,11 @@ func on_teleport_trigger(body: Node) -> void:
 	if body.get("is_teleporting"):
 		return
 
+	# An enemy can clip this trigger's box while walking past (e.g. a Patrol
+	# leg's straight-line path) without actually intending to cross floors.
+	if body.is_in_group("enemy") and body.has_method("wants_to_use_stairs") and not body.wants_to_use_stairs(self):
+		return
+
 	if destination_stairs and (body.is_in_group("player") or body.is_in_group("enemy")):
 		var dest_stair_start_point: Vector2
 		var target_spawn_pos: Vector2
