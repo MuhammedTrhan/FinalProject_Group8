@@ -66,6 +66,10 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func _try_interact(secondary: bool) -> void:
+	# Same guard as handle_movement() - she shouldn't be able to interract.
+	if is_teleporting or is_being_escorted:
+		return
+
 	var candidate := _get_nearest_candidate()
 	if candidate == null:
 		return
