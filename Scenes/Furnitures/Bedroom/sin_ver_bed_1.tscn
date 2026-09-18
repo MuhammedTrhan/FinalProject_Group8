@@ -1,13 +1,13 @@
 [gd_scene format=3 uid="uid://ok4242evxvb6"]
 
-[ext_resource type="PackedScene" path="res://Scenes/Furnitures/furniture_hideable_base.tscn" id="1_odfwg"]
+[ext_resource type="PackedScene" uid="uid://dnyp44skrsl0q" path="res://Scenes/Furnitures/furniture_hideable_base.tscn" id="1_odfwg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_beda0"]
 size = Vector2(28, 37)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_beda0"]
 radius = 21.0
-height = 84.0
+height = 78.0
 
 [node name="SingleVerticalBed1" unique_id=2065614399 instance=ExtResource("1_odfwg")]
 

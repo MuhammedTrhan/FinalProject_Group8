@@ -3,23 +3,24 @@
 [ext_resource type="PackedScene" uid="uid://dpnh7gu3t8o6i" path="res://Scenes/Furnitures/furniture_sitable_base.tscn" id="1_qev1g"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1nbdj"]
-size = Vector2(45, 21)
+size = Vector2(47, 21)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_x7f8h"]
-radius = 28.0
+radius = 21.0
 height = 58.0
 
 [node name="Sitable" unique_id=758378394 instance=ExtResource("1_qev1g")]
 
 [node name="Sprite2D" parent="." index="0" unique_id=1764835962]
-region_rect = Rect2(84, 160, 54, 32.031494)
+region_rect = Rect2(80, 160, 64, 32)
 
 [node name="Hitbox" parent="." index="1" unique_id=150259076]
 visible = true
-position = Vector2(1.5, 5.5)
+position = Vector2(0.5, 5.5)
 shape = SubResource("RectangleShape2D_1nbdj")
 
 [node name="InterractionBox" parent="InterractionArea" parent_id_path=PackedInt32Array(97300687) index="0" unique_id=1028417380]
+rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_x7f8h")
 
 [node name="StandUpMarker" parent="." index="3" unique_id=1118046313]
