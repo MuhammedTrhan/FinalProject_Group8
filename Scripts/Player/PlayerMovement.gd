@@ -290,6 +290,20 @@ func orient_for_furniture(snap_pos: Vector2, facing_from: Vector2, facing_to: Ve
 # their own reference to the furniture.
 var _current_hideable: Hideable = null
 
+# The Sitable currently holding the player (null if not seated) - same role
+# as _current_hideable above, but for sitting. Set/cleared by Sitable itself
+# (sit_down()/stand_up()), since sitting has no PlayerMovement-owned method
+# of its own the way set_hidden() is for hiding.
+var _current_sitable: Sitable = null
+
+
+func get_current_sitable() -> Sitable:
+	return _current_sitable
+
+
+func set_current_sitable(sitable: Sitable) -> void:
+	_current_sitable = sitable
+
 
 # Called by Hideable when the player hides inside/under (or is revealed
 # from) a piece of furniture. Unlike sitting, there is no animation for

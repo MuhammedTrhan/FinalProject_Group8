@@ -40,6 +40,9 @@ func sit_down(actor: Node2D) -> void:
 	if actor.has_method("set_interaction_lock"):
 		actor.set_interaction_lock(self)
 
+	if actor.has_method("set_current_sitable"):
+		actor.set_current_sitable(self)
+
 	_orient_actor(actor, sit_down_point.global_position)
 
 	prompt_text = "Stand Up"
@@ -54,6 +57,9 @@ func stand_up(actor: Node2D) -> void:
 
 	if actor.has_method("clear_interaction_lock"):
 		actor.clear_interaction_lock(self)
+
+	if actor.has_method("set_current_sitable"):
+		actor.set_current_sitable(null)
 
 	_orient_actor(actor, stand_up_point.global_position)
 

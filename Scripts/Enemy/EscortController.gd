@@ -193,6 +193,7 @@ func _has_arrived_at(target: Vector2) -> bool:
 
 func _start_escort(triggered_internally: bool) -> void:
 	_reveal_hidden_player()
+	_stand_up_sitting_player()
 
 	_escorting = true
 	_did_escort_this_cycle = true
@@ -222,6 +223,19 @@ func _reveal_hidden_player() -> void:
 	var hideable: Hideable = player.get_current_hideable()
 	if hideable != null and is_instance_valid(hideable) and hideable.has_method("reveal_player"):
 		hideable.reveal_player(player)
+
+
+## Same role as _reveal_hidden_player() but for sitting. Reuses Sitable.stand_up()
+## directly, so it also clears the animation lock the same way an ordinary
+## stand-up does. Safe no-op if the player isn't currently seated.
+func _stand_up_sitting_player() -> void:
+	var player := enemy.perception.get_player()
+	if player == null or not is_instance_valid(player) or not player.has_method("get_current_sitable"):
+		return
+
+	var sitable: Sitable = player.get_current_sitable()
+	if sitable != null and is_instance_valid(sitable) and sitable.has_method("stand_up"):
+		sitable.stand_up(player)
 
 
 ## The door guard point (WALKING_TO_GUARD/UNLOCKING walk here) - falls back
