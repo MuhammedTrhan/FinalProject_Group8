@@ -9,6 +9,8 @@ extends Interactable
 ## must never require holding anything.
 @export var required_key_item: ItemData
 
+@export var cant_unlock_message := "I don't have the right key."
+
 @onready var hitbox = $Hitbox
 @onready var closed_door: Sprite2D = $DoorClosed
 @onready var opened_door: Sprite2D = $DoorOpen
@@ -54,7 +56,7 @@ func _do_interact(_actor: Node2D) -> Interactions.InteractionType:
 ## Secondary (action/E): lock/unlock.
 func _do_secondary(_actor: Node2D) -> Interactions.InteractionType:
 	if not _has_required_key():
-		GameEvents.message_requested.emit("I don't have the right key.")
+		GameEvents.message_requested.emit(cant_unlock_message)
 		return Interactions.InteractionType.NONE
 
 	var result := Interactions.InteractionType.NONE

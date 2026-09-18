@@ -6,6 +6,7 @@
 
 [node name="VerticalPreciousDoor" unique_id=758378394 instance=ExtResource("1_162ro")]
 required_key_item = ExtResource("2_yb20p")
+cant_unlock_message = "I don't know the password."
 
 [node name="DoorClosed" parent="." index="0" unique_id=1764835962]
 region_rect = Rect2(128, 0, 32, 32)
