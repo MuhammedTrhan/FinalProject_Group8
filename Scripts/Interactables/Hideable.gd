@@ -45,6 +45,9 @@ func hide_player(actor: Node2D) -> void:
 	# standing at hide_point if that marker sits inside/behind the sprite.
 	actor.add_collision_exception_with(self)
 
+	if actor.has_method("set_interaction_lock"):
+		actor.set_interaction_lock(self)
+
 	if actor.has_method("set_hidden"):
 		actor.set_hidden(true, hide_point.global_position, self)
 
@@ -57,6 +60,9 @@ func reveal_player(actor: Node2D) -> void:
 
 	is_occupied = false
 	occupant = null
+
+	if actor.has_method("clear_interaction_lock"):
+		actor.clear_interaction_lock(self)
 
 	if actor.has_method("set_hidden"):
 		actor.set_hidden(false, stand_point.global_position, self)

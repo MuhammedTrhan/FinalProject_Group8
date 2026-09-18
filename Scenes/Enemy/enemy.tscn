@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://4dwuy4d7agkb" path="res://Scripts/Enemy/Enemy.gd" id="1_enemy"]
 [ext_resource type="Texture2D" uid="uid://c0sprv8gp8jvl" path="res://Assets/Enemy/enemy_forgetfull/standard/idle.png" id="2_idle"]
 [ext_resource type="Texture2D" uid="uid://chmjfuet04mr7" path="res://Assets/Enemy/enemy_forgetfull/standard/walk.png" id="3_walk"]
+[ext_resource type="Texture2D" uid="uid://74q8baw4lkp3" path="res://Assets/Enemy/enemy_forgetfull/standard/run.png" id="4_beese"]
 [ext_resource type="Texture2D" uid="uid://8d0ammd4rjsx" path="res://Assets/Enemy/enemy_forgetfull/standard/slash.png" id="4_slash"]
 [ext_resource type="Texture2D" uid="uid://dbg5h6y5bo8mq" path="res://Assets/Enemy/enemy_forgetfull/standard/sit.png" id="5_sit"]
 [ext_resource type="Script" uid="uid://bgnclkcjlwlq7" path="res://Scripts/Enemy/EnemyAnimationHandler.gd" id="6_animhandler"]
@@ -13,8 +14,8 @@
 [ext_resource type="Script" uid="uid://b2543f7fa2rer" path="res://Scripts/Enemy/TurnWarningIcon.gd" id="11_turnwarning"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_movement"]
-radius = 3.5294118
-height = 16.470589
+radius = 3.5
+height = 16.0
 
 [sub_resource type="Animation" id="Animation_reset"]
 resource_name = "RESET"
@@ -540,6 +541,47 @@ tracks/2/keys = {
 "values": [0.2]
 }
 
+[sub_resource type="Animation" id="Animation_1vi6b"]
+resource_name = "run_left"
+length = 0.2667
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("4_beese")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("EnemyAnimationHandler:speed_scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.2999999999999998]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.033333335, 0.06666667, 0.10000001, 0.13333334, 0.16666667, 0.20000002, 0.23333333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [13, 14, 15, 16, 17, 18, 19, 20]
+}
+
 [sub_resource type="Animation" id="Animation_sit_down"]
 resource_name = "sit_down"
 length = 0.0333
@@ -1024,6 +1066,7 @@ _data = {
 &"lock_left": SubResource("Animation_lock_left"),
 &"lock_right": SubResource("Animation_lock_right"),
 &"lock_up": SubResource("Animation_lock_up"),
+&"run_left": SubResource("Animation_1vi6b"),
 &"sit_down": SubResource("Animation_sit_down"),
 &"sit_left": SubResource("Animation_sit_left"),
 &"sit_right": SubResource("Animation_sit_right"),

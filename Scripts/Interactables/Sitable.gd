@@ -37,6 +37,9 @@ func sit_down(actor: Node2D) -> void:
 	# The chair dynamically ignores collision with whoever sat in it.
 	actor.add_collision_exception_with(self)
 
+	if actor.has_method("set_interaction_lock"):
+		actor.set_interaction_lock(self)
+
 	_orient_actor(actor, sit_down_point.global_position)
 
 	prompt_text = "Stand Up"
@@ -48,6 +51,9 @@ func stand_up(actor: Node2D) -> void:
 
 	is_occupied = false
 	occupant = null
+
+	if actor.has_method("clear_interaction_lock"):
+		actor.clear_interaction_lock(self)
 
 	_orient_actor(actor, stand_up_point.global_position)
 

@@ -31,6 +31,10 @@ var _candidates: Array[Interactable] = []
 var _last_primary_prompt: String = ""
 var _last_secondary_prompt: String = ""
 
+# Set by Sitable/Hideable while they occupy the player (sitting or hidden),
+# so no OTHER interactable can be reached until they release it.
+var _locked_interactable: Interactable = null
+
 
 func _ready() -> void:
 	interract_area.area_entered.connect(_on_interract_area_entered)
@@ -86,9 +90,27 @@ func _on_interract_area_exited(area: Area2D) -> void:
 		_candidates.erase(interactable)
 
 
+func set_interaction_lock(interactable: Interactable) -> void:
+	_locked_interactable = interactable
+
+
+# `interactable` must match the current holder, so one object's stand-up/
+# reveal can't clobber a lock some other object legitimately holds. Always
+# clears any stale animation-interaction lock too, so a sitting/hiding pose
+# can never survive past the interaction that's ending it.
+func clear_interaction_lock(interactable: Interactable) -> void:
+	if _locked_interactable == interactable:
+		_locked_interactable = null
+	anim_handler.end_interaction()
+
+
 # Nearest candidate wins - by distance to its interaction shape, not its
 # origin (see Interactable.get_distance_to()). `priority` breaks ties.
+# While occupied by a Sitable/Hideable, that's the ONLY candidate reachable.
 func _get_nearest_candidate() -> Interactable:
+	if _locked_interactable != null and is_instance_valid(_locked_interactable):
+		return _locked_interactable
+
 	var nearest: Interactable = null
 	var nearest_dist := INF
 
