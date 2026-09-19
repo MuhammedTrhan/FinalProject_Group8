@@ -43,7 +43,7 @@
 [ext_resource type="PackedScene" uid="uid://cjmnu4npcb1vy" path="res://Scenes/Furnitures/LivingandDiningRooms/hideable_bookshelf.tscn" id="35_ao655"]
 [ext_resource type="PackedScene" uid="uid://cjqpouhri8a3j" path="res://Scenes/Furnitures/LivingandDiningRooms/rug_ver_1.tscn" id="35_bm8oi"]
 [ext_resource type="PackedScene" uid="uid://x5pbc6j101nh" path="res://Scenes/Furnitures/LivingandDiningRooms/plant.tscn" id="36_30qra"]
-[ext_resource type="PackedScene" path="res://Scenes/Furnitures/LivingandDiningRooms/sofa_vertical_2.tscn" id="36_unjri"]
+[ext_resource type="PackedScene" uid="uid://qivcch3vwqcq" path="res://Scenes/Furnitures/LivingandDiningRooms/sofa_vertical_2.tscn" id="36_unjri"]
 [ext_resource type="PackedScene" uid="uid://dpgc6s77w6i0d" path="res://Scenes/Furnitures/Bedroom/nightstand_closet_down.tscn" id="37_ddui2"]
 [ext_resource type="PackedScene" uid="uid://drd2l4i67se3k" path="res://Scenes/Furnitures/LivingandDiningRooms/mini_table.tscn" id="37_w6jpp"]
 [ext_resource type="PackedScene" uid="uid://btmyniusddecj" path="res://Scenes/Furnitures/Bedroom/clothes_box.tscn" id="41_r6y0e"]

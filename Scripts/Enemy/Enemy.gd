@@ -212,7 +212,7 @@ func _physics_process(delta: float) -> void:
 	if state == State.SPECIAL and active_module and active_module.special_pose_animation() != &"":
 		anim_handler.play_special_pose(active_module.special_pose_animation())
 	else:
-		anim_handler.update_animations(velocity)
+		anim_handler.update_animations(velocity, state == State.CHASE)
 
 	GameEvents.enemy_state_changed.emit(StringName(State.keys()[state]))
 	# Danger is definitionally maximal while actively chasing - Perception's

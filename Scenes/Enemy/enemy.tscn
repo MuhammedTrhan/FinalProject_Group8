@@ -17,6 +17,9 @@
 radius = 3.5
 height = 16.0
 
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_areavis"]
+light_mode = 1
+
 [sub_resource type="Animation" id="Animation_reset"]
 resource_name = "RESET"
 length = 0.001
@@ -541,6 +544,47 @@ tracks/2/keys = {
 "values": [0.2]
 }
 
+[sub_resource type="Animation" id="Animation_run_down"]
+resource_name = "run_down"
+length = 0.2667
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("4_beese")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("EnemyAnimationHandler:speed_scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.2999999999999998]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.033333335, 0.06666667, 0.10000001, 0.13333334, 0.16666667, 0.20000002, 0.23333333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [26, 27, 28, 29, 30, 31, 32, 33]
+}
+
 [sub_resource type="Animation" id="Animation_1vi6b"]
 resource_name = "run_left"
 length = 0.2667
@@ -580,6 +624,88 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [13, 14, 15, 16, 17, 18, 19, 20]
+}
+
+[sub_resource type="Animation" id="Animation_run_right"]
+resource_name = "run_right"
+length = 0.2667
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("4_beese")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("EnemyAnimationHandler:speed_scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.2999999999999998]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.033333335, 0.06666667, 0.10000001, 0.13333334, 0.16666667, 0.20000002, 0.23333333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [39, 40, 41, 42, 43, 44, 45, 46]
+}
+
+[sub_resource type="Animation" id="Animation_run_up"]
+resource_name = "run_up"
+length = 0.2667
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("4_beese")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("EnemyAnimationHandler:speed_scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.2999999999999998]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.033333335, 0.06666667, 0.10000001, 0.13333334, 0.16666667, 0.20000002, 0.23333333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7]
 }
 
 [sub_resource type="Animation" id="Animation_sit_down"]
@@ -1066,7 +1192,10 @@ _data = {
 &"lock_left": SubResource("Animation_lock_left"),
 &"lock_right": SubResource("Animation_lock_right"),
 &"lock_up": SubResource("Animation_lock_up"),
+&"run_down": SubResource("Animation_run_down"),
 &"run_left": SubResource("Animation_1vi6b"),
+&"run_right": SubResource("Animation_run_right"),
+&"run_up": SubResource("Animation_run_up"),
 &"sit_down": SubResource("Animation_sit_down"),
 &"sit_left": SubResource("Animation_sit_left"),
 &"sit_right": SubResource("Animation_sit_right"),
@@ -1085,9 +1214,6 @@ _data = {
 [sub_resource type="CircleShape2D" id="CircleShape2D_4ad2a"]
 radius = 14.117647
 
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_areavis"]
-light_mode = 1
-
 [node name="Enemy" type="CharacterBody2D" unique_id=1229673750 groups=["enemy"]]
 y_sort_enabled = true
 scale = Vector2(0.85, 0.85)
@@ -1099,6 +1225,11 @@ script = ExtResource("1_enemy")
 [node name="MovementBox" type="CollisionShape2D" parent="." unique_id=1819298405]
 rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_movement")
+
+[node name="PersonalityAreaVisual" type="Node2D" parent="." unique_id=-473872839]
+material = SubResource("CanvasItemMaterial_areavis")
+scale = Vector2(1.0000001, 1.0000001)
+script = ExtResource("10_areavisual")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=2136212723]
 texture = ExtResource("2_idle")
@@ -1129,10 +1260,6 @@ shape = SubResource("CircleShape2D_4ad2a")
 
 [node name="EnemyDebugOverlay" type="Node2D" parent="." unique_id=541552310]
 script = ExtResource("8_overlay")
-
-[node name="PersonalityAreaVisual" type="Node2D" parent="." unique_id=-473872839]
-material = SubResource("CanvasItemMaterial_areavis")
-script = ExtResource("10_areavisual")
 
 [node name="TurnWarningIcon" type="Node2D" parent="." unique_id=-1500354211]
 material = SubResource("CanvasItemMaterial_areavis")

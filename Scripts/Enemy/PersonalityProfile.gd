@@ -31,6 +31,7 @@ enum Personality {FORGETFUL, PARANOID, OVERWHELMED}
 ## and would immediately overwrite a direct assignment.
 @export var idle_sheet: Texture2D
 @export var walk_sheet: Texture2D
+@export var run_sheet: Texture2D
 ## Used by the slash, back_slash and lock animations - they share one sheet.
 @export var slash_sheet: Texture2D
 @export var sit_sheet: Texture2D
@@ -114,6 +115,8 @@ func get_sheet_for_animation(anim_name: String) -> Texture2D:
 		return idle_sheet
 	if anim_name.begins_with("walk"):
 		return walk_sheet
+	if anim_name.begins_with("run"):
+		return run_sheet
 	if anim_name.begins_with("sit"):
 		return sit_sheet
 	# slash_*, back_slash_* and lock_* all share the slash sheet.

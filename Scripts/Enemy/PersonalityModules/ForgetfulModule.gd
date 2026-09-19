@@ -39,7 +39,8 @@ func _physics_process(delta: float) -> void:
 
 	var player := enemy.perception.get_player()
 	var inside: bool = player != null and is_instance_valid(player) \
-		and enemy.global_position.distance_to(player.global_position) <= enemy.profile.follow_area_radius
+		and enemy.global_position.distance_to(player.global_position) <= enemy.profile.follow_area_radius \
+		and VisionConeUtils.has_clear_line_of_sight(enemy, player.global_position)
 
 	if inside:
 		_follow_progress = minf(_follow_progress + delta / enemy.profile.follow_fill_time, 1.0)

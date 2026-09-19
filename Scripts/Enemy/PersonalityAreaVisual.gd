@@ -3,14 +3,16 @@ extends Node2D
 ## Always-visible (not debug-only) rendering of the active personality's
 ## detection areas: the inner area - Perception's own cone - filled with
 ## fill_color, and the outer follow area (PersonalityProfile.follow_area_radius)
-## as an unfilled ring. Reads live Perception/PersonalityProfile values already
-## driving gameplay.
+## as a faintly-filled ring (ring_fill_color) with a solid outline. Both areas
+## are clipped/broken against walls (see VisionConeUtils).
 
-@export var fill_color: Color = Color(1, 1, 0, 0.25)
+# Alpha picked low since outer and inner fill collides.
+@export var fill_color: Color = Color(0.8, 0.8, 0.8, 0.18)
 @export var ring_color: Color = Color(1, 1, 1, 0.6)
-@export var ring_width: float = 2.0
+@export var ring_width: float = 1.0
+@export var ring_fill_color: Color = Color(0.3, 0.6, 1.0, 0.1)
 
-const SEGMENTS := 48
+const SEGMENTS := 256
 
 var _enemy: Enemy
 
@@ -53,9 +55,24 @@ func _draw_outer_ring() -> void:
 	var radius := _enemy.profile.follow_area_radius
 	if radius <= 0.0:
 		return
-	# Plain unfilled outline only - the decision/stalk progress itself is
-	# shown on Dev1's HUD radial bar (get_follow_progress()), not drawn here.
-	draw_arc(Vector2.ZERO, radius, 0, TAU, SEGMENTS, ring_color, ring_width)
+
+	# Faint fill of the same area, clipped to walls exactly like the inner
+	# cone/circle below - it collapses right at a wall instead of just
+	# stopping at the last visible sample the way the outline's gaps do.
+	_draw_filled_circle(radius, ring_fill_color)
+
+	var points := PackedVector2Array()
+	var visible_flags := PackedByteArray()
+	for i in SEGMENTS:
+		var angle := TAU * float(i) / float(SEGMENTS)
+		var point := Vector2.RIGHT.rotated(angle) * radius
+		points.append(point)
+		visible_flags.append(1 if VisionConeUtils.is_point_visible(self, point) else 0)
+
+	for i in SEGMENTS:
+		var j := (i + 1) % SEGMENTS
+		if visible_flags[i] and visible_flags[j]:
+			draw_line(points[i], points[j], ring_color, ring_width)
 
 
 func _draw_inner_area() -> void:
@@ -79,7 +96,8 @@ func _draw_filled_circle(radius: float, color: Color) -> void:
 	var points := PackedVector2Array()
 	for i in SEGMENTS:
 		var angle := TAU * float(i) / float(SEGMENTS)
-		points.append(Vector2.RIGHT.rotated(angle) * radius)
+		var point := Vector2.RIGHT.rotated(angle) * radius
+		points.append(VisionConeUtils.clip_point_to_walls(self, point))
 	draw_colored_polygon(points, color)
 
 
@@ -92,6 +110,7 @@ func _draw_filled_cone(perception: Perception) -> void:
 	for i in SEGMENTS + 1:
 		var t := float(i) / float(SEGMENTS)
 		var angle := facing_angle - half_fov + t * (half_fov * 2.0)
-		points.append(Vector2.RIGHT.rotated(angle) * perception.view_distance)
+		var point := Vector2.RIGHT.rotated(angle) * perception.view_distance
+		points.append(VisionConeUtils.clip_point_to_walls(self, point))
 
 	draw_colored_polygon(points, fill_color)
