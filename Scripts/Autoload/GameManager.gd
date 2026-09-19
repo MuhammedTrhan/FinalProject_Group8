@@ -207,7 +207,19 @@ func is_day() -> bool:
 ## the win screen, the computer terminal) - resuming from the pause menu would
 ## otherwise hand the house back mid-death or mid-read.
 func can_pause() -> bool:
+	return is_run_interactive()
+
+
+## Whether the player is actually in control right now: in a run, not frozen by
+## a game-over, and nothing paused on top of the house.
+func is_run_interactive() -> bool:
 	return _run_active and not _locked_down and not get_tree().paused
+
+
+## True for the opening night, which has no clock and ends only once she has
+## read the computer.
+func is_waiting_for_terminal() -> bool:
+	return _waiting_for_terminal
 
 
 func _start_day() -> void:

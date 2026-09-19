@@ -27,6 +27,7 @@ ProceduralGenerator="*res://Scripts/Autoload/ProceduralGenerator.gd"
 GameManager="*res://Scripts/Autoload/GameManager.gd"
 Settings="*res://Scripts/Autoload/Settings.gd"
 Hud="*res://Scenes/UI/hud.tscn"
+HintLabel="*res://Scenes/UI/hint_label.tscn"
 OptionsMenu="*res://Scenes/UI/options_menu.tscn"
 PauseMenu="*res://Scenes/UI/pause_menu.tscn"
 
