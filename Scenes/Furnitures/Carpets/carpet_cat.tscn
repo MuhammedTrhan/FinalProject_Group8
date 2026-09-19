@@ -1,7 +1,7 @@
-[gd_scene format=3 uid="uid://ch1l8ykh1dgkq"]
+[gd_scene format=3 uid="uid://dxlqa4rbro4pw"]
 
-[ext_resource type="PackedScene" uid="uid://dh5f37ia22vin" path="res://Scenes/Furnitures/furniture_uninteractable_base.tscn" id="1_v068l"]
-[ext_resource type="Texture2D" uid="uid://b57g1d2wirast" path="res://Assets/Interior/Furnitures/furniture.png" id="2_84lws"]
+[ext_resource type="PackedScene" uid="uid://dh5f37ia22vin" path="res://Scenes/Furnitures/furniture_uninteractable_base.tscn" id="1_ggcij"]
+[ext_resource type="Texture2D" uid="uid://b57g1d2wirast" path="res://Assets/Interior/Furnitures/furniture.png" id="2_vsiki"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kfnmg"]
 size = Vector2(0, 0)
@@ -10,10 +10,10 @@ size = Vector2(0, 0)
 radius = 14.0
 height = 28.0
 
-[node name="Furniture" unique_id=758378394 instance=ExtResource("1_v068l")]
+[node name="Furniture" unique_id=758378394 instance=ExtResource("1_ggcij")]
 
 [node name="Sprite2D" parent="." index="0" unique_id=1764835962]
-texture = ExtResource("2_84lws")
+texture = ExtResource("2_vsiki")
 region_rect = Rect2(129.25905, 77.607864, 29.344193, 18.29602)
 
 [node name="Hitbox" parent="." index="1" unique_id=150259076]
@@ -24,3 +24,4 @@ disabled = true
 [node name="InterractionBox" parent="InterractionArea" parent_id_path=PackedInt32Array(97300687) index="0" unique_id=1028417380]
 position = Vector2(0, 1)
 shape = SubResource("CapsuleShape2D_pwjnr")
+disabled = true

@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://bg2f7iy4i6pqt"]
+
+[ext_resource type="PackedScene" uid="uid://lgxl3cht6vlk" path="res://Scenes/Furnitures/furniture_interactable_base.tscn" id="1_f7r3l"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_em2md"]
+radius = 6.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_sotuj"]
+radius = 12.0
+height = 56.0
+
+[node name="CoatRack" unique_id=758378394 instance=ExtResource("1_f7r3l")]
+
+[node name="InactiveSprite" parent="." index="0" unique_id=1764835962]
+offset = Vector2(0, -20)
+region_rect = Rect2(48, 112, 16, 48)
+
+[node name="ActiveSprite" parent="." index="1" unique_id=91856626]
+offset = Vector2(0, -20)
+region_rect = Rect2(48, 112, 16, 48)
+
+[node name="Hitbox" parent="." index="2" unique_id=150259076]
+position = Vector2(0, -2)
+shape = SubResource("CircleShape2D_em2md")
+
+[node name="InterractionBox" parent="InterractionArea" parent_id_path=PackedInt32Array(97300687) index="0" unique_id=1028417380]
+visible = true
+position = Vector2(0, -19)
+shape = SubResource("CapsuleShape2D_sotuj")

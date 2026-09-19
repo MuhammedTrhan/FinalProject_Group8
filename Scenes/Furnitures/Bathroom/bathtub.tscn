@@ -6,8 +6,8 @@
 size = Vector2(41, 23)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cn5yu"]
-radius = 19.0
-height = 66.0
+radius = 17.0
+height = 60.0
 
 [node name="Bathtub" unique_id=758378394 instance=ExtResource("1_wde0h")]
 
@@ -22,5 +22,7 @@ position = Vector2(-0.5, 3.5)
 shape = SubResource("RectangleShape2D_wde0h")
 
 [node name="InterractionBox" parent="InterractionArea" parent_id_path=PackedInt32Array(97300687) index="0" unique_id=1028417380]
+visible = true
+position = Vector2(0, 3)
 rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_cn5yu")

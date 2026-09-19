@@ -1,23 +1,24 @@
-[gd_scene format=3 uid="uid://cadmydpg0i4n4"]
+[gd_scene format=3 uid="uid://cor8skeebwesv"]
 
-[ext_resource type="PackedScene" uid="uid://dnyp44skrsl0q" path="res://Scenes/Furnitures/furniture_hideable_base.tscn" id="1_8o47v"]
+[ext_resource type="PackedScene" uid="uid://dnyp44skrsl0q" path="res://Scenes/Furnitures/furniture_hideable_base.tscn" id="1_jqo5j"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bedb0"]
 size = Vector2(40, 35)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_bedb0"]
-radius = 27.0
+radius = 29.0
 height = 72.0
 
-[node name="DoubleVerticalBed1" unique_id=3782362 instance=ExtResource("1_8o47v")]
+[node name="DoubleVerticalBed1" unique_id=3782362 instance=ExtResource("1_jqo5j")]
 scale = Vector2(1.15, 1.15)
 
 [node name="Sprite2D" parent="." index="0" unique_id=1764835962]
-region_rect = Rect2(0, 80, 48, 48)
+region_rect = Rect2(0, 128, 48, 48)
 
 [node name="Hitbox" parent="." index="1" unique_id=150259076]
 position = Vector2(0, 5.5)
 shape = SubResource("RectangleShape2D_bedb0")
 
 [node name="InterractionBox" parent="InterractionArea" parent_id_path=PackedInt32Array(97300687) index="0" unique_id=1028417380]
+rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_bedb0")

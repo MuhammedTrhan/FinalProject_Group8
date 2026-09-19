@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://dc2fqyxq0wr3a"]
+
+[ext_resource type="PackedScene" uid="uid://dh5f37ia22vin" path="res://Scenes/Furnitures/furniture_uninteractable_base.tscn" id="1_xwbar"]
+[ext_resource type="Texture2D" uid="uid://b57g1d2wirast" path="res://Assets/Interior/Furnitures/furniture.png" id="2_83wi3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fhiue"]
+size = Vector2(14, 24)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rug00"]
+height = 36.0
+
+[node name="RugHorizontal2" unique_id=1811262912 instance=ExtResource("1_xwbar")]
+z_index = -1
+y_sort_enabled = false
+
+[node name="Sprite2D" parent="." index="0" unique_id=1764835962]
+texture = ExtResource("2_83wi3")
+region_rect = Rect2(128, 0, 32, 16)
+
+[node name="Hitbox" parent="." index="1" unique_id=150259076]
+rotation = 1.5707964
+shape = SubResource("RectangleShape2D_fhiue")
+disabled = true
+
+[node name="InterractionBox" parent="InterractionArea" parent_id_path=PackedInt32Array(97300687) index="0" unique_id=1028417380]
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_rug00")
