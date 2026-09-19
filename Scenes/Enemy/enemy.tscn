@@ -17,6 +17,9 @@
 radius = 3.5
 height = 16.0
 
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_areavis"]
+light_mode = 1
+
 [sub_resource type="Animation" id="Animation_reset"]
 resource_name = "RESET"
 length = 0.001
@@ -1211,9 +1214,6 @@ _data = {
 [sub_resource type="CircleShape2D" id="CircleShape2D_4ad2a"]
 radius = 14.117647
 
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_areavis"]
-light_mode = 1
-
 [node name="Enemy" type="CharacterBody2D" unique_id=1229673750 groups=["enemy"]]
 y_sort_enabled = true
 scale = Vector2(0.85, 0.85)
@@ -1225,6 +1225,11 @@ script = ExtResource("1_enemy")
 [node name="MovementBox" type="CollisionShape2D" parent="." unique_id=1819298405]
 rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_movement")
+
+[node name="PersonalityAreaVisual" type="Node2D" parent="." unique_id=-473872839]
+material = SubResource("CanvasItemMaterial_areavis")
+scale = Vector2(1.0000001, 1.0000001)
+script = ExtResource("10_areavisual")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=2136212723]
 texture = ExtResource("2_idle")
@@ -1255,10 +1260,6 @@ shape = SubResource("CircleShape2D_4ad2a")
 
 [node name="EnemyDebugOverlay" type="Node2D" parent="." unique_id=541552310]
 script = ExtResource("8_overlay")
-
-[node name="PersonalityAreaVisual" type="Node2D" parent="." unique_id=-473872839]
-material = SubResource("CanvasItemMaterial_areavis")
-script = ExtResource("10_areavisual")
 
 [node name="TurnWarningIcon" type="Node2D" parent="." unique_id=-1500354211]
 material = SubResource("CanvasItemMaterial_areavis")

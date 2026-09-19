@@ -25,3 +25,12 @@ static func is_point_visible(node: Node2D, local_point: Vector2, mask: int = Lay
 	var space_state := node.get_world_2d().direct_space_state
 	var query := PhysicsRayQueryParameters2D.create(node.global_position, global_point, mask)
 	return space_state.intersect_ray(query).is_empty()
+
+
+## Like is_point_visible(), but for gameplay checks that already have two
+## global-space positions on hand (e.g. a personality module's follow-area
+## check).
+static func has_clear_line_of_sight(from: Node2D, to_global_position: Vector2, mask: int = Layers.WALLS) -> bool:
+	var space_state := from.get_world_2d().direct_space_state
+	var query := PhysicsRayQueryParameters2D.create(from.global_position, to_global_position, mask)
+	return space_state.intersect_ray(query).is_empty()
