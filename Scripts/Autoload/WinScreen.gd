@@ -10,6 +10,9 @@ func _ready() -> void:
 
 
 func show_win() -> void:
+	# Stops the day timer and freezes the house. Done here rather than in
+	# ExitKeypad so every future way of winning gets it too.
+	GameManager.complete_run()
 	Hud.visible = false # the run is over; its readouts draw above this screen
 	visible = true
 
