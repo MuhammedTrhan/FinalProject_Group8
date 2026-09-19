@@ -36,7 +36,6 @@
 [ext_resource type="PackedScene" uid="uid://b668juivf2ef5" path="res://Scenes/Furnitures/LivingandDiningRooms/sofa_dub_hor.tscn" id="30_c1xrl"]
 [ext_resource type="PackedScene" uid="uid://cadmydpg0i4n4" path="res://Scenes/Furnitures/Bedroom/doub_ver_bed_1.tscn" id="31_edjj2"]
 [ext_resource type="PackedScene" uid="uid://m2bg23lydct5" path="res://Scenes/Furnitures/LivingandDiningRooms/dining_chair_ver_2.tscn" id="32_ehh7o"]
-[ext_resource type="PackedScene" uid="uid://ckgim32h3mg8a" path="res://Scenes/Furnitures/LivingandDiningRooms/dining_chair_down_1.tscn" id="32_m5xbg"]
 [ext_resource type="PackedScene" uid="uid://b8l6bkrw8f8dk" path="res://Scenes/Furnitures/LivingandDiningRooms/dining_table_hor_1.tscn" id="33_b8vxi"]
 [ext_resource type="PackedScene" uid="uid://chbxhv2612gcj" path="res://Scenes/Furnitures/Other/cat_bed_2.tscn" id="34_i77w6"]
 [ext_resource type="PackedScene" uid="uid://da3iv0lrn4ne2" path="res://Scenes/Furnitures/LivingandDiningRooms/fireplace.tscn" id="34_lkiyy"]
@@ -58,7 +57,8 @@
 [ext_resource type="PackedScene" uid="uid://xm1f56m0pcs0" path="res://Scenes/Furnitures/Other/computer.tscn" id="51_gmjuu"]
 [ext_resource type="PackedScene" uid="uid://cnjvb3rpk3lvv" path="res://Scenes/Puzzles/floorboard_puzzle.tscn" id="52_ok16x"]
 [ext_resource type="PackedScene" uid="uid://dbntw3v6y40n4" path="res://Scenes/Furnitures/Bedroom/mirror.tscn" id="54_sfmy3"]
-[ext_resource type="PackedScene" uid="uid://ctjshy3p37xrm" path="res://Scenes/Furnitures/LivingandDiningRooms/dining_chair_up_1.tscn" id="59_qyoj5"]
+[ext_resource type="PackedScene" uid="uid://deb3phksyti7v" path="res://Scenes/Furnitures/LivingandDiningRooms/dining_chair_up_2.tscn" id="58_qyoj5"]
+[ext_resource type="PackedScene" uid="uid://ts0xn7k3gh8w" path="res://Scenes/Furnitures/LivingandDiningRooms/dining_chair_down_2.tscn" id="59_eqdtt"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_qbrl8"]
 vertices = PackedVector2Array(476, 108, 476, 30.328125, 484, 30.359375, 484, 108, 668, 780, 753.46094, 780, 753.40625, 820, 668, 796, 108, 1076, 77.96875, 1076, 77.88281, 972, 436, 972, 436, 1020, 628, 108, 628, 244, 404, 244, 356, 108, 396, 244, 404, 348, 516, 348, 516, 388, 436, 388, 740, 492, 740, 676, 476, 676, 476, 500, 436, 492, 436, 500, 436, 532, 404, 532, 404, 636, 436, 636, 436, 780, 628, 780, 628, 796, 668, 820, 668, 804, 628, 804, 628, 820, 516, 820, 516, 924, 740, 924, 740, 1092, 708, 1092, 708, 1104, 508, 1104, 508, 1092, 476, 1092, 476, 1028, 436, 1028, 436, 1104, 108, 1104, 476, 1020, 508, 924, 476, 924, 508, 820, 436, 820, 436, 868, 92, 868, 92, 636, 396, 636, 356, 468, 356, 532, 92, 532, 92, 412, 356, 412, 356, 460, 396, 468, 396, 460, 356, 244, 356, 308, 92, 308, 92, 60, 356, 60, 2300, 972, 2308, 852, 2308, 1020, 2300, 980, 2300, 692, 2483.5938, 1020, 2483.0625, 1119.1719, 2395.6406, 1120.4375, 2300, 1120.4375, 2292, -20, 2292, 116, 2084, 116, 2060, -20, 2084, 436, 2068, 436, 2076, 220, 2124, 220, 2388, 220, 2388, 436, 2132, 436, 2124, 540, 2132, 540, 2260, 540, 2260, 548, 2116, 548, 2068, 540, 2108, 548, 2156, 684, 2156, 652, 2260, 652, 2260, 684, 2300, 684, 2300, 652, 2468, 652, 2468, 916, 2348, 852, 2348, 916, 2260, 692, 2156, 692, 2260, 788, 2156, 788, 2116, 684, 2116, 692, 2260, 972, 2260, 980, 2260, 1044, 2156, 1044, 2156, 900, 2260, 892, 2116, 892, 2116, 900, 2116, 964, 1772, 964, 1772, 652, 2108, 652, 2060, 548, 2060, 436, 1772, 436, 1772, 220, 2076, 116, 2060, 116, -1084, 772, -1684, 772, -1412, 428, -1404, 428, -1548, 428, -1084, 108, -1084, 324, -1404, 324, -1460, 116, -1084, 428, -1412, 324, -1460, 324, -1500, 116, -1500, 324, -1548, 324, -1684, 428, -1556, 428, -1556, 324, -1684, 324, -1684, 108)
@@ -1502,8 +1502,44 @@ priority = 0
 [node name="Stove" parent="Furnitures/Floor1/Kitchen" unique_id=758378394 instance=ExtResource("14_ykarw")]
 position = Vector2(512, 107)
 
+[node name="DiningChair2" parent="Furnitures/Floor1/Kitchen" unique_id=1345435680 instance=ExtResource("32_ehh7o")]
+position = Vector2(533, 206.99997)
+scale = Vector2(1.15, 1.15)
+
+[node name="DiningTable" parent="Furnitures/Floor1/Kitchen" unique_id=2143569362 instance=ExtResource("33_b8vxi")]
+position = Vector2(568, 205.99998)
+scale = Vector2(1.25, 1.25)
+priority = 0
+
+[node name="DiningChairDown" parent="Furnitures/Floor1/Kitchen" unique_id=1249556265 instance=ExtResource("58_qyoj5")]
+position = Vector2(557, 230)
+
+[node name="DiningChairDown2" parent="Furnitures/Floor1/Kitchen" unique_id=1433289071 instance=ExtResource("58_qyoj5")]
+position = Vector2(579, 230)
+
+[node name="DiningChairDown3" parent="Furnitures/Floor1/Kitchen" unique_id=1335126082 instance=ExtResource("59_eqdtt")]
+position = Vector2(557, 171)
+scale = Vector2(1.15, 1.15)
+
+[node name="DiningChairDown4" parent="Furnitures/Floor1/Kitchen" unique_id=1275547897 instance=ExtResource("59_eqdtt")]
+position = Vector2(577, 171)
+scale = Vector2(1.15, 1.15)
+
+[node name="DiningChairVertical" parent="Furnitures/Floor1/Kitchen" unique_id=1286306790 instance=ExtResource("32_ehh7o")]
+position = Vector2(603, 206)
+rotation = 3.1415927
+scale = Vector2(1.15, -1.15)
+
 [node name="TrashCan" parent="Furnitures/Floor1/Kitchen" unique_id=497810441 instance=ExtResource("27_ok16x")]
 position = Vector2(630, 148)
+
+[node name="Fireplace" parent="Furnitures/Floor1/Kitchen" unique_id=2054074670 instance=ExtResource("34_lkiyy")]
+position = Vector2(232, 36)
+scale = Vector2(1.5, 1.5)
+priority = 0
+
+[node name="SofaVertical" parent="Furnitures/Floor1/Kitchen" unique_id=653759380 instance=ExtResource("30_2xkur")]
+position = Vector2(94, 131)
 
 [node name="Toilet" type="Node2D" parent="Furnitures/Floor1" unique_id=564025407]
 y_sort_enabled = true
@@ -1963,31 +1999,6 @@ position = Vector2(2247, 739)
 position = Vector2(2198, 772)
 scale = Vector2(1.3, 1.3)
 
-[node name="TableLamp" parent="Furnitures" unique_id=1462293003 instance=ExtResource("28_eckhq")]
-position = Vector2(99, 298)
-priority = 0
-
-[node name="Fireplace" parent="Furnitures" unique_id=2054074670 instance=ExtResource("34_lkiyy")]
-position = Vector2(232, 36)
-scale = Vector2(1.5, 1.5)
-priority = 0
-
-[node name="SofaVertical" parent="Furnitures" unique_id=653759380 instance=ExtResource("30_2xkur")]
-position = Vector2(94, 131)
-
-[node name="DiningChair1" parent="Furnitures" unique_id=1249556265 instance=ExtResource("32_m5xbg")]
-position = Vector2(568, 178)
-scale = Vector2(1.15, 1.15)
-
-[node name="DiningChair2" parent="Furnitures" unique_id=1345435680 instance=ExtResource("32_ehh7o")]
-position = Vector2(533, 206.99997)
-scale = Vector2(1.1, 1.1)
-
-[node name="DiningTable" parent="Furnitures" unique_id=2143569362 instance=ExtResource("33_b8vxi")]
-position = Vector2(568, 205.99998)
-scale = Vector2(1.25, 1.25)
-priority = 0
-
 [node name="RugVertical" parent="Furnitures" unique_id=1811262912 instance=ExtResource("35_bm8oi")]
 position = Vector2(402, 379)
 scale = Vector2(2, 2)
@@ -2026,7 +2037,7 @@ position = Vector2(-1613, 710)
 position = Vector2(114, 148)
 
 [node name="P2" type="Marker2D" parent="patrol_point_1" unique_id=1355137026 groups=["patrol_point_1"]]
-position = Vector2(618, 166)
+position = Vector2(564, 139)
 
 [node name="P3" type="Marker2D" parent="patrol_point_1" unique_id=993260716 groups=["patrol_point_1"]]
 position = Vector2(420, 381)
@@ -2091,6 +2102,3 @@ position = Vector2(2233, 384)
 position = Vector2(1864, 760)
 flavour_text = "I knew there was something under here!"
 ground_layer_path = NodePath("../NavigationRegion2D/Ground")
-
-[node name="DiningChairDown" parent="." unique_id=1040612978 instance=ExtResource("59_qyoj5")]
-position = Vector2(1970, 400)
