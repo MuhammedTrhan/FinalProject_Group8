@@ -1,26 +1,21 @@
 extends Node
-## Day/night cycle + active personality. Only talks to the team via GameEvents.
-## Public API for Dev2/Dev3 (see docs/CONTRACT.md): current_personality, is_day().
+## Owns the day/night cycle and which personality is awake. Talks to the rest
+## of the game only through GameEvents.
 
-## ESCORT is the gap between the day's play ending and night beginning: the
-## day is over and she can't act, but the enemy still has to walk her home,
-## and that has to be visible. See docs/CONTRACT.md §2.2.
+## ESCORT is the gap between the day ending and night beginning: she can't act,
+## but the enemy still has to walk her home and that has to be visible.
 enum Phase {DAY, ESCORT, NIGHT}
 
 const PLAYER_SCENE = preload("res://Scenes/player.tscn")
 const ENEMY_SCENE = preload("res://Scenes/Enemy/enemy.tscn")
 
-# 3 passcode digits, per docs/CONTRACT.md: 0=UV floor, 1=floorboard, 2=diary.
+# 3 passcode digits: 0=UV floor, 1=floorboard, 2=diary.
 const PASSCODE_LENGTH := 3
 
-## Which personality's reward unlocks each digit - each one hands over the
-## tool its puzzle needs (Overwhelmed the UV flashlight, Forgetful the
-## crowbar, Paranoid the three diary scraps).
-##
-## A clue retires this personality rather than whoever happens to be awake:
-## the diary scraps are combined in the inventory panel, which she can do on
-## any later day, and that would otherwise retire the wrong one and leave
-## Paranoid in the pool.
+## Whose reward unlocks each digit - Overwhelmed gives the UV flashlight,
+## Forgetful the crowbar, Paranoid the diary scraps. A clue retires this
+## personality rather than whoever is awake, because the scraps are combined
+## in the inventory and she can do that on any later day.
 const DIGIT_OWNERS: Array[PersonalityProfile.Personality] = [
 	PersonalityProfile.Personality.OVERWHELMED,
 	PersonalityProfile.Personality.FORGETFUL,
@@ -29,8 +24,7 @@ const DIGIT_OWNERS: Array[PersonalityProfile.Personality] = [
 
 @export var day_duration_sec: float = 90
 @export var night_duration_sec: float = 20
-## The walk-her-home window between day and night. Matches Dev2's
-## EscortController.ESCORT_DURATION - if you change one, change both.
+## Matches EscortController.ESCORT_DURATION - change one, change both.
 @export var escort_duration_sec: float = 5.0
 @export var allow_repeat_personality := false
 
@@ -40,12 +34,11 @@ const PERSONALITIES: Array[PersonalityProfile.Personality] = [
 	PersonalityProfile.Personality.OVERWHELMED,
 ]
 
-# Every personality gets two chances at being solved; the run then ends in
-# failure on the day after those, which never actually plays.
+# Two chances per personality; the run then fails on the day after those,
+# which never actually plays.
 var max_days: int = PERSONALITIES.size() * 2 + 1
 
-# A run opens on Night 1 and alternates Night N -> Day N -> Night N+1, so a
-# night always precedes the day of the same number.
+# A run opens on Night 1 and alternates Night N -> Day N -> Night N+1.
 var current_day := 1
 var current_phase: Phase = Phase.NIGHT
 var current_personality: PersonalityProfile.Personality = PersonalityProfile.Personality.FORGETFUL
@@ -60,24 +53,24 @@ const INVENTORY_UI_SCENE := preload("res://Scenes/UI/inventory_ui.tscn")
 
 var _phase_timer: Timer
 var _locked_down := false
-# True between start_new_run() and going back to the title screen - the pause
-# menu has nothing to pause outside that window.
+# True between start_new_run() and returning to the title screen.
 var _run_active := false
-# The opening night runs without a clock - it ends only once the player has
-# read the day-one terminal.
+# The opening night has no clock - it ends once she reads the day-one terminal.
 var _waiting_for_terminal := false
-# Personalities whose clue the player already found. They never come back;
-# the ones whose day she failed stay in the pool for another turn.
+# Personalities whose clue was found. They never come back; the ones whose day
+# she failed stay in the pool for another turn.
 var _retired_personalities: Array[PersonalityProfile.Personality] = []
+# Last life count read off EscortController. -1 = not read yet, which must not
+# count as a catch. See _process().
+var _lives_seen := -1
 
-# These overlays live under this autoload, so they survive scene changes and
-# have to be reset by hand - otherwise e.g. the game-over screen stays drawn
-# on top of the main menu.
+# These overlays live under this autoload so they survive scene changes, which
+# also means they have to be reset by hand.
 var _day_transition: CanvasLayer
 var _lockdown_screen: CanvasLayer
 var _inventory_ui: CanvasLayer
 
-## Fires once the last passcode digit is found. Local signal, not part of GameEvents.
+## Fires once the last passcode digit is found. Local signal, not GameEvents.
 signal passcode_completed
 
 
@@ -99,13 +92,13 @@ func _ready() -> void:
 	add_child(_day_transition)
 	add_child(_lockdown_screen)
 	add_child(_inventory_ui)
-	# start_new_run() is NOT called here - the main menu's Play button starts it,
-	# otherwise the day/night timer would already be ticking at the title screen.
+	# The main menu's Play button starts the run - starting it here would have
+	# the day/night timer ticking at the title screen.
 
 
-## Loads the level, then starts Night 1. The level has to exist BEFORE the
-## first signals fire - otherwise the enemy, the escort controller and the
-## doors are all still unloaded and miss them.
+## Loads the level, then starts Night 1. The level has to exist before the
+## first signals fire, or the enemy, the escort controller and the doors are
+## all still unloaded and miss them.
 func start_new_run() -> void:
 	_locked_down = false
 	_run_active = true
@@ -113,6 +106,7 @@ func start_new_run() -> void:
 	run_seed = randi()
 	passcode_digits = [-1, -1, -1]
 	_retired_personalities.clear()
+	_lives_seen = -1
 
 	get_tree().paused = false
 	Inventory.clear()
@@ -124,12 +118,11 @@ func start_new_run() -> void:
 	ProceduralGenerator.generate(run_seed)
 	GameEvents.run_started.emit(run_seed)
 
-	# The run opens on Night 1, shut in her own room. It has no clock: the night
-	# ends only once she reads the computer, which is how she learns who she's
-	# dealing with before the first day starts.
+	# Night 1 has no clock: it ends once she reads the computer, which is how
+	# she learns who she is dealing with before the first day starts.
 	_waiting_for_terminal = true
 	_day_transition.play_begin_card()
-	
+
 	spawn_player()
 	spawn_enemy()
 	_start_night()
@@ -139,21 +132,15 @@ func spawn_player() -> void:
 	if PLAYER_SCENE == null:
 		push_warning("PLAYER_SCENE is null - can't spawn player")
 		return
-	
-	# Instatiates the player scene and adds it to the current scene tree.
-	var player_instance = PLAYER_SCENE.instantiate()
-	
-	var marker: Node2D = get_tree().current_scene.get_node_or_null("PlayerSpawnPoint")
 
+	var player_instance = PLAYER_SCENE.instantiate()
+	var marker: Node2D = get_tree().current_scene.get_node_or_null("PlayerSpawnPoint")
 	var spawn_position: Vector2 = Vector2.ZERO
 
-	# Snap the player to the requested coordinate
 	if marker != null:
 		spawn_position = marker.global_position
 
 	player_instance.global_position = spawn_position
-
-	# Add the player as a child to the main level
 	get_tree().current_scene.add_child(player_instance)
 
 
@@ -161,26 +148,20 @@ func spawn_enemy() -> void:
 	if ENEMY_SCENE == null:
 		push_warning("ENEMY_SCENE is null - can't spawn enemy")
 		return
-	
-	# Instatiates the enemy scene and adds it to the current scene tree.
-	var enemy_instance = ENEMY_SCENE.instantiate()
-	
-	var marker: Node2D = get_tree().current_scene.get_node_or_null("EnemySpawnPoint")
 
+	var enemy_instance = ENEMY_SCENE.instantiate()
+	var marker: Node2D = get_tree().current_scene.get_node_or_null("EnemySpawnPoint")
 	var spawn_position: Vector2 = Vector2.ZERO
 
-	# Snap the enemy to the requested coordinate
 	if marker != null:
 		spawn_position = marker.global_position
 
 	enemy_instance.global_position = spawn_position
-
-	# Add the enemy as a child to the main level
 	get_tree().current_scene.add_child(enemy_instance)
 
 
-## Called by the game-over and win screens. Clears the run's overlays first -
-## they outlive the scene change, so without this they stay on top of the menu.
+## Called by the game-over and win screens. The overlays outlive the scene
+## change, so without clearing them they stay drawn on top of the menu.
 func return_to_main_menu() -> void:
 	_run_active = false
 	get_tree().paused = false
@@ -198,26 +179,60 @@ func _reset_overlays() -> void:
 	DayOneTerminal.visible = false
 
 
+## Watches for a catch she survived. EscortController only emits player_caught
+## on the final one, so the first two are noticed by its life count dropping.
+func _process(_delta: float) -> void:
+	if not _run_active or _locked_down:
+		return
+
+	var enemy := get_tree().get_first_node_in_group(&"enemy")
+	if enemy == null:
+		return
+
+	var escort = enemy.get("escort_controller")
+	if escort == null:
+		return
+
+	var remaining = escort.get("_lives_remaining")
+	if remaining == null or remaining == _lives_seen:
+		return
+
+	var was := _lives_seen
+	_lives_seen = remaining
+
+	# Said before the enemy snaps to her and walks her home, or that grab has
+	# no explanation. The final catch needs nothing - the game-over screen
+	# covers the house and gives the reason itself.
+	if was > remaining and remaining > 0:
+		_day_transition.show_notice(_catch_notice(escort))
+
+
+## The same wording the game-over screen uses, so a catch reads the same
+## whether it was her last one or not.
+func _catch_notice(escort: Node) -> String:
+	var reason = escort.get("last_catch_reason")
+	if reason == null or reason == &"":
+		return "You Have Been Caught"
+
+	return _lockdown_screen.REASON_TEXT.get(reason, "You Have Been Caught")
+
+
 func is_day() -> bool:
 	return current_phase == Phase.DAY
 
 
-## Whether the pause menu may open right now. False on the title screen, and
-## false whenever something else already owns the pause (the game-over screen,
-## the win screen, the computer terminal) - resuming from the pause menu would
-## otherwise hand the house back mid-death or mid-read.
+## False whenever something else already owns the pause - the game-over screen,
+## the win screen, the terminal - since resuming would hand the house back
+## mid-death or mid-read.
 func can_pause() -> bool:
 	return is_run_interactive()
 
 
-## Whether the player is actually in control right now: in a run, not frozen by
-## a game-over, and nothing paused on top of the house.
+## Whether the player is actually in control right now.
 func is_run_interactive() -> bool:
 	return _run_active and not _locked_down and not get_tree().paused
 
 
-## True for the opening night, which has no clock and ends only once she has
-## read the computer.
 func is_waiting_for_terminal() -> bool:
 	return _waiting_for_terminal
 
@@ -238,12 +253,11 @@ func _start_night() -> void:
 	current_phase = Phase.NIGHT
 	GameEvents.night_started.emit(current_day)
 
-	# The opening night has no clock: it ends when she reads the computer.
 	if not _waiting_for_terminal:
 		_phase_timer.start(night_duration_sec)
 
 
-## The day's play is over, but night doesn't begin yet - Dev2's enemy gets a
+## The day's play is over, but night doesn't begin yet - the enemy gets a
 ## fixed window to walk her home first, and that walk has to stay visible.
 func _end_day() -> void:
 	current_phase = Phase.ESCORT
@@ -252,8 +266,8 @@ func _end_day() -> void:
 	_phase_timer.start(escort_duration_sec)
 
 
-## Fades to black, and only once the screen is covered does night actually
-## begin - so her teleport and the enemy's personality swap aren't seen.
+## Night begins only once the screen is covered, so her teleport and the
+## enemy's personality swap aren't seen.
 func _begin_night() -> void:
 	current_day += 1
 	_day_transition.play_night_card(current_day, _start_night)
@@ -264,8 +278,8 @@ func _end_night() -> void:
 	_day_transition.play_day_card(current_day, _start_day)
 
 
-## Dev2 asks for night to start immediately after a non-final catch: it has
-## already run its own walk-home window, so the escort wait is skipped.
+## EscortController asks for night after a non-final catch: it has already run
+## its own walk-home window, so the escort wait is skipped.
 func _on_night_start_requested(_reason: StringName) -> void:
 	if _locked_down or current_phase == Phase.NIGHT:
 		return
@@ -274,25 +288,22 @@ func _on_night_start_requested(_reason: StringName) -> void:
 	_begin_night()
 
 
-# The opening night ends only once the player has actually read the dossier.
-## Reading the computer freezes the house around her - the terminal itself
-## runs with process_mode = ALWAYS so its Close button still works.
+## Reading the computer freezes the house around her - the terminal runs with
+## process_mode = ALWAYS so its Close button still works.
 func _on_computer_interact_requested() -> void:
 	get_tree().paused = true
-	# The HUD is a later autoload than the terminal, so its canvas draws on top
-	# of it - the hotbar and the readouts would sit over the dossier.
+	# The HUD is a later autoload than the terminal, so it draws on top of it.
 	Hud.visible = false
 	DayOneTerminal.open()
 
 
 func _on_dossier_closed() -> void:
 	get_tree().paused = false
-	# Only on a re-read during the day; the opening night has no HUD to restore,
-	# and day_started brings it back on its own once the night ends below.
+	# Night 1 has no HUD to restore; day_started brings it back below.
 	Hud.visible = is_day() and not _locked_down
 
-	# Only the opening night is gated on the computer; reading it again on any
-	# later day just closes the screen and hands the house back.
+	# Only Night 1 is gated on the computer; reading it again on a later day
+	# just closes the screen and hands the house back.
 	if not _waiting_for_terminal:
 		return
 
@@ -315,16 +326,16 @@ func _on_player_caught(_reason: StringName) -> void:
 	_freeze_run() # LockdownScreen shows itself off this same signal
 
 
-## The exit code was accepted. Freezes the run exactly as a catch does: without
-## this the day timer keeps running behind the win screen, so the day can still
-## end and start the escort and the night routine underneath it.
+## The exit code was accepted. Freezes the run exactly as a catch does -
+## otherwise the day timer keeps running behind the win screen and can still
+## end the day, starting the escort and night routine underneath it.
 func complete_run() -> void:
 	_freeze_run()
 
 
-## Ends the run without a catch - currently only the day cap. Deliberately
-## does NOT emit player_caught: that one is Dev2's to emit (docs/CONTRACT.md)
-## and means an actual catch, so the screen is shown directly instead.
+## Ends the run without a catch - currently only the day cap. Deliberately does
+## NOT emit player_caught: that signal belongs to the enemy and means a real
+## catch, so the screen is shown directly instead.
 func _fail_run(reason: StringName) -> void:
 	if _locked_down:
 		return
@@ -339,12 +350,11 @@ func _freeze_run() -> void:
 
 	_locked_down = true
 	_phase_timer.stop()
-	# Freezes the enemy and the player underneath the game-over screen. The
-	# screen itself runs with process_mode = ALWAYS so its button still works.
+	# The game-over screen runs with process_mode = ALWAYS so its button
+	# still works under this.
 	get_tree().paused = true
 
 
-# digit_index/digit_value come from Dev3's puzzle; flavour text isn't needed here.
 func _on_clue_revealed(digit_index: int, digit_value: int, _flavour: String) -> void:
 	if digit_index < 0 or digit_index >= PASSCODE_LENGTH:
 		push_warning("clue_revealed sent an out-of-range digit_index: %d" % digit_index)
@@ -352,10 +362,8 @@ func _on_clue_revealed(digit_index: int, digit_value: int, _flavour: String) -> 
 
 	passcode_digits[digit_index] = digit_value
 
-	# Finding a clue ends the day early: Dev2's escort snaps the enemy next to
-	# her and walks her home a beat later. Without a caption that teleport has
-	# no explanation. Sits on screen for the whole walk, same as "Day Ended",
-	# until the night card cross-fades out of it.
+	# A clue ends the day early: the escort snaps the enemy next to her a
+	# beat later, and that teleport has no explanation without this.
 	_day_transition.show_notice("Clue Found")
 
 	# Whoever's reward unlocked this clue is done for the run - see DIGIT_OWNERS.

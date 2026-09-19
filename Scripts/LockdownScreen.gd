@@ -1,12 +1,15 @@
 extends CanvasLayer
 ## Full-screen game-over overlay shown when GameEvents.player_caught fires.
 
+## Shown on the game-over screen, and by GameManager as the caption for a
+## catch she survived - so each one has to read as a distinct mistake, not as
+## a generic "caught". &"touched" is by far the most common in play.
 const REASON_TEXT := {
-	&"seen": "You were seen.",
-	&"too_close": "You got too close.",
-	&"noise": "You made too much noise.",
-	&"timeout": "You ran out of time.",
-	&"touched": "You were caught.",
+	&"seen": "He found your hiding place",
+	&"too_close": "You got too close",
+	&"noise": "You made too much noise",
+	&"timeout": "You ran out of time",
+	&"touched": "He caught up with you",
 }
 
 @onready var title_label: Label = $Root/CenterContainer/VBoxContainer/Title
