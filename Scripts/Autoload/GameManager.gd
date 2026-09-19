@@ -297,6 +297,13 @@ func _on_player_caught(_reason: StringName) -> void:
 	_freeze_run() # LockdownScreen shows itself off this same signal
 
 
+## The exit code was accepted. Freezes the run exactly as a catch does: without
+## this the day timer keeps running behind the win screen, so the day can still
+## end and start the escort and the night routine underneath it.
+func complete_run() -> void:
+	_freeze_run()
+
+
 ## Ends the run without a catch - currently only the day cap. Deliberately
 ## does NOT emit player_caught: that one is Dev2's to emit (docs/CONTRACT.md)
 ## and means an actual catch, so the screen is shown directly instead.
@@ -326,6 +333,12 @@ func _on_clue_revealed(digit_index: int, digit_value: int, _flavour: String) -> 
 		return
 
 	passcode_digits[digit_index] = digit_value
+
+	# Finding a clue ends the day early: Dev2's escort snaps the enemy next to
+	# her and walks her home a beat later. Without a caption that teleport has
+	# no explanation. Sits on screen for the whole walk, same as "Day Ended",
+	# until the night card cross-fades out of it.
+	_day_transition.show_notice("Clue Found")
 
 	# Whoever's reward unlocked this clue is done for the run - see DIGIT_OWNERS.
 	var digit_owner := DIGIT_OWNERS[digit_index]

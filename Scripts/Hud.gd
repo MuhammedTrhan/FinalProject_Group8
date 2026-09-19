@@ -11,6 +11,12 @@ extends CanvasLayer
 ## Stands in for a digit she hasn't found yet, so the readout also tells her
 ## how many are left and which slot each belongs to.
 const UNKNOWN_DIGIT := "*"
+## Mirrors Dev2's EscortController.MAX_LIVES - change one, change both.
+## Deliberately a copy rather than a reference to that class: naming it here
+## would pull EscortController into this autoload's compile, and it in turn
+## needs GameEvents, which isn't up yet at that point.
+const MAX_LIVES := 3
+
 const FOUND_COLOUR := Color(0.98, 0.86, 0.5)
 const UNKNOWN_COLOUR := Color(0.45, 0.41, 0.34)
 
@@ -27,6 +33,13 @@ const FOLLOW_BAR_CAPTIONS := {
 @onready var follow_label: Label = $Root/FollowBar/FollowLabel
 @onready var noise_counter: Label = $Root/NoiseCounter
 @onready var digits_row: HBoxContainer = $Root/PasscodeReadout/Margin/VBox/Digits
+@onready var pips_row: HBoxContainer = $Root/LivesReadout/Margin/VBox/Pips
+
+# One pip per life, all of them lit at full health.
+var _life_pips: Array[Panel] = []
+# What the pips currently show, so a life being lost can be told from an
+# ordinary refresh and flashed.
+var _lives_shown := -1
 
 # One Label per passcode slot, built to match however many digits there are.
 var _digit_slots: Array[Label] = []
@@ -54,6 +67,15 @@ func _ready() -> void:
 	GameEvents.player_caught.connect(func(_reason: StringName) -> void: visible = false)
 
 	_refresh_passcode_readout()
+	_build_life_pips()
+
+
+## A catch costs a life without emitting anything - only the third one fires
+## player_caught - so there is no signal to react to and the count has to be
+## read. One integer per frame, and only while the HUD is actually up.
+func _process(_delta: float) -> void:
+	if visible:
+		_refresh_lives()
 
 
 func _on_day_started(_day: int, personality: int) -> void:
@@ -124,6 +146,9 @@ func _on_clue_revealed(digit_index: int, _digit_value: int, _flavour: String) ->
 
 func _on_run_started(_run_seed: int) -> void:
 	_refresh_passcode_readout()
+	# The new enemy isn't in the tree yet, so the poll can't see full health
+	# on its own and the pips would carry the last run's losses into this one.
+	_paint_pips(MAX_LIVES)
 
 
 func _reveal_digit(digit_index: int) -> void:
@@ -137,6 +162,60 @@ func _reveal_digit(digit_index: int) -> void:
 	var slot := _digit_slots[digit_index]
 	slot.modulate = Color(2.2, 2.0, 1.6)
 	create_tween().tween_property(slot, "modulate", Color.WHITE, 0.6)
+
+
+## Lives are discrete - three of them - so they're drawn as pips rather than a
+## bar: a bar would imply there is such a thing as being two-thirds caught.
+func _build_life_pips() -> void:
+	for _i in MAX_LIVES:
+		var pip := Panel.new()
+		pip.custom_minimum_size = Vector2(30, 30)
+		pips_row.add_child(pip)
+		_life_pips.append(pip)
+
+	_paint_pips(MAX_LIVES)
+
+
+## Reads the count straight off Dev2's escort controller, which owns the catch
+## funnel. get() rather than a direct access so a rename there leaves the pips
+## alone instead of crashing the HUD mid-run.
+func _refresh_lives() -> void:
+	var enemy := get_tree().get_first_node_in_group(&"enemy")
+	if enemy == null:
+		return
+
+	var escort = enemy.get("escort_controller")
+	if escort == null:
+		return
+
+	var remaining = escort.get("_lives_remaining")
+	if remaining == null or remaining == _lives_shown:
+		return
+
+	# Flash the pip that just went out, so losing a life registers even though
+	# nothing else on screen announces it.
+	if remaining < _lives_shown and remaining >= 0 and remaining < _life_pips.size():
+		var lost := _life_pips[remaining]
+		lost.modulate = Color(2.4, 1.6, 1.6)
+		create_tween().tween_property(lost, "modulate", Color.WHITE, 0.7)
+
+	_paint_pips(remaining)
+
+
+func _paint_pips(remaining: int) -> void:
+	_lives_shown = remaining
+
+	for i in _life_pips.size():
+		_life_pips[i].add_theme_stylebox_override("panel", _make_pip_style(i < remaining))
+
+
+func _make_pip_style(lit: bool) -> StyleBoxFlat:
+	var style := StyleBoxFlat.new()
+	style.bg_color = Color(0.72, 0.16, 0.13) if lit else Color(0.09, 0.07, 0.07)
+	style.border_color = Color(0.83, 0.68, 0.35) if lit else Color(0.3, 0.26, 0.22)
+	style.set_border_width_all(3)
+	style.set_corner_radius_all(15) # half the pip, so it reads as a dot
+	return style
 
 
 ## Mirrors GameManager.passcode_digits rather than keeping a second copy; that
