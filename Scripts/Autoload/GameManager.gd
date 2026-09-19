@@ -267,11 +267,17 @@ func _on_night_start_requested(_reason: StringName) -> void:
 ## runs with process_mode = ALWAYS so its Close button still works.
 func _on_computer_interact_requested() -> void:
 	get_tree().paused = true
+	# The HUD is a later autoload than the terminal, so its canvas draws on top
+	# of it - the hotbar and the readouts would sit over the dossier.
+	Hud.visible = false
 	DayOneTerminal.open()
 
 
 func _on_dossier_closed() -> void:
 	get_tree().paused = false
+	# Only on a re-read during the day; the opening night has no HUD to restore,
+	# and day_started brings it back on its own once the night ends below.
+	Hud.visible = is_day() and not _locked_down
 
 	# Only the opening night is gated on the computer; reading it again on any
 	# later day just closes the screen and hands the house back.
