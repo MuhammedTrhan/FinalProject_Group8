@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://bk2je5a50x7wq"]
+
+[ext_resource type="PackedScene" uid="uid://dnyp44skrsl0q" path="res://Scenes/Furnitures/furniture_hideable_base.tscn" id="1_ofk74"]
+[ext_resource type="Texture2D" uid="uid://bu7s235skbrck" path="res://Assets/Interior/Furnitures/TopDownHouse_FurnitureState2.png" id="2_ofk74"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i2nfc"]
+size = Vector2(44, 22)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jar5y"]
+radius = 29.0
+height = 76.0
+
+[node name="Hideable" unique_id=758378394 instance=ExtResource("1_ofk74")]
+
+[node name="Sprite2D" parent="." index="0" unique_id=1764835962]
+texture = ExtResource("2_ofk74")
+region_rect = Rect2(96, 64, 48, 48)
+
+[node name="Hitbox" parent="." index="1" unique_id=150259076]
+position = Vector2(0, 11)
+shape = SubResource("RectangleShape2D_i2nfc")
+
+[node name="InterractionBox" parent="InterractionArea" parent_id_path=PackedInt32Array(97300687) index="0" unique_id=1028417380]
+shape = SubResource("CapsuleShape2D_jar5y")
+
+[node name="HideMarker" parent="." index="3" unique_id=1118046313]
+position = Vector2(0, 0)

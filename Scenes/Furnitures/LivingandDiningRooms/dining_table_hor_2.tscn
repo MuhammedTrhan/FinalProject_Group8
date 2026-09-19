@@ -1,26 +1,27 @@
-[gd_scene format=3 uid="uid://b8l6bkrw8f8dk"]
+[gd_scene format=3 uid="uid://ce46onh3d7pfq"]
 
-[ext_resource type="PackedScene" uid="uid://dnyp44skrsl0q" path="res://Scenes/Furnitures/furniture_hideable_base.tscn" id="1_dtbl0"]
+[ext_resource type="PackedScene" uid="uid://dnyp44skrsl0q" path="res://Scenes/Furnitures/furniture_hideable_base.tscn" id="1_vbqou"]
+[ext_resource type="Texture2D" uid="uid://bu7s235skbrck" path="res://Assets/Interior/Furnitures/TopDownHouse_FurnitureState2.png" id="2_dofko"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dtbl0"]
-size = Vector2(42, 21)
+size = Vector2(46, 20)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_dtbl0"]
 radius = 20.0
 height = 62.0
 
-[node name="DiningTable" unique_id=2143569362 instance=ExtResource("1_dtbl0")]
+[node name="DiningTable" unique_id=2143569362 instance=ExtResource("1_vbqou")]
 
 [node name="Sprite2D" parent="." index="0" unique_id=1764835962]
-region_rect = Rect2(48, 0, 48, 32)
+texture = ExtResource("2_dofko")
+region_rect = Rect2(0, 32, 48, 32)
 
 [node name="Hitbox" parent="." index="1" unique_id=150259076]
-visible = true
-position = Vector2(0, 5.5)
+position = Vector2(0, 4)
 shape = SubResource("RectangleShape2D_dtbl0")
 
 [node name="InterractionBox" parent="InterractionArea" parent_id_path=PackedInt32Array(97300687) index="0" unique_id=1028417380]
-visible = false
+position = Vector2(0, -2)
 rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_dtbl0")
 
@@ -32,4 +33,4 @@ position = Vector2(0, 25)
 
 [node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="." index="5" unique_id=938442101]
 position = Vector2(0, 5.5)
-vertices = PackedVector2Array(21, 10.5, 21, -10.5, -21, -10.5, -21, 10.5)
+vertices = PackedVector2Array(23, 8.5, 23, -11.5, -23, -11.5, -23, 8.5)

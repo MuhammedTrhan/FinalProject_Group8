@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://bhg2ank85ygd6"]
+
+[ext_resource type="PackedScene" uid="uid://dnyp44skrsl0q" path="res://Scenes/Furnitures/furniture_hideable_base.tscn" id="1_3seqo"]
+[ext_resource type="Texture2D" uid="uid://bu7s235skbrck" path="res://Assets/Interior/Furnitures/TopDownHouse_FurnitureState2.png" id="2_3seqo"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dtbl0"]
+size = Vector2(36, 28)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_dtbl0"]
+radius = 20.0
+height = 62.0
+
+[node name="DiningTable" unique_id=2143569362 instance=ExtResource("1_3seqo")]
+
+[node name="Sprite2D" parent="." index="0" unique_id=1764835962]
+texture = ExtResource("2_3seqo")
+region_rect = Rect2(0, 64, 32, 48)
+
+[node name="Hitbox" parent="." index="1" unique_id=150259076]
+position = Vector2(-6.556708e-08, 3)
+rotation = 1.5707964
+shape = SubResource("RectangleShape2D_dtbl0")
+
+[node name="InterractionBox" parent="InterractionArea" parent_id_path=PackedInt32Array(97300687) index="0" unique_id=1028417380]
+visible = true
+position = Vector2(0, -2)
+shape = SubResource("CapsuleShape2D_dtbl0")
+
+[node name="HideMarker" parent="." index="3" unique_id=1118046313]
+position = Vector2(0, 0)
+
+[node name="StandMarker" parent="." index="4" unique_id=2074848840]
+position = Vector2(0, 25)
+
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="." index="5" unique_id=938442101]
+position = Vector2(0, 5.5)
+vertices = PackedVector2Array(14, 15.5, 14, -20.5, -14, -20.5, -14, 15.5)

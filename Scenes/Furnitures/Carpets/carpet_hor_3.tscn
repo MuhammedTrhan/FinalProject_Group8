@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://dmnqduyode6qp"]
+
+[ext_resource type="PackedScene" uid="uid://dh5f37ia22vin" path="res://Scenes/Furnitures/furniture_uninteractable_base.tscn" id="1_hfqv7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fhiue"]
+size = Vector2(31.999998, 48)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rug00"]
+radius = 16.0
+height = 62.0
+
+[node name="horCarpet" unique_id=1811262912 instance=ExtResource("1_hfqv7")]
+z_index = -1
+y_sort_enabled = false
+
+[node name="Sprite2D" parent="." index="0" unique_id=1764835962]
+region_rect = Rect2(160, 32, 48, 32)
+
+[node name="Hitbox" parent="." index="1" unique_id=150259076]
+rotation = 1.5707964
+shape = SubResource("RectangleShape2D_fhiue")
+disabled = true
+
+[node name="InterractionBox" parent="InterractionArea" parent_id_path=PackedInt32Array(97300687) index="0" unique_id=1028417380]
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_rug00")
