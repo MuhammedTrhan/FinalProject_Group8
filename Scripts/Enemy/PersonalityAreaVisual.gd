@@ -79,7 +79,8 @@ func _draw_filled_circle(radius: float, color: Color) -> void:
 	var points := PackedVector2Array()
 	for i in SEGMENTS:
 		var angle := TAU * float(i) / float(SEGMENTS)
-		points.append(Vector2.RIGHT.rotated(angle) * radius)
+		var point := Vector2.RIGHT.rotated(angle) * radius
+		points.append(VisionConeUtils.clip_point_to_walls(self, point))
 	draw_colored_polygon(points, color)
 
 
@@ -92,6 +93,7 @@ func _draw_filled_cone(perception: Perception) -> void:
 	for i in SEGMENTS + 1:
 		var t := float(i) / float(SEGMENTS)
 		var angle := facing_angle - half_fov + t * (half_fov * 2.0)
-		points.append(Vector2.RIGHT.rotated(angle) * perception.view_distance)
+		var point := Vector2.RIGHT.rotated(angle) * perception.view_distance
+		points.append(VisionConeUtils.clip_point_to_walls(self, point))
 
 	draw_colored_polygon(points, fill_color)
