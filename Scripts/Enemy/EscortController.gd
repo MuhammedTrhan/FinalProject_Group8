@@ -57,6 +57,9 @@ const CLUE_REVEAL_DELAY := 3.0
 enum _Phase {WALKING_HOME, LOCKING_IN, WALKING_TO_GUARD, WAITING_AT_SPAWN, UNLOCKING, WALKING_TO_WAKE}
 
 var _lives_remaining: int = MAX_LIVES
+## Why the last catch happened. Only the final catch passes the reason on via
+## player_caught, so Dev1's caption for the first two reads it from here.
+var last_catch_reason: StringName = &""
 var _run_over: bool = false
 var _escorting: bool = false
 var _phase: _Phase = _Phase.WALKING_HOME
@@ -116,6 +119,7 @@ func register_catch(reason: StringName) -> void:
 	if _run_over or _escorting or enemy.is_teleporting:
 		return
 
+	last_catch_reason = reason
 	_lives_remaining -= 1
 	if _lives_remaining <= 0:
 		_run_over = true
