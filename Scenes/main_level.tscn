@@ -43,7 +43,7 @@
 [ext_resource type="PackedScene" uid="uid://cjmnu4npcb1vy" path="res://Scenes/Furnitures/LivingandDiningRooms/hideable_bookshelf.tscn" id="35_ao655"]
 [ext_resource type="PackedScene" uid="uid://cjqpouhri8a3j" path="res://Scenes/Furnitures/LivingandDiningRooms/rug_ver_1.tscn" id="35_bm8oi"]
 [ext_resource type="PackedScene" uid="uid://x5pbc6j101nh" path="res://Scenes/Furnitures/LivingandDiningRooms/plant.tscn" id="36_30qra"]
-[ext_resource type="PackedScene" path="res://Scenes/Furnitures/LivingandDiningRooms/sofa_vertical_2.tscn" id="36_unjri"]
+[ext_resource type="PackedScene" uid="uid://qivcch3vwqcq" path="res://Scenes/Furnitures/LivingandDiningRooms/sofa_vertical_2.tscn" id="36_unjri"]
 [ext_resource type="PackedScene" uid="uid://dpgc6s77w6i0d" path="res://Scenes/Furnitures/Bedroom/nightstand_closet_down.tscn" id="37_ddui2"]
 [ext_resource type="PackedScene" uid="uid://drd2l4i67se3k" path="res://Scenes/Furnitures/LivingandDiningRooms/mini_table.tscn" id="37_w6jpp"]
 [ext_resource type="PackedScene" uid="uid://btmyniusddecj" path="res://Scenes/Furnitures/Bedroom/clothes_box.tscn" id="41_r6y0e"]
@@ -53,6 +53,15 @@
 [ext_resource type="PackedScene" uid="uid://cc54sop0gt8ot" path="res://Scenes/Furnitures/Other/music_player.tscn" id="50_3loty"]
 [ext_resource type="PackedScene" uid="uid://xm1f56m0pcs0" path="res://Scenes/Furnitures/Other/computer.tscn" id="51_gmjuu"]
 [ext_resource type="PackedScene" uid="uid://cnjvb3rpk3lvv" path="res://Scenes/Puzzles/floorboard_puzzle.tscn" id="52_ok16x"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ykarw"]
+size = Vector2(1229.4397, 322.9389)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sfmy3"]
+size = Vector2(428.96344, 281.98083)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i77w6"]
+size = Vector2(800.4762, 281.98083)
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_qbrl8"]
 vertices = PackedVector2Array(476, 108, 476, 30.328125, 484, 30.359375, 484, 108, 668, 780, 753.46094, 780, 753.40625, 820, 668, 796, 108, 1076, 77.96875, 1076, 77.88281, 972, 436, 972, 436, 1020, 628, 108, 628, 244, 404, 244, 356, 108, 396, 244, 404, 348, 516, 348, 516, 388, 436, 388, 740, 492, 740, 676, 476, 676, 476, 500, 436, 492, 436, 500, 436, 532, 404, 532, 404, 636, 436, 636, 436, 780, 628, 780, 628, 796, 668, 820, 668, 804, 628, 804, 628, 820, 516, 820, 516, 924, 740, 924, 740, 1092, 708, 1092, 708, 1104, 508, 1104, 508, 1092, 476, 1092, 476, 1028, 436, 1028, 436, 1104, 108, 1104, 476, 1020, 508, 924, 476, 924, 508, 820, 436, 820, 436, 868, 92, 868, 92, 636, 396, 636, 356, 468, 356, 532, 92, 532, 92, 412, 356, 412, 356, 460, 396, 468, 396, 460, 356, 244, 356, 308, 92, 308, 92, 60, 356, 60, 2300, 972, 2308, 852, 2308, 1020, 2300, 980, 2300, 692, 2483.5938, 1020, 2483.0625, 1119.1719, 2395.6406, 1120.4375, 2300, 1120.4375, 2292, -20, 2292, 116, 2084, 116, 2060, -20, 2084, 436, 2068, 436, 2076, 220, 2124, 220, 2388, 220, 2388, 436, 2132, 436, 2124, 540, 2132, 540, 2260, 540, 2260, 548, 2116, 548, 2068, 540, 2108, 548, 2156, 684, 2156, 652, 2260, 652, 2260, 684, 2300, 684, 2300, 652, 2468, 652, 2468, 916, 2348, 852, 2348, 916, 2260, 692, 2156, 692, 2260, 788, 2156, 788, 2116, 684, 2116, 692, 2260, 972, 2260, 980, 2260, 1044, 2156, 1044, 2156, 900, 2260, 892, 2116, 892, 2116, 900, 2116, 964, 1772, 964, 1772, 652, 2108, 652, 2060, 548, 2060, 436, 1772, 436, 1772, 220, 2076, 116, 2060, 116, -1084, 772, -1684, 772, -1412, 428, -1404, 428, -1548, 428, -1084, 108, -1084, 324, -1404, 324, -1460, 116, -1084, 428, -1412, 324, -1460, 324, -1500, 116, -1500, 324, -1548, 324, -1684, 428, -1556, 428, -1556, 324, -1684, 324, -1684, 108)
@@ -1277,6 +1286,135 @@ pattern_0 = SubResource("TileMapPattern_ha3dl")
 
 [node name="main_level" type="Node2D" unique_id=1596799109]
 y_sort_enabled = true
+
+[node name="RoomAreas" type="Node2D" parent="." unique_id=1479597092]
+visible = false
+
+[node name="Floor1" type="Node2D" parent="RoomAreas" unique_id=1302732291]
+
+[node name="Kitchen&Dining" type="Area2D" parent="RoomAreas/Floor1" unique_id=1274403653]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="RoomAreas/Floor1/Kitchen&Dining" unique_id=804569715]
+position = Vector2(72, -24)
+polygon = PackedVector2Array(1, 347, 302, 351, 302, 327, 467, 326, 466, 289, 579, 289, 575, 48, 304, 47, 304, 1, 1, 0)
+
+[node name="Corridor" type="Area2D" parent="RoomAreas/Floor1" unique_id=123269632]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="RoomAreas/Floor1/Corridor" unique_id=1085870965]
+position = Vector2(72, -24)
+polygon = PackedVector2Array(304, 614, 303, 327, 467, 326, 467, 431, 382, 432, 385, 615)
+
+[node name="Toilet" type="Area2D" parent="RoomAreas/Floor1" unique_id=681555420]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="RoomAreas/Floor1/Toilet" unique_id=733649788]
+position = Vector2(72, -24)
+polygon = PackedVector2Array(302, 572, 301, 354, -1, 353, 1, 576)
+
+[node name="LivingRoom" type="Area2D" parent="RoomAreas/Floor1" unique_id=1660588862]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="RoomAreas/Floor1/LivingRoom" unique_id=1822812179]
+position = Vector2(72, -24)
+polygon = PackedVector2Array(304, 614, 304, 579, 3, 579, 3, 913, 381, 914, 382, 900, 578, 897, 577, 719, 385, 720, 385, 615)
+
+[node name="Bedroom1" type="Area2D" parent="RoomAreas/Floor1" unique_id=902734758]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="RoomAreas/Floor1/Bedroom1" unique_id=1247926698]
+position = Vector2(72, -24)
+polygon = PackedVector2Array(689, 720, 685, 430, 382, 432, 384, 720)
+
+[node name="Garage" type="Area2D" parent="RoomAreas/Floor1" unique_id=1395537783]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="RoomAreas/Floor1/Garage" unique_id=1256155178]
+position = Vector2(72, -24)
+polygon = PackedVector2Array(384, 1134, 382, 900, 578, 897, 578, 863, 688, 864, 692, 1137)
+
+[node name="Garden" type="Area2D" parent="RoomAreas/Floor1" unique_id=1296104718]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="RoomAreas/Floor1/Garden" unique_id=1410403291]
+position = Vector2(72, -24)
+polygon = PackedVector2Array(383, 911, -27, 914, -27, 1244, 385, 1242)
+
+[node name="Floor0" type="Node2D" parent="RoomAreas" unique_id=2015249218]
+
+[node name="FreeArea" type="Area2D" parent="RoomAreas/Floor0" unique_id=818255450]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RoomAreas/Floor0/FreeArea" unique_id=56788943]
+position = Vector2(-1383, 586)
+rotation = -3.1415925
+scale = Vector2(0.52218914, 1.2695898)
+shape = SubResource("RectangleShape2D_ykarw")
+
+[node name="Toilet3" type="Area2D" parent="RoomAreas/Floor0" unique_id=2135179111]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RoomAreas/Floor0/Toilet3" unique_id=1197437482]
+position = Vector2(-1592, 202)
+rotation = -3.1415925
+scale = Vector2(0.52218914, 1.2695898)
+shape = SubResource("RectangleShape2D_sfmy3")
+
+[node name="StorageRoom" type="Area2D" parent="RoomAreas/Floor0" unique_id=1084875641]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RoomAreas/Floor0/StorageRoom" unique_id=129580825]
+position = Vector2(-1271, 202.00005)
+rotation = -3.1415925
+scale = Vector2(0.52218914, 1.2695898)
+shape = SubResource("RectangleShape2D_i77w6")
+
+[node name="Floor2" type="Node2D" parent="RoomAreas" unique_id=1536442717]
+
+[node name="Bedroom2" type="Area2D" parent="RoomAreas/Floor2" unique_id=2136477513]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="RoomAreas/Floor2/Bedroom2" unique_id=625805721]
+position = Vector2(1509, 228)
+polygon = PackedVector2Array(594, -94, 594, 268, 242, 269, 244, -92)
+
+[node name="StudyRoom" type="Area2D" parent="RoomAreas/Floor2" unique_id=985717594]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="RoomAreas/Floor2/StudyRoom" unique_id=492308672]
+position = Vector2(1509, 228)
+polygon = PackedVector2Array(594, -94, 594, 268, 903, 268, 903, -92)
+
+[node name="Corridor2" type="Area2D" parent="RoomAreas/Floor2" unique_id=255470914]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="RoomAreas/Floor2/Corridor2" unique_id=1225175028]
+position = Vector2(1509, 228)
+polygon = PackedVector2Array(533, 268, 771.6434, 268, 773, 339, 629, 341, 628, 380, 534, 380)
+
+[node name="MainBedroom" type="Area2D" parent="RoomAreas/Floor2" unique_id=160243555]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="RoomAreas/Floor2/MainBedroom" unique_id=1644429799]
+position = Vector2(1509, 228)
+polygon = PackedVector2Array(534, 336, 246, 338, 247, 759, 626, 760, 628, 380, 534, 380)
+
+[node name="Dressroom" type="Area2D" parent="RoomAreas/Floor2" unique_id=2083916407]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="RoomAreas/Floor2/Dressroom" unique_id=202556000]
+position = Vector2(1509, 228)
+polygon = PackedVector2Array(771, 580, 629, 580, 628, 341, 773, 340)
+
+[node name="ParentToilet" type="Area2D" parent="RoomAreas/Floor2" unique_id=91125919]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="RoomAreas/Floor2/ParentToilet" unique_id=845014486]
+position = Vector2(1509, 228)
+polygon = PackedVector2Array(772, 683, 817, 682, 817, 706, 983, 707, 981, 338, 773, 340)
+
+[node name="Balcony" type="Area2D" parent="RoomAreas/Floor2" unique_id=1587587096]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="RoomAreas/Floor2/Balcony" unique_id=558363444]
+position = Vector2(1509, 228)
+polygon = PackedVector2Array(772, 683, 817, 682, 817, 706, 988, 707, 989, 908, 773, 908)
+
+[node name="Verandah" type="Area2D" parent="RoomAreas/Floor2" unique_id=227355224]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="RoomAreas/Floor2/Verandah" unique_id=1999802220]
+position = Vector2(1509, 228)
+polygon = PackedVector2Array(771, 580, 629, 580, 629, 841, 772, 841)
+
+[node name="Toilet2" type="Area2D" parent="RoomAreas/Floor2" unique_id=1995176872]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="RoomAreas/Floor2/Toilet2" unique_id=1430818769]
+position = Vector2(1509, 228)
+polygon = PackedVector2Array(531, -94, 530, -334, 805, -336, 808, -95)
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="." unique_id=834169662]
 y_sort_enabled = true
