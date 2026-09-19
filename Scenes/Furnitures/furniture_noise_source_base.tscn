@@ -34,6 +34,7 @@ collision_mask = 0
 monitoring = false
 
 [node name="InterractionBox" type="CollisionShape2D" parent="InterractionArea" unique_id=1028417380]
+visible = false
 shape = SubResource("CapsuleShape2D_ao6dg")
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=203244483]

@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://ctjshy3p37xrm"]
+
+[ext_resource type="PackedScene" uid="uid://dpnh7gu3t8o6i" path="res://Scenes/Furnitures/furniture_sitable_base.tscn" id="1_56hmj"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_chr10"]
+size = Vector2(14, 15)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_chr10"]
+radius = 9.565218
+height = 31.30435
+
+[node name="DiningChairDown" unique_id=1249556265 instance=ExtResource("1_56hmj")]
+scale = Vector2(1.15, 1.15)
+
+[node name="Sprite2D" parent="." index="0" unique_id=1764835962]
+offset = Vector2(0, -8)
+region_rect = Rect2(112, 0, 16, 32)
+
+[node name="Hitbox" parent="." index="1" unique_id=150259076]
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_chr10")
+
+[node name="InterractionBox" parent="InterractionArea" parent_id_path=PackedInt32Array(97300687) index="0" unique_id=1028417380]
+visible = true
+position = Vector2(0, -3.478261)
+shape = SubResource("CapsuleShape2D_chr10")
+
+[node name="StandUpMarker" parent="." index="3" unique_id=1118046313]
+position = Vector2(0, -16.52174)
+
+[node name="SitDownMarker" parent="." index="4" unique_id=2074848840]
+position = Vector2(0, -0.86956525)

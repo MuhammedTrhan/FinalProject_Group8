@@ -10,6 +10,7 @@ radius = 21.0
 height = 78.0
 
 [node name="SingleVerticalBed1" unique_id=2065614399 instance=ExtResource("1_odfwg")]
+scale = Vector2(1.15, 1.15)
 
 [node name="Sprite2D" parent="." index="0" unique_id=1764835962]
 region_rect = Rect2(0, 32, 32, 48)

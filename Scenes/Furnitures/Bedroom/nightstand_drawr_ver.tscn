@@ -1,26 +1,31 @@
-[gd_scene format=3 uid="uid://dpgc6s77w6i0d"]
+[gd_scene format=3 uid="uid://eolrqdkbex73"]
 
-[ext_resource type="PackedScene" uid="uid://lgxl3cht6vlk" path="res://Scenes/Furnitures/furniture_interactable_base.tscn" id="1_4pi0a"]
+[ext_resource type="PackedScene" uid="uid://lgxl3cht6vlk" path="res://Scenes/Furnitures/furniture_interactable_base.tscn" id="1_ofjwa"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8aptr"]
-size = Vector2(16, 23)
+size = Vector2(16, 19)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_icu8n"]
 radius = 12.0
-height = 42.0
+height = 40.0
 
-[node name="NightstandClosetDown" unique_id=758378394 instance=ExtResource("1_4pi0a")]
+[node name="NightstandClosetDown" unique_id=758378394 instance=ExtResource("1_ofjwa")]
 
 [node name="InactiveSprite" parent="." index="0" unique_id=1764835962]
-region_rect = Rect2(48, 0, 16, 32)
+offset = Vector2(0, 4)
+region_rect = Rect2(32, 0, 16, 32)
 
 [node name="ActiveSprite" parent="." index="1" unique_id=91856626]
-region_rect = Rect2(48, 0, 16, 32)
+visible = false
+offset = Vector2(0, 4)
+region_rect = Rect2(32, 0, 16, 32)
 
 [node name="Hitbox" parent="." index="2" unique_id=150259076]
-position = Vector2(0, 1.5)
+visible = true
+position = Vector2(0, 8.5)
 shape = SubResource("RectangleShape2D_8aptr")
 
 [node name="InterractionBox" parent="InterractionArea" parent_id_path=PackedInt32Array(97300687) index="0" unique_id=1028417380]
-visible = false
+visible = true
+position = Vector2(0, 4)
 shape = SubResource("CapsuleShape2D_icu8n")

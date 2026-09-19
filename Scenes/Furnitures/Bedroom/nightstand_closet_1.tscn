@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://rnau60la7rm5"]
+
+[ext_resource type="PackedScene" uid="uid://dh5f37ia22vin" path="res://Scenes/Furnitures/furniture_uninteractable_base.tscn" id="1_k6dha"]
+[ext_resource type="Texture2D" uid="uid://b57g1d2wirast" path="res://Assets/Interior/Furnitures/furniture.png" id="2_gn6ri"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c8av2"]
+size = Vector2(12, 17)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_k6dha"]
+radius = 11.0
+height = 34.0
+
+[node name="Nightstand" unique_id=758378394 instance=ExtResource("1_k6dha")]
+
+[node name="Sprite2D" parent="." index="0" unique_id=1764835962]
+texture = ExtResource("2_gn6ri")
+region_rect = Rect2(144, 16, 16, 32)
+
+[node name="Hitbox" parent="." index="1" unique_id=150259076]
+position = Vector2(0, 3.5)
+shape = SubResource("RectangleShape2D_c8av2")
+
+[node name="InterractionBox" parent="InterractionArea" parent_id_path=PackedInt32Array(97300687) index="0" unique_id=1028417380]
+shape = SubResource("CapsuleShape2D_k6dha")

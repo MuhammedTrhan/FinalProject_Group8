@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://cuajtw0sdegop"]
+
+[ext_resource type="PackedScene" uid="uid://dh5f37ia22vin" path="res://Scenes/Furnitures/furniture_uninteractable_base.tscn" id="1_l2osg"]
+[ext_resource type="Texture2D" uid="uid://bu7s235skbrck" path="res://Assets/Interior/Furnitures/TopDownHouse_FurnitureState2.png" id="2_l2osg"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_vrvxg"]
+radius = 4.0
+height = 12.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7njas"]
+radius = 9.0
+height = 38.0
+
+[node name="Plant" unique_id=758378394 instance=ExtResource("1_l2osg")]
+
+[node name="Sprite2D" parent="." index="0" unique_id=1764835962]
+texture = ExtResource("2_l2osg")
+offset = Vector2(0, -12)
+region_rect = Rect2(0, 160, 16, 32)
+
+[node name="Hitbox" parent="." index="1" unique_id=150259076]
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_vrvxg")
+
+[node name="InterractionBox" parent="InterractionArea" parent_id_path=PackedInt32Array(97300687) index="0" unique_id=1028417380]
+position = Vector2(0, -10)
+shape = SubResource("CapsuleShape2D_7njas")

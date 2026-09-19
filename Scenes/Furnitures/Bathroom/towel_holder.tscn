@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://v7xnhybi1aa2"]
+
+[ext_resource type="PackedScene" uid="uid://lgxl3cht6vlk" path="res://Scenes/Furnitures/furniture_interactable_base.tscn" id="1_6qhyc"]
+[ext_resource type="Texture2D" uid="uid://b57g1d2wirast" path="res://Assets/Interior/Furnitures/furniture.png" id="2_lbdh4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f4461"]
+size = Vector2(16, 5)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_f4461"]
+radius = 12.0
+height = 36.0
+
+[node name="TowelHolder" unique_id=758378394 instance=ExtResource("1_6qhyc")]
+
+[node name="InactiveSprite" parent="." index="0" unique_id=1764835962]
+texture = ExtResource("2_lbdh4")
+offset = Vector2(0, -24)
+region_rect = Rect2(64, 112, 16, 16)
+
+[node name="ActiveSprite" parent="." index="1" unique_id=91856626]
+texture = ExtResource("2_lbdh4")
+offset = Vector2(0, -24)
+region_rect = Rect2(80, 112, 16, 16)
+
+[node name="Hitbox" parent="." index="2" unique_id=150259076]
+position = Vector2(0, -25.5)
+shape = SubResource("RectangleShape2D_f4461")
+
+[node name="InterractionBox" parent="InterractionArea" parent_id_path=PackedInt32Array(97300687) index="0" unique_id=1028417380]
+visible = true
+position = Vector2(0, -18)
+shape = SubResource("CapsuleShape2D_f4461")

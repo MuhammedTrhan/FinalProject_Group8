@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://ba36rhhdtf6v2"]
+
+[ext_resource type="PackedScene" uid="uid://lgxl3cht6vlk" path="res://Scenes/Furnitures/furniture_interactable_base.tscn" id="1_12in4"]
+[ext_resource type="Script" uid="uid://b6g0akt6uko38" path="res://Scripts/Interactables/NoiseSourceFurniture.gd" id="2_lu2yg"]
+[ext_resource type="AudioStream" uid="uid://bmoil2lgsxibg" path="res://Assets/Audio/FurnitureSounds/sink.wav" id="3_thmc3"]
+[ext_resource type="Texture2D" uid="uid://b57g1d2wirast" path="res://Assets/Interior/Furnitures/furniture.png" id="4_lu2yg"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dv8gn"]
+size = Vector2(12, 28)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_thmc3"]
+height = 40.0
+
+[node name="Sink" unique_id=758378394 instance=ExtResource("1_12in4")]
+script = ExtResource("2_lu2yg")
+noise_audio = ExtResource("3_thmc3")
+
+[node name="InactiveSprite" parent="." index="0" unique_id=1764835962]
+texture = ExtResource("4_lu2yg")
+region_rect = Rect2(96, 0, 16, 32)
+
+[node name="ActiveSprite" parent="." index="1" unique_id=91856626]
+texture = ExtResource("4_lu2yg")
+region_rect = Rect2(112, 0, 16, 32)
+
+[node name="Hitbox" parent="." index="2" unique_id=150259076]
+position = Vector2(-2, 0)
+shape = SubResource("RectangleShape2D_dv8gn")
+
+[node name="InterractionBox" parent="InterractionArea" parent_id_path=PackedInt32Array(97300687) index="0" unique_id=1028417380]
+shape = SubResource("CapsuleShape2D_thmc3")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." index="4" unique_id=947201794]

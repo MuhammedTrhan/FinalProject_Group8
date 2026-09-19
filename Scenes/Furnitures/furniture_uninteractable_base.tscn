@@ -24,4 +24,5 @@ shape = SubResource("RectangleShape2D_h0llp")
 [node name="InterractionArea" type="Area2D" parent="." unique_id=97300687]
 
 [node name="InterractionBox" type="CollisionShape2D" parent="InterractionArea" unique_id=1028417380]
+visible = false
 shape = SubResource("CapsuleShape2D_ao6dg")

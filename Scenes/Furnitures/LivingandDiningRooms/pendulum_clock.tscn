@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://bhpq5a7l8d6ln"]
+
+[ext_resource type="PackedScene" uid="uid://dh5f37ia22vin" path="res://Scenes/Furnitures/furniture_uninteractable_base.tscn" id="1_w3yia"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w3yia"]
+size = Vector2(13, 17)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_w3yia"]
+radius = 15.0
+height = 64.0
+
+[node name="SmallTable" unique_id=758378394 instance=ExtResource("1_w3yia")]
+
+[node name="Sprite2D" parent="." index="0" unique_id=1764835962]
+offset = Vector2(0, -16)
+region_rect = Rect2(64, 112, 32, 48)
+
+[node name="Hitbox" parent="." index="1" unique_id=150259076]
+position = Vector2(0.49999997, -0.5)
+rotation = 1.5707964
+shape = SubResource("RectangleShape2D_w3yia")
+
+[node name="InterractionBox" parent="InterractionArea" parent_id_path=PackedInt32Array(97300687) index="0" unique_id=1028417380]
+visible = true
+position = Vector2(0, -17)
+shape = SubResource("CapsuleShape2D_w3yia")
