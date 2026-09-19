@@ -14,13 +14,13 @@ var last_direction: String = "down"
 var interaction_anims: Array[String] = ["slash", "back_slash", "lock", "sit"]
 
 
-func update_animations(velocity: Vector2) -> void:
+func update_animations(velocity: Vector2, is_chasing: bool = false) -> void:
 	var state := "idle"
 
 	if is_interacting:
 		state = interact_state
 	elif velocity.length() > 0:
-		state = "walk"
+		state = "run" if is_chasing else "walk"
 		last_direction = get_facing_direction(velocity)
 
 	play(state + "_" + last_direction)

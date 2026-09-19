@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://c28x47tby5vsm" path="res://Assets/Enemy/enemy_paranoid/portrait.png" id="2_portrait"]
 [ext_resource type="Texture2D" uid="uid://nyhgrprgqxvb" path="res://Assets/Enemy/enemy_paranoid/standard/idle.png" id="3_idle"]
 [ext_resource type="Script" uid="uid://sam1gdk4y73n" path="res://Scripts/Items/ItemData.gd" id="3_ke2cr"]
+[ext_resource type="Texture2D" uid="uid://wrvb5hj5tman" path="res://Assets/Enemy/enemy_paranoid/standard/run.png" id="4_run"]
 [ext_resource type="Texture2D" uid="uid://bcuvbmo4cojtk" path="res://Assets/Enemy/enemy_paranoid/standard/walk.png" id="4_walk"]
 [ext_resource type="Texture2D" uid="uid://dwtb5jkdgfq6x" path="res://Assets/Enemy/enemy_paranoid/standard/slash.png" id="5_slash"]
 [ext_resource type="Texture2D" uid="uid://dk7bofpr4naep" path="res://Assets/Enemy/enemy_paranoid/standard/sit.png" id="6_sit"]
@@ -19,6 +20,7 @@ dossier_text = "I absolutely do not want to be seen wandering around this guy. H
 portrait = ExtResource("2_portrait")
 idle_sheet = ExtResource("3_idle")
 walk_sheet = ExtResource("4_walk")
+run_sheet = ExtResource("4_run")
 slash_sheet = ExtResource("5_slash")
 sit_sheet = ExtResource("6_sit")
 chase_speed = 125.0
