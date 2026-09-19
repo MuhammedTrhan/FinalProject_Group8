@@ -6,10 +6,11 @@ extends Node2D
 ## as a faintly-filled ring (ring_fill_color) with a solid outline. Both areas
 ## are clipped/broken against walls (see VisionConeUtils).
 
-@export var fill_color: Color = Color(0.8, 0.8, 0.8, 0.25)
+# Alpha picked low since outer and inner fill collides.
+@export var fill_color: Color = Color(0.8, 0.8, 0.8, 0.18)
 @export var ring_color: Color = Color(1, 1, 1, 0.6)
 @export var ring_width: float = 1.0
-@export var ring_fill_color: Color = Color(0.3, 0.6, 1.0, 0.15)
+@export var ring_fill_color: Color = Color(0.3, 0.6, 1.0, 0.1)
 
 const SEGMENTS := 256
 
