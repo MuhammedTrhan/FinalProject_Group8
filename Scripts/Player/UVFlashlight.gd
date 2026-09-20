@@ -79,8 +79,15 @@ func _draw() -> void:
 	for i in SEGMENTS + 1:
 		var t := float(i) / float(SEGMENTS)
 		var angle := -half_fov + t * (half_fov * 2.0)
-		points.append(Vector2.RIGHT.rotated(angle) * light_range)
-	draw_colored_polygon(points, fill_color)
+		var point := Vector2.RIGHT.rotated(angle) * light_range
+		points.append(VisionConeUtils.clip_point_to_walls(self, point))
+
+	# A wall/corner can clip several consecutive samples to the same point -
+	# draw_colored_polygon()'s triangulator fails outright on a repeated
+	# vertex rather than skipping a sliver, so strip those out first.
+	points = VisionConeUtils.dedupe_consecutive(points)
+	if points.size() >= 3:
+		draw_colored_polygon(points, fill_color)
 
 
 func _facing_to_angle(direction: String) -> float:

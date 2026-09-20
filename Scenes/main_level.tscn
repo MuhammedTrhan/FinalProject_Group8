@@ -64,7 +64,7 @@
 [ext_resource type="PackedScene" uid="uid://crogx4pp62ytr" path="res://Scenes/Furnitures/LivingandDiningRooms/sofa_sin_up_2.tscn" id="49_f6pf6"]
 [ext_resource type="PackedScene" uid="uid://ciwgxc1hte0y0" path="res://Scenes/Furnitures/Bedroom/nightstand_closet_ver.tscn" id="49_wgy3k"]
 [ext_resource type="PackedScene" uid="uid://cc54sop0gt8ot" path="res://Scenes/Furnitures/Other/music_player.tscn" id="50_3loty"]
-[ext_resource type="PackedScene" uid="uid://cmuo8dsyqdyw3" path="res://Scenes/Furnitures/Other/flower_shelf.tscn" id="50_86i52"]
+[ext_resource type="PackedScene" path="res://Scenes/Furnitures/Other/flower_shelf.tscn" id="50_86i52"]
 [ext_resource type="PackedScene" uid="uid://e81qm0falh2f" path="res://Scenes/Furnitures/Studyroom/globe_2.tscn" id="50_edvr7"]
 [ext_resource type="PackedScene" uid="uid://5a38hxotrsvf" path="res://Scenes/Furnitures/Studyroom/beanbag_chair.tscn" id="51_d4xk6"]
 [ext_resource type="PackedScene" uid="uid://xm1f56m0pcs0" path="res://Scenes/Furnitures/Other/computer.tscn" id="51_gmjuu"]

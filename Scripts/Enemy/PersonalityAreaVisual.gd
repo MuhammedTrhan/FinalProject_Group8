@@ -98,7 +98,13 @@ func _draw_filled_circle(radius: float, color: Color) -> void:
 		var angle := TAU * float(i) / float(SEGMENTS)
 		var point := Vector2.RIGHT.rotated(angle) * radius
 		points.append(VisionConeUtils.clip_point_to_walls(self, point))
-	draw_colored_polygon(points, color)
+
+	# A wall/corner can clip several consecutive samples to the same point
+	# draw_colored_polygon()'s triangulator fails outright on a repeated
+	# vertex rather than skipping a sliver, so strip those out first.
+	points = VisionConeUtils.dedupe_consecutive(points, 0.5, true)
+	if points.size() >= 3:
+		draw_colored_polygon(points, color)
 
 
 func _draw_filled_cone(perception: Perception) -> void:
@@ -113,4 +119,6 @@ func _draw_filled_cone(perception: Perception) -> void:
 		var point := Vector2.RIGHT.rotated(angle) * perception.view_distance
 		points.append(VisionConeUtils.clip_point_to_walls(self, point))
 
-	draw_colored_polygon(points, fill_color)
+	points = VisionConeUtils.dedupe_consecutive(points)
+	if points.size() >= 3:
+		draw_colored_polygon(points, fill_color)
