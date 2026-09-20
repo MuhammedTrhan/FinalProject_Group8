@@ -14,7 +14,7 @@
 script = ExtResource("1_script")
 personality = 2
 display_name = "The Loud Guy"
-dossier_text = "He gets so panicked and covers his ears, rocking back and forth just because of sensory overload. You have 45 seconds to run around and turn off the disturbing TV, the boiling kettle, and stuff to calm him down. If you actually manage to make the house quiet, he feels better and drops something for you. He totally hates washing the dishes, and sometimes complains about that all day long. But if you run out of time and leave the noise on, he has a complete breakdown, flies into a rage, and locks everything down instantly."
+dossier_text = "He gets so panicked and covers his ears, rocking back and forth just because of sensory overload. You have 60 seconds to run around and turn off the disturbing TV, the boiling kettle, and stuff to calm him down. If you actually manage to make the house quiet, he feels better and drops something for you. He totally hates washing the dishes, and sometimes complains about that all day long. But if you run out of time and leave the noise on, he has a complete breakdown, flies into a rage, and locks everything down instantly."
 portrait = ExtResource("2_portrait")
 idle_sheet = ExtResource("3_idle")
 walk_sheet = ExtResource("4_walk")

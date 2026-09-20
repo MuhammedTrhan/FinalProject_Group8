@@ -5,7 +5,7 @@ extends PersonalityModule
 ## rocking left/right, and panics if the house isn't quiet within PANIC_TIME
 ## seconds - reacting for real (a chase, not an instant catch).
 
-const PANIC_TIME := 45.0
+const PANIC_TIME := 60.0
 
 ## Rocking motion while seated - a plain Sprite2D rotation, not a second
 ## animation track (the AnimationPlayer never touches rotation).
