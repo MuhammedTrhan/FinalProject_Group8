@@ -9,7 +9,7 @@ size = Vector2(20, 44)
 radius = 15.0
 height = 70.0
 
-[node name="SofaVertical" unique_id=758378394 instance=ExtResource("1_qb5qa")]
+[node name="SofaVertical" unique_id=758378394 instance=ExtResource("1_qb5qa") groups=["nav_bake_source"]]
 
 [node name="Sprite2D" parent="." index="0" unique_id=1764835962]
 region_rect = Rect2(0, 192, 24, 64)
@@ -17,6 +17,11 @@ region_rect = Rect2(0, 192, 24, 64)
 [node name="Hitbox" parent="." index="1" unique_id=150259076]
 position = Vector2(-1, 5)
 shape = SubResource("RectangleShape2D_qb5qa")
+
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="."]
+position = Vector2(-1, 5)
+vertices = PackedVector2Array(10, 22, 10, -22, -10, -22, -10, 22)
+affect_navigation_mesh = true
 
 [node name="InterractionBox" parent="InterractionArea" parent_id_path=PackedInt32Array(97300687) index="0" unique_id=1028417380]
 position = Vector2(4, 0)

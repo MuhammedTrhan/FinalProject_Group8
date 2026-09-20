@@ -11,7 +11,7 @@ height = 28.0
 radius = 14.0
 height = 38.0
 
-[node name="CatBed1" unique_id=758378394 instance=ExtResource("1_81g12")]
+[node name="CatBed1" unique_id=758378394 instance=ExtResource("1_81g12") groups=["nav_bake_source"]]
 
 [node name="Sprite2D" parent="." index="0" unique_id=1764835962]
 texture = ExtResource("2_f3q3e")
@@ -21,6 +21,11 @@ region_rect = Rect2(96, 240, 32, 16)
 position = Vector2(0, -1)
 rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_0hj6w")
+
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="."]
+position = Vector2(0, -1)
+vertices = PackedVector2Array(14, 7, 14, -7, -14, -7, -14, 7)
+affect_navigation_mesh = true
 
 [node name="InterractionBox" parent="InterractionArea" parent_id_path=PackedInt32Array(97300687) index="0" unique_id=1028417380]
 shape = SubResource("CapsuleShape2D_u7nm5")

@@ -10,7 +10,7 @@ size = Vector2(16, 22)
 radius = 14.0
 height = 38.0
 
-[node name="FlowerShelf" unique_id=758378394 instance=ExtResource("1_qajgb")]
+[node name="FlowerShelf" unique_id=758378394 instance=ExtResource("1_qajgb") groups=["nav_bake_source"]]
 
 [node name="Sprite2D" parent="." index="0" unique_id=1764835962]
 texture = ExtResource("2_rpd7m")
@@ -21,6 +21,11 @@ region_rect = Rect2(170, 48, 22, 32)
 position = Vector2(0, -2)
 rotation = 1.5707964
 shape = SubResource("RectangleShape2D_romlk")
+
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="."]
+position = Vector2(0, -2)
+vertices = PackedVector2Array(11, 8, 11, -8, -11, -8, -11, 8)
+affect_navigation_mesh = true
 
 [node name="InterractionBox" parent="InterractionArea" parent_id_path=PackedInt32Array(97300687) index="0" unique_id=1028417380]
 position = Vector2(0, -8)

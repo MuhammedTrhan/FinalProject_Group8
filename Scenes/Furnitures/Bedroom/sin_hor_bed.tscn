@@ -9,7 +9,7 @@ size = Vector2(42, 23)
 radius = 20.0
 height = 64.0
 
-[node name="sin_hor_bed" unique_id=758378394 instance=ExtResource("1_ad2tg")]
+[node name="sin_hor_bed" unique_id=758378394 instance=ExtResource("1_ad2tg") groups=["nav_bake_source"]]
 
 [node name="Sprite2D" parent="." index="0" unique_id=1764835962]
 region_rect = Rect2(0, 0, 51, 33)
@@ -17,6 +17,11 @@ region_rect = Rect2(0, 0, 51, 33)
 [node name="Hitbox" parent="." index="1" unique_id=150259076]
 position = Vector2(0, 3.5)
 shape = SubResource("RectangleShape2D_el5f1")
+
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="."]
+position = Vector2(0, 3.5)
+vertices = PackedVector2Array(21, 11.5, 21, -11.5, -21, -11.5, -21, 11.5)
+affect_navigation_mesh = true
 
 [node name="InterractionBox" parent="InterractionArea" parent_id_path=PackedInt32Array(97300687) index="0" unique_id=1028417380]
 visible = true

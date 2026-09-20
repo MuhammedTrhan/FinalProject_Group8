@@ -9,7 +9,7 @@ size = Vector2(23, 16.5)
 radius = 15.0
 height = 50.0
 
-[node name="BedroomDrawr" unique_id=758378394 instance=ExtResource("1_sjj1i")]
+[node name="BedroomDrawr" unique_id=758378394 instance=ExtResource("1_sjj1i") groups=["nav_bake_source"]]
 
 [node name="InactiveSprite" parent="." index="0" unique_id=1764835962]
 offset = Vector2(0, -8)
@@ -22,6 +22,11 @@ region_rect = Rect2(0, 112, 32, 48)
 [node name="Hitbox" parent="." index="2" unique_id=150259076]
 position = Vector2(0.5, -1.25)
 shape = SubResource("RectangleShape2D_8aptr")
+
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="."]
+position = Vector2(0.5, -1.25)
+vertices = PackedVector2Array(11.5, 8.25, 11.5, -8.25, -11.5, -8.25, -11.5, 8.25)
+affect_navigation_mesh = true
 
 [node name="InterractionBox" parent="InterractionArea" parent_id_path=PackedInt32Array(97300687) index="0" unique_id=1028417380]
 position = Vector2(0, -9)

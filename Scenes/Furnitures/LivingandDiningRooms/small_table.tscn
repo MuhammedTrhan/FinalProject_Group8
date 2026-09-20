@@ -9,7 +9,7 @@ size = Vector2(22, 13)
 radius = 12.0
 height = 40.0
 
-[node name="SmallTable" unique_id=758378394 instance=ExtResource("1_1w1d3")]
+[node name="SmallTable" unique_id=758378394 instance=ExtResource("1_1w1d3") groups=["nav_bake_source"]]
 
 [node name="Sprite2D" parent="." index="0" unique_id=1764835962]
 region_rect = Rect2(80, 40, 32, 24)
@@ -17,6 +17,11 @@ region_rect = Rect2(80, 40, 32, 24)
 [node name="Hitbox" parent="." index="1" unique_id=150259076]
 position = Vector2(0, 4)
 shape = SubResource("RectangleShape2D_1w1d3")
+
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="."]
+position = Vector2(0, 4)
+vertices = PackedVector2Array(11, 6.5, 11, -6.5, -11, -6.5, -11, 6.5)
+affect_navigation_mesh = true
 
 [node name="InterractionBox" parent="InterractionArea" parent_id_path=PackedInt32Array(97300687) index="0" unique_id=1028417380]
 position = Vector2(0, 1)

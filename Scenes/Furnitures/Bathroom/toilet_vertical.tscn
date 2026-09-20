@@ -9,7 +9,7 @@ size = Vector2(16, 32)
 radius = 16.0
 height = 68.0
 
-[node name="ToiletVertical" unique_id=758378394 instance=ExtResource("1_wsjfa")]
+[node name="ToiletVertical" unique_id=758378394 instance=ExtResource("1_wsjfa") groups=["nav_bake_source"]]
 
 [node name="InactiveSprite" parent="." index="0" unique_id=1764835962]
 region_rect = Rect2(128, 256, 16, 32)
@@ -19,6 +19,11 @@ region_rect = Rect2(128, 256, 16, 32)
 
 [node name="Hitbox" parent="." index="2" unique_id=150259076]
 shape = SubResource("RectangleShape2D_b0gwq")
+
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="."]
+position = Vector2(0, 0)
+vertices = PackedVector2Array(8, 16, 8, -16, -8, -16, -8, 16)
+affect_navigation_mesh = true
 
 [node name="InterractionBox" parent="InterractionArea" parent_id_path=PackedInt32Array(97300687) index="0" unique_id=1028417380]
 shape = SubResource("CapsuleShape2D_bo6rn")

@@ -9,7 +9,7 @@ size = Vector2(26, 34)
 radius = 18.0
 height = 66.0
 
-[node name="dining_table_ver" unique_id=758378394 instance=ExtResource("1_wq1f8")]
+[node name="dining_table_ver" unique_id=758378394 instance=ExtResource("1_wq1f8") groups=["nav_bake_source"]]
 
 [node name="Sprite2D" parent="." index="0" unique_id=1764835962]
 offset = Vector2(0, 8)
@@ -28,3 +28,4 @@ shape = SubResource("CapsuleShape2D_q06xq")
 [node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="." index="5" unique_id=1142230258]
 position = Vector2(0, 5.5)
 vertices = PackedVector2Array(13, 26.5, 13, -7.5, -13, -7.5, -13, 26.5)
+affect_navigation_mesh = true

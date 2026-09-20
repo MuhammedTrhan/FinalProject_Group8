@@ -11,7 +11,7 @@ size = Vector2(12, 28)
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_thmc3"]
 height = 40.0
 
-[node name="Sink" unique_id=758378394 instance=ExtResource("1_12in4")]
+[node name="Sink" unique_id=758378394 instance=ExtResource("1_12in4") groups=["nav_bake_source"]]
 script = ExtResource("2_lu2yg")
 noise_audio = ExtResource("3_thmc3")
 
@@ -26,6 +26,11 @@ region_rect = Rect2(112, 0, 16, 32)
 [node name="Hitbox" parent="." index="2" unique_id=150259076]
 position = Vector2(-2, 0)
 shape = SubResource("RectangleShape2D_dv8gn")
+
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="."]
+position = Vector2(-2, 0)
+vertices = PackedVector2Array(6, 14, 6, -14, -6, -14, -6, 14)
+affect_navigation_mesh = true
 
 [node name="InterractionBox" parent="InterractionArea" parent_id_path=PackedInt32Array(97300687) index="0" unique_id=1028417380]
 shape = SubResource("CapsuleShape2D_thmc3")

@@ -10,7 +10,7 @@ size = Vector2(30, 18)
 radius = 19.0
 height = 44.0
 
-[node name="Sitable" unique_id=758378394 instance=ExtResource("1_i1feh")]
+[node name="Sitable" unique_id=758378394 instance=ExtResource("1_i1feh") groups=["nav_bake_source"]]
 
 [node name="Sprite2D" parent="." index="0" unique_id=1764835962]
 texture = ExtResource("2_v15mw")
@@ -20,6 +20,11 @@ region_rect = Rect2(176, 160, 32, 32)
 [node name="Hitbox" parent="." index="1" unique_id=150259076]
 position = Vector2(0, -2)
 shape = SubResource("RectangleShape2D_44dcd")
+
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="."]
+position = Vector2(0, -2)
+vertices = PackedVector2Array(15, 9, 15, -9, -15, -9, -15, 9)
+affect_navigation_mesh = true
 
 [node name="InterractionBox" parent="InterractionArea" parent_id_path=PackedInt32Array(97300687) index="0" unique_id=1028417380]
 visible = true
