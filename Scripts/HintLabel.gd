@@ -78,7 +78,9 @@ func _current_hint() -> String:
 
 	match GameManager.current_personality:
 		PersonalityProfile.Personality.FORGETFUL:
-			return "He forgets quickly. Stay near him and he may warm up to you."
+			# He sees in every direction (360 fov), so getting spotted is likely -
+			# but he only searches for 1.5s, against the Paranoid's 5s.
+			return "He looks every way at once, so stay close but hide the moment he comes at you - he forgets quickly."
 		PersonalityProfile.Personality.PARANOID:
 			return "Stay inside his circle while he walks, and see where he goes."
 		PersonalityProfile.Personality.OVERWHELMED:
