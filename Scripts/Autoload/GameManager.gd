@@ -237,6 +237,12 @@ func is_waiting_for_terminal() -> bool:
 	return _waiting_for_terminal
 
 
+## Seconds left in the current phase, or -1 when nothing is on the clock - the
+## opening night runs until she reads the computer rather than on a timer.
+func get_phase_time_left() -> float:
+	return -1.0 if _phase_timer.is_stopped() else _phase_timer.time_left
+
+
 func _start_day() -> void:
 	if current_day >= max_days: # she's out of days - this one never starts
 		_fail_run(&"timeout")
