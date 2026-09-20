@@ -77,7 +77,10 @@ func reveal_player(actor: Node2D) -> void:
 		actor.clear_interaction_lock(self)
 
 	if actor.has_method("set_hidden"):
-		actor.set_hidden(false, stand_point.global_position, self)
+		# stand_point itself might overlap a wall/furniture placed too close
+		# to it - nudge to the nearest clear spot instead if so.
+		var spawn_pos := PhysicsQueryUtils.find_clear_point(self, stand_point.global_position)
+		actor.set_hidden(false, spawn_pos, self)
 
 	prompt_text = "Hide"
 
