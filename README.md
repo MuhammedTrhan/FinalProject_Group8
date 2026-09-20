@@ -1,4 +1,4 @@
-# Split
+# -----
 
 A top-down stealth-horror game made in Godot 4.6 for INF2556 Game Development.
 
@@ -88,14 +88,6 @@ signal is written down in `docs/CONTRACT.md`; anyone may connect to anything,
 but a developer only emits the signals in their own section. Screens that have
 to survive a scene change — the day/night card, the HUD, the pause menu, the
 keypad — are autoloaded canvas layers rather than children of the level.
-
-## Team
-
-| | Area |
-|---|---|
-| Muhammed Turhan | Antagonist AI, world, puzzles |
-| Reyyan Pak | Game flow, inventory, user interface |
-| Emelie Joline | Audio, menu, trailer |
 
 ## Documents
 
