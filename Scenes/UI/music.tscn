@@ -1,10 +1,12 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=3 format=3]
 
 [ext_resource type="AudioStream" uid="uid://df7y85gd8hir" path="res://Assets/Audio/This House.mp3" id="1_track"]
+[ext_resource type="Script" path="res://Scripts/MusicPlayer.gd" id="2_music"]
 
 [node name="Music" type="AudioStreamPlayer"]
 process_mode = 3
 stream = ExtResource("1_track")
-volume_db = -16.0
+volume_db = -18.0
 autoplay = true
 bus = &"Music"
+script = ExtResource("2_music")
