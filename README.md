@@ -57,8 +57,8 @@ each tool opens one puzzle that reveals one digit:
 
 | Personality | What it wants | Tool | Puzzle |
 |---|---|---|---|
-| **The Loud Guy** | Quiet — switch off the noisy furniture | UV flashlight | Writing on the floor, visible only under UV |
-| **The Happy One** | Company — stay inside his circle | Crowbar | A floorboard that does not sit flush |
+| **The Loud Guy** | Quiet: switch off the noisy furniture | UV flashlight | Writing on the floor, visible only under UV |
+| **The Happy One** | Company: stay inside his circle | Crowbar | A floorboard that does not sit flush |
 | **The Scary One** | To be followed, unseen | Three diary pieces | Combine the pieces in the bag |
 
 Solving a digit retires that personality for the rest of the run. Being caught
