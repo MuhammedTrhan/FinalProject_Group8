@@ -11,26 +11,28 @@ radius = 20.0
 height = 62.0
 
 [node name="DiningTable" unique_id=2143569362 instance=ExtResource("1_pvove")]
+scale = Vector2(1.33, 1.33)
 
 [node name="Sprite2D" parent="." index="0" unique_id=1764835962]
 texture = ExtResource("2_pvove")
+offset = Vector2(0, 4)
 region_rect = Rect2(0, 32, 48, 32)
 
 [node name="Hitbox" parent="." index="1" unique_id=150259076]
-position = Vector2(0, 4)
+position = Vector2(0, 8)
 shape = SubResource("RectangleShape2D_dtbl0")
 
 [node name="InterractionBox" parent="InterractionArea" parent_id_path=PackedInt32Array(97300687) index="0" unique_id=1028417380]
-position = Vector2(0, -2)
+position = Vector2(0, 2)
 rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_dtbl0")
 
 [node name="HideMarker" parent="." index="3" unique_id=1118046313]
-position = Vector2(0, 0)
+position = Vector2(0, 4)
 
 [node name="StandMarker" parent="." index="4" unique_id=2074848840]
-position = Vector2(0, 25)
+position = Vector2(0, 29)
 
 [node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="." index="5" unique_id=938442101]
-position = Vector2(0, 5.5)
+position = Vector2(0, 9.5)
 vertices = PackedVector2Array(23, 8.5, 23, -11.5, -23, -11.5, -23, 8.5)

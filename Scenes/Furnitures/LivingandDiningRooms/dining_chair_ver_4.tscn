@@ -17,7 +17,6 @@ texture = ExtResource("2_vs4hr")
 region_rect = Rect2(144, 0, 16, 32)
 
 [node name="Hitbox" parent="." index="1" unique_id=150259076]
-visible = true
 position = Vector2(0, 7)
 shape = SubResource("RectangleShape2D_chr20")
 

@@ -17,13 +17,9 @@ texture = ExtResource("2_wji12")
 region_rect = Rect2(128, 240, 48, 16)
 
 [node name="Hitbox" parent="." index="1" unique_id=150259076]
-visible = true
 position = Vector2(0, 1.5)
 shape = SubResource("RectangleShape2D_thllj")
 
-[node name="InterractionArea" parent="." index="2" unique_id=97300687]
-visible = false
-
-[node name="InterractionBox" parent="InterractionArea" index="0" unique_id=1028417380]
+[node name="InterractionBox" parent="InterractionArea" parent_id_path=PackedInt32Array(97300687) index="0" unique_id=1028417380]
 rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_ci17u")
