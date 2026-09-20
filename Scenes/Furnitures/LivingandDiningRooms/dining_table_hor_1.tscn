@@ -9,7 +9,7 @@ size = Vector2(42, 21)
 radius = 20.0
 height = 62.0
 
-[node name="DiningTable" unique_id=2143569362 instance=ExtResource("1_dtbl0")]
+[node name="DiningTable" unique_id=2143569362 instance=ExtResource("1_dtbl0") groups=["nav_bake_source"]]
 scale = Vector2(1.5, 1.5)
 
 [node name="Sprite2D" parent="." index="0" unique_id=1764835962]

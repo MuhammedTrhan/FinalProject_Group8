@@ -9,7 +9,7 @@ radius = 8.0
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nfnqs"]
 height = 34.0
 
-[node name="Painting" unique_id=758378394 instance=ExtResource("1_6ksdp")]
+[node name="Painting" unique_id=758378394 instance=ExtResource("1_6ksdp") groups=["nav_bake_source"]]
 
 [node name="Sprite2D" parent="." index="0" unique_id=1764835962]
 texture = ExtResource("2_wcqih")

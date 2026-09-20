@@ -10,7 +10,7 @@ size = Vector2(16, 42)
 radius = 20.0
 height = 54.0
 
-[node name="Sitable" unique_id=758378394 instance=ExtResource("1_edlu0")]
+[node name="Sitable" unique_id=758378394 instance=ExtResource("1_edlu0") groups=["nav_bake_source"]]
 
 [node name="Sprite2D" parent="." index="0" unique_id=1764835962]
 texture = ExtResource("2_0qj7d")

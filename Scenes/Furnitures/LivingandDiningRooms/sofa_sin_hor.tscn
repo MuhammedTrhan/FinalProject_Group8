@@ -9,7 +9,7 @@ size = Vector2(16, 42)
 radius = 20.0
 height = 54.0
 
-[node name="Sitable" unique_id=758378394 instance=ExtResource("1_uc0ts")]
+[node name="Sitable" unique_id=758378394 instance=ExtResource("1_uc0ts") groups=["nav_bake_source"]]
 
 [node name="Sprite2D" parent="." index="0" unique_id=1764835962]
 region_rect = Rect2(144, 160, 32, 32)

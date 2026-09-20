@@ -9,7 +9,7 @@ size = Vector2(48, 13)
 radius = 14.0
 height = 62.0
 
-[node name="WallShelf1" unique_id=758378394 instance=ExtResource("1_7gt71")]
+[node name="WallShelf1" unique_id=758378394 instance=ExtResource("1_7gt71") groups=["nav_bake_source"]]
 
 [node name="Sprite2D" parent="." index="0" unique_id=1764835962]
 region_rect = Rect2(128, 240, 48, 16)

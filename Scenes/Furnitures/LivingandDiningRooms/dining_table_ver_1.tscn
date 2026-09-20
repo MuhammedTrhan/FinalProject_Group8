@@ -9,7 +9,7 @@ size = Vector2(26, 34)
 radius = 18.0
 height = 66.0
 
-[node name="dining_table_ver" unique_id=758378394 instance=ExtResource("1_wq1f8")]
+[node name="dining_table_ver" unique_id=758378394 instance=ExtResource("1_wq1f8") groups=["nav_bake_source"]]
 
 [node name="Sprite2D" parent="." index="0" unique_id=1764835962]
 offset = Vector2(0, 8)

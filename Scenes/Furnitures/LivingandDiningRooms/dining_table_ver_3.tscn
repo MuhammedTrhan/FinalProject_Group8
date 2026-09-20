@@ -10,7 +10,7 @@ size = Vector2(36, 28)
 radius = 20.0
 height = 62.0
 
-[node name="DiningTable" unique_id=2143569362 instance=ExtResource("1_dyrjg")]
+[node name="DiningTable" unique_id=2143569362 instance=ExtResource("1_dyrjg") groups=["nav_bake_source"]]
 
 [node name="Sprite2D" parent="." index="0" unique_id=1764835962]
 texture = ExtResource("2_xmh2o")

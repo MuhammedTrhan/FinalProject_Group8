@@ -12,7 +12,7 @@ size = Vector2(30, 17)
 radius = 18.0
 height = 54.0
 
-[node name="TV" unique_id=1824194741 instance=ExtResource("1_p38v2")]
+[node name="TV" unique_id=1824194741 instance=ExtResource("1_p38v2") groups=["nav_bake_source"]]
 scale = Vector2(1.5, 1.5)
 noise_audio = ExtResource("2_n4yma")
 

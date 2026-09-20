@@ -10,7 +10,7 @@ size = Vector2(20, 44)
 radius = 15.0
 height = 70.0
 
-[node name="SofaVerticalB" unique_id=1046911762 instance=ExtResource("1_sfvb0")]
+[node name="SofaVerticalB" unique_id=1046911762 instance=ExtResource("1_sfvb0") groups=["nav_bake_source"]]
 
 [node name="Sprite2D" parent="." index="0" unique_id=1764835962]
 texture = ExtResource("2_sfvb0")

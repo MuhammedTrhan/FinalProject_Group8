@@ -9,7 +9,7 @@ size = Vector2(23, 16.5)
 radius = 15.0
 height = 50.0
 
-[node name="BedroomDrawr" unique_id=758378394 instance=ExtResource("1_sjj1i")]
+[node name="BedroomDrawr" unique_id=758378394 instance=ExtResource("1_sjj1i") groups=["nav_bake_source"]]
 
 [node name="InactiveSprite" parent="." index="0" unique_id=1764835962]
 offset = Vector2(0, -8)

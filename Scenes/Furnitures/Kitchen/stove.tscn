@@ -10,7 +10,7 @@ size = Vector2(30, 32)
 radius = 17.0
 height = 66.0
 
-[node name="Stove" unique_id=758378394 instance=ExtResource("1_al1a7")]
+[node name="Stove" unique_id=758378394 instance=ExtResource("1_al1a7") groups=["nav_bake_source"]]
 noise_audio = ExtResource("2_oo43u")
 
 [node name="InactiveSprite" parent="." index="0" unique_id=1764835962]

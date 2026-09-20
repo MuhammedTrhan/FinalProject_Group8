@@ -9,7 +9,7 @@ size = Vector2(20, 44)
 radius = 15.0
 height = 70.0
 
-[node name="SofaVertical" unique_id=758378394 instance=ExtResource("1_qb5qa")]
+[node name="SofaVertical" unique_id=758378394 instance=ExtResource("1_qb5qa") groups=["nav_bake_source"]]
 
 [node name="Sprite2D" parent="." index="0" unique_id=1764835962]
 region_rect = Rect2(0, 192, 24, 64)

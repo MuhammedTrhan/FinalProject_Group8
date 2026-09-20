@@ -11,7 +11,7 @@ size = Vector2(12, 28)
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_thmc3"]
 height = 40.0
 
-[node name="Sink" unique_id=758378394 instance=ExtResource("1_12in4")]
+[node name="Sink" unique_id=758378394 instance=ExtResource("1_12in4") groups=["nav_bake_source"]]
 script = ExtResource("2_lu2yg")
 noise_audio = ExtResource("3_thmc3")
 

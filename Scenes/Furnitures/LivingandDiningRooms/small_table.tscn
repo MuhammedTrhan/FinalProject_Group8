@@ -9,7 +9,7 @@ size = Vector2(22, 13)
 radius = 12.0
 height = 40.0
 
-[node name="SmallTable" unique_id=758378394 instance=ExtResource("1_1w1d3")]
+[node name="SmallTable" unique_id=758378394 instance=ExtResource("1_1w1d3") groups=["nav_bake_source"]]
 
 [node name="Sprite2D" parent="." index="0" unique_id=1764835962]
 region_rect = Rect2(80, 40, 32, 24)

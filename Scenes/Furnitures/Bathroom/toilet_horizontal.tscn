@@ -9,7 +9,7 @@ size = Vector2(21, 28)
 radius = 16.0
 height = 68.0
 
-[node name="ToiletVertical" unique_id=758378394 instance=ExtResource("1_quxs3")]
+[node name="ToiletVertical" unique_id=758378394 instance=ExtResource("1_quxs3") groups=["nav_bake_source"]]
 
 [node name="InactiveSprite" parent="." index="0" unique_id=1764835962]
 region_rect = Rect2(144, 256, 24, 32)

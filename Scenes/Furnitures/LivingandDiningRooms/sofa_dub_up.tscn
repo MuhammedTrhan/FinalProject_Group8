@@ -9,7 +9,7 @@ size = Vector2(45, 18)
 radius = 15.0
 height = 56.0
 
-[node name="Sitable" unique_id=758378394 instance=ExtResource("1_78h4o")]
+[node name="Sitable" unique_id=758378394 instance=ExtResource("1_78h4o") groups=["nav_bake_source"]]
 
 [node name="Sprite2D" parent="." index="0" unique_id=1764835962]
 offset = Vector2(0, -8)

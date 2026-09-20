@@ -10,7 +10,7 @@ size = Vector2(16, 22)
 radius = 14.0
 height = 38.0
 
-[node name="FlowerShelf" unique_id=758378394 instance=ExtResource("1_qajgb")]
+[node name="FlowerShelf" unique_id=758378394 instance=ExtResource("1_qajgb") groups=["nav_bake_source"]]
 
 [node name="Sprite2D" parent="." index="0" unique_id=1764835962]
 texture = ExtResource("2_rpd7m")

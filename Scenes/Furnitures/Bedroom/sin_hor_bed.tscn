@@ -9,7 +9,7 @@ size = Vector2(42, 23)
 radius = 20.0
 height = 64.0
 
-[node name="sin_hor_bed" unique_id=758378394 instance=ExtResource("1_ad2tg")]
+[node name="sin_hor_bed" unique_id=758378394 instance=ExtResource("1_ad2tg") groups=["nav_bake_source"]]
 
 [node name="Sprite2D" parent="." index="0" unique_id=1764835962]
 region_rect = Rect2(0, 0, 51, 33)

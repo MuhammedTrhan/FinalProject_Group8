@@ -10,7 +10,7 @@ size = Vector2(43, 18)
 radius = 14.0
 height = 56.0
 
-[node name="Bathtub" unique_id=758378394 instance=ExtResource("1_eseaj")]
+[node name="Bathtub" unique_id=758378394 instance=ExtResource("1_eseaj") groups=["nav_bake_source"]]
 
 [node name="InactiveSprite" parent="." index="0" unique_id=1764835962]
 texture = ExtResource("2_2fwfl")

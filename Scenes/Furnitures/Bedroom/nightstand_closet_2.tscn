@@ -10,7 +10,7 @@ size = Vector2(12, 17)
 radius = 11.0
 height = 34.0
 
-[node name="Nightstand" unique_id=758378394 instance=ExtResource("1_6d5x1")]
+[node name="Nightstand" unique_id=758378394 instance=ExtResource("1_6d5x1") groups=["nav_bake_source"]]
 
 [node name="Sprite2D" parent="." index="0" unique_id=1764835962]
 texture = ExtResource("2_5j0ei")
