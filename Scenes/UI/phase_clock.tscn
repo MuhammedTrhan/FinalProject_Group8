@@ -1,0 +1,53 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://Scripts/PhaseClock.gd" id="1_clock"]
+
+[node name="PhaseClock" type="CanvasLayer"]
+process_mode = 3
+script = ExtResource("1_clock")
+
+[node name="Root" type="Control" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Box" type="VBoxContainer" parent="Root"]
+anchors_preset = 0
+offset_left = 20.0
+offset_top = 92.0
+offset_right = 230.0
+offset_bottom = 142.0
+mouse_filter = 2
+theme_override_constants/separation = 0
+
+[node name="Header" type="HBoxContainer" parent="Root/Box"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 6
+
+[node name="Phase" type="Label" parent="Root/Box/Header"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.82, 0.74, 0.55, 1)
+theme_override_font_sizes/font_size = 14
+text = ""
+
+[node name="Caption" type="Label" parent="Root/Box/Header"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.55, 0.5, 0.4, 1)
+theme_override_font_sizes/font_size = 11
+vertical_alignment = 2
+text = "ends in"
+
+[node name="Time" type="Label" parent="Root/Box"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.87, 0.82, 0.68, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.8)
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 30
+text = ""
