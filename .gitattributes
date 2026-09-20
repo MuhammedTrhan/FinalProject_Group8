@@ -7,6 +7,9 @@
 *.jpg filter=lfs diff=lfs merge=lfs -text
 *.res filter=lfs diff=lfs merge=lfs -text
 *.stex filter=lfs diff=lfs merge=lfs -text
+# The exported Windows build - 116 MB, well past GitHub's 100 MB
+# per-file limit, so it can only live here through LFS.
+*.exe filter=lfs diff=lfs merge=lfs -text
 
 # NOTE: *.tres and *.import are deliberately NOT tracked by LFS.
 # Both are small text files. Putting *.import in LFS breaks texture importing
