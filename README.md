@@ -1,4 +1,4 @@
-# -----
+# Too Many Faces
 
 A top-down stealth-horror game made in Godot 4.6 for INF2556 Game Development.
 
