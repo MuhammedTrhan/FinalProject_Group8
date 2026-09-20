@@ -15,6 +15,7 @@ height = 68.0
 y_sort_enabled = true
 collision_layer = 2
 script = ExtResource("1_noqfr")
+priority = 3
 
 [node name="InactiveSprite" type="Sprite2D" parent="." unique_id=1764835962]
 texture = ExtResource("2_qywsx")
