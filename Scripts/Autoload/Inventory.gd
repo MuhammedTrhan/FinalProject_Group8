@@ -187,5 +187,5 @@ func try_combine_diary_scraps() -> bool:
 		remove_item(scrap)
 	add_item(DIARY_PAGE)
 
-	GameEvents.clue_revealed.emit(2, ProceduralGenerator.get_digit(2), "You piece the diary pages together.")
+	GameEvents.clue_revealed.emit(2, ProceduralGenerator.get_digit(2), "You piece the diary back together.")
 	return true

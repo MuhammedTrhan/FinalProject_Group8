@@ -158,7 +158,10 @@ func _on_interaction_prompt_changed(primary: String, secondary: String) -> void:
 func _on_message_requested(text: String) -> void:
 	message_label.text = text
 	message_label.show()
-	message_timer.start()
+	# Scaled to the text. A pickup line is three times the length of a refusal
+	# like "Incorrect code.", and a flat 2s was too short to finish reading the
+	# ones that say what an item is for.
+	message_timer.start(clampf(1.2 + text.length() * 0.06, 2.0, 6.0))
 
 
 func handle_movement(_delta: float) -> void:

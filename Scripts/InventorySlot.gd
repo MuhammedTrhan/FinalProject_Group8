@@ -46,6 +46,6 @@ func _drop_data(_at_position: Vector2, data: Variant) -> void:
 		return
 
 	if Inventory.try_combine_diary_scraps():
-		GameEvents.message_requested.emit("You piece the diary pages together.")
+		GameEvents.message_requested.emit("You piece the diary back together.")
 	else:
-		GameEvents.message_requested.emit("You need all 3 diary scraps.")
+		GameEvents.message_requested.emit("You need all 3 diary pieces.")
