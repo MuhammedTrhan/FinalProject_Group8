@@ -34,3 +34,15 @@ static func has_clear_line_of_sight(from: Node2D, to_global_position: Vector2, m
 	var space_state := from.get_world_2d().direct_space_state
 	var query := PhysicsRayQueryParameters2D.create(from.global_position, to_global_position, mask)
 	return space_state.intersect_ray(query).is_empty()
+
+
+## Strips consecutive near-duplicate points (within epsilon) from a point
+## list about to be handed to draw_colored_polygon().
+static func dedupe_consecutive(points: PackedVector2Array, epsilon: float = 0.5, closed: bool = false) -> PackedVector2Array:
+	var result := PackedVector2Array()
+	for p in points:
+		if result.is_empty() or result[result.size() - 1].distance_to(p) > epsilon:
+			result.append(p)
+	if closed and result.size() > 1 and result[0].distance_to(result[result.size() - 1]) <= epsilon:
+		result.remove_at(result.size() - 1)
+	return result
