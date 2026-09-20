@@ -61,10 +61,10 @@
 [ext_resource type="PackedScene" uid="uid://bqlbnphx5qg3l" path="res://Scenes/Furnitures/Studyroom/bookshelf_3.tscn" id="47_32sje"]
 [ext_resource type="PackedScene" uid="uid://cor8skeebwesv" path="res://Scenes/Furnitures/Bedroom/doub_hor_bed.tscn" id="48_ovm1c"]
 [ext_resource type="PackedScene" uid="uid://vuek2xcoop3q" path="res://Scenes/Furnitures/LivingandDiningRooms/dining_chair_down_3.tscn" id="49_32sje"]
-[ext_resource type="PackedScene" uid="uid://cmuo1dsyqdyw3" path="res://Scenes/Furnitures/Other/flower_shelf.tscn" id="49_86i52"]
 [ext_resource type="PackedScene" uid="uid://crogx4pp62ytr" path="res://Scenes/Furnitures/LivingandDiningRooms/sofa_sin_up_2.tscn" id="49_f6pf6"]
 [ext_resource type="PackedScene" uid="uid://ciwgxc1hte0y0" path="res://Scenes/Furnitures/Bedroom/nightstand_closet_ver.tscn" id="49_wgy3k"]
 [ext_resource type="PackedScene" uid="uid://cc54sop0gt8ot" path="res://Scenes/Furnitures/Other/music_player.tscn" id="50_3loty"]
+[ext_resource type="PackedScene" uid="uid://cmuo1dsyqdyw3" path="res://Scenes/Furnitures/Other/flower_shelf.tscn" id="50_86i52"]
 [ext_resource type="PackedScene" uid="uid://e81qm0falh2f" path="res://Scenes/Furnitures/Studyroom/globe_2.tscn" id="50_edvr7"]
 [ext_resource type="PackedScene" uid="uid://5a38hxotrsvf" path="res://Scenes/Furnitures/Studyroom/beanbag_chair.tscn" id="51_d4xk6"]
 [ext_resource type="PackedScene" uid="uid://xm1f56m0pcs0" path="res://Scenes/Furnitures/Other/computer.tscn" id="51_gmjuu"]
@@ -1761,21 +1761,18 @@ position = Vector2(546, 664)
 [node name="Garage&Garden" type="Node2D" parent="Furnitures/Floor1" unique_id=113245588]
 y_sort_enabled = true
 
-[node name="FlowerShelf" parent="Furnitures/Floor1/Garage&Garden" unique_id=1755999206 instance=ExtResource("49_86i52")]
-position = Vector2(296, 962)
-
-[node name="FlowerShelf2" parent="Furnitures/Floor1/Garage&Garden" unique_id=1611745977 instance=ExtResource("49_86i52")]
-position = Vector2(329, 962)
-scale = Vector2(-1, 1)
-
 [node name="BedroomDrawr" parent="Furnitures/Floor1/Garage&Garden" unique_id=1092137333 instance=ExtResource("58_pvjhh")]
 position = Vector2(576, 915)
 
 [node name="DiningTable" parent="Furnitures/Floor1/Garage&Garden" unique_id=456987221 instance=ExtResource("65_3k2bq")]
 position = Vector2(715, 915)
 
-[node name="Sink" parent="Furnitures/Floor1/Garage&Garden" unique_id=928680649 instance=ExtResource("25_1ubp3")]
-position = Vector2(647, 911)
+[node name="FlowerShelf" parent="Furnitures/Floor1/Garage&Garden" unique_id=260201313 instance=ExtResource("50_86i52")]
+position = Vector2(297, 960)
+
+[node name="FlowerShelf2" parent="Furnitures/Floor1/Garage&Garden" unique_id=1351074473 instance=ExtResource("50_86i52")]
+position = Vector2(329, 960)
+scale = Vector2(-1, 1)
 
 [node name="RugVertical" parent="Furnitures/Floor1" unique_id=1811262912 instance=ExtResource("35_bm8oi")]
 position = Vector2(402, 379)
