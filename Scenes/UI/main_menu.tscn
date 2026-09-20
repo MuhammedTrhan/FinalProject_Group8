@@ -1,6 +1,8 @@
 [gd_scene format=3 uid="uid://baqmx0lo2syip"]
 
 [ext_resource type="Script" uid="uid://1fdxegpt4m2l" path="res://Scripts/MainMenu.gd" id="1_mm"]
+[ext_resource type="AudioStream" uid="uid://df7y85gd8hir" path="res://Assets/Audio/This House.mp3" id="2_i2xx2"]
+[ext_resource type="VideoStream" uid="uid://bw1kdwqnoocrs" path="res://Assets/UI/menu.ogv" id="2_o14dv"]
 
 [node name="MainMenu" type="Control" unique_id=101561797]
 layout_mode = 3
@@ -11,7 +13,17 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_mm")
 
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="." unique_id=1015679400]
+layout_mode = 0
+offset_right = 1160.0
+offset_bottom = 655.0
+stream = ExtResource("2_o14dv")
+autoplay = true
+expand = true
+loop = true
+
 [node name="Background" type="ColorRect" parent="." unique_id=1384705793]
+visible = false
 layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -41,7 +53,7 @@ custom_minimum_size = Vector2(220, 56)
 layout_mode = 2
 text = "Play"
 
-[node name="OptionsButton" type="Button" parent="CenterContainer/VBoxContainer"]
+[node name="OptionsButton" type="Button" parent="CenterContainer/VBoxContainer" unique_id=1286226865]
 custom_minimum_size = Vector2(220, 56)
 layout_mode = 2
 text = "Options"
@@ -50,3 +62,8 @@ text = "Options"
 custom_minimum_size = Vector2(220, 56)
 layout_mode = 2
 text = "Quit"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1234400401]
+stream = ExtResource("2_i2xx2")
+autoplay = true
+bus = &"Music"
