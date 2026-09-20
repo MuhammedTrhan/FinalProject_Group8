@@ -22,7 +22,7 @@ const DIGIT_OWNERS: Array[PersonalityProfile.Personality] = [
 	PersonalityProfile.Personality.PARANOID,
 ]
 
-@export var day_duration_sec: float = 90
+@export var day_duration_sec: float = 110
 @export var night_duration_sec: float = 15
 ## Matches EscortController.ESCORT_DURATION - change one, change both.
 @export var escort_duration_sec: float = 5.0

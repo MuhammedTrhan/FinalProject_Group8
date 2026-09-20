@@ -48,7 +48,7 @@ captor's case files. That night has no timer: it ends once she has read all
 three files, which is how the player learns who the personalities are before
 meeting any of them.
 
-After that the run alternates **Day (90 s) → escort (5 s) → Night (15 s)**, up
+After that the run alternates **Day (110 s) → escort (5 s) → Night (15 s)**, up
 to seven days. Play happens during the day; the escort is the captor walking
 her back to her room.
 
