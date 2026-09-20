@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="FinalProject_Group8"
+config/name="Too Many Faces"
 run/main_scene="res://Scenes/UI/main_menu.tscn"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="uid://cu480qfu7h048"

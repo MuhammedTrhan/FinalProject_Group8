@@ -44,7 +44,7 @@ theme_override_constants/separation = 24
 [node name="Title" type="Label" parent="CenterContainer/VBoxContainer" unique_id=1399102305]
 layout_mode = 2
 theme_override_font_sizes/font_size = 48
-text = "GAME??? "
+text = "Too Many Faces"
 horizontal_alignment = 1
 
 [node name="PlayButton" type="Button" parent="CenterContainer/VBoxContainer" unique_id=1195702548]
