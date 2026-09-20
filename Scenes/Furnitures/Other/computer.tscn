@@ -31,7 +31,6 @@ offset = Vector2(0, -5)
 region_enabled = false
 
 [node name="Hitbox" parent="." index="2" unique_id=150259076]
-visible = true
 position = Vector2(0.5, -4)
 shape = SubResource("RectangleShape2D_jad24")
 

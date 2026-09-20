@@ -73,6 +73,7 @@
 [ext_resource type="PackedScene" uid="uid://bcxtmrk366pot" path="res://Scenes/Furnitures/Other/wall_shelf_2.tscn" id="62_edvr7"]
 [ext_resource type="PackedScene" uid="uid://bg2f7iy4i6pqt" path="res://Scenes/Furnitures/LivingandDiningRooms/coat_rack.tscn" id="63_g8qe3"]
 [ext_resource type="PackedScene" uid="uid://bj0gieaixek6v" path="res://Scenes/Furnitures/LivingandDiningRooms/dining_table_hor_3.tscn" id="65_3k2bq"]
+[ext_resource type="PackedScene" uid="uid://dxlqa4rbro4pw" path="res://Scenes/Furnitures/Carpets/carpet_cat.tscn" id="74_l5ehb"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_qbrl8"]
 vertices = PackedVector2Array(476, 108, 476, 30.328125, 484, 30.359375, 484, 108, 668, 780, 753.46094, 780, 753.40625, 820, 668, 796, 108, 1076, 77.96875, 1076, 77.88281, 972, 436, 972, 436, 1020, 628, 108, 628, 244, 404, 244, 356, 108, 396, 244, 404, 348, 516, 348, 516, 388, 436, 388, 740, 492, 740, 676, 476, 676, 476, 500, 436, 492, 436, 500, 436, 532, 404, 532, 404, 636, 436, 636, 436, 780, 628, 780, 628, 796, 668, 820, 668, 804, 628, 804, 628, 820, 516, 820, 516, 924, 740, 924, 740, 1092, 708, 1092, 708, 1104, 508, 1104, 508, 1092, 476, 1092, 476, 1028, 436, 1028, 436, 1104, 108, 1104, 476, 1020, 508, 924, 476, 924, 508, 820, 436, 820, 436, 868, 92, 868, 92, 636, 396, 636, 356, 468, 356, 532, 92, 532, 92, 412, 356, 412, 356, 460, 396, 468, 396, 460, 356, 244, 356, 308, 92, 308, 92, 60, 356, 60, 2300, 972, 2308, 852, 2308, 1020, 2300, 980, 2300, 692, 2483.5938, 1020, 2483.0625, 1119.1719, 2395.6406, 1120.4375, 2300, 1120.4375, 2292, -20, 2292, 116, 2084, 116, 2060, -20, 2084, 436, 2068, 436, 2076, 220, 2124, 220, 2388, 220, 2388, 436, 2132, 436, 2124, 540, 2132, 540, 2260, 540, 2260, 548, 2116, 548, 2068, 540, 2108, 548, 2156, 684, 2156, 652, 2260, 652, 2260, 684, 2300, 684, 2300, 652, 2468, 652, 2468, 916, 2348, 852, 2348, 916, 2260, 692, 2156, 692, 2260, 788, 2156, 788, 2116, 684, 2116, 692, 2260, 972, 2260, 980, 2260, 1044, 2156, 1044, 2156, 900, 2260, 892, 2116, 892, 2116, 900, 2116, 964, 1772, 964, 1772, 652, 2108, 652, 2060, 548, 2060, 436, 1772, 436, 1772, 220, 2076, 116, 2060, 116, -1084, 772, -1684, 772, -1412, 428, -1404, 428, -1548, 428, -1084, 108, -1084, 324, -1404, 324, -1460, 116, -1084, 428, -1412, 324, -1460, 324, -1500, 116, -1500, 324, -1548, 324, -1684, 428, -1556, 428, -1556, 324, -1684, 324, -1684, 108)
@@ -1550,7 +1551,7 @@ scale = Vector2(1.5, 1.5)
 priority = 0
 
 [node name="SofaVertical" parent="Furnitures/Floor1/Kitchen" unique_id=653759380 instance=ExtResource("30_2xkur")]
-position = Vector2(94, 131)
+position = Vector2(93, 131)
 
 [node name="Toilet" type="Node2D" parent="Furnitures/Floor1" unique_id=564025407]
 y_sort_enabled = true
@@ -1657,9 +1658,6 @@ position = Vector2(1872, 214)
 [node name="TrashCan" parent="Furnitures/Floor2/Bedroom2" unique_id=330222903 instance=ExtResource("27_ok16x")]
 position = Vector2(1941, 217)
 
-[node name="Furniture" parent="Furnitures/Floor2/Bedroom2" unique_id=876576663 instance=ExtResource("42_76m0p")]
-position = Vector2(2080, 216)
-
 [node name="DoubleVerticalBed1" parent="Furnitures/Floor2/Bedroom2" unique_id=1882812373 instance=ExtResource("48_ovm1c")]
 position = Vector2(1785, 304)
 rotation = 3.1415927
@@ -1677,6 +1675,9 @@ scale = Vector2(1.5, 1.25)
 
 [node name="SmallTable2" parent="Furnitures/Floor2/Bedroom2" unique_id=1759408307 instance=ExtResource("39_u3ne8")]
 position = Vector2(1772, 348)
+
+[node name="CatCarpet" parent="Furnitures/Floor2/Bedroom2" unique_id=1883548734 instance=ExtResource("74_l5ehb")]
+position = Vector2(2047, 230)
 
 [node name="Studyroom" type="Node2D" parent="Furnitures/Floor2" unique_id=1407106750]
 y_sort_enabled = true
@@ -1849,63 +1850,76 @@ position = Vector2(2317, 425)
 [node name="horCarpet42" parent="Furnitures/Floor2/Studyroom" unique_id=1638648401 instance=ExtResource("56_af3db")]
 position = Vector2(2362, 425)
 
-[node name="MainBedroom&Dressing" type="Node2D" parent="Furnitures/Floor2" unique_id=1575855041]
+[node name="MainBedroom" type="Node2D" parent="Furnitures/Floor2" unique_id=1575855041]
 y_sort_enabled = true
 
-[node name="NightstandClosetDown" parent="Furnitures/Floor2/MainBedroom&Dressing" unique_id=1381701797 instance=ExtResource("37_ddui2")]
-position = Vector2(1958, 640)
-priority = 0
-
-[node name="StandingLamp" parent="Furnitures/Floor2/MainBedroom&Dressing" unique_id=1450134243 instance=ExtResource("6_bhrpm")]
-position = Vector2(1866, 649)
-
-[node name="Sitable" parent="Furnitures/Floor2/MainBedroom&Dressing" unique_id=464929687 instance=ExtResource("34_xob32")]
-position = Vector2(2036, 639)
-
-[node name="DoubleVerticalBed2" parent="Furnitures/Floor2/MainBedroom&Dressing" unique_id=1369388531 instance=ExtResource("31_edjj2")]
-position = Vector2(1911.0001, 649)
-priority = 0
-
-[node name="ClothesBox2" parent="Furnitures/Floor2/MainBedroom&Dressing" unique_id=1474286935 instance=ExtResource("41_r6y0e")]
-position = Vector2(2234, 768)
-
-[node name="ClothesBox3" parent="Furnitures/Floor2/MainBedroom&Dressing" unique_id=2415818 instance=ExtResource("41_r6y0e")]
-position = Vector2(2250, 762)
-
-[node name="ClothesBox4" parent="Furnitures/Floor2/MainBedroom&Dressing" unique_id=447374021 instance=ExtResource("41_r6y0e")]
-position = Vector2(2246, 782)
-
-[node name="Carpet" parent="Furnitures/Floor2/MainBedroom&Dressing" unique_id=1165237658 instance=ExtResource("42_76m0p")]
-position = Vector2(2247, 739)
-
-[node name="IroningTable2" parent="Furnitures/Floor2/MainBedroom&Dressing" unique_id=1364073033 instance=ExtResource("42_gmjuu")]
-position = Vector2(2198, 772)
-scale = Vector2(1.3, 1.3)
-
-[node name="FloorboardPuzzle" parent="Furnitures/Floor2/MainBedroom&Dressing" unique_id=2122170177 instance=ExtResource("52_ok16x")]
+[node name="FloorboardPuzzle" parent="Furnitures/Floor2/MainBedroom" unique_id=2122170177 instance=ExtResource("52_ok16x")]
 position = Vector2(1864, 760)
 flavour_text = "I knew there was something under here!"
 ground_layer_path = NodePath("../../../../NavigationRegion2D/Ground")
 
-[node name="BedroomDrawr" parent="Furnitures/Floor2/MainBedroom&Dressing" unique_id=1235740569 instance=ExtResource("58_pvjhh")]
-position = Vector2(2244, 644)
+[node name="NightstandClosetDown" parent="Furnitures/Floor2/MainBedroom" unique_id=1381701797 instance=ExtResource("37_ddui2")]
+position = Vector2(1958, 640)
+priority = 0
 
-[node name="BedroomDrawr2" parent="Furnitures/Floor2/MainBedroom&Dressing" unique_id=1374531553 instance=ExtResource("58_pvjhh")]
-position = Vector2(2220, 644)
+[node name="StandingLamp" parent="Furnitures/Floor2/MainBedroom" unique_id=1450134243 instance=ExtResource("6_bhrpm")]
+position = Vector2(1866, 649)
 
-[node name="BedroomDrawr3" parent="Furnitures/Floor2/MainBedroom&Dressing" unique_id=1246367434 instance=ExtResource("58_pvjhh")]
-position = Vector2(2196, 644)
+[node name="Sitable" parent="Furnitures/Floor2/MainBedroom" unique_id=464929687 instance=ExtResource("34_xob32")]
+position = Vector2(2036, 639)
 
-[node name="BedroomDrawr4" parent="Furnitures/Floor2/MainBedroom&Dressing" unique_id=907539785 instance=ExtResource("58_pvjhh")]
-position = Vector2(2172, 644)
+[node name="DoubleVerticalBed2" parent="Furnitures/Floor2/MainBedroom" unique_id=1369388531 instance=ExtResource("31_edjj2")]
+position = Vector2(1911.0001, 649)
+priority = 0
 
-[node name="Curtain" parent="Furnitures/Floor2/MainBedroom&Dressing" unique_id=817872475 instance=ExtResource("59_pvjhh")]
+[node name="Curtain" parent="Furnitures/Floor2/MainBedroom" unique_id=817872475 instance=ExtResource("59_pvjhh")]
 position = Vector2(1819.0001, 641.00006)
 
-[node name="Curtain2" parent="Furnitures/Floor2/MainBedroom&Dressing" unique_id=625963076 instance=ExtResource("59_pvjhh")]
+[node name="Curtain2" parent="Furnitures/Floor2/MainBedroom" unique_id=625963076 instance=ExtResource("59_pvjhh")]
 position = Vector2(1985.0001, 640.00006)
 
+[node name="SofaVerticalB" parent="Furnitures/Floor2/MainBedroom" unique_id=1046911762 instance=ExtResource("36_unjri")]
+position = Vector2(1773, 783)
+
+[node name="Furniture" parent="Furnitures/Floor2/MainBedroom" unique_id=1907259160 instance=ExtResource("36_30qra")]
+position = Vector2(1773, 820)
+
+[node name="Furniture2" parent="Furnitures/Floor2/MainBedroom" unique_id=113573094 instance=ExtResource("37_w6jpp")]
+position = Vector2(1773, 763)
+
+[node name="Dressingroom" type="Node2D" parent="Furnitures/Floor2" unique_id=138228786]
+y_sort_enabled = true
+
+[node name="ClothesBox2" parent="Furnitures/Floor2/Dressingroom" unique_id=1474286935 instance=ExtResource("41_r6y0e")]
+position = Vector2(2234, 768)
+
+[node name="ClothesBox3" parent="Furnitures/Floor2/Dressingroom" unique_id=2415818 instance=ExtResource("41_r6y0e")]
+position = Vector2(2250, 762)
+
+[node name="ClothesBox4" parent="Furnitures/Floor2/Dressingroom" unique_id=447374021 instance=ExtResource("41_r6y0e")]
+position = Vector2(2246, 782)
+
+[node name="Carpet" parent="Furnitures/Floor2/Dressingroom" unique_id=1165237658 instance=ExtResource("42_76m0p")]
+position = Vector2(2247, 739)
+
+[node name="IroningTable2" parent="Furnitures/Floor2/Dressingroom" unique_id=1364073033 instance=ExtResource("42_gmjuu")]
+position = Vector2(2198, 772)
+scale = Vector2(1.3, 1.3)
+
+[node name="BedroomDrawr" parent="Furnitures/Floor2/Dressingroom" unique_id=1235740569 instance=ExtResource("58_pvjhh")]
+position = Vector2(2244, 644)
+
+[node name="BedroomDrawr2" parent="Furnitures/Floor2/Dressingroom" unique_id=1374531553 instance=ExtResource("58_pvjhh")]
+position = Vector2(2220, 644)
+
+[node name="BedroomDrawr3" parent="Furnitures/Floor2/Dressingroom" unique_id=1246367434 instance=ExtResource("58_pvjhh")]
+position = Vector2(2196, 644)
+
+[node name="BedroomDrawr4" parent="Furnitures/Floor2/Dressingroom" unique_id=907539785 instance=ExtResource("58_pvjhh")]
+position = Vector2(2172, 644)
+
 [node name="Toilet2" type="Node2D" parent="Furnitures/Floor2" unique_id=2101930775]
+y_sort_enabled = true
 
 [node name="Sink" parent="Furnitures/Floor2/Toilet2" unique_id=642452523 instance=ExtResource("58_1d3nm")]
 position = Vector2(2296, -14)
@@ -1921,6 +1935,9 @@ scale = Vector2(1, -1)
 
 [node name="TowelHolder" parent="Furnitures/Floor2/Toilet2" unique_id=1041836578 instance=ExtResource("59_af3db")]
 position = Vector2(2114, -32)
+
+[node name="TrashCan" parent="Furnitures/Floor2/Toilet2" unique_id=1529390300 instance=ExtResource("27_ok16x")]
+position = Vector2(2295, 21)
 
 [node name="Basement" type="Node2D" parent="Furnitures" unique_id=1081731387]
 y_sort_enabled = true

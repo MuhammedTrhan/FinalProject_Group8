@@ -10,7 +10,7 @@ size = Vector2(0, 0)
 radius = 14.0
 height = 28.0
 
-[node name="Furniture" unique_id=758378394 instance=ExtResource("1_ggcij")]
+[node name="CatCarpet" unique_id=758378394 instance=ExtResource("1_ggcij")]
 
 [node name="Sprite2D" parent="." index="0" unique_id=1764835962]
 texture = ExtResource("2_vsiki")
