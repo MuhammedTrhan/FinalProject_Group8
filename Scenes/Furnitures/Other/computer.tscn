@@ -16,7 +16,7 @@ size = Vector2(25, 18)
 radius = 16.0
 height = 48.0
 
-[node name="Computer" unique_id=758378394 instance=ExtResource("1_q8n5e")]
+[node name="Computer" unique_id=758378394 instance=ExtResource("1_q8n5e") groups=["nav_bake_source"]]
 script = ExtResource("2_lhjed")
 priority = 8
 
@@ -33,6 +33,11 @@ region_enabled = false
 [node name="Hitbox" parent="." index="2" unique_id=150259076]
 position = Vector2(0.5, -9)
 shape = SubResource("RectangleShape2D_jad24")
+
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="."]
+position = Vector2(0.5, -9)
+vertices = PackedVector2Array(12.5, 9, 12.5, -9, -12.5, -9, -12.5, 9)
+affect_navigation_mesh = true
 
 [node name="InterractionBox" parent="InterractionArea" parent_id_path=PackedInt32Array(97300687) index="0" unique_id=1028417380]
 position = Vector2(0, -9)

@@ -10,7 +10,7 @@ size = Vector2(30, 32)
 radius = 17.0
 height = 66.0
 
-[node name="Stove" unique_id=758378394 instance=ExtResource("1_al1a7")]
+[node name="Stove" unique_id=758378394 instance=ExtResource("1_al1a7") groups=["nav_bake_source"]]
 noise_audio = ExtResource("2_oo43u")
 
 [node name="InactiveSprite" parent="." index="0" unique_id=1764835962]
@@ -25,6 +25,11 @@ region_rect = Rect2(64, 192, 32, 48)
 visible = true
 position = Vector2(0, -6)
 shape = SubResource("RectangleShape2D_oo43u")
+
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="."]
+position = Vector2(0, -6)
+vertices = PackedVector2Array(15, 16, 15, -16, -15, -16, -15, 16)
+affect_navigation_mesh = true
 
 [node name="InterractionBox" parent="InterractionArea" parent_id_path=PackedInt32Array(97300687) index="0" unique_id=1028417380]
 position = Vector2(0, -7)

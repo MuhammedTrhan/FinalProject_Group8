@@ -9,7 +9,7 @@ size = Vector2(48, 13)
 radius = 14.0
 height = 62.0
 
-[node name="WallShelf1" unique_id=758378394 instance=ExtResource("1_7gt71")]
+[node name="WallShelf1" unique_id=758378394 instance=ExtResource("1_7gt71") groups=["nav_bake_source"]]
 
 [node name="Sprite2D" parent="." index="0" unique_id=1764835962]
 region_rect = Rect2(128, 240, 48, 16)
@@ -18,6 +18,11 @@ region_rect = Rect2(128, 240, 48, 16)
 visible = true
 position = Vector2(0, 1.5)
 shape = SubResource("RectangleShape2D_thllj")
+
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="."]
+position = Vector2(0, 1.5)
+vertices = PackedVector2Array(24, 6.5, 24, -6.5, -24, -6.5, -24, 6.5)
+affect_navigation_mesh = true
 
 [node name="InterractionArea" parent="." index="2" unique_id=97300687]
 visible = false

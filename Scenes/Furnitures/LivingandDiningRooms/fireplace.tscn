@@ -22,7 +22,7 @@ fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0.5, 0)
 
-[node name="Fireplace" unique_id=2054074670 instance=ExtResource("1_frpl0")]
+[node name="Fireplace" unique_id=2054074670 instance=ExtResource("1_frpl0") groups=["nav_bake_source"]]
 script = ExtResource("2_fuqo7")
 noise_audio = ExtResource("3_tsl70")
 
@@ -36,6 +36,11 @@ region_rect = Rect2(144, 112, 32, 48)
 visible = true
 position = Vector2(0, 4)
 shape = SubResource("RectangleShape2D_frpl0")
+
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="."]
+position = Vector2(0, 4)
+vertices = PackedVector2Array(12, 12, 12, -12, -12, -12, -12, 12)
+affect_navigation_mesh = true
 
 [node name="InterractionBox" parent="InterractionArea" parent_id_path=PackedInt32Array(97300687) index="0" unique_id=1028417380]
 position = Vector2(0, 4)

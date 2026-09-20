@@ -9,7 +9,7 @@ size = Vector2(16, 19)
 radius = 12.0
 height = 40.0
 
-[node name="NightstandClosetDown" unique_id=758378394 instance=ExtResource("1_ofjwa")]
+[node name="NightstandClosetDown" unique_id=758378394 instance=ExtResource("1_ofjwa") groups=["nav_bake_source"]]
 
 [node name="InactiveSprite" parent="." index="0" unique_id=1764835962]
 offset = Vector2(0, 4)
@@ -24,6 +24,11 @@ region_rect = Rect2(32, 0, 16, 32)
 visible = true
 position = Vector2(0, 8.5)
 shape = SubResource("RectangleShape2D_8aptr")
+
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="."]
+position = Vector2(0, 8.5)
+vertices = PackedVector2Array(8, 9.5, 8, -9.5, -8, -9.5, -8, 9.5)
+affect_navigation_mesh = true
 
 [node name="InterractionBox" parent="InterractionArea" parent_id_path=PackedInt32Array(97300687) index="0" unique_id=1028417380]
 visible = true

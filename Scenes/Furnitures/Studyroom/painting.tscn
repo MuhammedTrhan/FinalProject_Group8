@@ -9,7 +9,7 @@ radius = 8.0
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nfnqs"]
 height = 34.0
 
-[node name="Painting" unique_id=758378394 instance=ExtResource("1_6ksdp")]
+[node name="Painting" unique_id=758378394 instance=ExtResource("1_6ksdp") groups=["nav_bake_source"]]
 
 [node name="Sprite2D" parent="." index="0" unique_id=1764835962]
 texture = ExtResource("2_wcqih")
@@ -19,6 +19,11 @@ region_rect = Rect2(48, 176, 16, 32)
 [node name="Hitbox" parent="." index="1" unique_id=150259076]
 position = Vector2(0, -3)
 shape = SubResource("CircleShape2D_ldo58")
+
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="."]
+position = Vector2(0, -3)
+radius = 8
+affect_navigation_mesh = true
 
 [node name="InterractionBox" parent="InterractionArea" parent_id_path=PackedInt32Array(97300687) index="0" unique_id=1028417380]
 position = Vector2(0, -10)

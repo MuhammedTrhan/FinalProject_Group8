@@ -10,7 +10,7 @@ size = Vector2(43, 18)
 radius = 14.0
 height = 56.0
 
-[node name="Bathtub" unique_id=758378394 instance=ExtResource("1_eseaj")]
+[node name="Bathtub" unique_id=758378394 instance=ExtResource("1_eseaj") groups=["nav_bake_source"]]
 
 [node name="InactiveSprite" parent="." index="0" unique_id=1764835962]
 texture = ExtResource("2_2fwfl")
@@ -24,6 +24,11 @@ region_rect = Rect2(96, 64, 32, 48)
 position = Vector2(2.1855692e-08, -0.5)
 rotation = 1.5707964
 shape = SubResource("RectangleShape2D_wde0h")
+
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="."]
+position = Vector2(0, -0.5)
+vertices = PackedVector2Array(9, 21.5, 9, -21.5, -9, -21.5, -9, 21.5)
+affect_navigation_mesh = true
 
 [node name="InterractionBox" parent="InterractionArea" parent_id_path=PackedInt32Array(97300687) index="0" unique_id=1028417380]
 visible = true

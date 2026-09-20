@@ -10,7 +10,7 @@ size = Vector2(46, 20)
 radius = 20.0
 height = 62.0
 
-[node name="DiningTable" unique_id=2143569362 instance=ExtResource("1_vbqou")]
+[node name="DiningTable" unique_id=2143569362 instance=ExtResource("1_vbqou") groups=["nav_bake_source"]]
 scale = Vector2(1.33, 1.33)
 
 [node name="Sprite2D" parent="." index="0" unique_id=1764835962]
@@ -35,3 +35,4 @@ position = Vector2(0, 25)
 [node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="." index="5" unique_id=938442101]
 position = Vector2(0, 5.5)
 vertices = PackedVector2Array(23, 8.5, 23, -11.5, -23, -11.5, -23, 8.5)
+affect_navigation_mesh = true

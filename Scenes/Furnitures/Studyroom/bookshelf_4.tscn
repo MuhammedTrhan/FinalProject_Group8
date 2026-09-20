@@ -10,7 +10,7 @@ size = Vector2(44, 22)
 radius = 29.0
 height = 76.0
 
-[node name="Hideable" unique_id=758378394 instance=ExtResource("1_ofk74")]
+[node name="Hideable" unique_id=758378394 instance=ExtResource("1_ofk74") groups=["nav_bake_source"]]
 
 [node name="Sprite2D" parent="." index="0" unique_id=1764835962]
 texture = ExtResource("2_ofk74")
@@ -19,6 +19,11 @@ region_rect = Rect2(96, 64, 48, 48)
 [node name="Hitbox" parent="." index="1" unique_id=150259076]
 position = Vector2(0, 11)
 shape = SubResource("RectangleShape2D_i2nfc")
+
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="."]
+position = Vector2(0, 11)
+vertices = PackedVector2Array(22, 11, 22, -11, -22, -11, -22, 11)
+affect_navigation_mesh = true
 
 [node name="InterractionBox" parent="InterractionArea" parent_id_path=PackedInt32Array(97300687) index="0" unique_id=1028417380]
 shape = SubResource("CapsuleShape2D_jar5y")

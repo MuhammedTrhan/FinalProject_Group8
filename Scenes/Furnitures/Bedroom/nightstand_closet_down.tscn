@@ -9,7 +9,7 @@ size = Vector2(16, 23)
 radius = 12.0
 height = 42.0
 
-[node name="NightstandClosetDown" unique_id=758378394 instance=ExtResource("1_4pi0a")]
+[node name="NightstandClosetDown" unique_id=758378394 instance=ExtResource("1_4pi0a") groups=["nav_bake_source"]]
 
 [node name="InactiveSprite" parent="." index="0" unique_id=1764835962]
 region_rect = Rect2(48, 0, 16, 32)
@@ -20,6 +20,11 @@ region_rect = Rect2(48, 0, 16, 32)
 [node name="Hitbox" parent="." index="2" unique_id=150259076]
 position = Vector2(0, 1.5)
 shape = SubResource("RectangleShape2D_8aptr")
+
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="."]
+position = Vector2(0, 1.5)
+vertices = PackedVector2Array(8, 11.5, 8, -11.5, -8, -11.5, -8, 11.5)
+affect_navigation_mesh = true
 
 [node name="InterractionBox" parent="InterractionArea" parent_id_path=PackedInt32Array(97300687) index="0" unique_id=1028417380]
 visible = false

@@ -11,7 +11,7 @@ size = Vector2(9, 32)
 radius = 8.0
 height = 62.0
 
-[node name="TV" unique_id=1824194741 instance=ExtResource("1_einu6")]
+[node name="TV" unique_id=1824194741 instance=ExtResource("1_einu6") groups=["nav_bake_source"]]
 noise_audio = ExtResource("2_nnmyg")
 priority = 3
 
@@ -28,6 +28,11 @@ region_rect = Rect2(208, 0, 10, 48)
 [node name="Hitbox" parent="." index="2" unique_id=150259076]
 position = Vector2(-0.5, -12)
 shape = SubResource("RectangleShape2D_mrr00")
+
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="."]
+position = Vector2(-0.5, -12)
+vertices = PackedVector2Array(4.5, 16, 4.5, -16, -4.5, -16, -4.5, 16)
+affect_navigation_mesh = true
 
 [node name="InterractionBox" parent="InterractionArea" parent_id_path=PackedInt32Array(97300687) index="0" unique_id=1028417380]
 position = Vector2(0, -20)
