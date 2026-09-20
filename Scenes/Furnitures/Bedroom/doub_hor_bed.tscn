@@ -19,6 +19,11 @@ region_rect = Rect2(0, 128, 48, 48)
 position = Vector2(0, 5.5)
 shape = SubResource("RectangleShape2D_bedb0")
 
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="."]
+position = Vector2(0, 5.5)
+vertices = PackedVector2Array(20, 17.5, 20, -17.5, -20, -17.5, -20, 17.5)
+affect_navigation_mesh = true
+
 [node name="InterractionBox" parent="InterractionArea" parent_id_path=PackedInt32Array(97300687) index="0" unique_id=1028417380]
 rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_bedb0")

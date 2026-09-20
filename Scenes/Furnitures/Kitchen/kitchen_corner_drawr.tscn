@@ -18,6 +18,11 @@ region_rect = Rect2(176, 192, 32, 64)
 [node name="Hitbox" type="CollisionPolygon2D" parent="." unique_id=1770123600]
 polygon = PackedVector2Array(-16, -31, 16, -31, 16, 32, -5, 32, -5, 11, -16, 11)
 
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="."]
+position = Vector2(0, 0)
+vertices = PackedVector2Array(-16, -31, 16, -31, 16, 32, -5, 32, -5, 11, -16, 11)
+affect_navigation_mesh = true
+
 [node name="InterractionArea" type="Area2D" parent="." unique_id=97300687]
 visible = false
 

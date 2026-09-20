@@ -18,6 +18,11 @@ region_rect = Rect2(0, 0, 51, 33)
 position = Vector2(0, 3.5)
 shape = SubResource("RectangleShape2D_el5f1")
 
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="."]
+position = Vector2(0, 3.5)
+vertices = PackedVector2Array(21, 11.5, 21, -11.5, -21, -11.5, -21, 11.5)
+affect_navigation_mesh = true
+
 [node name="InterractionBox" parent="InterractionArea" parent_id_path=PackedInt32Array(97300687) index="0" unique_id=1028417380]
 visible = true
 rotation = 1.5707964

@@ -19,6 +19,11 @@ visible = true
 position = Vector2(0, 1.5)
 shape = SubResource("RectangleShape2D_thllj")
 
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="."]
+position = Vector2(0, 1.5)
+vertices = PackedVector2Array(24, 6.5, 24, -6.5, -24, -6.5, -24, 6.5)
+affect_navigation_mesh = true
+
 [node name="InterractionArea" parent="." index="2" unique_id=97300687]
 visible = false
 
