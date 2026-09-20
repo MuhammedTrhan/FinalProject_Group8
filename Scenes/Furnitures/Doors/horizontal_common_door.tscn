@@ -25,7 +25,7 @@ outline_color = Color(0, 0, 0, 1)
 
 [node name="HorizontalCommonDoor" type="StaticBody2D" unique_id=758378394]
 y_sort_enabled = true
-collision_layer = 2
+collision_layer = 130
 script = ExtResource("1_h0llp")
 required_key_item = ExtResource("2_y2mof")
 priority = 5

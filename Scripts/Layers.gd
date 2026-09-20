@@ -26,6 +26,11 @@ const ENEMY := 8 ## bit 4 - the antagonist body
 const STAIRS := 16 ## bit 5 - stairs teleport trigger areas
 const HIDING := 32 ## bit 6 - hiding spot trigger areas
 const NOISE := 64 ## bit 7 - noise source areas
+## bit 8 - tile walls and doors only, not furniture. A second tag on top of
+## WALLS (not a replacement) so existing WALLS-masked raycasts are unaffected;
+## use this instead only where furniture should specifically be see-through
+## (e.g. the outer follow/decision area's occlusion - see PersonalityAreaVisual.gd).
+const STRUCTURE := 128
 
 ## The enemy is deliberately NOT on bit 1. Every Area2D authored before this
 ## refactor uses the default collision_mask of 1, so putting the enemy on bit 4

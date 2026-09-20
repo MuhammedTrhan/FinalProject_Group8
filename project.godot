@@ -147,6 +147,7 @@ debug_toggle_uv={
 2d_physics/layer_5="StairsTransition"
 2d_physics/layer_6="HidingSpot"
 2d_physics/layer_7="NoiseSource"
+2d_physics/layer_8="Structure"
 
 [physics]
 

@@ -59,7 +59,10 @@ func _draw_outer_ring() -> void:
 	# Faint fill of the same area, clipped to walls exactly like the inner
 	# cone/circle below - it collapses right at a wall instead of just
 	# stopping at the last visible sample the way the outline's gaps do.
-	_draw_filled_circle(radius, ring_fill_color)
+	# Layers.STRUCTURE (tile walls + doors, not furniture) rather than the
+	# default Layers.WALLS - the outer follow/decision area is meant to see
+	# through furniture, unlike the inner vision cone below.
+	_draw_filled_circle(radius, ring_fill_color, Layers.STRUCTURE)
 
 	var points := PackedVector2Array()
 	var visible_flags := PackedByteArray()
@@ -67,7 +70,7 @@ func _draw_outer_ring() -> void:
 		var angle := TAU * float(i) / float(SEGMENTS)
 		var point := Vector2.RIGHT.rotated(angle) * radius
 		points.append(point)
-		visible_flags.append(1 if VisionConeUtils.is_point_visible(self, point) else 0)
+		visible_flags.append(1 if VisionConeUtils.is_point_visible(self, point, Layers.STRUCTURE) else 0)
 
 	for i in SEGMENTS:
 		var j := (i + 1) % SEGMENTS
@@ -92,12 +95,12 @@ func _draw_inner_area() -> void:
 		_draw_filled_cone(perception)
 
 
-func _draw_filled_circle(radius: float, color: Color) -> void:
+func _draw_filled_circle(radius: float, color: Color, mask: int = Layers.WALLS) -> void:
 	var points := PackedVector2Array()
 	for i in SEGMENTS:
 		var angle := TAU * float(i) / float(SEGMENTS)
 		var point := Vector2.RIGHT.rotated(angle) * radius
-		points.append(VisionConeUtils.clip_point_to_walls(self, point))
+		points.append(VisionConeUtils.clip_point_to_walls(self, point, mask))
 
 	# A wall/corner can clip several consecutive samples to the same point
 	# draw_colored_polygon()'s triangulator fails outright on a repeated
