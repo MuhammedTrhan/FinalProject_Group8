@@ -14,8 +14,28 @@ func _ready() -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("toggle_inventory"):
-		visible = not visible
+	if not event.is_action_pressed("toggle_inventory"):
+		return
+
+	if visible:
+		_close()
+	elif GameManager.is_run_interactive():
+		# Refused while anything else owns the pause - the dossier, the keypad,
+		# the pause menu, the game-over screen - so this can't unpause theirs.
+		_open()
+
+
+## Freezes the house while she is in her bag. Combining the diary pieces is a
+## drag-and-drop that takes both hands, and with the captor still walking she
+## could be caught by a menu.
+func _open() -> void:
+	visible = true
+	get_tree().paused = true
+
+
+func _close() -> void:
+	visible = false
+	get_tree().paused = false
 
 
 func _refresh() -> void:
