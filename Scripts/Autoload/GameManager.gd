@@ -23,7 +23,7 @@ const DIGIT_OWNERS: Array[PersonalityProfile.Personality] = [
 ]
 
 @export var day_duration_sec: float = 90
-@export var night_duration_sec: float = 20
+@export var night_duration_sec: float = 15
 ## Matches EscortController.ESCORT_DURATION - change one, change both.
 @export var escort_duration_sec: float = 5.0
 @export var allow_repeat_personality := false
