@@ -13,11 +13,11 @@ config_version=5
 config/name="FinalProject_Group8"
 run/main_scene="res://Scenes/UI/main_menu.tscn"
 config/features=PackedStringArray("4.6", "Forward Plus")
-config/icon="res://icon.svg"
+config/icon="uid://cu480qfu7h048"
 
 [autoload]
 
-Interactions="*uid://dc32btgeaseow"
+Interactions="*res://Scripts/Interactions.gd"
 GameEvents="*res://Scripts/Autoload/GameEvents.gd"
 Inventory="*res://Scripts/Autoload/Inventory.gd"
 DayOneTerminal="*res://Scenes/UI/day_one_terminal.tscn"
@@ -28,6 +28,7 @@ GameManager="*res://Scripts/Autoload/GameManager.gd"
 Settings="*res://Scripts/Autoload/Settings.gd"
 Hud="*res://Scenes/UI/hud.tscn"
 HintLabel="*res://Scenes/UI/hint_label.tscn"
+PhaseClock="*res://Scenes/UI/phase_clock.tscn"
 OptionsMenu="*res://Scenes/UI/options_menu.tscn"
 PauseMenu="*res://Scenes/UI/pause_menu.tscn"
 

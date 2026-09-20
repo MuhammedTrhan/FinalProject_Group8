@@ -22,8 +22,8 @@ const DIGIT_OWNERS: Array[PersonalityProfile.Personality] = [
 	PersonalityProfile.Personality.PARANOID,
 ]
 
-@export var day_duration_sec: float = 90
-@export var night_duration_sec: float = 20
+@export var day_duration_sec: float = 110
+@export var night_duration_sec: float = 15
 ## Matches EscortController.ESCORT_DURATION - change one, change both.
 @export var escort_duration_sec: float = 5.0
 @export var allow_repeat_personality := false
@@ -235,6 +235,12 @@ func is_run_interactive() -> bool:
 
 func is_waiting_for_terminal() -> bool:
 	return _waiting_for_terminal
+
+
+## Seconds left in the current phase, or -1 when nothing is on the clock - the
+## opening night runs until she reads the computer rather than on a timer.
+func get_phase_time_left() -> float:
+	return -1.0 if _phase_timer.is_stopped() else _phase_timer.time_left
 
 
 func _start_day() -> void:

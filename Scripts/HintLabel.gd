@@ -5,7 +5,7 @@ extends CanvasLayer
 ## computer, no clock running - is where a player is most likely to sit stuck.
 
 ## Wandering the house doesn't reset this; only actual progress does.
-const IDLE_DELAY := 20.0
+const IDLE_DELAY := 15.0
 const SHOW_TIME := 9.0
 const FADE_TIME := 0.6
 
@@ -49,7 +49,9 @@ func _process(delta: float) -> void:
 		_show(_current_hint())
 
 
-## Ordered nearest-goal first, so she is told the next step and not the last one.
+## Ordered nearest-goal first, so she is told the next step and not the last
+## one. A tool she already used is skipped by checking its digit rather than
+## whether she still carries it - the crowbar stays in the bag afterwards.
 func _current_hint() -> String:
 	if GameManager.is_passcode_complete():
 		return "The code is complete. Find the front door."
@@ -58,18 +60,27 @@ func _current_hint() -> String:
 		return "There is a computer in this room. Read it before you sleep."
 
 	if _has_all_scraps():
-		return "Those torn pages look like they belong together. Open your bag (Tab)."
+		return "Those torn pieces look like they belong together. Open your bag (Tab)."
 
-	if Inventory.has_item(Inventory.SCRAP_A) or Inventory.has_item(Inventory.SCRAP_B) \
-			or Inventory.has_item(Inventory.SCRAP_C):
+	if _has_item(&"crowbar") and _digit_missing(1):
+		return "One of the floorboards doesn't sit flush. Stand on it and use the crowbar."
+
+	if _has_item(&"uv_flashlight") and _digit_missing(0):
+		return "Some writing only shows under UV light. Hold the flashlight and look around."
+
+	if _carries_any_scrap() and _digit_missing(2):
 		return "He throws the pieces away. Check the bins he visits."
 
+	# Nothing in hand yet, so the next step is whatever today's antagonist
+	# wants. The night has no step of its own - she is shut in and waiting.
 	if not GameManager.is_day():
-		return "The night passes on its own. Wait for morning."
+		return ""
 
 	match GameManager.current_personality:
 		PersonalityProfile.Personality.FORGETFUL:
-			return "He forgets quickly. Stay near him and he may warm up to you."
+			# He sees in every direction (360 fov), so getting spotted is likely -
+			# but he only searches for 1.5s, against the Paranoid's 5s.
+			return "He looks every way at once, so stay close but hide the moment he comes at you - he forgets quickly."
 		PersonalityProfile.Personality.PARANOID:
 			return "Stay inside his circle while he walks, and see where he goes."
 		PersonalityProfile.Personality.OVERWHELMED:
@@ -78,11 +89,31 @@ func _current_hint() -> String:
 	return ""
 
 
+## By id rather than by resource, so this doesn't have to preload every item
+## the puzzles happen to use.
+func _has_item(id: StringName) -> bool:
+	for item in Inventory.get_items():
+		if item != null and item.id == id:
+			return true
+	return false
+
+
+func _digit_missing(index: int) -> bool:
+	return GameManager.passcode_digits[index] < 0
+
+
 func _has_all_scraps() -> bool:
 	for scrap in Inventory.DIARY_SCRAPS:
 		if not Inventory.has_item(scrap):
 			return false
 	return true
+
+
+func _carries_any_scrap() -> bool:
+	for scrap in Inventory.DIARY_SCRAPS:
+		if Inventory.has_item(scrap):
+			return true
+	return false
 
 
 func _show(text: String) -> void:

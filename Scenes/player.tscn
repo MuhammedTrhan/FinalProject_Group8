@@ -1383,6 +1383,7 @@ color = Color(0, 0, 0, 1)
 metadata/_edit_use_anchors_ = true
 
 [node name="Footsteps" type="AudioStreamPlayer" parent="." unique_id=16495212]
+volume_db = -14.0
 bus = &"SFX"
 
 [connection signal="animation_finished" from="PlayerAnimationHandler" to="PlayerAnimationHandler" method="_on_animation_finished"]
