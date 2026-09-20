@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://cmuo1dsyqdyw3"]
+[gd_scene format=3 uid="uid://cmuo8dsyqdyw3"]
 
 [ext_resource type="PackedScene" uid="uid://dh5f37ia22vin" path="res://Scenes/Furnitures/furniture_uninteractable_base.tscn" id="1_qajgb"]
 [ext_resource type="Texture2D" uid="uid://b57g1d2wirast" path="res://Assets/Interior/Furnitures/furniture.png" id="2_rpd7m"]
