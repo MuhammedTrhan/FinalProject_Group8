@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://1fdxegpt4m2l" path="res://Scripts/MainMenu.gd" id="1_mm"]
 [ext_resource type="AudioStream" uid="uid://df7y85gd8hir" path="res://Assets/Audio/This House.mp3" id="2_i2xx2"]
-[ext_resource type="VideoStream" uid="uid://bw1kdwqnoocrs" path="res://Assets/UI/menu.ogv" id="2_o14dv"]
+[ext_resource type="VideoStream" path="res://Assets/UI/menu.ogv" id="2_o14dv"]
 
 [node name="MainMenu" type="Control" unique_id=101561797]
 layout_mode = 3

@@ -12,7 +12,6 @@
 [ext_resource type="Script" uid="uid://bpr17dlr34lum" path="res://Scripts/Enemy/EscortController.gd" id="9_escort"]
 [ext_resource type="Script" uid="uid://cg08ltcr0wjyj" path="res://Scripts/Enemy/PersonalityAreaVisual.gd" id="10_areavisual"]
 [ext_resource type="Script" uid="uid://b2543f7fa2rer" path="res://Scripts/Enemy/TurnWarningIcon.gd" id="11_turnwarning"]
-[ext_resource type="AudioStream" uid="uid://dvbs2yjj0h3j" path="res://Assets/Audio/zapsplat_human_heartbeat_med_fast_72972.mp3" id="13_1vi6b"]
 [ext_resource type="AudioStream" uid="uid://eknedw8lbtfw" path="res://Assets/Audio/footstepslong.mp3" id="14_steps"]
 [ext_resource type="Script" path="res://Scripts/EnemyFootsteps.gd" id="15_stepscript"]
 
@@ -1271,13 +1270,10 @@ script = ExtResource("11_turnwarning")
 [node name="EscortController" type="Node" parent="." unique_id=925922604]
 script = ExtResource("9_escort")
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=371825792]
-stream = ExtResource("13_1vi6b")
-
-[node name="Footsteps" type="AudioStreamPlayer2D" parent="."]
+[node name="Footsteps" type="AudioStreamPlayer2D" parent="." unique_id=1357320542]
 stream = ExtResource("14_steps")
 volume_db = -6.0
-bus = &"SFX"
 max_distance = 420.0
 attenuation = 1.5
+bus = &"SFX"
 script = ExtResource("15_stepscript")
