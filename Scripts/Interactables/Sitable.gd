@@ -61,7 +61,9 @@ func stand_up(actor: Node2D) -> void:
 	if actor.has_method("set_current_sitable"):
 		actor.set_current_sitable(null)
 
-	_orient_actor(actor, stand_up_point.global_position)
+	# stand_up_point itself might overlap a wall/furniture placed too close
+	# to it - nudge to the nearest clear spot instead if so.
+	_orient_actor(actor, PhysicsQueryUtils.find_clear_point(self, stand_up_point.global_position))
 
 	prompt_text = "Sit Down"
 
