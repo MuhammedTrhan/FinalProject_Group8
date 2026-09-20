@@ -17,6 +17,7 @@ config/icon="uid://cu480qfu7h048"
 
 [autoload]
 
+Music="*res://Scenes/UI/music.tscn"
 Interactions="*res://Scripts/Interactions.gd"
 GameEvents="*res://Scripts/Autoload/GameEvents.gd"
 Inventory="*res://Scripts/Autoload/Inventory.gd"
@@ -34,6 +35,7 @@ PauseMenu="*res://Scenes/UI/pause_menu.tscn"
 
 [display]
 
+window/size/mode=3
 window/stretch/mode="viewport"
 
 [global_group]
