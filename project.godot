@@ -17,7 +17,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-Interactions="*uid://dc32btgeaseow"
+Interactions="*res://Scripts/Interactions.gd"
 GameEvents="*res://Scripts/Autoload/GameEvents.gd"
 Inventory="*res://Scripts/Autoload/Inventory.gd"
 DayOneTerminal="*res://Scenes/UI/day_one_terminal.tscn"
