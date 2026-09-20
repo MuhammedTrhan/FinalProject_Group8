@@ -13,6 +13,7 @@ height = 62.0
 
 [node name="TV" unique_id=1824194741 instance=ExtResource("1_einu6")]
 noise_audio = ExtResource("2_nnmyg")
+priority = 3
 
 [node name="InactiveSprite" parent="." index="0" unique_id=1764835962]
 texture = ExtResource("2_02seo")

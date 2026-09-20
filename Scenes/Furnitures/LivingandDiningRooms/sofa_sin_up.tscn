@@ -1,27 +1,31 @@
-[gd_scene format=3 uid="uid://cwwu8v15nanbf"]
+[gd_scene format=3 uid="uid://dxee8g40odkhb"]
 
-[ext_resource type="PackedScene" uid="uid://dpnh7gu3t8o6i" path="res://Scenes/Furnitures/furniture_sitable_base.tscn" id="1_uc0ts"]
+[ext_resource type="PackedScene" uid="uid://dpnh7gu3t8o6i" path="res://Scenes/Furnitures/furniture_sitable_base.tscn" id="1_rygfj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_44dcd"]
-size = Vector2(16, 42)
+size = Vector2(30, 18)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pduef"]
-radius = 20.0
-height = 54.0
+radius = 19.0
+height = 42.0
 
-[node name="Sitable" unique_id=758378394 instance=ExtResource("1_uc0ts")]
+[node name="Sitable" unique_id=758378394 instance=ExtResource("1_rygfj")]
 
 [node name="Sprite2D" parent="." index="0" unique_id=1764835962]
-region_rect = Rect2(144, 160, 32, 32)
+offset = Vector2(0, -8)
+region_rect = Rect2(176, 160, 32, 32)
 
 [node name="Hitbox" parent="." index="1" unique_id=150259076]
+position = Vector2(0, -2)
 shape = SubResource("RectangleShape2D_44dcd")
 
 [node name="InterractionBox" parent="InterractionArea" parent_id_path=PackedInt32Array(97300687) index="0" unique_id=1028417380]
+visible = true
+position = Vector2(0, -6)
 shape = SubResource("CapsuleShape2D_pduef")
 
 [node name="StandUpMarker" parent="." index="3" unique_id=1118046313]
-position = Vector2(0, 22)
+position = Vector2(0, -23)
 
 [node name="SitDownMarker" parent="." index="4" unique_id=2074848840]
-position = Vector2(0, 12)
+position = Vector2(0, -1)
