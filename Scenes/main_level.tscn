@@ -1767,9 +1767,6 @@ position = Vector2(576, 915)
 [node name="DiningTable" parent="Furnitures/Floor1/Garage&Garden" unique_id=456987221 instance=ExtResource("65_3k2bq")]
 position = Vector2(715, 915)
 
-[node name="Sink" parent="Furnitures/Floor1/Garage&Garden" unique_id=928680649 instance=ExtResource("25_1ubp3")]
-position = Vector2(647, 911)
-
 [node name="FlowerShelf" parent="Furnitures/Floor1/Garage&Garden" unique_id=260201313 instance=ExtResource("50_86i52")]
 position = Vector2(297, 960)
 
