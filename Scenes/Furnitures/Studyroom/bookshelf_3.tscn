@@ -21,7 +21,6 @@ position = Vector2(0, 11)
 shape = SubResource("RectangleShape2D_i2nfc")
 
 [node name="InterractionBox" parent="InterractionArea" parent_id_path=PackedInt32Array(97300687) index="0" unique_id=1028417380]
-visible = true
 shape = SubResource("CapsuleShape2D_jar5y")
 
 [node name="HideMarker" parent="." index="3" unique_id=1118046313]

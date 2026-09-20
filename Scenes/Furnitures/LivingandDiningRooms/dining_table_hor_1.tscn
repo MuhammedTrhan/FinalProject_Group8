@@ -10,6 +10,7 @@ radius = 20.0
 height = 62.0
 
 [node name="DiningTable" unique_id=2143569362 instance=ExtResource("1_dtbl0")]
+scale = Vector2(1.5, 1.5)
 
 [node name="Sprite2D" parent="." index="0" unique_id=1764835962]
 region_rect = Rect2(48, 0, 48, 32)
