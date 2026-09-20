@@ -39,7 +39,7 @@
 [ext_resource type="PackedScene" uid="uid://b8l6bkrw8f8dk" path="res://Scenes/Furnitures/LivingandDiningRooms/dining_table_hor_1.tscn" id="33_b8vxi"]
 [ext_resource type="PackedScene" uid="uid://chbxhv2612gcj" path="res://Scenes/Furnitures/Other/cat_bed_2.tscn" id="34_i77w6"]
 [ext_resource type="PackedScene" uid="uid://da3iv0lrn4ne2" path="res://Scenes/Furnitures/LivingandDiningRooms/fireplace.tscn" id="34_lkiyy"]
-[ext_resource type="PackedScene" uid="uid://dts6ai5kn3nlt" path="res://Scenes/Furnitures/LivingandDiningRooms/sofa_sin_hor.tscn" id="34_xob32"]
+[ext_resource type="PackedScene" path="res://Scenes/Furnitures/LivingandDiningRooms/sofa_sin_hor.tscn" id="34_xob32"]
 [ext_resource type="PackedScene" uid="uid://cjmnu4npcb1vy" path="res://Scenes/Furnitures/Studyroom/bookshelf_1.tscn" id="35_ao655"]
 [ext_resource type="PackedScene" uid="uid://cjqpouhri8a3j" path="res://Scenes/Furnitures/Carpets/rug_ver_1.tscn" id="35_bm8oi"]
 [ext_resource type="PackedScene" uid="uid://x5pbc6j101nh" path="res://Scenes/Furnitures/Studyroom/plant.tscn" id="36_30qra"]
@@ -65,9 +65,11 @@
 [ext_resource type="PackedScene" uid="uid://cuajtw0sdegop" path="res://Scenes/Furnitures/Studyroom/plant_2.tscn" id="55_3k2bq"]
 [ext_resource type="PackedScene" uid="uid://dmnqduyode6qp" path="res://Scenes/Furnitures/Carpets/carpet_hor_3.tscn" id="56_af3db"]
 [ext_resource type="PackedScene" uid="uid://ba36rhhdtf6v2" path="res://Scenes/Furnitures/Bathroom/sink_ver.tscn" id="58_1d3nm"]
+[ext_resource type="PackedScene" uid="uid://p81rcqkpjfur" path="res://Scenes/Furnitures/Bedroom/bedroom_drawr.tscn" id="58_pvjhh"]
 [ext_resource type="PackedScene" uid="uid://deb3phksyti7v" path="res://Scenes/Furnitures/LivingandDiningRooms/dining_chair_up_2.tscn" id="58_qyoj5"]
 [ext_resource type="PackedScene" uid="uid://v7xnhybi1aa2" path="res://Scenes/Furnitures/Bathroom/towel_holder.tscn" id="59_af3db"]
 [ext_resource type="PackedScene" uid="uid://ts0xn7k3gh8w" path="res://Scenes/Furnitures/LivingandDiningRooms/dining_chair_down_2.tscn" id="59_eqdtt"]
+[ext_resource type="PackedScene" uid="uid://3bn0ewp4c08i" path="res://Scenes/Furnitures/Windows/curtain.tscn" id="59_pvjhh"]
 [ext_resource type="PackedScene" uid="uid://bcxtmrk366pot" path="res://Scenes/Furnitures/Other/wall_shelf_2.tscn" id="62_edvr7"]
 [ext_resource type="PackedScene" uid="uid://bg2f7iy4i6pqt" path="res://Scenes/Furnitures/LivingandDiningRooms/coat_rack.tscn" id="63_g8qe3"]
 [ext_resource type="PackedScene" uid="uid://bj0gieaixek6v" path="res://Scenes/Furnitures/LivingandDiningRooms/dining_table_hor_3.tscn" id="65_3k2bq"]
@@ -1884,6 +1886,24 @@ scale = Vector2(1.3, 1.3)
 position = Vector2(1864, 760)
 flavour_text = "I knew there was something under here!"
 ground_layer_path = NodePath("../../../../NavigationRegion2D/Ground")
+
+[node name="BedroomDrawr" parent="Furnitures/Floor2/MainBedroom&Dressing" unique_id=1235740569 instance=ExtResource("58_pvjhh")]
+position = Vector2(2244, 644)
+
+[node name="BedroomDrawr2" parent="Furnitures/Floor2/MainBedroom&Dressing" unique_id=1374531553 instance=ExtResource("58_pvjhh")]
+position = Vector2(2220, 644)
+
+[node name="BedroomDrawr3" parent="Furnitures/Floor2/MainBedroom&Dressing" unique_id=1246367434 instance=ExtResource("58_pvjhh")]
+position = Vector2(2196, 644)
+
+[node name="BedroomDrawr4" parent="Furnitures/Floor2/MainBedroom&Dressing" unique_id=907539785 instance=ExtResource("58_pvjhh")]
+position = Vector2(2172, 644)
+
+[node name="Curtain" parent="Furnitures/Floor2/MainBedroom&Dressing" unique_id=817872475 instance=ExtResource("59_pvjhh")]
+position = Vector2(1819.0001, 641.00006)
+
+[node name="Curtain2" parent="Furnitures/Floor2/MainBedroom&Dressing" unique_id=625963076 instance=ExtResource("59_pvjhh")]
+position = Vector2(1985.0001, 640.00006)
 
 [node name="Toilet2" type="Node2D" parent="Furnitures/Floor2" unique_id=2101930775]
 
