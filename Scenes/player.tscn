@@ -10,6 +10,7 @@
 [ext_resource type="Script" uid="uid://d4f0c4r2udhm2" path="res://Scripts/Player/ToolUser.gd" id="4_tooluser"]
 [ext_resource type="Texture2D" uid="uid://b16tacmrlbvog" path="res://Assets/Player/standard/sit.png" id="4_x3wgy"]
 [ext_resource type="Script" uid="uid://rjabdy5ai55x" path="res://Scripts/Player/UVFlashlight.gd" id="5_uvflash"]
+[ext_resource type="AudioStream" uid="uid://d4kl7c544k2nf" path="res://Assets/Audio/footsteps.mp3" id="8_gymyn"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cvnsp"]
 radius = 3.0
@@ -1055,6 +1056,21 @@ tracks/2/keys = {
 "update": 1,
 "values": [27, 28, 29, 30, 31, 32, 33, 34]
 }
+tracks/3/type = "audio"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Footsteps")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("8_gymyn")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/3/use_blend = true
 
 [sub_resource type="Animation" id="Animation_f1ek2"]
 resource_name = "walk_left"
@@ -1096,6 +1112,21 @@ tracks/2/keys = {
 "update": 1,
 "values": [14, 15, 16, 17, 18, 19, 20, 21]
 }
+tracks/3/type = "audio"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Footsteps")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("8_gymyn")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/3/use_blend = true
 
 [sub_resource type="Animation" id="Animation_tx1dd"]
 resource_name = "walk_right"
@@ -1137,6 +1168,21 @@ tracks/2/keys = {
 "update": 1,
 "values": [40, 41, 42, 43, 44, 45, 46, 47]
 }
+tracks/3/type = "audio"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Footsteps")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("8_gymyn")
+}],
+"times": PackedFloat32Array(0.0333333)
+}
+tracks/3/use_blend = true
 
 [sub_resource type="Animation" id="Animation_3smsa"]
 resource_name = "walk_up"
@@ -1178,6 +1224,21 @@ tracks/2/keys = {
 "update": 1,
 "values": [1, 2, 3, 4, 5, 6, 7, 8]
 }
+tracks/3/type = "audio"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Footsteps")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("8_gymyn")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/3/use_blend = true
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_vgqql"]
 _data = {
@@ -1320,5 +1381,8 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 1)
 metadata/_edit_use_anchors_ = true
+
+[node name="Footsteps" type="AudioStreamPlayer" parent="." unique_id=16495212]
+bus = &"SFX"
 
 [connection signal="animation_finished" from="PlayerAnimationHandler" to="PlayerAnimationHandler" method="_on_animation_finished"]

@@ -828,3 +828,4 @@ func drop_reward() -> void:
 func _on_touch_area_body_entered(body: Node2D) -> void:
 	if body.is_in_group(&"player"):
 		escort_controller.register_catch(&"touched")
+		
