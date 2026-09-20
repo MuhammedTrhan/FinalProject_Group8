@@ -25,7 +25,7 @@ const UNKNOWN_COLOUR := Color(0.45, 0.41, 0.34)
 ## there is one list to change when a fourth personality turns up.
 const FOLLOW_BAR_CAPTIONS := {
 	PersonalityProfile.Personality.FORGETFUL: "Trust",
-	PersonalityProfile.Personality.PARANOID: "Gift",
+	PersonalityProfile.Personality.PARANOID: "Page Piece",
 }
 
 @onready var chase_bar: ProgressBar = $Root/ChaseBar

@@ -60,7 +60,7 @@ func _current_hint() -> String:
 		return "There is a computer in this room. Read it before you sleep."
 
 	if _has_all_scraps():
-		return "Those torn pages look like they belong together. Open your bag (Tab)."
+		return "Those torn pieces look like they belong together. Open your bag (Tab)."
 
 	if _has_item(&"crowbar") and _digit_missing(1):
 		return "One of the floorboards doesn't sit flush. Stand on it and use the crowbar."
