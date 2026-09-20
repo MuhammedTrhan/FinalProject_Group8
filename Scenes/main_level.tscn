@@ -1306,7 +1306,7 @@ texture = ExtResource("6_2jcip")
 
 [sub_resource type="TileSet" id="TileSet_5erdv"]
 occlusion_layer_0/light_mask = 1
-physics_layer_0/collision_layer = 2
+physics_layer_0/collision_layer = 130
 sources/0 = SubResource("TileSetAtlasSource_lwkuy")
 sources/2 = SubResource("TileSetAtlasSource_ha3dl")
 sources/3 = SubResource("TileSetAtlasSource_f3gli")

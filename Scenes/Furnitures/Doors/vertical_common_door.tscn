@@ -25,7 +25,7 @@ outline_color = Color(0, 0, 0, 1)
 
 [node name="VerticalCommonDoor" type="StaticBody2D" unique_id=758378394]
 z_index = 1
-collision_layer = 2
+collision_layer = 130
 script = ExtResource("1_d7itd")
 required_key_item = ExtResource("2_ff7k3")
 priority = 5
