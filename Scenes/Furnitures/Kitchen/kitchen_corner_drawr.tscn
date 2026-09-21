@@ -7,8 +7,8 @@ radius = 16.0
 height = 68.0
 
 [node name="KitchenCornerDrawr" type="StaticBody2D" unique_id=758378394 groups=["nav_bake_source"]]
+collision_layer = 258
 y_sort_enabled = true
-collision_layer = 2
 
 [node name="Sprite" type="Sprite2D" parent="." unique_id=91856626]
 texture = ExtResource("2_68tll")

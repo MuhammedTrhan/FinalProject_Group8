@@ -7,8 +7,8 @@
 size = Vector2(46, 36)
 
 [node name="Stairs" type="StaticBody2D" unique_id=588314391 groups=["nav_bake_source"]]
+collision_layer = 258
 y_sort_enabled = true
-collision_layer = 2
 script = ExtResource("1_qbift")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=308028341]

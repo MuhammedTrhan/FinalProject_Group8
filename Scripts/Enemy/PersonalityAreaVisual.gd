@@ -95,7 +95,7 @@ func _draw_inner_area() -> void:
 		_draw_filled_cone(perception)
 
 
-func _draw_filled_circle(radius: float, color: Color, mask: int = Layers.WALLS) -> void:
+func _draw_filled_circle(radius: float, color: Color, mask: int = Layers.OCCLUDES_VISION) -> void:
 	var points := PackedVector2Array()
 	for i in SEGMENTS:
 		var angle := TAU * float(i) / float(SEGMENTS)
@@ -120,7 +120,7 @@ func _draw_filled_cone(perception: Perception) -> void:
 		var t := float(i) / float(SEGMENTS)
 		var angle := facing_angle - half_fov + t * (half_fov * 2.0)
 		var point := Vector2.RIGHT.rotated(angle) * perception.view_distance
-		points.append(VisionConeUtils.clip_point_to_walls(self, point))
+		points.append(VisionConeUtils.clip_point_to_walls(self, point, Layers.OCCLUDES_VISION))
 
 	points = VisionConeUtils.dedupe_consecutive(points)
 	if points.size() >= 3:

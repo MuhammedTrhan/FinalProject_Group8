@@ -31,6 +31,12 @@ const NOISE := 64 ## bit 7 - noise source areas
 ## use this instead only where furniture should specifically be see-through
 ## (e.g. the outer follow/decision area's occlusion - see PersonalityAreaVisual.gd).
 const STRUCTURE := 128
+## bit 9 - opt-in tag for "blocks the enemy's vision raycast" (Perception.gd).
+## A second tag on top of WALLS/collision_layer=2, not a replacement - chairs
+## and other small/decorative furniture deliberately don't get it, so they
+## stay solid for movement but stop occluding sight. Tile walls, doors, and
+## "big" furniture (anything with a NavigationObstacle2D, except chairs) do.
+const OCCLUDES_VISION := 256
 
 ## The enemy is deliberately NOT on bit 1. Every Area2D authored before this
 ## refactor uses the default collision_mask of 1, so putting the enemy on bit 4

@@ -10,6 +10,7 @@ radius = 20.0
 height = 64.0
 
 [node name="sin_hor_bed" unique_id=758378394 instance=ExtResource("1_ad2tg") groups=["nav_bake_source"]]
+collision_layer = 258
 
 [node name="Sprite2D" parent="." index="0" unique_id=1764835962]
 region_rect = Rect2(0, 0, 51, 33)

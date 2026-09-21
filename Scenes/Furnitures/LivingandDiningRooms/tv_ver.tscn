@@ -12,6 +12,7 @@ radius = 8.0
 height = 62.0
 
 [node name="TV" unique_id=1824194741 instance=ExtResource("1_einu6") groups=["nav_bake_source"]]
+collision_layer = 258
 noise_audio = ExtResource("2_nnmyg")
 priority = 3
 
