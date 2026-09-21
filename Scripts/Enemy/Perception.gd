@@ -80,7 +80,7 @@ func is_player_visible() -> bool:
 
 	var space_state := get_world_2d().direct_space_state
 	var query := PhysicsRayQueryParameters2D.create(
-		global_position, _player.global_position, Layers.PLAYER | Layers.WALLS
+		global_position, _player.global_position, Layers.PLAYER | Layers.OCCLUDES_VISION
 	)
 	var result := space_state.intersect_ray(query)
 	# Nothing hit (shouldn't happen, the player is on the mask) or the player

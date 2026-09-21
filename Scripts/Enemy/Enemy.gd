@@ -424,6 +424,9 @@ func _perform_capture(hideable: Hideable) -> void:
 
 
 func _process_chase(delta: float) -> void:
+	if _capturing:
+		return
+
 	var player := perception.get_player()
 	if player == null or not is_instance_valid(player):
 		_enter_state(State.PATROL)
@@ -441,11 +444,40 @@ func _process_chase(delta: float) -> void:
 			_enter_state(State.INVESTIGATE)
 			return
 
+	# A seated player's own position sits against the chair's Hitbox, which
+	# physically blocks the enemy from ever closing within TOO_CLOSE_DISTANCE/
+	# TouchArea range - walk to the chair's exit marker instead and force them
+	# up on arrival, same idea as the hidden-player capture below.
+	var seated_sitable: Sitable = player.get_current_sitable() if player.has_method("get_current_sitable") else null
+	if seated_sitable != null and is_instance_valid(seated_sitable):
+		nav_agent.target_position = _resolve_nav_target(seated_sitable.stand_up_point.global_position)
+		_move_toward_nav_target(profile.chase_speed)
+		if nav_agent.is_navigation_finished():
+			_perform_seated_capture(seated_sitable)
+		return
+
 	nav_agent.target_position = _resolve_nav_target(player.global_position)
 	_move_toward_nav_target(profile.chase_speed)
 
 	if perception.is_player_visible() and global_position.distance_to(player.global_position) <= TOO_CLOSE_DISTANCE:
 		escort_controller.register_catch(&"too_close")
+
+
+## Same idea as _perform_capture() but for a seated player instead of a
+## hidden one: play the slash anim, then force them up (which also snaps
+## them to stand_up_point, right where the enemy just walked) and fire the
+## catch. Re-checks occupancy after the swipe in case they stood up and fled
+## mid-animation.
+func _perform_seated_capture(sitable: Sitable) -> void:
+	_capturing = true
+	velocity = Vector2.ZERO
+	anim_handler.handle_interaction_anim(Interactions.InteractionType.OPEN)
+	await anim_handler.interact_anim_finish
+
+	if is_instance_valid(sitable) and sitable.is_occupied and sitable.occupant == perception.get_player():
+		sitable.stand_up(perception.get_player())
+		escort_controller.register_catch(&"seen")
+	_capturing = false
 
 
 func _process_stunned(delta: float) -> void:

@@ -10,6 +10,7 @@ radius = 12.0
 height = 42.0
 
 [node name="NightstandClosetDown" unique_id=758378394 instance=ExtResource("1_4pi0a") groups=["nav_bake_source"]]
+collision_layer = 258
 
 [node name="InactiveSprite" parent="." index="0" unique_id=1764835962]
 region_rect = Rect2(48, 0, 16, 32)

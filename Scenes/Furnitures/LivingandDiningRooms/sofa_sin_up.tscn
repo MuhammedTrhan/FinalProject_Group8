@@ -10,6 +10,7 @@ radius = 19.0
 height = 42.0
 
 [node name="Sitable" unique_id=758378394 instance=ExtResource("1_rygfj") groups=["nav_bake_source"]]
+collision_layer = 258
 
 [node name="Sprite2D" parent="." index="0" unique_id=1764835962]
 offset = Vector2(0, -8)

@@ -10,6 +10,7 @@ radius = 8.0
 height = 34.0
 
 [node name="Painting" unique_id=758378394 instance=ExtResource("1_6ksdp") groups=["nav_bake_source"]]
+collision_layer = 258
 
 [node name="Sprite2D" parent="." index="0" unique_id=1764835962]
 texture = ExtResource("2_wcqih")

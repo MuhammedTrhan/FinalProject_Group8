@@ -23,6 +23,7 @@ fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0.5, 0)
 
 [node name="Fireplace" unique_id=2054074670 instance=ExtResource("1_frpl0") groups=["nav_bake_source"]]
+collision_layer = 258
 script = ExtResource("2_fuqo7")
 noise_audio = ExtResource("3_tsl70")
 

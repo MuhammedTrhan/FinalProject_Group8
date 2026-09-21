@@ -10,6 +10,7 @@ radius = 17.0
 height = 60.0
 
 [node name="Bathtub" unique_id=758378394 instance=ExtResource("1_wde0h") groups=["nav_bake_source"]]
+collision_layer = 258
 
 [node name="InactiveSprite" parent="." index="0" unique_id=1764835962]
 region_rect = Rect2(80, 256, 48, 32)

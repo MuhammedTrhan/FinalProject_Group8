@@ -17,6 +17,7 @@ radius = 16.0
 height = 48.0
 
 [node name="Computer" unique_id=758378394 instance=ExtResource("1_q8n5e") groups=["nav_bake_source"]]
+collision_layer = 258
 script = ExtResource("2_lhjed")
 priority = 8
 

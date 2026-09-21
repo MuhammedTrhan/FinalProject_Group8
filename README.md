@@ -15,7 +15,7 @@ https://youtu.be/sTliIgXsnWk
 ## How to run it
 
 **Windows build.** Run the exported `.exe` that ships with the submission. No
-installation is needed.
+installation is needed. Latest build is created after the deadline since we wanted to add some improvments. The old build still exists.
 
 **From source.** Open the project folder with Godot **4.6** and press F5. The
 main scene is `Scenes/UI/main_menu.tscn`.
