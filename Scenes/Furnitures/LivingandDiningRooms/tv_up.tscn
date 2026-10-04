@@ -33,8 +33,3 @@ shape = SubResource("RectangleShape2D_n4yma")
 position = Vector2(0, -12)
 rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_mrr00")
-
-[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="." index="5" unique_id=304847978]
-position = Vector2(0, -4.5)
-vertices = PackedVector2Array(15, 8.5, 15, -8.5, -15, -8.5, -15, 8.5)
-affect_navigation_mesh = true

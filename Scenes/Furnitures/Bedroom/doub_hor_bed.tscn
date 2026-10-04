@@ -9,9 +9,9 @@ size = Vector2(40, 35)
 radius = 29.0
 height = 72.0
 
-[node name="DoubleVerticalBed1" unique_id=3782362 instance=ExtResource("1_jqo5j") groups=["nav_bake_source"]]
-collision_layer = 258
+[node name="DoubleVerticalBed1" unique_id=3782362 groups=["nav_bake_source"] instance=ExtResource("1_jqo5j")]
 scale = Vector2(1.15, 1.15)
+collision_layer = 258
 
 [node name="Sprite2D" parent="." index="0" unique_id=1764835962]
 region_rect = Rect2(0, 128, 48, 48)
@@ -20,11 +20,10 @@ region_rect = Rect2(0, 128, 48, 48)
 position = Vector2(0, 5.5)
 shape = SubResource("RectangleShape2D_bedb0")
 
-[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="."]
-position = Vector2(0, 5.5)
-vertices = PackedVector2Array(20, 17.5, 20, -17.5, -20, -17.5, -20, 17.5)
-affect_navigation_mesh = true
+[node name="InterractionArea" parent="." index="2" unique_id=97300687]
+visible = false
 
-[node name="InterractionBox" parent="InterractionArea" parent_id_path=PackedInt32Array(97300687) index="0" unique_id=1028417380]
+[node name="InterractionBox" parent="InterractionArea" index="0" unique_id=1028417380]
+visible = true
 rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_bedb0")
