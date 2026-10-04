@@ -2602,13 +2602,7 @@ position = Vector2(517, 559)
 position = Vector2(354, 688)
 
 [node name="P6" type="Marker2D" parent="patrol_point_1" unique_id=1442191245 groups=["patrol_point_1"]]
-position = Vector2(254, 859)
-
-[node name="P7" type="Marker2D" parent="patrol_point_1" unique_id=1234185595 groups=["patrol_point_1"]]
-position = Vector2(527, 969)
-
-[node name="P8" type="Marker2D" parent="patrol_point_1" unique_id=838308252 groups=["patrol_point_1"]]
-position = Vector2(375, 1079)
+position = Vector2(254, 835)
 
 [node name="patrol_point_2" type="Node2D" parent="." unique_id=10228709 groups=["patrol_point_2"]]
 
