@@ -92,6 +92,7 @@
 [ext_resource type="PackedScene" uid="uid://cmuo1dsyqdyw3" path="res://Scenes/Furnitures/Other/flower_shelf_ver.tscn" id="73_e768g"]
 [ext_resource type="PackedScene" uid="uid://dxlqa4rbro4pw" path="res://Scenes/Furnitures/Carpets/carpet_cat.tscn" id="74_l5ehb"]
 [ext_resource type="PackedScene" uid="uid://buivhsvpb6wgq" path="res://Scenes/Furnitures/LivingandDiningRooms/tv_down.tscn" id="74_pmwhv"]
+[ext_resource type="Script" uid="uid://dteirwfmyjlat" path="res://Scripts/EditorDisable.gd" id="93_3s67a"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_qbrl8"]
 vertices = PackedVector2Array(2260, 548, 2226.3281, 548, 2218.0313, 540, 2260, 540, 2226.25, 787.89844, 2260, 788, 2156, 788, 2169.75, 787.89844, 2300, 972, 2308, 852, 2308, 1020, 2300, 980, 2300, 692, 2313, 682, 2221, 220, 2359.9766, 220, 2359.5781, 221.5, 2221, 233, 2156, 692, 2169.75, 750.89844, 2420, 1020, 2483.5938, 1020, 2483.0625, 1119.1719, 2420, 1037.5, 2388.0469, 1037.5, 2395.6406, 1120.4375, 2388.0469, 1039.3984, 2300, 1120.4375, 2347.9531, 1039.3984, 2260, 692, 2226.25, 750.89844, 2292, -20, 2292, 116, 2084, 116, 2103, 5, 2084, 289, 2071, 289, 2076, 220, 2071, 361, 2084, 361, 2084, 436, 2068, 436, 2375, 354, 2388, 354, 2388, 408, 2354, 408, 2354, 436, 2310.5938, 436, 2310.5938, 409.34375, 2371.789, 242.64844, 2287.0469, 409.34375, 2287.0469, 375.85156, 2362.8516, 233.71094, 2246.9531, 375.85156, 2246.9531, 409.34375, 2225.4063, 409.34375, 2124, 233, 2225.4063, 436, 2132, 436, 2132, 540, 2196, 540, 2196, 548, 2116, 548, 2156, 684, 2156, 663, 2260, 663, 2260, 684, 2300, 684, 2300, 682, 2313, 652, 2421, 652, 2421, 684, 2348, 852, 2463, 684, 2463, 652, 2468, 652, 2468, 916, 2348, 916, 2116, 684, 2116, 692, 2347.9531, 1020, 2260, 972, 2260, 980, 2260, 1044, 2236, 1044, 2236, 1009, 2186, 1009, 2186, 1017, 2157, 1017, 2156, 900, 2157, 1044, 2156, 1044, 2116, 900, 2116, 964, 1989.5938, 964, 1989.5938, 940.02344, 1970.0469, 940.02344, 1970.0469, 905.85156, 2116, 892, 1794, 822, 1929.9531, 905.85156, 1929.9531, 940.02344, 1904.4063, 940.02344, 1787, 922, 1772, 822, 1904.4063, 964, 1787, 964, 1772, 922, 1794, 754, 1772, 754, 1772, 652, 1876, 652, 1876, 687.4531, 1946, 687.4531, 1946, 665, 1978, 665, 2016, 672, 1978, 652, 2016, 652, 2056, 672, 2056, 652, 2108, 652, 2060, 436, 2016, 436, 2016, 421.5, 1970, 421.5, 1970, 436, 1962, 436, 1962, 417, 1908, 417, 1908, 436, 1772, 436, 1772, 361.5, 1795, 361.5, 1795, 324.5, 1772, 324.5, 1772, 301, 1792, 301, 1792, 258, 1772, 258, 1772, 220, 1877.5, 220, 1877.5, 230.13281, 1934.5, 230.13281, 1934.5, 220, 2020, 220, 2020, 234, 2072, 234, 2072, 220, 2076, 116, 2060, 116, 2060, 5, 2103, -20, 2375, 243.5, 2260, 892, 2124, 540, 2068, 540, 2108, 548, 2060, 548, 703.25, 665.89844, 740, 676, 567.59375, 676, 646.75, 665.89844, 740, 492, 703.25, 628.89844, 719, 504.5, 646.75, 628.89844, 567.59375, 649.34375, 619, 528.4531, 643, 510, 271, 245, 271, 117, 356, 244, 356, 279, 312, 279, 476, 108, 476, 30.328125, 484, 30.359375, 484, 108, 668, 780, 753.46094, 780, 753.40625, 820, 668, 796, 108, 1076, 77.96875, 1076, 77.88281, 972, 274, 972, 274, 978, 485, 108, 485, 129, 539, 129, 539, 126, 596, 126, 596, 127, 607, 127, 607, 148, 599.0469, 153.85156, 538.9531, 153.85156, 628, 148, 628, 244, 611.5, 186.5, 599.0469, 244, 599.0469, 242, 611.5, 242, 599.0469, 186.5, 538.9531, 186.5, 524.5, 186.5, 524.5, 190.70313, 506.95313, 190.70313, 506.95313, 235.39844, 524.5, 235.39844, 524.5, 242, 404, 244, 536.9531, 242, 536.9531, 244, 516, 348, 516, 388, 497.35938, 388, 480.6172, 371.85156, 404, 348, 466, 378.0625, 436, 388, 466, 388, 436, 492, 528, 492, 528, 505, 476, 500, 549, 505, 549, 528.4531, 619, 492, 643, 492, 683, 510, 683, 504.5, 719, 492, 482.40625, 649.34375, 482.40625, 676, 476, 676, 436, 500, 436, 532, 404, 532, 396, 468, 404, 636, 436, 636, 436, 780, 351, 848, 282, 848, 628, 780, 628, 796, 668, 820, 668, 804, 628, 804, 628, 820, 516, 820, 476, 1028, 516, 924, 553, 924, 553, 934, 508, 1092, 476, 1092, 600, 934, 600, 924, 672.40625, 924, 672.40625, 950.9375, 740, 950.9375, 740, 1092, 708, 1092, 708, 1104, 508, 1104, 436, 1028, 436, 1104, 108, 1104, 320, 978, 320, 972, 436, 972, 436, 1020, 476, 1020, 508, 924, 476, 924, 508, 820, 436, 820, 436, 868, 351, 868, 282, 868, 221, 868, 221, 848, 152, 848, 152, 868, 119.203125, 868, 119.203125, 828.39844, 92, 828.39844, 92, 805.2031, 119.203125, 805.2031, 119.203125, 752.39844, 92, 752.39844, 92, 739.39844, 118.796875, 739.39844, 118.796875, 662.60156, 92, 662.60156, 92, 655.39844, 146.39844, 655.39844, 146.39844, 636, 163.79688, 636, 163.79688, 650.89844, 207.35156, 650.89844, 207.35156, 636, 232.5, 636, 232.5, 653, 301.5, 653, 301.5, 636, 396, 636, 356, 468, 356, 532, 118.25, 532, 118.25, 491, 158, 429.5, 92, 491, 92, 429.5, 158, 412, 356, 412, 356, 460, 396, 460, 265.04688, 117, 265.04688, 85.85156, 356, 108, 224.95313, 85.85156, 224.95313, 86.85156, 196.95313, 86.85156, 202, 72, 196.95313, 114, 170, 114, 170, 240, 190, 240, 190, 245, 193.95313, 245, 193.95313, 266.47656, 265.04688, 266.47656, 265.04688, 245, 312, 308, 122, 308, 122, 292.5, 92, 292.5, 92, 218, 114, 218, 114, 95, 92, 95, 92, 60, 202, 60, 262, 72, 262, 60, 356, 60, 396, 244, -1084, 772, -1684, 772, -1412, 428, -1404, 428, -1548, 428, -1084, 108, -1084, 324, -1404, 324, -1460, 116, -1084, 428, -1412, 324, -1460, 324, -1500, 116, -1500, 324, -1548, 324, -1684, 428, -1556, 428, -1556, 324, -1684, 324, -1684, 108)
@@ -2386,102 +2387,134 @@ position = Vector2(2406, 380.00003)
 [node name="FourSegmentWindow25" parent="Furnitures/Windows" unique_id=1186437692 instance=ExtResource("14_5vthg")]
 position = Vector2(1863, 522.00006)
 
+[node name="VerticalWindow3" parent="Furnitures/Windows" unique_id=1733185764 instance=ExtResource("29_i7ce5")]
+position = Vector2(70.99999, 80)
+
+[node name="VerticalWindow10" parent="Furnitures/Windows" unique_id=141063688 instance=ExtResource("29_i7ce5")]
+position = Vector2(70.99999, 228.99998)
+
 [node name="Lamps" type="Node2D" parent="Furnitures" unique_id=1321883707]
+visible = false
+script = ExtResource("93_3s67a")
 
 [node name="Light" parent="Furnitures/Lamps" unique_id=1604036555 instance=ExtResource("27_yfdo3")]
 position = Vector2(195, 151)
+metadata/_edit_lock_ = true
 
 [node name="Light3" parent="Furnitures/Lamps" unique_id=1195754757 instance=ExtResource("27_yfdo3")]
 position = Vector2(225, 457)
+metadata/_edit_lock_ = true
 
 [node name="Light22" parent="Furnitures/Lamps" unique_id=1674005746 instance=ExtResource("27_yfdo3")]
 position = Vector2(422, 361)
+metadata/_edit_lock_ = true
 
 [node name="Light4" parent="Furnitures/Lamps" unique_id=905074966 instance=ExtResource("27_yfdo3")]
 position = Vector2(643, 568)
+metadata/_edit_lock_ = true
 
 [node name="Light5" parent="Furnitures/Lamps" unique_id=156869363 instance=ExtResource("27_yfdo3")]
 position = Vector2(186, 730)
+metadata/_edit_lock_ = true
 
 [node name="Light24" parent="Furnitures/Lamps" unique_id=1822423704 instance=ExtResource("27_yfdo3")]
 position = Vector2(428, 796)
+metadata/_edit_lock_ = true
 
 [node name="Light6" parent="Furnitures/Lamps" unique_id=1364224865 instance=ExtResource("27_yfdo3")]
 position = Vector2(639, 997)
+metadata/_edit_lock_ = true
 
 [node name="Light18" parent="Furnitures/Lamps" unique_id=916271789 instance=ExtResource("27_yfdo3")]
 position = Vector2(681, 751)
+metadata/_edit_lock_ = true
 
 [node name="Light7" parent="Furnitures/Lamps" unique_id=1414895655 instance=ExtResource("27_yfdo3")]
 position = Vector2(117, 1072)
+metadata/_edit_lock_ = true
 
 [node name="Light20" parent="Furnitures/Lamps" unique_id=1593731817 instance=ExtResource("27_yfdo3")]
 position = Vector2(362, 1017)
+metadata/_edit_lock_ = true
 
 [node name="Light19" parent="Furnitures/Lamps" unique_id=1881127572 instance=ExtResource("27_yfdo3")]
 position = Vector2(645, 1300)
+metadata/_edit_lock_ = true
 
 [node name="Light8" parent="Furnitures/Lamps" unique_id=25941060 instance=ExtResource("27_yfdo3")]
 position = Vector2(-1513, 559)
+metadata/_edit_lock_ = true
 
 [node name="Light26" parent="Furnitures/Lamps" unique_id=2110375571 instance=ExtResource("27_yfdo3")]
 position = Vector2(-1198, 530)
+metadata/_edit_lock_ = true
 
 [node name="Light9" parent="Furnitures/Lamps" unique_id=103115368 instance=ExtResource("27_yfdo3")]
 position = Vector2(-1244, 220)
+metadata/_edit_lock_ = true
 
 [node name="Light10" parent="Furnitures/Lamps" unique_id=1531722704 instance=ExtResource("27_yfdo3")]
 position = Vector2(-1585, 193)
+metadata/_edit_lock_ = true
 
 [node name="Light11" parent="Furnitures/Lamps" unique_id=1832756549 instance=ExtResource("27_yfdo3")]
 position = Vector2(1921, 295)
+metadata/_edit_lock_ = true
 
 [node name="Light12" parent="Furnitures/Lamps" unique_id=297880851 instance=ExtResource("27_yfdo3")]
 position = Vector2(2249, 311)
+metadata/_edit_lock_ = true
 
 [node name="Light13" parent="Furnitures/Lamps" unique_id=1858934820 instance=ExtResource("27_yfdo3")]
 position = Vector2(2196, 13)
+metadata/_edit_lock_ = true
 
 [node name="Light21" parent="Furnitures/Lamps" unique_id=1077899287 instance=ExtResource("27_yfdo3")]
 position = Vector2(1924, 896)
+metadata/_edit_lock_ = true
 
 [node name="Light15" parent="Furnitures/Lamps" unique_id=113948817 instance=ExtResource("27_yfdo3")]
 position = Vector2(2382, 747)
+metadata/_edit_lock_ = true
 
 [node name="Light30" parent="Furnitures/Lamps" unique_id=444345475 instance=ExtResource("27_yfdo3")]
 position = Vector2(1938, 704)
+metadata/_edit_lock_ = true
 
 [node name="Light29" parent="Furnitures/Lamps" unique_id=1880990500 instance=ExtResource("27_yfdo3")]
 position = Vector2(2174, 502)
+metadata/_edit_lock_ = true
 
 [node name="Light28" parent="Furnitures/Lamps" unique_id=953724419 instance=ExtResource("27_yfdo3")]
 position = Vector2(2219, 658)
+metadata/_edit_lock_ = true
 
 [node name="Light16" parent="Furnitures/Lamps" unique_id=1063931443 instance=ExtResource("27_yfdo3")]
 position = Vector2(2305, 1036)
+metadata/_edit_lock_ = true
 
 [node name="Light17" parent="Furnitures/Lamps" unique_id=360508207 instance=ExtResource("27_yfdo3")]
 position = Vector2(2205, 920)
+metadata/_edit_lock_ = true
 
 [node name="Light2" parent="Furnitures/Lamps" unique_id=1318998882 instance=ExtResource("27_yfdo3")]
 position = Vector2(559, 164)
+metadata/_edit_lock_ = true
 
 [node name="Light23" parent="Furnitures/Lamps" unique_id=1229936880 instance=ExtResource("27_yfdo3")]
 position = Vector2(600, 358)
-
-[node name="VerticalWindow" parent="Furnitures/Lamps" unique_id=1733185764 instance=ExtResource("29_i7ce5")]
-position = Vector2(70.99999, 80)
-
-[node name="VerticalWindow2" parent="Furnitures/Lamps" unique_id=141063688 instance=ExtResource("29_i7ce5")]
-position = Vector2(70.99999, 228.99998)
+metadata/_edit_lock_ = true
 
 [node name="Darkness" type="CanvasModulate" parent="." unique_id=722425196]
+visible = false
 color = Color(0, 0, 0, 1)
+script = ExtResource("93_3s67a")
 
 [node name="Sun" type="DirectionalLight2D" parent="." unique_id=700500498]
 skew = -0.08726646
 energy = 1.5
 shadow_enabled = true
+script = ExtResource("93_3s67a")
 
 [node name="patrol_point_0" type="Node2D" parent="." unique_id=961319706 groups=["patrol_point_0"]]
 
