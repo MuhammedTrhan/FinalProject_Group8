@@ -7,8 +7,8 @@
 size = Vector2(46, 36)
 
 [node name="Stairs" type="StaticBody2D" unique_id=588314391 groups=["nav_bake_source"]]
-collision_layer = 258
 y_sort_enabled = true
+collision_layer = 258
 script = ExtResource("1_qbift")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=308028341]
@@ -46,8 +46,3 @@ position = Vector2(-27, -42)
 
 [node name="LowerEnd" type="Marker2D" parent="." unique_id=69292837]
 position = Vector2(21, 6)
-
-[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="." unique_id=1727616782]
-position = Vector2(0, -16)
-vertices = PackedVector2Array(-32, -30, -32, 40, 25, 40, 25, 25)
-affect_navigation_mesh = true

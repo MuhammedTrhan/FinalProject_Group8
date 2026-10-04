@@ -32,8 +32,3 @@ position = Vector2(0, 0)
 
 [node name="StandMarker" parent="." index="4" unique_id=2074848840]
 position = Vector2(0, 25)
-
-[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="." index="5" unique_id=938442101]
-position = Vector2(0, 5.5)
-vertices = PackedVector2Array(14, 15.5, 14, -20.5, -14, -20.5, -14, 15.5)
-affect_navigation_mesh = true

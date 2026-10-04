@@ -23,7 +23,10 @@ region_rect = Rect2(48, 112, 16, 48)
 position = Vector2(0, -2)
 shape = SubResource("CircleShape2D_em2md")
 
-[node name="InterractionBox" parent="InterractionArea" parent_id_path=PackedInt32Array(97300687) index="0" unique_id=1028417380]
+[node name="InterractionArea" parent="." index="3" unique_id=97300687]
+visible = false
+
+[node name="InterractionBox" parent="InterractionArea" index="0" unique_id=1028417380]
 visible = true
 position = Vector2(0, -19)
 shape = SubResource("CapsuleShape2D_sotuj")

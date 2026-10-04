@@ -25,8 +25,3 @@ shape = SubResource("RectangleShape2D_aygcv")
 visible = true
 position = Vector2(0, 8)
 shape = SubResource("CapsuleShape2D_q06xq")
-
-[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="." index="5" unique_id=1142230258]
-position = Vector2(0, 5.5)
-vertices = PackedVector2Array(13, 26.5, 13, -7.5, -13, -7.5, -13, 26.5)
-affect_navigation_mesh = true
