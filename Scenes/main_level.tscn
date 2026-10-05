@@ -2448,46 +2448,34 @@ position = Vector2(70.99999, 228.99998)
 
 [node name="Lamps" type="Node2D" parent="Furnitures" unique_id=1321883707]
 script = ExtResource("93_3s67a")
-disable_in_editor = false
-
-[node name="Light" parent="Furnitures/Lamps" unique_id=1604036555 instance=ExtResource("27_yfdo3")]
-position = Vector2(195, 151)
-metadata/_edit_lock_ = true
 
 [node name="Light3" parent="Furnitures/Lamps" unique_id=1195754757 instance=ExtResource("27_yfdo3")]
 position = Vector2(225, 457)
 metadata/_edit_lock_ = true
 
 [node name="Light22" parent="Furnitures/Lamps" unique_id=1674005746 instance=ExtResource("27_yfdo3")]
-position = Vector2(422, 361)
+position = Vector2(425, 388)
 metadata/_edit_lock_ = true
 
 [node name="Light4" parent="Furnitures/Lamps" unique_id=905074966 instance=ExtResource("27_yfdo3")]
-position = Vector2(643, 568)
+position = Vector2(610, 572)
 metadata/_edit_lock_ = true
 
 [node name="Light5" parent="Furnitures/Lamps" unique_id=156869363 instance=ExtResource("27_yfdo3")]
-position = Vector2(186, 730)
-metadata/_edit_lock_ = true
-
-[node name="Light24" parent="Furnitures/Lamps" unique_id=1822423704 instance=ExtResource("27_yfdo3")]
-position = Vector2(428, 796)
+position = Vector2(334, 755)
+scale = Vector2(1.25, 1.25)
 metadata/_edit_lock_ = true
 
 [node name="Light6" parent="Furnitures/Lamps" unique_id=1364224865 instance=ExtResource("27_yfdo3")]
-position = Vector2(639, 997)
+position = Vector2(613, 1007)
 metadata/_edit_lock_ = true
 
 [node name="Light18" parent="Furnitures/Lamps" unique_id=916271789 instance=ExtResource("27_yfdo3")]
 position = Vector2(681, 751)
 metadata/_edit_lock_ = true
 
-[node name="Light7" parent="Furnitures/Lamps" unique_id=1414895655 instance=ExtResource("27_yfdo3")]
-position = Vector2(117, 1072)
-metadata/_edit_lock_ = true
-
 [node name="Light20" parent="Furnitures/Lamps" unique_id=1593731817 instance=ExtResource("27_yfdo3")]
-position = Vector2(362, 1017)
+position = Vector2(272, 1051)
 metadata/_edit_lock_ = true
 
 [node name="Light19" parent="Furnitures/Lamps" unique_id=1881127572 instance=ExtResource("27_yfdo3")]
@@ -2495,19 +2483,18 @@ position = Vector2(645, 1300)
 metadata/_edit_lock_ = true
 
 [node name="Light8" parent="Furnitures/Lamps" unique_id=25941060 instance=ExtResource("27_yfdo3")]
-position = Vector2(-1513, 559)
-metadata/_edit_lock_ = true
-
-[node name="Light26" parent="Furnitures/Lamps" unique_id=2110375571 instance=ExtResource("27_yfdo3")]
-position = Vector2(-1198, 530)
+position = Vector2(-1402, 542)
+scale = Vector2(1.25, 1.25)
 metadata/_edit_lock_ = true
 
 [node name="Light9" parent="Furnitures/Lamps" unique_id=103115368 instance=ExtResource("27_yfdo3")]
-position = Vector2(-1244, 220)
+position = Vector2(-1301.0001, 206)
+scale = Vector2(0.9, 0.9)
 metadata/_edit_lock_ = true
 
 [node name="Light10" parent="Furnitures/Lamps" unique_id=1531722704 instance=ExtResource("27_yfdo3")]
 position = Vector2(-1585, 193)
+scale = Vector2(0.66, 0.66)
 metadata/_edit_lock_ = true
 
 [node name="Light11" parent="Furnitures/Lamps" unique_id=1832756549 instance=ExtResource("27_yfdo3")]
@@ -2522,16 +2509,12 @@ metadata/_edit_lock_ = true
 position = Vector2(2196, 13)
 metadata/_edit_lock_ = true
 
-[node name="Light21" parent="Furnitures/Lamps" unique_id=1077899287 instance=ExtResource("27_yfdo3")]
-position = Vector2(1924, 896)
-metadata/_edit_lock_ = true
-
 [node name="Light15" parent="Furnitures/Lamps" unique_id=113948817 instance=ExtResource("27_yfdo3")]
 position = Vector2(2382, 747)
 metadata/_edit_lock_ = true
 
 [node name="Light30" parent="Furnitures/Lamps" unique_id=444345475 instance=ExtResource("27_yfdo3")]
-position = Vector2(1938, 704)
+position = Vector2(1950, 803)
 metadata/_edit_lock_ = true
 
 [node name="Light29" parent="Furnitures/Lamps" unique_id=1880990500 instance=ExtResource("27_yfdo3")]
@@ -2551,7 +2534,8 @@ position = Vector2(2205, 920)
 metadata/_edit_lock_ = true
 
 [node name="Light2" parent="Furnitures/Lamps" unique_id=1318998882 instance=ExtResource("27_yfdo3")]
-position = Vector2(559, 164)
+position = Vector2(355.00003, 160)
+scale = Vector2(1.33, 1.33)
 metadata/_edit_lock_ = true
 
 [node name="Light23" parent="Furnitures/Lamps" unique_id=1229936880 instance=ExtResource("27_yfdo3")]
@@ -2559,12 +2543,10 @@ position = Vector2(600, 358)
 metadata/_edit_lock_ = true
 
 [node name="Darkness" type="CanvasModulate" parent="." unique_id=722425196]
-visible = false
 color = Color(0, 0, 0, 1)
 script = ExtResource("93_3s67a")
 
 [node name="Sun" type="DirectionalLight2D" parent="." unique_id=700500498]
-visible = false
 skew = -0.08726646
 energy = 1.5
 shadow_enabled = true

@@ -26,6 +26,12 @@ func _ready() -> void:
 
 func activate() -> void:
 	super()
+	_look_inside()
+
+
+## Reports "nothing here" or hands out one random item. Split out of activate()
+## so containers with no open/closed state (TrashCan) can reuse it.
+func _look_inside() -> void:
 	if _items.is_empty():
 		GameEvents.message_requested.emit(not_found_text)
 	else:
