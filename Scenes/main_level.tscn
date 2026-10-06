@@ -1539,12 +1539,14 @@ position = Vector2(388, 85)
 priority = 0
 
 [node name="SpoonHolder" parent="Furnitures/Floor1/Kitchen" unique_id=441619324 instance=ExtResource("23_8ce4n")]
-position = Vector2(514, 91)
+position = Vector2(573, 82)
 priority = 0
 
 [node name="KitchenSink" parent="Furnitures/Floor1/Kitchen" unique_id=1230200324 instance=ExtResource("13_vgie2")]
 y_sort_enabled = false
 position = Vector2(545, 95)
+wave_offset = Vector2(0, 0)
+wave_size = Vector2(64, 64)
 priority = 0
 
 [node name="KitchenDrawr" parent="Furnitures/Floor1/Kitchen" unique_id=558337155 instance=ExtResource("18_and0o")]
@@ -1560,7 +1562,7 @@ position = Vector2(600, 95)
 priority = 0
 
 [node name="Stove" parent="Furnitures/Floor1/Kitchen" unique_id=758378394 instance=ExtResource("14_ykarw")]
-position = Vector2(512, 107)
+position = Vector2(512, 104)
 priority = 0
 
 [node name="DiningChair2" parent="Furnitures/Floor1/Kitchen" unique_id=1345435680 instance=ExtResource("32_ehh7o")]
@@ -1595,6 +1597,8 @@ y_sort_enabled = true
 [node name="Fireplace" parent="Furnitures/Floor1/Diningroom" unique_id=2054074670 instance=ExtResource("34_lkiyy")]
 position = Vector2(232, 36)
 scale = Vector2(1.5, 1.5)
+wave_offset = Vector2(0, 0)
+wave_size = Vector2(64, 64)
 priority = 0
 
 [node name="SofaVertical" parent="Furnitures/Floor1/Diningroom" unique_id=653759380 instance=ExtResource("30_2xkur")]
@@ -1729,6 +1733,8 @@ priority = 0
 [node name="Sink" parent="Furnitures/Floor1/Toilet" unique_id=65025301 instance=ExtResource("25_1ubp3")]
 position = Vector2(338, 392)
 scale = Vector2(1.15, 1.15)
+wave_offset = Vector2(0, 0)
+wave_size = Vector2(64, 64)
 priority = 0
 
 [node name="ToiletVertical" parent="Furnitures/Floor1/Toilet" unique_id=791603013 instance=ExtResource("26_oi0bv")]
@@ -1930,6 +1936,8 @@ position = Vector2(2254, 391)
 
 [node name="MusicPlayer" parent="Furnitures/Floor2/Studyroom" unique_id=235341659 instance=ExtResource("50_3loty")]
 position = Vector2(2369, 391)
+wave_offset = Vector2(0, 0)
+wave_size = Vector2(64, 64)
 
 [node name="TrashCan3" parent="Furnitures/Floor2/Studyroom" unique_id=156304085 instance=ExtResource("27_ok16x")]
 position = Vector2(2228, 185)
@@ -2170,6 +2178,8 @@ y_sort_enabled = true
 [node name="Sink" parent="Furnitures/Floor2/Toilet2" unique_id=642452523 instance=ExtResource("58_1d3nm")]
 position = Vector2(2296, -46)
 scale = Vector2(-1, 1)
+wave_offset = Vector2(0, 0)
+wave_size = Vector2(64, 64)
 
 [node name="Bathtub" parent="Furnitures/Floor2/Toilet2" unique_id=1799981879 instance=ExtResource("24_o0i6v")]
 position = Vector2(2071, -54)
@@ -2201,6 +2211,8 @@ position = Vector2(2403, 641)
 
 [node name="Sink" parent="Furnitures/Floor2/ParentToilet" unique_id=41845867 instance=ExtResource("58_1d3nm")]
 position = Vector2(2297, 656)
+wave_offset = Vector2(0, 0)
+wave_size = Vector2(64, 64)
 
 [node name="Balcony&Verandah" type="Node2D" parent="Furnitures/Floor2" unique_id=1718061506]
 y_sort_enabled = true
@@ -2447,6 +2459,7 @@ position = Vector2(70.99999, 80)
 position = Vector2(70.99999, 228.99998)
 
 [node name="Lamps" type="Node2D" parent="Furnitures" unique_id=1321883707]
+visible = false
 script = ExtResource("93_3s67a")
 
 [node name="Light3" parent="Furnitures/Lamps" unique_id=1195754757 instance=ExtResource("27_yfdo3")]
@@ -2543,10 +2556,12 @@ position = Vector2(600, 358)
 metadata/_edit_lock_ = true
 
 [node name="Darkness" type="CanvasModulate" parent="." unique_id=722425196]
+visible = false
 color = Color(0, 0, 0, 1)
 script = ExtResource("93_3s67a")
 
 [node name="Sun" type="DirectionalLight2D" parent="." unique_id=700500498]
+visible = false
 skew = -0.08726646
 energy = 1.5
 shadow_enabled = true

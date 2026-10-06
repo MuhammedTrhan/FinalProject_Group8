@@ -2,6 +2,55 @@
 
 [ext_resource type="Script" uid="uid://1fdxegpt4m2l" path="res://Scripts/MainMenu.gd" id="1_mm"]
 [ext_resource type="VideoStream" uid="uid://bw1kdwqnoocrs" path="res://Assets/UI/menu.ogv" id="2_o14dv"]
+[ext_resource type="PackedScene" path="res://Scenes/UI/credits_menu.tscn" id="3_cm"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_quit_normal"]
+content_margin_left = 12.0
+content_margin_top = 8.0
+content_margin_right = 12.0
+content_margin_bottom = 8.0
+bg_color = Color(0.55, 0.1, 0.1, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.85, 0.3, 0.3, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_quit_pressed"]
+content_margin_left = 12.0
+content_margin_top = 8.0
+content_margin_right = 12.0
+content_margin_bottom = 8.0
+bg_color = Color(0.9, 0.25, 0.25, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.45, 0.45, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_quit_hover"]
+content_margin_left = 12.0
+content_margin_top = 8.0
+content_margin_right = 12.0
+content_margin_bottom = 8.0
+bg_color = Color(0.72, 0.14, 0.14, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.45, 0.45, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
 
 [node name="MainMenu" type="Control" unique_id=101561797]
 layout_mode = 3
@@ -40,6 +89,7 @@ grow_vertical = 2
 [node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer" unique_id=560563500]
 layout_mode = 2
 theme_override_constants/separation = 24
+alignment = 1
 
 [node name="Title" type="Label" parent="CenterContainer/VBoxContainer" unique_id=1399102305]
 layout_mode = 2
@@ -48,16 +98,49 @@ text = "Too Many Faces"
 horizontal_alignment = 1
 
 [node name="PlayButton" type="Button" parent="CenterContainer/VBoxContainer" unique_id=1195702548]
-custom_minimum_size = Vector2(220, 56)
+custom_minimum_size = Vector2(220, 54)
 layout_mode = 2
+size_flags_horizontal = 4
 text = "Play"
 
 [node name="OptionsButton" type="Button" parent="CenterContainer/VBoxContainer" unique_id=1286226865]
-custom_minimum_size = Vector2(220, 56)
+custom_minimum_size = Vector2(220, 54)
 layout_mode = 2
+size_flags_horizontal = 4
 text = "Options"
 
-[node name="QuitButton" type="Button" parent="CenterContainer/VBoxContainer" unique_id=1616461204]
-custom_minimum_size = Vector2(220, 56)
+[node name="QuitSpacer" type="Control" parent="CenterContainer/VBoxContainer" unique_id=1492335830]
+custom_minimum_size = Vector2(48, 1)
 layout_mode = 2
-text = "Quit"
+size_flags_horizontal = 4
+
+[node name="QuitButton" type="Button" parent="CenterContainer/VBoxContainer" unique_id=1616461204]
+custom_minimum_size = Vector2(220, 48)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_styles/normal = SubResource("StyleBoxFlat_quit_normal")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_quit_pressed")
+theme_override_styles/hover = SubResource("StyleBoxFlat_quit_hover")
+theme_override_styles/focus = SubResource("StyleBoxFlat_quit_normal")
+text = "Quit Game"
+
+[node name="CreditsButton" type="Button" parent="." unique_id=1009975712]
+custom_minimum_size = Vector2(150, 40)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -174.0
+offset_top = -64.0
+offset_right = -24.0
+offset_bottom = -24.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 18
+text = "Credits"
+
+[node name="CreditsMenu" parent="." unique_id=630082780 instance=ExtResource("3_cm")]
+visible = false
+layout_mode = 1
