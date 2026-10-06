@@ -13,7 +13,7 @@ obj/
 *.depren
 
 # Export output and local export configuration
-/builds/
+/Build/
 
 
 # OS junk
