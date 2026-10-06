@@ -9,7 +9,7 @@ uniform float intensity : hint_range(0.0, 1.0) = 0.0; // 0 = invisible
 uniform int ring_count : hint_range(1, 6) = 3;
 uniform float speed = 0.45;                           // ripples per second
 uniform float ring_width = 0.04;                      // half thickness, 0..1 = centre to edge
-uniform float inner_radius : hint_range(0.0, 1.0) = 0.25; // where ripples start (outside the furniture)
+uniform float inner_radius : hint_range(0.0, 1.0) = 0.5; // where ripples start (outside the furniture)
 uniform float half_angle = 0.7;                       // radians; spread of each side's arc
 uniform float wobble_amount = 0.03;
 uniform float wobble_freq = 9.0;

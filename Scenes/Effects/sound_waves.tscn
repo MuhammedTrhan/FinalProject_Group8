@@ -9,6 +9,7 @@ shader = ExtResource("2_shader")
 shader_parameter/intensity = 0.0
 
 [node name="SoundWaves" type="ColorRect"]
+z_index = 1
 show_behind_parent = true
 material = SubResource("ShaderMaterial_waves")
 offset_right = 96.0
