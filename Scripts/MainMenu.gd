@@ -1,14 +1,17 @@
 extends Control
-## The title screen: start a new run, change settings, or quit.
+## The title screen: start a new run, change settings, read the credits, or quit.
 
 @onready var play_button: Button = $CenterContainer/VBoxContainer/PlayButton
 @onready var options_button: Button = $CenterContainer/VBoxContainer/OptionsButton
+@onready var credits_button: Button = $CreditsButton
+@onready var credits_menu: Control = $CreditsMenu
 @onready var quit_button: Button = $CenterContainer/VBoxContainer/QuitButton
 
 
 func _ready() -> void:
 	play_button.pressed.connect(_on_play_pressed)
 	options_button.pressed.connect(OptionsMenu.open)
+	credits_button.pressed.connect(credits_menu.open)
 	quit_button.pressed.connect(_on_quit_pressed)
 
 
