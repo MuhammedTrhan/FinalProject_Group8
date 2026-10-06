@@ -132,13 +132,13 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -174.0
-offset_top = -64.0
-offset_right = -24.0
+offset_left = -177.0
+offset_top = -68.0
+offset_right = -25.0
 offset_bottom = -24.0
 grow_horizontal = 0
 grow_vertical = 0
-theme_override_font_sizes/font_size = 18
+theme_override_font_sizes/font_size = 20
 text = "Credits"
 
 [node name="CreditsMenu" parent="." unique_id=630082780 instance=ExtResource("3_cm")]
