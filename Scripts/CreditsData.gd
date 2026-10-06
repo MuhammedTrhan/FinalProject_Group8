@@ -36,7 +36,7 @@ const SECTIONS := [
 				"name": "Top Down House",
 				"creator": "Penzilla",
 				"license": "PENZILLA DESIGN, STANDARD LICENCE",
-				"note": "Graphics created by Penzilla Design in addition to assetes created by the authors mentioned in this document",
+				"note": "Graphics created by Penzilla Design in addition to assetes created by the authors mentioned in this page",
 				"links": ["https://penzilla.itch.io/top-down-retro-interior"],
 			},
 			{
