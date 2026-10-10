@@ -42,6 +42,7 @@ func _ready() -> void:
 
 	GameEvents.interaction_prompt_changed.connect(_on_interaction_prompt_changed)
 	GameEvents.message_requested.connect(_on_message_requested)
+	GameEvents.clue_revealed.connect(_on_clue_revealed)
 	message_timer.timeout.connect(message_label.hide)
 
 	prompt_label.hide()
@@ -153,6 +154,13 @@ func _on_interaction_prompt_changed(primary: String, secondary: String) -> void:
 	else:
 		prompt_label.text = "\n".join(lines)
 		prompt_label.show()
+
+
+## A clue's flavour line is what she says on finding it. Puzzles that have none
+## leave it empty and say nothing.
+func _on_clue_revealed(_digit_index: int, _digit_value: int, flavour: String) -> void:
+	if flavour != "":
+		_on_message_requested(flavour)
 
 
 func _on_message_requested(text: String) -> void:

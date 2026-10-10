@@ -1,6 +1,5 @@
 extends CanvasLayer
 ## Toggle-able inventory panel (Tab). Reads Inventory directly - see docs/CONTRACT.md.
-## Drag one diary scrap onto another to combine them (see InventorySlot.gd).
 
 const INVENTORY_SLOT_SCENE := preload("res://Scenes/UI/inventory_slot.tscn")
 
@@ -25,9 +24,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		_open()
 
 
-## Freezes the house while she is in her bag. Combining the diary pieces is a
-## drag-and-drop that takes both hands, and with the captor still walking she
-## could be caught by a menu.
+## Freezes the house while she is in her bag.
 func _open() -> void:
 	visible = true
 	get_tree().paused = true

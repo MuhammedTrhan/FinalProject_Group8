@@ -59,7 +59,7 @@ each tool opens one puzzle that reveals one digit:
 |---|---|---|---|
 | **The Loud Guy** | Quiet: switch off the noisy furniture | UV flashlight | Writing on the floor, visible only under UV |
 | **The Happy One** | Company: stay inside his circle | Crowbar | A floorboard that does not sit flush |
-| **The Scary One** | To be followed, unseen | Three diary pieces | Combine the pieces in the bag |
+| **The Scary One** | To be followed, unseen | Three diary pieces | Collect all three pieces; they join on their own |
 
 Solving a digit retires that personality for the rest of the run. Being caught
 costs one of **three lives**: the first two end the day early, the third ends

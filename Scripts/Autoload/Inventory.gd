@@ -61,6 +61,12 @@ func add_item(item: ItemData) -> void:
 	items_changed.emit()
 	_notify_selection()
 
+	# Deferred so the merge lands after whoever added the item has finished: a
+	# WorldItem emits its pickup flavour text right after this returns, and that
+	# would otherwise overwrite the "pieced back together" message.
+	if is_diary_scrap(item):
+		try_combine_diary_scraps.call_deferred()
+
 
 func has_item(item: ItemData) -> bool:
 	return _items.has(item)
@@ -175,7 +181,8 @@ func is_diary_scrap(item: ItemData) -> bool:
 
 
 # Combines the 3 diary scraps into DIARY_PAGE if all are present, and reveals
-# digit_index 2 of the exit passcode (see docs/CONTRACT.md §3.2).
+# digit_index 2 of the exit passcode (see docs/CONTRACT.md §3.2). Runs by itself
+# whenever a scrap is picked up - see add_item().
 func try_combine_diary_scraps() -> bool:
 	for scrap in DIARY_SCRAPS:
 		if not has_item(scrap):
@@ -185,5 +192,5 @@ func try_combine_diary_scraps() -> bool:
 		remove_item(scrap)
 	add_item(DIARY_PAGE)
 
-	GameEvents.clue_revealed.emit(2, ProceduralGenerator.get_digit(2), "You piece the diary back together.")
+	GameEvents.clue_revealed.emit(2, ProceduralGenerator.get_digit(2), "You put the diary back together.")
 	return true
