@@ -5,8 +5,10 @@ extends CanvasLayer
 ##   - trust ring: Forgetful's own "stay close and he warms up to you" meter.
 ##   - noise counter: how many of Overwhelmed's noise sources are still on.
 ##
-## Only shown during the day - night is when day mechanics stop being
-## evaluated, so none of these mean anything then.
+## Those three are only shown during the day - night is when day mechanics stop
+## being evaluated, so none of them mean anything then. The passcode, lives and
+## hotbar stay up through the night, and only go away for the escort and the
+## day/night cards.
 
 ## Stands in for a digit she hasn't found yet, so the readout also tells her
 ## how many are left and which slot each belongs to.
@@ -55,6 +57,7 @@ func _ready() -> void:
 
 	GameEvents.day_started.connect(_on_day_started)
 	GameEvents.night_started.connect(_on_night_started)
+	GameEvents.night_ended.connect(_on_night_ended)
 	GameEvents.day_ended.connect(_on_day_ended)
 	GameEvents.chase_progress_changed.connect(_on_chase_progress_changed)
 	GameEvents.follow_progress_changed.connect(_on_follow_progress_changed)
@@ -94,6 +97,7 @@ func _on_day_started(_day: int, personality: int) -> void:
 	if _shows_follow:
 		follow_label.text = FOLLOW_BAR_CAPTIONS[personality]
 	noise_counter.visible = _shows_noise
+	chase_bar.visible = true
 	visible = true
 
 	# Both deferred because this HUD is an autoload: it connected to
@@ -105,6 +109,17 @@ func _on_day_started(_day: int, personality: int) -> void:
 
 
 func _on_night_started(_day: int) -> void:
+	# Day-only readouts off; the rest of the HUD stays so the hotbar is usable.
+	_shows_follow = false
+	_shows_noise = false
+	chase_bar.visible = false
+	follow_bar.visible = false
+	noise_counter.visible = false
+	visible = true
+
+
+## Hidden before the "Day N" card fades in, or the HUD would sit on top of it.
+func _on_night_ended(_day: int) -> void:
 	visible = false
 
 

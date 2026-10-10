@@ -140,21 +140,6 @@ theme_override_font_sizes/font_size = 18
 text = "Trust"
 horizontal_alignment = 1
 
-[node name="ChaseLabel" type="Label" parent="Root" unique_id=1011792275]
-layout_mode = 0
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -184.0
-offset_top = -148.0
-offset_right = 184.0
-offset_bottom = -122.0
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_font_sizes/font_size = 20
-text = "Danger"
-
 [node name="ChaseBar" type="ProgressBar" parent="Root" unique_id=478278153]
 layout_mode = 1
 anchors_preset = 7
@@ -171,6 +156,21 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_bar_fill")
 max_value = 1.0
 step = 0.0
 show_percentage = false
+
+[node name="ChaseLabel" type="Label" parent="Root/ChaseBar" unique_id=1011792275]
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -184.0
+offset_top = -40.0
+offset_right = 184.0
+offset_bottom = -14.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 20
+text = "Danger"
 
 [node name="Hotbar" type="Control" parent="Root" unique_id=838968598]
 anchors_preset = 0
