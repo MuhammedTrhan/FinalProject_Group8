@@ -31,6 +31,7 @@ main scene is `Scenes/UI/main_menu.tscn`.
 | **W A S D** / arrow keys | Move |
 | **Space** | Interact |
 | **E** | Lock or unlock a door, where that is possible |
+| **Q** | Drop the item in the picked hotbar slot |
 | **Tab** | Open the inventory |
 | **1** – **7**, mouse wheel, click | Pick a hotbar slot |
 | Click the slot you are holding, or an item in the inventory | Use that item |

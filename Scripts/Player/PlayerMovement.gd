@@ -7,6 +7,8 @@ const MAX_SPEED = 150.0
 const ACCELERATION = 800.0
 # How fast the player slides to a stop when letting go
 const FRICTION = 600.0
+# How far in front of her a dropped item lands (pixels).
+const DROP_DISTANCE = 24.0
 
 @onready var anim_handler = $PlayerAnimationHandler
 @onready var fade_rect = $TransitionLayer/FadeRect
@@ -64,6 +66,22 @@ func _unhandled_input(event: InputEvent) -> void:
 		_try_interact(false)
 	elif event.is_action_pressed("action"):
 		_try_interact(true)
+	elif event.is_action_pressed("drop_item"):
+		# Ignored mid-animation, hidden, sitting-locked or escorted, same as
+		# using a tool. An empty slot does nothing.
+		if not is_busy() and _locked_interactable == null:
+			Inventory.drop_slot(Inventory.get_selected_index())
+
+
+## Where a dropped item is set down: a little way in front of her, in the
+## direction she is facing. WorldItem.spawn() nudges it off walls and furniture.
+func get_drop_position() -> Vector2:
+	var offset := Vector2.DOWN
+	match anim_handler.last_direction:
+		"up": offset = Vector2.UP
+		"left": offset = Vector2.LEFT
+		"right": offset = Vector2.RIGHT
+	return global_position + offset * DROP_DISTANCE
 
 
 func _try_interact(secondary: bool) -> void:

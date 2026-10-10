@@ -132,6 +132,25 @@ func move_slot(from: int, to: int) -> void:
 	_slots_changed()
 
 
+## Takes the item out of a slot and sets it down on the floor next to the
+## player, where it can be picked up again. Returns false, and does nothing, if
+## the slot is empty or there is no player to drop it beside.
+func drop_slot(index: int) -> bool:
+	var item := get_slot_item(index)
+	var player := get_tree().get_first_node_in_group(&"player")
+	if item == null or player == null:
+		return false
+
+	_slots[index] = null
+	_slots_changed()
+	# Loaded at call time and the player left untyped: WorldItem and Player both
+	# name this autoload, so naming them back here would make the scripts depend
+	# on each other at compile time.
+	var world_item: GDScript = load("res://Scripts/Interactables/WorldItem.gd")
+	world_item.spawn(item, player.get_parent(), player.get_drop_position())
+	return true
+
+
 # Called by GameManager at the start of a run - items must not carry over.
 func clear() -> void:
 	_slots.fill(null)
