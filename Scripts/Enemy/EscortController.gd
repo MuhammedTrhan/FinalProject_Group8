@@ -309,6 +309,7 @@ func _enter_waiting_at_spawn() -> void:
 	var player := enemy.perception.get_player()
 	if player and is_instance_valid(player) and player.has_method("end_escort"):
 		player.end_escort() # released only after the door is actually locked
+		GameEvents.escort_ended.emit()
 
 	_door_anim_in_progress = false
 	_phase = _Phase.WAITING_AT_SPAWN

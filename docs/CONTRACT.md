@@ -158,6 +158,7 @@ signal enemy_state_changed(state: StringName)
 signal night_start_requested(reason: StringName)   # added 09.09.2026 - see §2.3
 signal chase_progress_changed(progress: float)     # added 12.09.2026 - see §2.6
 signal follow_progress_changed(progress: float)    # added 12.09.2026 - see §2.7
+signal escort_ended                                # player has control again after the night's lock-in; the HUD shows on nights from here
 
 # Presentation (either)
 signal interaction_prompt_changed(primary: String, secondary: String)
