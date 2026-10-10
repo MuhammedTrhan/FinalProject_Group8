@@ -4,12 +4,12 @@ extends Interactable
 
 @export var is_locked := false
 ## Deliberately its own field, not the base Interactable.required_item: that
-## one gates BOTH interact() and secondary_interact(), but a key should only
-## gate lock/unlock (secondary) - opening/closing an already-unlocked door
-## must never require holding anything.
+## one gates interact() itself, but a key should only gate lock/unlock (using
+## the key item on the door) - opening/closing an already-unlocked door must
+## never require holding anything.
 @export var required_key_item: ItemData
-## Skips the key/lock logic entirely: E opens the exit keypad instead, once
-## the passcode is fully known - see _do_secondary().
+## Skips the key/lock logic entirely: Space opens the exit keypad instead, once
+## the passcode is fully known - see _do_interact().
 @export var is_escape_door := false
 
 @onready var hitbox = $Hitbox
@@ -40,10 +40,21 @@ func _ready() -> void:
 	_update_prompts()
 
 
-# Primary (Interact/Space): open/close.
+# Interact/Space: open/close, or enter the passcode for an escape door. Locking
+# and unlocking is done by using the key item on the door (try_key_toggle).
 func _do_interact(_actor: Node2D) -> Interactions.InteractionType:
+	if is_escape_door:
+		if not GameManager.is_passcode_complete():
+			GameEvents.message_requested.emit("I don't know the password.")
+			return Interactions.InteractionType.NONE
+		ExitKeypad.open()
+		return Interactions.InteractionType.NONE
+
 	if is_locked:
-		GameEvents.message_requested.emit("This door is locked.")
+		if required_key_item != null and Inventory.has_item(required_key_item):
+			GameEvents.message_requested.emit("This door is locked. Select the key and press [E].")
+		else:
+			GameEvents.message_requested.emit("This door is locked.")
 		return Interactions.InteractionType.NONE
 
 	if is_open:
@@ -52,22 +63,6 @@ func _do_interact(_actor: Node2D) -> Interactions.InteractionType:
 	else:
 		open_door()
 		return Interactions.InteractionType.OPEN
-
-
-## Secondary (action/E): lock/unlock, or enter the passcode for an escape door.
-func _do_secondary(_actor: Node2D) -> Interactions.InteractionType:
-	if is_escape_door:
-		if not GameManager.is_passcode_complete():
-			GameEvents.message_requested.emit("I don't know the password.")
-			return Interactions.InteractionType.NONE
-		ExitKeypad.open()
-		return Interactions.InteractionType.NONE
-
-	if not _has_required_key():
-		GameEvents.message_requested.emit("I don't have the right key.")
-		return Interactions.InteractionType.NONE
-
-	return _try_toggle_lock()
 
 
 ## Using a key item on this door (Inventory.use_item -> ToolUser): the key she
@@ -147,17 +142,12 @@ func toogle_lock() -> void:
 	_update_prompts()
 
 
-func _has_required_key() -> bool:
-	return required_key_item == null or Inventory.has_item(required_key_item)
-
-
 func _update_prompts() -> void:
-	if is_open:
+	if is_escape_door:
+		prompt_text = "Enter the code"
+	elif is_open:
 		prompt_text = "Close the door"
-		secondary_prompt_text = ""
 	elif is_locked:
-		prompt_text = ""
-		secondary_prompt_text = "Unlock the door"
+		prompt_text = "Try the door"
 	else:
 		prompt_text = "Open the door"
-		secondary_prompt_text = "Lock the door"

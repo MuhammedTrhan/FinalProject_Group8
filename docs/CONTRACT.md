@@ -162,7 +162,7 @@ signal escort_started                              # a walk-home began (day time
 signal escort_ended                                # player has control again after the night's lock-in; the HUD shows on nights from here
 
 # Presentation (either)
-signal interaction_prompt_changed(primary: String, secondary: String)
+signal interaction_prompt_changed(prompt: String)   # the [Space] prompt; there is no secondary interaction any more
 signal message_requested(text: String)
 signal sfx_requested(sfx_id: StringName, world_position: Vector2)
 ```

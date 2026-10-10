@@ -63,7 +63,7 @@ func _current_hint() -> String:
 		return "One of the floorboards doesn't sit flush. Stand on it and use the crowbar."
 
 	if _has_item(&"uv_flashlight") and _digit_missing(0):
-		return "Some writing only shows under UV light. Hold the flashlight and look around."
+		return "Some writing only shows under UV light. Switch the flashlight on, and look around."
 
 	if _carries_any_scrap() and _digit_missing(2):
 		return "He throws the pieces away. Check the bins he visits."

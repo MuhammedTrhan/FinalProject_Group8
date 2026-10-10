@@ -117,7 +117,7 @@ signal escort_ended
 # Inventory  (Dev1 emits, Dev3 consumes)
 # ---------------------------------------------------------------------------
 
-## The player clicked a usable item (ItemData.is_usable) in the inventory UI.
+## The player used the item in the selected hotbar slot (E; ItemData.is_usable).
 ## `is_active` only matters for toggleable tools (e.g. the UV flashlight) -
 ## true = switched on, false = switched off or n/a for one-shot tools like
 ## the crowbar. Dev3's ToolUser (child of player.tscn) reacts.
@@ -164,7 +164,7 @@ signal player_hidden_changed(hidden: bool, hideable: Hideable)
 
 ## Text to show above the player's head. Empty string hides the label.
 @warning_ignore("unused_signal")
-signal interaction_prompt_changed(primary: String, secondary: String)
+signal interaction_prompt_changed(prompt: String)
 
 ## A transient message above the player's head ("I don't have the right key.").
 @warning_ignore("unused_signal")

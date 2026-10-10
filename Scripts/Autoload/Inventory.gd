@@ -182,8 +182,8 @@ func cycle_selection(step: int) -> void:
 	select_slot(wrapi(_selected_index + step, 0, HOTBAR_SIZE))
 
 
-## The player asked to use an item - she clicked it in the inventory panel or
-## on its hotbar slot. One-shot tools (the crowbar) fire once; toggleable ones
+## The player asked to use an item - she pressed E with it in the picked hotbar
+## slot. One-shot tools (the crowbar) fire once; toggleable ones
 ## (the UV flashlight) flip on and off. Anything not marked is_usable is inert.
 ##
 ## This is the only place item_use_requested originates. Dev3's ToolUser and

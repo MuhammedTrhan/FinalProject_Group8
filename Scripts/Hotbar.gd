@@ -107,18 +107,14 @@ func _make_slot_style(selected: bool, active: bool = false) -> StyleBoxFlat:
 	return style
 
 
-## Clicking a slot picks it up; clicking the slot she is already holding uses
-## what is in it. That second click is the only way to swing a one-shot tool
-## like the crowbar from the hotbar - merely holding it does nothing.
+## Clicking a slot picks it up. Using what is in it is E's job - see
+## PlayerMovement - so a click never uses anything.
 func _on_slot_gui_input(event: InputEvent, index: int) -> void:
 	var click := event as InputEventMouseButton
 	if click == null or not click.pressed or click.button_index != MOUSE_BUTTON_LEFT:
 		return
 
-	if index == Inventory.get_selected_index():
-		Inventory.use_item(Inventory.get_held_item())
-	else:
-		Inventory.select_slot(index)
+	Inventory.select_slot(index)
 
 
 func _on_selection_changed(_index: int, _item: ItemData) -> void:
@@ -145,6 +141,8 @@ func _refresh() -> void:
 	if held == null:
 		name_label.text = ""
 	elif held == active:
-		name_label.text = "%s (on)" % held.display_name
+		name_label.text = "%s (on)  [E] switch off" % held.display_name
+	elif held.is_usable:
+		name_label.text = "%s  [E] use" % held.display_name
 	else:
 		name_label.text = held.display_name

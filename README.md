@@ -30,17 +30,17 @@ main scene is `Scenes/UI/main_menu.tscn`.
 |---|---|
 | **W A S D** / arrow keys | Move |
 | **Space** | Interact |
-| **E** | Lock or unlock a door, where that is possible |
+| **E** | Use the item in the picked hotbar slot (switch the UV flashlight on or off, swing the crowbar, lock or unlock a door with a key) |
 | **Q** | Drop the item in the picked hotbar slot |
 | **Tab** | Open the inventory: drag items between slots or onto the hotbar row, release one well away from the panel to drop it, or hover one and press **Q** |
 | **1** – **7**, mouse wheel, click | Pick a hotbar slot |
-| Click the slot you are holding | Use that item |
 | **Esc** | Pause |
 
 Whatever sits in the picked hotbar slot is in her hand, but holding something does
-not use it: the UV flashlight stays off until you click its slot while holding
-it, and goes out when you pick another slot. A one-shot tool like the crowbar
-likewise does nothing while merely held and has to be clicked.
+not use it: the UV flashlight stays off until you press **E** while holding it,
+and goes out when you pick another slot. A one-shot tool like the crowbar
+likewise does nothing while merely held and needs an **E** press. A locked door
+opens to a key the same way: stand at it, hold the right key and press **E**.
 
 ## How the game works
 

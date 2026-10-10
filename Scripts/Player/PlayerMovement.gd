@@ -30,8 +30,7 @@ var is_being_escorted: bool = false
 
 # Interactable candidates currently overlapping InterractArea.
 var _candidates: Array[Interactable] = []
-var _last_primary_prompt: String = ""
-var _last_secondary_prompt: String = ""
+var _last_prompt: String = ""
 
 # Set by Sitable/Hideable while they occupy the player (sitting or hidden),
 # so no OTHER interactable can be reached until they release it.
@@ -63,9 +62,10 @@ func _process(_delta: float) -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("Interact"):
-		_try_interact(false)
-	elif event.is_action_pressed("action"):
-		_try_interact(true)
+		_try_interact()
+	elif event.is_action_pressed("use_item"):
+		if not is_busy() and _locked_interactable == null:
+			Inventory.use_item(Inventory.get_held_item())
 	elif event.is_action_pressed("drop_item"):
 		# Ignored mid-animation, hidden, sitting-locked or escorted, same as
 		# using a tool. An empty slot does nothing.
@@ -84,7 +84,7 @@ func get_drop_position() -> Vector2:
 	return global_position + offset * DROP_DISTANCE
 
 
-func _try_interact(secondary: bool) -> void:
+func _try_interact() -> void:
 	# Same guard as handle_movement() - she shouldn't be able to interract.
 	if is_teleporting or is_being_escorted:
 		return
@@ -95,7 +95,7 @@ func _try_interact(secondary: bool) -> void:
 
 	get_viewport().set_input_as_handled()
 
-	var result := candidate.secondary_interact(self) if secondary else candidate.interact(self)
+	var result := candidate.interact(self)
 	if result != Interactions.InteractionType.NONE:
 		handle_interactions()
 		anim_handler.handle_interaction_anim(result)
@@ -169,26 +169,18 @@ func get_nearest_door() -> Door:
 
 func _update_interaction_prompt() -> void:
 	var candidate := _get_nearest_candidate()
-	var primary := candidate.prompt_text if candidate else ""
-	var secondary := candidate.secondary_prompt_text if candidate else ""
+	var prompt := candidate.prompt_text if candidate else ""
 
-	if primary != _last_primary_prompt or secondary != _last_secondary_prompt:
-		_last_primary_prompt = primary
-		_last_secondary_prompt = secondary
-		GameEvents.interaction_prompt_changed.emit(primary, secondary)
+	if prompt != _last_prompt:
+		_last_prompt = prompt
+		GameEvents.interaction_prompt_changed.emit(prompt)
 
 
-func _on_interaction_prompt_changed(primary: String, secondary: String) -> void:
-	var lines: Array[String] = []
-	if primary != "":
-		lines.append("[Space] %s" % primary)
-	if secondary != "":
-		lines.append("[E] %s" % secondary)
-
-	if lines.is_empty():
+func _on_interaction_prompt_changed(prompt: String) -> void:
+	if prompt == "":
 		prompt_label.hide()
 	else:
-		prompt_label.text = "\n".join(lines)
+		prompt_label.text = "[Space] %s" % prompt
 		prompt_label.show()
 
 
