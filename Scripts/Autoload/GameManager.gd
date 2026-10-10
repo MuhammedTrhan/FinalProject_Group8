@@ -223,9 +223,15 @@ func is_day() -> bool:
 
 ## False whenever something else already owns the pause - the game-over screen,
 ## the win screen, the terminal - since resuming would hand the house back
-## mid-death or mid-read.
+## mid-death or mid-read. The inventory is the exception: Esc always reaches the
+## pause menu, which closes it first (see close_inventory()).
 func can_pause() -> bool:
-	return is_run_interactive()
+	return is_run_interactive() or _inventory_ui.visible
+
+
+## Closes the inventory panel if it is open, handing the pause back.
+func close_inventory() -> void:
+	_inventory_ui.close()
 
 
 ## Whether the player is actually in control right now.
@@ -305,8 +311,9 @@ func _on_computer_interact_requested() -> void:
 
 func _on_dossier_closed() -> void:
 	get_tree().paused = false
-	# Night 1 has no HUD to restore; day_started brings it back below.
-	Hud.visible = is_day() and not _locked_down
+	# Not during the escort, which hides it; night_ended below hides it again
+	# when this was the opening night's computer.
+	Hud.visible = current_phase != Phase.ESCORT and not _locked_down
 
 	# Only Night 1 is gated on the computer; reading it again on a later day
 	# just closes the screen and hands the house back.

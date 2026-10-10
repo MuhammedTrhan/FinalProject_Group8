@@ -38,6 +38,9 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func open() -> void:
+	# Esc works over the inventory too - it closes first so it doesn't stay up
+	# behind this menu, or come back half-open after Resume.
+	GameManager.close_inventory()
 	visible = true
 	get_tree().paused = true
 

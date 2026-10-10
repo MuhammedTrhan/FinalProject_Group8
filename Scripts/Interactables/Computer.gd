@@ -7,7 +7,6 @@ extends Furniture
 func _ready() -> void:
 	super()
 	prompt_text = "Open the computer"
-	secondary_prompt_text = ""
 
 
 # Bypass Furniture's activate/deactivate toggle.

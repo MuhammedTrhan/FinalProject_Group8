@@ -15,11 +15,8 @@ extends Resource
 @export_multiline var description: String = ""
 @export var icon: Texture2D
 
-## Can be used in the inventory UI by clicking on it. (e.g. flashlight, crowbar, etc.)
+## Can be used by selecting it in the hotbar and pressing E. (e.g. flashlight, crowbar, keys)
 @export var is_usable: bool = false
-
-## Groups keys together in the inventory UI. Purely cosmetic.
-@export var is_key: bool = false
 
 ## Shown to the player the moment the item is picked up. Leave empty for none.
 @export var pickup_flavour: String = ""

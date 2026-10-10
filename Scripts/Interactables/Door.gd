@@ -4,12 +4,12 @@ extends Interactable
 
 @export var is_locked := false
 ## Deliberately its own field, not the base Interactable.required_item: that
-## one gates BOTH interact() and secondary_interact(), but a key should only
-## gate lock/unlock (secondary) - opening/closing an already-unlocked door
-## must never require holding anything.
+## one gates interact() itself, but a key should only gate lock/unlock (using
+## the key item on the door) - opening/closing an already-unlocked door must
+## never require holding anything.
 @export var required_key_item: ItemData
-## Skips the key/lock logic entirely: E opens the exit keypad instead, once
-## the passcode is fully known - see _do_secondary().
+## Skips the key/lock logic entirely: Space opens the exit keypad instead, once
+## the passcode is fully known - see _do_interact().
 @export var is_escape_door := false
 
 @onready var hitbox = $Hitbox
@@ -40,10 +40,21 @@ func _ready() -> void:
 	_update_prompts()
 
 
-# Primary (Interact/Space): open/close.
+# Interact/Space: open/close, or enter the passcode for an escape door. Locking
+# and unlocking is done by using the key item on the door (try_key_toggle).
 func _do_interact(_actor: Node2D) -> Interactions.InteractionType:
+	if is_escape_door:
+		if not GameManager.is_passcode_complete():
+			GameEvents.message_requested.emit("I don't know the password.")
+			return Interactions.InteractionType.NONE
+		ExitKeypad.open()
+		return Interactions.InteractionType.NONE
+
 	if is_locked:
-		GameEvents.message_requested.emit("I need to unlock this door first.")
+		if required_key_item != null and Inventory.has_item(required_key_item):
+			GameEvents.message_requested.emit("This door is locked. Select the key and press [E].")
+		else:
+			GameEvents.message_requested.emit("This door is locked.")
 		return Interactions.InteractionType.NONE
 
 	if is_open:
@@ -54,28 +65,29 @@ func _do_interact(_actor: Node2D) -> Interactions.InteractionType:
 		return Interactions.InteractionType.OPEN
 
 
-## Secondary (action/E): lock/unlock, or enter the passcode for an escape door.
-func _do_secondary(_actor: Node2D) -> Interactions.InteractionType:
+## Using a key item on this door (Inventory.use_item -> ToolUser): the key she
+## is holding is the one tried, so it has to be the right one.
+func try_key_toggle(key: ItemData) -> Interactions.InteractionType:
 	if is_escape_door:
-		if not GameManager.is_passcode_complete():
-			GameEvents.message_requested.emit("I don't know the password.")
-			return Interactions.InteractionType.NONE
-		ExitKeypad.open()
+		GameEvents.message_requested.emit("This door needs a password.")
 		return Interactions.InteractionType.NONE
 
-	if not _has_required_key():
-		GameEvents.message_requested.emit("I don't have the right key.")
+	if required_key_item != null and key != required_key_item:
+		GameEvents.message_requested.emit("This key doesn't fit.")
 		return Interactions.InteractionType.NONE
 
+	return _try_toggle_lock()
+
+
+## Locks or unlocks a closed door. An open one has to be shut first.
+func _try_toggle_lock() -> Interactions.InteractionType:
 	var result := Interactions.InteractionType.NONE
 	if not is_open:
 		toogle_lock()
 		result = Interactions.InteractionType.LOCK if is_locked else Interactions.InteractionType.UNLOCK
 	else:
-		if not is_locked:
-			GameEvents.message_requested.emit("I need to close this door to lock it.")
-		else:
-			GameEvents.message_requested.emit("I need to close this door to unlock it.")
+		GameEvents.message_requested.emit("I need to close it first.")
+
 
 	# Safety net: if the door is somehow both open and locked, force it closed.
 	if is_locked and is_open:
@@ -130,17 +142,12 @@ func toogle_lock() -> void:
 	_update_prompts()
 
 
-func _has_required_key() -> bool:
-	return required_key_item == null or Inventory.has_item(required_key_item)
-
-
 func _update_prompts() -> void:
-	if is_open:
+	if is_escape_door:
+		prompt_text = "Enter the code"
+	elif is_open:
 		prompt_text = "Close the door"
-		secondary_prompt_text = ""
 	elif is_locked:
-		prompt_text = ""
-		secondary_prompt_text = "Unlock the door"
+		prompt_text = "Try the door"
 	else:
 		prompt_text = "Open the door"
-		secondary_prompt_text = "Lock the door"

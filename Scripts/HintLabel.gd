@@ -59,14 +59,11 @@ func _current_hint() -> String:
 	if GameManager.is_waiting_for_terminal():
 		return "There is a computer in this room. Read it before you sleep."
 
-	if _has_all_scraps():
-		return "Those torn pieces look like they belong together. Open your bag (Tab)."
-
 	if _has_item(&"crowbar") and _digit_missing(1):
 		return "One of the floorboards doesn't sit flush. Stand on it and use the crowbar."
 
 	if _has_item(&"uv_flashlight") and _digit_missing(0):
-		return "Some writing only shows under UV light. Hold the flashlight and look around."
+		return "Some writing only shows under UV light. Switch the flashlight on, and look around."
 
 	if _carries_any_scrap() and _digit_missing(2):
 		return "He throws the pieces away. Check the bins he visits."
@@ -100,13 +97,6 @@ func _has_item(id: StringName) -> bool:
 
 func _digit_missing(index: int) -> bool:
 	return GameManager.passcode_digits[index] < 0
-
-
-func _has_all_scraps() -> bool:
-	for scrap in Inventory.DIARY_SCRAPS:
-		if not Inventory.has_item(scrap):
-			return false
-	return true
 
 
 func _carries_any_scrap() -> bool:

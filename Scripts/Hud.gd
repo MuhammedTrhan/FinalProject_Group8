@@ -5,8 +5,12 @@ extends CanvasLayer
 ##   - trust ring: Forgetful's own "stay close and he warms up to you" meter.
 ##   - noise counter: how many of Overwhelmed's noise sources are still on.
 ##
-## Only shown during the day - night is when day mechanics stop being
-## evaluated, so none of these mean anything then.
+## Those three are only shown during the day - night is when day mechanics stop
+## being evaluated, so none of them mean anything then. The passcode, lives and
+## hotbar stay up through the night once she has control back from the escort
+## (GameEvents.escort_ended), and go away for every escort walk-home
+## (GameEvents.escort_started - a catch or clue has no day_ended) and the
+## day/night cards.
 
 ## Stands in for a digit she hasn't found yet, so the readout also tells her
 ## how many are left and which slot each belongs to.
@@ -55,7 +59,10 @@ func _ready() -> void:
 
 	GameEvents.day_started.connect(_on_day_started)
 	GameEvents.night_started.connect(_on_night_started)
+	GameEvents.night_ended.connect(_on_night_ended)
 	GameEvents.day_ended.connect(_on_day_ended)
+	GameEvents.escort_started.connect(func() -> void: visible = false)
+	GameEvents.escort_ended.connect(_on_escort_ended)
 	GameEvents.chase_progress_changed.connect(_on_chase_progress_changed)
 	GameEvents.follow_progress_changed.connect(_on_follow_progress_changed)
 	GameEvents.noise_source_silenced.connect(_on_noise_source_silenced)
@@ -94,6 +101,7 @@ func _on_day_started(_day: int, personality: int) -> void:
 	if _shows_follow:
 		follow_label.text = FOLLOW_BAR_CAPTIONS[personality]
 	noise_counter.visible = _shows_noise
+	chase_bar.visible = true
 	visible = true
 
 	# Both deferred because this HUD is an autoload: it connected to
@@ -105,6 +113,26 @@ func _on_day_started(_day: int, personality: int) -> void:
 
 
 func _on_night_started(_day: int) -> void:
+	# Day-only readouts off; the rest of the HUD stays so the hotbar is usable.
+	_shows_follow = false
+	_shows_noise = false
+	chase_bar.visible = false
+	follow_bar.visible = false
+	noise_counter.visible = false
+	# Stays hidden through the night's card and walk home (a catch doesn't emit
+	# day_ended, so it may still be up from the day); _on_escort_ended brings it
+	# back once she can move.
+	visible = false
+
+
+## Her room is locked and she has control back - the night's HUD comes up now.
+func _on_escort_ended() -> void:
+	if GameManager.current_phase == GameManager.Phase.NIGHT:
+		visible = true
+
+
+## Hidden before the "Day N" card fades in, or the HUD would sit on top of it.
+func _on_night_ended(_day: int) -> void:
 	visible = false
 
 

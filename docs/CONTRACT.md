@@ -85,9 +85,16 @@ fires on the run's final, permanent catch.
 ### 2.4 API Developer 2/3 call directly
 
 ```gdscript
-Inventory.add_item(item: ItemData) -> void
+Inventory.add_item(item: ItemData) -> bool   # false if every slot is taken
 Inventory.has_item(item: ItemData) -> bool
 Inventory.remove_item(item: ItemData) -> bool
+```
+
+The inventory is a fixed set of slots (hotbar first, then backpack). Items stay
+in their slot when another is removed, so there can be gaps; `get_items()`
+returns only the carried items, in slot order.
+
+```gdscript
 
 GameManager.current_personality -> int      # PersonalityProfile.Personality
 GameManager.is_day() -> bool
@@ -151,9 +158,11 @@ signal enemy_state_changed(state: StringName)
 signal night_start_requested(reason: StringName)   # added 09.09.2026 - see §2.3
 signal chase_progress_changed(progress: float)     # added 12.09.2026 - see §2.6
 signal follow_progress_changed(progress: float)    # added 12.09.2026 - see §2.7
+signal escort_started                              # a walk-home began (day timeout, catch or clue) and the player is frozen; the HUD hides here
+signal escort_ended                                # player has control again after the night's lock-in; the HUD shows on nights from here
 
 # Presentation (either)
-signal interaction_prompt_changed(primary: String, secondary: String)
+signal interaction_prompt_changed(prompt: String)   # the [Space] prompt; there is no secondary interaction any more
 signal message_requested(text: String)
 signal sfx_requested(sfx_id: StringName, world_position: Vector2)
 ```

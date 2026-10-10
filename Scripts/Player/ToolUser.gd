@@ -6,6 +6,9 @@ extends Node
 ## item.id
 
 const CROWBAR_ID := &"crowbar"
+const COMMON_KEY_ID := &"common_key"
+const RARE_KEY_ID := &"rare_key"
+const PRECIOUS_KEY_ID := &"precious_key"
 
 # Temporary stand-in for Dev1's Inventory UI, which will eventually emit
 # item_use_requested itself when a usable item is clicked. F12, debug builds
@@ -31,6 +34,23 @@ func _on_item_use_requested(item: ItemData, _is_active: bool) -> void:
 	match item.id:
 		CROWBAR_ID:
 			_use_crowbar(item)
+		COMMON_KEY_ID, RARE_KEY_ID, PRECIOUS_KEY_ID:
+			_use_key(item)
+
+
+## Locks or unlocks the door she is standing at. Nothing in reach just says so.
+func _use_key(key: ItemData) -> void:
+	if player.is_busy():
+		return
+
+	var door := player.get_nearest_door()
+	if door == null:
+		GameEvents.message_requested.emit("Nothing here to use it on.")
+		return
+
+	var result := door.try_key_toggle(key)
+	if result != Interactions.InteractionType.NONE:
+		player.play_tool_animation(result)
 
 
 func _use_crowbar(item: ItemData) -> void:

@@ -100,12 +100,24 @@ signal chase_progress_changed(progress: float)
 @warning_ignore("unused_signal")
 signal follow_progress_changed(progress: float)
 
+## An escort walk-home has begun and the player is frozen - emitted by
+## EscortController for every walk: the natural end of the day, a caught player,
+## and a revealed clue).
+@warning_ignore("unused_signal")
+signal escort_started
+
+## The escort is over and the player has control again - emitted by
+## EscortController once the room door is locked and end_escort() has run. The
+## HUD uses it to come back up on nights, which start with her frozen.
+@warning_ignore("unused_signal")
+signal escort_ended
+
 
 # ---------------------------------------------------------------------------
 # Inventory  (Dev1 emits, Dev3 consumes)
 # ---------------------------------------------------------------------------
 
-## The player clicked a usable item (ItemData.is_usable) in the inventory UI.
+## The player used the item in the selected hotbar slot (E; ItemData.is_usable).
 ## `is_active` only matters for toggleable tools (e.g. the UV flashlight) -
 ## true = switched on, false = switched off or n/a for one-shot tools like
 ## the crowbar. Dev3's ToolUser (child of player.tscn) reacts.
@@ -152,7 +164,7 @@ signal player_hidden_changed(hidden: bool, hideable: Hideable)
 
 ## Text to show above the player's head. Empty string hides the label.
 @warning_ignore("unused_signal")
-signal interaction_prompt_changed(primary: String, secondary: String)
+signal interaction_prompt_changed(prompt: String)
 
 ## A transient message above the player's head ("I don't have the right key.").
 @warning_ignore("unused_signal")

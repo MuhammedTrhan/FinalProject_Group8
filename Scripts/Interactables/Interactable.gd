@@ -6,8 +6,7 @@ extends StaticBody2D
 ## Its own InterractionArea is a passive marker
 ## (monitoring = false, monitorable = true, layer = Layers.INTERACTABLE)
 ## and the PLAYER's InterractArea is the active sensor that finds candidates
-## and calls interact()/secondary_interact() on the nearest one. See
-## PlayerMovement.gd.
+## and calls interact() on the nearest one. See PlayerMovement.gd.
 ##
 ## interact() returns the InteractionType synchronously.
 ## Because the actor calls this directly (passing itself
@@ -19,9 +18,6 @@ signal interacted(actor: Node2D)
 
 # Shown above the player's head while this is the nearest candidate.
 @export var prompt_text: String = "Interact"
-# Shown for the secondary ("action") verb, if this object has one. Leave
-# empty if it doesn't - Player only shows a prompt for a non-empty string.
-@export var secondary_prompt_text: String = ""
 # If set, interact() refuses (and shows refusal_text) unless Inventory.has_item(required_item).
 @export var required_item: ItemData = null
 @export var refusal_text: String = "I can't use that."
@@ -94,26 +90,10 @@ func interact(actor: Node2D) -> Interactions.InteractionType:
 	return result
 
 
-func secondary_interact(actor: Node2D) -> Interactions.InteractionType:
-	if not _has_required_item():
-		GameEvents.message_requested.emit(refusal_text)
-		return Interactions.InteractionType.NONE
-
-	var result := _do_secondary(actor)
-	if result != Interactions.InteractionType.NONE:
-		interacted.emit(actor)
-	return result
-
-
 func _has_required_item() -> bool:
 	return required_item == null or Inventory.has_item(required_item)
 
 
 # Override in subclasses. Return NONE if nothing happened (e.g. refused).
 func _do_interact(_actor: Node2D) -> Interactions.InteractionType:
-	return Interactions.InteractionType.NONE
-
-
-# Override in subclasses that have a secondary verb. Most don't.
-func _do_secondary(_actor: Node2D) -> Interactions.InteractionType:
 	return Interactions.InteractionType.NONE

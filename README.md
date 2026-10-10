@@ -30,16 +30,17 @@ main scene is `Scenes/UI/main_menu.tscn`.
 |---|---|
 | **W A S D** / arrow keys | Move |
 | **Space** | Interact |
-| **E** | Lock or unlock a door, where that is possible |
-| **Tab** | Open the inventory |
-| **1** – **8**, mouse wheel, click | Pick a hotbar slot |
-| Click the slot you are holding, or an item in the inventory | Use that item |
+| **E** | Use the item in the picked hotbar slot (switch the UV flashlight on or off, swing the crowbar, lock or unlock a door with a key) |
+| **Q** | Drop the item in the picked hotbar slot |
+| **Tab** | Open the inventory: drag items between slots or onto the hotbar row, release one well away from the panel to drop it, or hover one and press **Q** |
+| **1** – **7**, mouse wheel, click | Pick a hotbar slot |
 | **Esc** | Pause |
 
-Whatever sits in the picked hotbar slot is in her hand. That is enough on its
-own for a tool that switches on and off: the UV flashlight lights up the moment
-you select it, and goes out when you pick another slot. A one-shot tool like the
-crowbar does nothing while merely held and has to be clicked.
+Whatever sits in the picked hotbar slot is in her hand, but holding something does
+not use it: the UV flashlight stays off until you press **E** while holding it,
+and goes out when you pick another slot. A one-shot tool like the crowbar
+likewise does nothing while merely held and needs an **E** press. A locked door
+opens to a key the same way: stand at it, hold the right key and press **E**.
 
 ## How the game works
 
@@ -59,7 +60,7 @@ each tool opens one puzzle that reveals one digit:
 |---|---|---|---|
 | **The Loud Guy** | Quiet: switch off the noisy furniture | UV flashlight | Writing on the floor, visible only under UV |
 | **The Happy One** | Company: stay inside his circle | Crowbar | A floorboard that does not sit flush |
-| **The Scary One** | To be followed, unseen | Three diary pieces | Combine the pieces in the bag |
+| **The Scary One** | To be followed, unseen | Three diary pieces | Collect all three pieces; they join on their own |
 
 Solving a digit retires that personality for the rest of the run. Being caught
 costs one of **three lives**: the first two end the day early, the third ends

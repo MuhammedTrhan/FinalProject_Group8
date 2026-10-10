@@ -1,10 +1,10 @@
 extends Control
 ## Minecraft-style hotbar along the bottom of the HUD.
 ##
-## Selection: number keys 1-8, the mouse wheel, or clicking a slot. Whatever
+## Selection: number keys, the mouse wheel, or clicking a slot. Whatever
 ## sits in the picked slot is the item she is "holding" - see
 ## Inventory.get_held_item(). The Tab panel stays the full inventory; this is
-## only the quick-select strip.
+## only the quick-select strip, i.e. the first HOTBAR_SIZE inventory slots.
 ##
 ## The slots are built in code so the scene needs no editing when HOTBAR_SIZE
 ## changes, and so the count always matches Inventory.
@@ -15,6 +15,7 @@ const IDLE_BORDER := Color(0.35, 0.31, 0.26)
 ## A switched-on tool is bordered in its own colour - the UV cone is the only
 ## other sign it is running, and that is off-screen whenever she looks away.
 const ACTIVE_BORDER := Color(0.7, 0.35, 1.0)
+const NUMBER_COLOUR := Color(0.9, 0.84, 0.7)
 
 @onready var slot_row: HBoxContainer = $SlotRow
 @onready var name_label: Label = $NameLabel
@@ -33,7 +34,7 @@ func _ready() -> void:
 	Inventory.selection_changed.connect(_on_selection_changed)
 	# Toggling a tool changes neither the item list nor the selection, so the
 	# switched-on border needs its own trigger.
-	GameEvents.item_use_requested.connect(_on_item_use_requested)
+	Inventory.active_tool_changed.connect(_refresh)
 	_refresh()
 
 
@@ -76,6 +77,20 @@ func _build_slots() -> void:
 		icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		slot.add_child(icon)
 
+		# The key that picks this slot, in the bottom-right corner so it barely covers the icon.
+		var number := Label.new()
+		number.text = str(i + 1)
+		number.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		# Shrink-to-end instead of text alignment: the slot is a PanelContainer, so
+		# the label is placed by its size flags and sits at the bottom-right.
+		number.size_flags_horizontal = Control.SIZE_SHRINK_END
+		number.size_flags_vertical = Control.SIZE_SHRINK_END
+		number.add_theme_font_size_override("font_size", 13)
+		number.add_theme_color_override("font_color", NUMBER_COLOUR)
+		number.add_theme_color_override("font_outline_color", Color.BLACK)
+		number.add_theme_constant_override("outline_size", 4)
+		slot.add_child(number)
+
 		_slots.append(slot)
 		_icons.append(icon)
 
@@ -92,35 +107,26 @@ func _make_slot_style(selected: bool, active: bool = false) -> StyleBoxFlat:
 	return style
 
 
-## Clicking a slot picks it up; clicking the slot she is already holding uses
-## what is in it. That second click is the only way to swing a one-shot tool
-## like the crowbar from the hotbar - merely holding it does nothing.
+## Clicking a slot picks it up. Using what is in it is E's job - see
+## PlayerMovement - so a click never uses anything.
 func _on_slot_gui_input(event: InputEvent, index: int) -> void:
 	var click := event as InputEventMouseButton
 	if click == null or not click.pressed or click.button_index != MOUSE_BUTTON_LEFT:
 		return
 
-	if index == Inventory.get_selected_index():
-		Inventory.use_item(Inventory.get_held_item())
-	else:
-		Inventory.select_slot(index)
+	Inventory.select_slot(index)
 
 
 func _on_selection_changed(_index: int, _item: ItemData) -> void:
 	_refresh()
 
 
-func _on_item_use_requested(_item: ItemData, _is_active: bool) -> void:
-	_refresh()
-
-
 func _refresh() -> void:
-	var items := Inventory.get_items()
 	var selected := Inventory.get_selected_index()
 	var active := Inventory.get_active_tool()
 
 	for i in _slots.size():
-		var item: ItemData = items[i] if i < items.size() else null
+		var item := Inventory.get_slot_item(i)
 		_icons[i].texture = item.icon if item else null
 		_slots[i].add_theme_stylebox_override(
 			"panel", _make_slot_style(i == selected, item != null and item == active))
@@ -131,6 +137,10 @@ func _refresh() -> void:
 	if held == null:
 		name_label.text = ""
 	elif held == active:
-		name_label.text = "%s (on)" % held.display_name
+		name_label.text = "%s (on)  [E] switch off" % held.display_name
+	elif Inventory.is_toggleable(held):
+		name_label.text = "%s (off)  [E] switch on" % held.display_name
+	elif held.is_usable:
+		name_label.text = "%s  [E] use" % held.display_name
 	else:
 		name_label.text = held.display_name
