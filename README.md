@@ -32,9 +32,9 @@ main scene is `Scenes/UI/main_menu.tscn`.
 | **Space** | Interact |
 | **E** | Lock or unlock a door, where that is possible |
 | **Q** | Drop the item in the picked hotbar slot |
-| **Tab** | Open the inventory |
+| **Tab** | Open the inventory: drag items between slots or onto the hotbar row, release one well away from the panel to drop it, or hover one and press **Q** |
 | **1** – **7**, mouse wheel, click | Pick a hotbar slot |
-| Click the slot you are holding, or an item in the inventory | Use that item |
+| Click the slot you are holding | Use that item |
 | **Esc** | Pause |
 
 Whatever sits in the picked hotbar slot is in her hand, but holding something does
