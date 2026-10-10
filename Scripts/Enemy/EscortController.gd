@@ -215,6 +215,7 @@ func _start_escort(triggered_internally: bool) -> void:
 
 	if player and is_instance_valid(player) and player.has_method("start_escort"):
 		player.start_escort()
+	GameEvents.escort_started.emit()
 
 
 ## Forces the player out of hiding before an escort begins.

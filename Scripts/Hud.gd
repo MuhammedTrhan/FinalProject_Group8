@@ -8,7 +8,9 @@ extends CanvasLayer
 ## Those three are only shown during the day - night is when day mechanics stop
 ## being evaluated, so none of them mean anything then. The passcode, lives and
 ## hotbar stay up through the night once she has control back from the escort
-## (GameEvents.escort_ended), and go away for the escort and the day/night cards.
+## (GameEvents.escort_ended), and go away for every escort walk-home
+## (GameEvents.escort_started - a catch or clue has no day_ended) and the
+## day/night cards.
 
 ## Stands in for a digit she hasn't found yet, so the readout also tells her
 ## how many are left and which slot each belongs to.
@@ -59,6 +61,7 @@ func _ready() -> void:
 	GameEvents.night_started.connect(_on_night_started)
 	GameEvents.night_ended.connect(_on_night_ended)
 	GameEvents.day_ended.connect(_on_day_ended)
+	GameEvents.escort_started.connect(func() -> void: visible = false)
 	GameEvents.escort_ended.connect(_on_escort_ended)
 	GameEvents.chase_progress_changed.connect(_on_chase_progress_changed)
 	GameEvents.follow_progress_changed.connect(_on_follow_progress_changed)
