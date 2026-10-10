@@ -33,6 +33,10 @@ func _apply_item() -> void:
 
 
 func _do_interact(_actor: Node2D) -> Interactions.InteractionType:
+	if not Inventory.has_free_slot():
+		GameEvents.message_requested.emit("My bag is full.")
+		return Interactions.InteractionType.NONE
+
 	GameEvents.item_pickup_requested.emit(item)
 	if item.pickup_flavour != "":
 		GameEvents.message_requested.emit(item.pickup_flavour)

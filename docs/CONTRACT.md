@@ -85,9 +85,16 @@ fires on the run's final, permanent catch.
 ### 2.4 API Developer 2/3 call directly
 
 ```gdscript
-Inventory.add_item(item: ItemData) -> void
+Inventory.add_item(item: ItemData) -> bool   # false if every slot is taken
 Inventory.has_item(item: ItemData) -> bool
 Inventory.remove_item(item: ItemData) -> bool
+```
+
+The inventory is a fixed set of slots (hotbar first, then backpack). Items stay
+in their slot when another is removed, so there can be gaps; `get_items()`
+returns only the carried items, in slot order.
+
+```gdscript
 
 GameManager.current_personality -> int      # PersonalityProfile.Personality
 GameManager.is_day() -> bool

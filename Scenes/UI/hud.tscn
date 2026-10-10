@@ -1,8 +1,8 @@
-[gd_scene load_steps=7 format=3]
+[gd_scene format=3 uid="uid://btqkc2h8xxxax"]
 
-[ext_resource type="Script" path="res://Scripts/Hud.gd" id="1_hud"]
-[ext_resource type="Script" path="res://Scripts/RadialBar.gd" id="2_radial"]
-[ext_resource type="Script" path="res://Scripts/Hotbar.gd" id="3_hotbar"]
+[ext_resource type="Script" uid="uid://dkv7f4nksnaj0" path="res://Scripts/Hud.gd" id="1_hud"]
+[ext_resource type="Script" uid="uid://3em03535vf1h" path="res://Scripts/RadialBar.gd" id="2_radial"]
+[ext_resource type="Script" uid="uid://cq8uoq7sexknk" path="res://Scripts/Hotbar.gd" id="3_hotbar"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lives"]
 
@@ -25,10 +25,11 @@ corner_radius_top_right = 3
 corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 
-[node name="Hud" type="CanvasLayer"]
+[node name="Hud" type="CanvasLayer" unique_id=725283084]
 script = ExtResource("1_hud")
 
-[node name="Root" type="Control" parent="."]
+[node name="Root" type="Control" parent="." unique_id=238126583]
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -36,38 +37,38 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="PasscodeReadout" type="PanelContainer" parent="Root"]
-anchors_preset = 0
+[node name="PasscodeReadout" type="PanelContainer" parent="Root" unique_id=1347676643]
+layout_mode = 0
 offset_left = 20.0
 offset_top = 14.0
 offset_right = 136.0
 offset_bottom = 82.0
 
-[node name="Margin" type="MarginContainer" parent="Root/PasscodeReadout"]
+[node name="Margin" type="MarginContainer" parent="Root/PasscodeReadout" unique_id=625746739]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 7
 
-[node name="VBox" type="VBoxContainer" parent="Root/PasscodeReadout/Margin"]
+[node name="VBox" type="VBoxContainer" parent="Root/PasscodeReadout/Margin" unique_id=179696576]
 layout_mode = 2
 theme_override_constants/separation = 2
 
-[node name="Caption" type="Label" parent="Root/PasscodeReadout/Margin/VBox"]
+[node name="Caption" type="Label" parent="Root/PasscodeReadout/Margin/VBox" unique_id=2091492152]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.62, 0.55, 0.42, 1)
 theme_override_font_sizes/font_size = 12
 text = "EXIT CODE"
 horizontal_alignment = 1
 
-[node name="Digits" type="HBoxContainer" parent="Root/PasscodeReadout/Margin/VBox"]
+[node name="Digits" type="HBoxContainer" parent="Root/PasscodeReadout/Margin/VBox" unique_id=290746519]
 layout_mode = 2
-alignment = 1
 theme_override_constants/separation = 5
+alignment = 1
 
-[node name="LivesReadout" type="PanelContainer" parent="Root"]
-anchors_preset = 1
+[node name="LivesReadout" type="PanelContainer" parent="Root" unique_id=739469282]
+layout_mode = 0
 anchor_left = 1.0
 anchor_right = 1.0
 offset_left = -184.0
@@ -77,31 +78,31 @@ offset_bottom = 90.0
 grow_horizontal = 0
 theme_override_styles/panel = SubResource("StyleBoxEmpty_lives")
 
-[node name="Margin" type="MarginContainer" parent="Root/LivesReadout"]
+[node name="Margin" type="MarginContainer" parent="Root/LivesReadout" unique_id=283264834]
 layout_mode = 2
 theme_override_constants/margin_left = 14
 theme_override_constants/margin_top = 7
 theme_override_constants/margin_right = 14
 theme_override_constants/margin_bottom = 9
 
-[node name="VBox" type="VBoxContainer" parent="Root/LivesReadout/Margin"]
+[node name="VBox" type="VBoxContainer" parent="Root/LivesReadout/Margin" unique_id=1739580543]
 layout_mode = 2
 theme_override_constants/separation = 6
 
-[node name="Caption" type="Label" parent="Root/LivesReadout/Margin/VBox"]
+[node name="Caption" type="Label" parent="Root/LivesReadout/Margin/VBox" unique_id=1379583377]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.62, 0.55, 0.42, 1)
 theme_override_font_sizes/font_size = 18
 text = "LIVES"
 horizontal_alignment = 1
 
-[node name="Pips" type="HBoxContainer" parent="Root/LivesReadout/Margin/VBox"]
+[node name="Pips" type="HBoxContainer" parent="Root/LivesReadout/Margin/VBox" unique_id=1634209208]
 layout_mode = 2
-alignment = 1
 theme_override_constants/separation = 10
+alignment = 1
 
-[node name="NoiseCounter" type="Label" parent="Root"]
-anchors_preset = 1
+[node name="NoiseCounter" type="Label" parent="Root" unique_id=1720613518]
+layout_mode = 0
 anchor_left = 1.0
 anchor_right = 1.0
 offset_left = -260.0
@@ -111,10 +112,9 @@ offset_bottom = 138.0
 grow_horizontal = 0
 theme_override_font_sizes/font_size = 22
 horizontal_alignment = 2
-text = ""
 
-[node name="FollowBar" type="Control" parent="Root"]
-anchors_preset = 3
+[node name="FollowBar" type="Control" parent="Root" unique_id=260250956]
+anchors_preset = 0
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
@@ -128,54 +128,52 @@ grow_vertical = 0
 mouse_filter = 2
 script = ExtResource("2_radial")
 
-[node name="FollowLabel" type="Label" parent="Root/FollowBar"]
-anchors_preset = 10
+[node name="FollowLabel" type="Label" parent="Root/FollowBar" unique_id=2040731067]
+layout_mode = 0
 anchor_right = 1.0
 offset_left = -40.0
 offset_top = -28.0
 offset_right = 40.0
 offset_bottom = -4.0
 grow_horizontal = 2
-mouse_filter = 2
 theme_override_font_sizes/font_size = 18
 text = "Trust"
 horizontal_alignment = 1
 
-[node name="ChaseLabel" type="Label" parent="Root"]
-anchors_preset = 7
+[node name="ChaseLabel" type="Label" parent="Root" unique_id=1011792275]
+layout_mode = 0
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -200.0
-offset_top = -178.0
-offset_right = 200.0
-offset_bottom = -152.0
+offset_left = -184.0
+offset_top = -148.0
+offset_right = 184.0
+offset_bottom = -122.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_font_sizes/font_size = 20
 text = "Danger"
 
-[node name="ChaseBar" type="ProgressBar" parent="Root"]
+[node name="ChaseBar" type="ProgressBar" parent="Root" unique_id=478278153]
+layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -200.0
-offset_top = -150.0
-offset_right = 200.0
-offset_bottom = -118.0
-grow_horizontal = 2
-grow_vertical = 0
+offset_left = -184.0
+offset_top = -124.0
+offset_right = 184.0
+offset_bottom = -108.0
 theme_override_styles/background = SubResource("StyleBoxFlat_bar_bg")
 theme_override_styles/fill = SubResource("StyleBoxFlat_bar_fill")
 max_value = 1.0
 step = 0.0
 show_percentage = false
 
-[node name="Hotbar" type="Control" parent="Root"]
-anchors_preset = 7
+[node name="Hotbar" type="Control" parent="Root" unique_id=838968598]
+anchors_preset = 0
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
@@ -189,23 +187,21 @@ grow_vertical = 0
 mouse_filter = 1
 script = ExtResource("3_hotbar")
 
-[node name="SlotRow" type="HBoxContainer" parent="Root/Hotbar"]
-anchors_preset = 10
+[node name="SlotRow" type="HBoxContainer" parent="Root/Hotbar" unique_id=926939456]
+layout_mode = 0
 anchor_right = 1.0
 offset_bottom = 52.0
 grow_horizontal = 2
 mouse_filter = 2
-alignment = 1
 theme_override_constants/separation = 6
+alignment = 1
 
-[node name="NameLabel" type="Label" parent="Root/Hotbar"]
-anchors_preset = 10
+[node name="NameLabel" type="Label" parent="Root/Hotbar" unique_id=1388552906]
+layout_mode = 0
 anchor_right = 1.0
 offset_top = 58.0
 offset_bottom = 82.0
 grow_horizontal = 2
-mouse_filter = 2
 theme_override_colors/font_color = Color(0.9, 0.84, 0.7, 1)
 theme_override_font_sizes/font_size = 16
-text = ""
 horizontal_alignment = 1
