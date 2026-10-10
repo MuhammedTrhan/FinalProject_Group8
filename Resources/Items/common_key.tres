@@ -10,5 +10,4 @@ display_name = "Common Key"
 description = "A plain key. Opens one of the ordinary doors."
 icon = ExtResource("2_icon")
 is_usable = true
-is_key = true
 pickup_flavour = "Picked up a common key."
