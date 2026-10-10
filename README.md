@@ -36,10 +36,10 @@ main scene is `Scenes/UI/main_menu.tscn`.
 | Click the slot you are holding, or an item in the inventory | Use that item |
 | **Esc** | Pause |
 
-Whatever sits in the picked hotbar slot is in her hand. That is enough on its
-own for a tool that switches on and off: the UV flashlight lights up the moment
-you select it, and goes out when you pick another slot. A one-shot tool like the
-crowbar does nothing while merely held and has to be clicked.
+Whatever sits in the picked hotbar slot is in her hand, but holding something does
+not use it: the UV flashlight stays off until you click its slot while holding
+it, and goes out when you pick another slot. A one-shot tool like the crowbar
+likewise does nothing while merely held and has to be clicked.
 
 ## How the game works
 

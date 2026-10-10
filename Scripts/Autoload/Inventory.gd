@@ -157,16 +157,14 @@ func _set_active_tool(tool: ItemData) -> void:
 
 
 func _notify_selection() -> void:
-	# A toggleable tool comes on when she takes it in hand and goes off when
-	# she puts it away or loses it. Gated on the held item having actually
-	# changed: picking something up off the floor must not flick a light she
-	# deliberately clicked off back on.
+	# A toggleable tool never comes on by itself - only use_item() switches it
+	# on - but it goes off when she puts it away or loses it. Gated on the held
+	# item having actually changed: picking something up off the floor must not
+	# flick a light she deliberately switched on.
 	var held := get_held_item()
 	if held != _last_held:
 		_last_held = held
-		if is_toggleable(held) and held.is_usable:
-			_set_active_tool(held)
-		elif _active_tool != held:
+		if _active_tool != held:
 			_set_active_tool(null)
 
 	selection_changed.emit(_selected_index, held)
