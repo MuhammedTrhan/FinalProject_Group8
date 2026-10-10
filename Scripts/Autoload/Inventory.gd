@@ -11,6 +11,11 @@ signal items_changed
 ## and anything that cares about what she is holding listen to this.
 signal selection_changed(index: int, item: ItemData)
 
+## Fires after a toggleable tool is switched on or off, once get_active_tool()
+## already returns the new answer. UI redraws from this, not from
+## GameEvents.item_use_requested, which can arrive before the state has moved.
+signal active_tool_changed
+
 ## Slot layout: indices 0..HOTBAR_SIZE-1 are the hotbar (directly selectable),
 ## everything after that is the backpack, shown in the Tab screen as a grid of
 ## BACKPACK_COLUMNS x BACKPACK_ROWS. Raise the counts when more items turn up.
@@ -220,6 +225,10 @@ func _set_active_tool(tool: ItemData) -> void:
 
 	if _active_tool != null:
 		GameEvents.item_use_requested.emit(_active_tool, true)
+
+	# After the state is final: the "off" emit above fires while _active_tool
+	# still holds the old tool, so anything redrawing from it would be stale.
+	active_tool_changed.emit()
 
 
 func _slots_changed() -> void:

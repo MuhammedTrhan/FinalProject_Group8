@@ -34,7 +34,7 @@ func _ready() -> void:
 	Inventory.items_changed.connect(_refresh)
 	Inventory.selection_changed.connect(func(_index: int, _item: ItemData) -> void: _refresh())
 	# Switching a tool on changes neither of the above, but it changes the border.
-	GameEvents.item_use_requested.connect(func(_item: ItemData, _is_active: bool) -> void: _refresh())
+	Inventory.active_tool_changed.connect(_refresh)
 
 
 func _unhandled_input(event: InputEvent) -> void:

@@ -34,7 +34,7 @@ func _ready() -> void:
 	Inventory.selection_changed.connect(_on_selection_changed)
 	# Toggling a tool changes neither the item list nor the selection, so the
 	# switched-on border needs its own trigger.
-	GameEvents.item_use_requested.connect(_on_item_use_requested)
+	Inventory.active_tool_changed.connect(_refresh)
 	_refresh()
 
 
@@ -121,10 +121,6 @@ func _on_selection_changed(_index: int, _item: ItemData) -> void:
 	_refresh()
 
 
-func _on_item_use_requested(_item: ItemData, _is_active: bool) -> void:
-	_refresh()
-
-
 func _refresh() -> void:
 	var selected := Inventory.get_selected_index()
 	var active := Inventory.get_active_tool()
@@ -142,6 +138,8 @@ func _refresh() -> void:
 		name_label.text = ""
 	elif held == active:
 		name_label.text = "%s (on)  [E] switch off" % held.display_name
+	elif Inventory.is_toggleable(held):
+		name_label.text = "%s (off)  [E] switch on" % held.display_name
 	elif held.is_usable:
 		name_label.text = "%s  [E] use" % held.display_name
 	else:
