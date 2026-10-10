@@ -32,6 +32,24 @@ func _on_item_use_requested(item: ItemData, _is_active: bool) -> void:
 		CROWBAR_ID:
 			_use_crowbar(item)
 
+	if item.is_key:
+		_use_key(item)
+
+
+## Locks or unlocks the door she is standing at. Nothing in reach just says so.
+func _use_key(key: ItemData) -> void:
+	if player.is_busy():
+		return
+
+	var door := player.get_nearest_door()
+	if door == null:
+		GameEvents.message_requested.emit("Nothing here to use it on.")
+		return
+
+	var result := door.try_key_toggle(key)
+	if result != Interactions.InteractionType.NONE:
+		player.play_tool_animation(result)
+
 
 func _use_crowbar(item: ItemData) -> void:
 	if player.is_busy():

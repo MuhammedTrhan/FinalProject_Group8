@@ -43,7 +43,7 @@ func _ready() -> void:
 # Primary (Interact/Space): open/close.
 func _do_interact(_actor: Node2D) -> Interactions.InteractionType:
 	if is_locked:
-		GameEvents.message_requested.emit("I need to unlock this door first.")
+		GameEvents.message_requested.emit("This door is locked.")
 		return Interactions.InteractionType.NONE
 
 	if is_open:
@@ -67,15 +67,32 @@ func _do_secondary(_actor: Node2D) -> Interactions.InteractionType:
 		GameEvents.message_requested.emit("I don't have the right key.")
 		return Interactions.InteractionType.NONE
 
+	return _try_toggle_lock()
+
+
+## Using a key item on this door (Inventory.use_item -> ToolUser): the key she
+## is holding is the one tried, so it has to be the right one.
+func try_key_toggle(key: ItemData) -> Interactions.InteractionType:
+	if is_escape_door:
+		GameEvents.message_requested.emit("This door needs a password.")
+		return Interactions.InteractionType.NONE
+
+	if required_key_item != null and key != required_key_item:
+		GameEvents.message_requested.emit("This key doesn't fit.")
+		return Interactions.InteractionType.NONE
+
+	return _try_toggle_lock()
+
+
+## Locks or unlocks a closed door. An open one has to be shut first.
+func _try_toggle_lock() -> Interactions.InteractionType:
 	var result := Interactions.InteractionType.NONE
 	if not is_open:
 		toogle_lock()
 		result = Interactions.InteractionType.LOCK if is_locked else Interactions.InteractionType.UNLOCK
 	else:
-		if not is_locked:
-			GameEvents.message_requested.emit("I need to close this door to lock it.")
-		else:
-			GameEvents.message_requested.emit("I need to close this door to unlock it.")
+		GameEvents.message_requested.emit("I need to close it first.")
+
 
 	# Safety net: if the door is somehow both open and locked, force it closed.
 	if is_locked and is_open:

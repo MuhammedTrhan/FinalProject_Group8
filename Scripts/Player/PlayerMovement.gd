@@ -149,6 +149,24 @@ func _get_nearest_candidate() -> Interactable:
 	return nearest
 
 
+## The nearest door she is standing at, or null - what a key item is used on.
+func get_nearest_door() -> Door:
+	var nearest: Door = null
+	var nearest_dist := INF
+
+	for candidate in _candidates:
+		var door := candidate as Door
+		if door == null or not is_instance_valid(door):
+			continue
+
+		var dist := door.get_distance_to(global_position)
+		if dist < nearest_dist:
+			nearest = door
+			nearest_dist = dist
+
+	return nearest
+
+
 func _update_interaction_prompt() -> void:
 	var candidate := _get_nearest_candidate()
 	var primary := candidate.prompt_text if candidate else ""

@@ -9,5 +9,6 @@ id = &"precious_key"
 display_name = "Precious Key"
 description = "A heavy, ornamented key. Whatever it opens, it matters."
 icon = ExtResource("2_icon")
+is_usable = true
 is_key = true
 pickup_flavour = "Picked up a precious key."
