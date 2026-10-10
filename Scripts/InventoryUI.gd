@@ -19,6 +19,8 @@ const DROP_SAFE_MARGIN := 24.0
 
 # Every slot, indexed the same as Inventory's.
 var _slots: Array[InventorySlot] = []
+# Whether the HUD was up when the panel opened.
+var _hud_was_visible := false
 
 
 func _ready() -> void:
@@ -38,7 +40,7 @@ func _ready() -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("toggle_inventory"):
 		if visible:
-			_close()
+			close()
 		elif GameManager.is_run_interactive():
 			# Refused while anything else owns the pause - the dossier, the keypad,
 			# the pause menu, the game-over screen - so this can't unpause theirs.
@@ -54,14 +56,24 @@ func _unhandled_input(event: InputEvent) -> void:
 func _open() -> void:
 	visible = true
 	get_tree().paused = true
+	# The HUD draws above this layer, and its hotbar would sit next to the one in
+	# the panel. Nothing can change it while paused, so what it was is put back.
+	_hud_was_visible = Hud.visible
+	Hud.visible = false
 
 
-func _close() -> void:
+## Also called by the pause menu, which takes over the pause when Esc is
+## pressed with this open.
+func close() -> void:
+	if not visible:
+		return
+
 	# A drag still in flight when the panel closes would otherwise be left stuck
 	# to the cursor.
 	get_viewport().gui_cancel_drag()
 	visible = false
 	get_tree().paused = false
+	Hud.visible = _hud_was_visible
 
 
 # The backpack fills the grid in slot order, the hotbar sits underneath in its
@@ -73,7 +85,9 @@ func _build_slots() -> void:
 	for index in Inventory.TOTAL_SLOTS:
 		var slot: InventorySlot = INVENTORY_SLOT_SCENE.instantiate()
 		slot.slot_index = index
-		var parent: Control = hotbar_row if index < Inventory.HOTBAR_SIZE else grid
+		var parent: Control = grid
+		if index < Inventory.HOTBAR_SIZE:
+			parent = hotbar_row
 		parent.add_child(slot)
 		_slots[index] = slot
 

@@ -223,9 +223,15 @@ func is_day() -> bool:
 
 ## False whenever something else already owns the pause - the game-over screen,
 ## the win screen, the terminal - since resuming would hand the house back
-## mid-death or mid-read.
+## mid-death or mid-read. The inventory is the exception: Esc always reaches the
+## pause menu, which closes it first (see close_inventory()).
 func can_pause() -> bool:
-	return is_run_interactive()
+	return is_run_interactive() or _inventory_ui.visible
+
+
+## Closes the inventory panel if it is open, handing the pause back.
+func close_inventory() -> void:
+	_inventory_ui.close()
 
 
 ## Whether the player is actually in control right now.
